@@ -1,0 +1,58 @@
+﻿@namespace Weave.Parser
+@classname WeaveParser
+
+template
+    = section EOF
+
+section
+    = element*
+
+element
+    = tag
+    / text
+
+tag
+    = ifTag
+    / eachTag
+    / "{{=" WS? expression "}}"
+    / "{{!" WS? expression "}}"
+
+ifTag
+    = ifBody elifBody* elseBody? endIf
+
+ifBody
+    = "{{if" WS+ expression "}}" element* 
+
+elifBody
+    = "{{elif" WS+ expression "}}" element*
+
+elseBody
+    = "{{else}}" element*
+
+endIf
+    = "{{/if}}"
+
+eachTag
+    = eachBody noneBody? endEach
+
+eachBody
+    = "{{each" WS+ expression "}}" element*
+
+noneBody
+    = "{{none}}" element*
+
+endEach
+    = "{{/each}}"
+
+text
+    = "" (!"{{" .)+
+
+expression
+    = "" (!"}}" .)+
+
+WS
+    = [ \t\v\f\u00A0\uFEFF\u1680\u180E\u2000-\u200A\u202F\u205F\u3000]
+
+EOF
+  = !.
+  / unexpected:. #ERROR{ string.Format("Unexpected character '{0}'.") }
