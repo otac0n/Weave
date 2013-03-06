@@ -25,7 +25,7 @@ namespace Weave
             var compiler = new WeaveCompiler();
             var output = compiler.Compile(parsed);
 
-            Console.WriteLine(output);
+            Console.WriteLine(output.Code);
             Console.ReadKey();
         }
     }

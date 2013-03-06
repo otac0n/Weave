@@ -1,8 +1,11 @@
 ﻿@namespace Weave.Parser
 @classname WeaveParser
+@using Weave.Expressions
 
-template
-    = section EOF
+template <Template>
+    = s:section EOF {
+        new Template()
+    }
 
 section
     = element*
