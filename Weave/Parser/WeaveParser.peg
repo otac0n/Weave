@@ -17,8 +17,8 @@ element <Element>
 tag <Element>
     = ifTag
     / eachTag
-    / "{{:" WS? expression "}}" { new EchoTag() }
-    / "{{=" WS? expression "}}" { new EchoTag() }
+    / "{{:" WS? expr:expression "}}" { new EchoTag(expr, encoded: true) }
+    / "{{=" WS? expr:expression "}}" { new EchoTag(expr, encoded: false) }
 
 ifTag <IfTag>
     = ifBody elifBody* elseBody? endIf { new IfTag() }
