@@ -10,6 +10,7 @@ namespace Weave
 {
     using System;
     using System.IO;
+    using Weave.Compiler;
     using Weave.Parser;
 
     internal class Program
@@ -17,9 +18,15 @@ namespace Weave
         private static void Main(string[] args)
         {
             var input = File.ReadAllText(args[0]);
+
             var parser = new WeaveParser();
-            var output = parser.Parse(input);
+            var parsed = parser.Parse(input);
+
+            var compiler = new WeaveCompiler();
+            var output = compiler.Compile(parsed);
+
             Console.WriteLine(output);
+            Console.ReadKey();
         }
     }
 }
