@@ -8,10 +8,18 @@
 
 namespace Weave
 {
+    using System;
+    using System.IO;
+    using Weave.Parser;
+
     internal class Program
     {
         private static void Main(string[] args)
         {
+            var input = File.ReadAllText(args[0]);
+            var parser = new WeaveParser();
+            var output = parser.Parse(input);
+            Console.WriteLine(output);
         }
     }
 }
