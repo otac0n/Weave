@@ -1,5 +1,6 @@
 ﻿@namespace Weave.Parser
 @classname WeaveParser
+@using System.Linq
 @using Weave.Expressions
 
 template <Template>
@@ -36,13 +37,12 @@ endIf
     = "{{/if}}"
 
 eachTag <EachTag>
-    = eachBody noneBody? endEach { new EachTag() }
+    = "{{each" WS+ expr:expression "}}" body:element* none:noneBody? endEach {
+        new EachTag(expr, body, none.SingleOrDefault())
+    }
 
-eachBody
-    = "{{each" WS+ expression "}}" element*
-
-noneBody
-    = "{{none}}" element*
+noneBody <IList<Element>>
+    = "{{none}}" body:element* { body }
 
 endEach
     = "{{/each}}"
