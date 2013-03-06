@@ -8,6 +8,10 @@
 
 namespace Weave.Compiler
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Reflection;
     using Weave.Expressions;
 
     /// <summary>
@@ -15,6 +19,11 @@ namespace Weave.Compiler
     /// </summary>
     public class WeaveCompiler
     {
+        private static readonly IList<Type> PassTypes = Assembly.GetExecutingAssembly().GetTypes()
+            .Where(t => !t.IsAbstract && t.IsSubclassOf(typeof(CompilePass)))
+            .ToList()
+            .AsReadOnly();
+
         /// <summary>
         /// Compiles a Weave template into a program.
         /// </summary>
@@ -24,7 +33,11 @@ namespace Weave.Compiler
         {
             var result = new CompileResult();
 
-            result.Code = template.ToString();
+            var passes = PassTypes.Select(t => (CompilePass)Activator.CreateInstance(t)).ToList();
+            foreach (var pass in passes)
+            {
+                pass.Run(template, result);
+            }
 
             return result;
         }
