@@ -58,4 +58,4 @@ WS
 
 EOF
   = !.
-  / unexpected:. #ERROR{ string.Format("Unexpected character '{0}'.") }
+  / unexpected:. #ERROR{ string.Format("Unexpected character '{0}'.", unexpected) }
