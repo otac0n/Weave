@@ -8,10 +8,27 @@
 
 namespace Weave.Expressions
 {
+    using System;
+
     /// <summary>
     /// Represents literal text in the <see cref="Template"/>.
     /// </summary>
     public class TextElement : Element
     {
+        private readonly string value;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TextElement"/> class.
+        /// </summary>
+        /// <param name="value">The literal value of this element.</param>
+        public TextElement(string value)
+        {
+            if (value == null)
+            {
+                throw new ArgumentNullException("value");
+            }
+
+            this.value = value;
+        }
     }
 }

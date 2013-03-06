@@ -48,7 +48,7 @@ endEach
     = "{{/each}}"
 
 text <TextElement>
-    = "" (!"{{" .)+ { new TextElement() }
+    = value:("" (!"{{" .)+) { new TextElement(value) }
 
 expression
     = "" (!"}}" .)+
