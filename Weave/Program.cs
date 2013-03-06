@@ -8,7 +8,6 @@
 
 namespace Weave
 {
-    using System;
     using System.IO;
     using Weave.Compiler;
     using Weave.Parser;
@@ -25,8 +24,7 @@ namespace Weave
             var compiler = new WeaveCompiler();
             var output = compiler.Compile(parsed);
 
-            Console.WriteLine(output.Code);
-            Console.ReadKey();
+            File.WriteAllText(args[0] + ".cs", output.Code);
         }
     }
 }
