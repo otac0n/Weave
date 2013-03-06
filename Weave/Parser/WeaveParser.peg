@@ -4,24 +4,24 @@
 
 template <Template>
     = s:section EOF {
-        new Template()
+        new Template(s)
     }
 
-section
+section <IList<Element>>
     = element*
 
-element
+element <Element>
     = tag
     / text
 
-tag
+tag <Element>
     = ifTag
     / eachTag
-    / "{{:" WS? expression "}}"
-    / "{{=" WS? expression "}}"
+    / "{{:" WS? expression "}}" { new EchoTag() }
+    / "{{=" WS? expression "}}" { new EchoTag() }
 
-ifTag
-    = ifBody elifBody* elseBody? endIf
+ifTag <IfTag>
+    = ifBody elifBody* elseBody? endIf { new IfTag() }
 
 ifBody
     = "{{if" WS+ expression "}}" element* 
@@ -35,8 +35,8 @@ elseBody
 endIf
     = "{{/if}}"
 
-eachTag
-    = eachBody noneBody? endEach
+eachTag <EachTag>
+    = eachBody noneBody? endEach { new EachTag() }
 
 eachBody
     = "{{each" WS+ expression "}}" element*
@@ -47,8 +47,8 @@ noneBody
 endEach
     = "{{/each}}"
 
-text
-    = "" (!"{{" .)+
+text <TextElement>
+    = "" (!"{{" .)+ { new TextElement() }
 
 expression
     = "" (!"}}" .)+
