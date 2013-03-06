@@ -14,8 +14,8 @@ element
 tag
     = ifTag
     / eachTag
+    / "{{:" WS? expression "}}"
     / "{{=" WS? expression "}}"
-    / "{{!" WS? expression "}}"
 
 ifTag
     = ifBody elifBody* elseBody? endIf
