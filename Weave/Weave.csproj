@@ -56,6 +56,7 @@
     <Compile Include="Compiler\CompileResult.cs" />
     <Compile Include="Compiler\GenerateCodePass.cs" />
     <Compile Include="Compiler\WeaveCompiler.cs" />
+    <Compile Include="Expressions\Branch.cs" />
     <Compile Include="Expressions\EachTag.cs" />
     <Compile Include="Expressions\EchoTag.cs" />
     <Compile Include="Expressions\Element.cs" />

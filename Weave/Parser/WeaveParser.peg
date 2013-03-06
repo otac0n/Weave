@@ -22,16 +22,18 @@ tag <Element>
     / "{{=" WS? expr:expression "}}" { new EchoTag(expr, encoded: false) }
 
 ifTag <IfTag>
-    = ifBody elifBody* elseBody? endIf { new IfTag() }
+    = if:ifBody elseIfs:elifBody* else:elseBody? endIf {
+        new IfTag(new[] { @if }.Concat(elseIfs).Concat(@else))
+    }
 
-ifBody
-    = "{{if" WS+ expression "}}" element* 
+ifBody <Branch>
+    = "{{if" WS+ expr:expression "}}" body:element* { new Branch(expr, body) }
 
-elifBody
-    = "{{elif" WS+ expression "}}" element*
+elifBody <Branch>
+    = "{{elif" WS+ expr:expression "}}" body:element* { new Branch(expr, body) }
 
-elseBody
-    = "{{else}}" element*
+elseBody <Branch>
+    = "{{else}}" body:element* { new Branch(null, body) }
 
 endIf
     = "{{/if}}"
