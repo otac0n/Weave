@@ -32,5 +32,13 @@ namespace Weave.Expressions
 
             this.elements = elements.ToList().AsReadOnly();
         }
+
+        /// <summary>
+        /// Gets the elements in this <see cref="Template"/>.
+        /// </summary>
+        public IList<Element> Elements
+        {
+            get { return this.elements; }
+        }
     }
 }

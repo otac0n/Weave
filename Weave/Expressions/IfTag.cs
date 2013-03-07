@@ -32,5 +32,13 @@ namespace Weave.Expressions
 
             this.branches = branches.ToList().AsReadOnly();
         }
+
+        /// <summary>
+        /// Gets the branches in this <see cref="IfTag"/>.
+        /// </summary>
+        public IList<Branch> Branches
+        {
+            get { return this.branches; }
+        }
     }
 }

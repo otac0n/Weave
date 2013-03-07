@@ -35,5 +35,13 @@ namespace Weave.Expressions
             this.body = body.ToList().AsReadOnly();
             this.expression = expression;
         }
+
+        /// <summary>
+        /// Gets the body of this <see cref="Branch"/>.
+        /// </summary>
+        public IList<Element> Body
+        {
+            get { return this.body; }
+        }
     }
 }

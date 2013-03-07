@@ -43,5 +43,21 @@ namespace Weave.Expressions
             this.expression = expression;
             this.noneBody = noneBody == null ? null : noneBody.ToList().AsReadOnly();
         }
+
+        /// <summary>
+        /// Gets the elements in this <see cref="EachTag"/>
+        /// </summary>
+        public IList<Element> Body
+        {
+            get { return this.body; }
+        }
+
+        /// <summary>
+        /// Gets the optional none-body of this <see cref="EachTag"/>.
+        /// </summary>
+        public IList<Element> NoneBody
+        {
+            get { return this.noneBody; }
+        }
     }
 }
