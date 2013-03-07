@@ -14,7 +14,22 @@ namespace Weave.Compiler
     {
         public override void Run(Template template, CompileResult result)
         {
-            result.Code = template.ToString();
+            new GenerateCodeWalker(result).WalkTemplate(template);
+        }
+
+        private class GenerateCodeWalker : TemplateWalker
+        {
+            private readonly CompileResult result;
+
+            public GenerateCodeWalker(CompileResult result)
+            {
+                this.result = result;
+            }
+
+            public override void WalkTemplate(Template template)
+            {
+                this.result.Code = template.ToString();
+            }
         }
     }
 }
