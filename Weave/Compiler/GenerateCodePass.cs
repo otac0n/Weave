@@ -10,6 +10,7 @@ namespace Weave.Compiler
 {
     using System.Collections.Generic;
     using System.Globalization;
+    using System.IO;
     using System.Text;
     using Weave.Expressions;
 
@@ -17,7 +18,11 @@ namespace Weave.Compiler
     {
         public override void Run(Template template, CompileResult result)
         {
-            new GenerateCodeWalker(result).WalkTemplate(template);
+            using (var stringWriter = new StringWriter(CultureInfo.InvariantCulture))
+            {
+                new GenerateCodeWalker(stringWriter).WalkTemplate(template);
+                result.Code = stringWriter.ToString();
+            }
         }
 
         private class GenerateCodeWalker : TemplateWalker
@@ -29,12 +34,12 @@ namespace Weave.Compiler
                 { '\r', "\\r" }, { '\t', "\\t" }, { '\v', "\\v" },
             };
 
-            private readonly CompileResult result;
+            private readonly TextWriter writer;
             private readonly Dictionary<string, int> variables = new Dictionary<string, int>();
 
-            public GenerateCodeWalker(CompileResult result)
+            public GenerateCodeWalker(TextWriter writer)
             {
-                this.result = result;
+                this.writer = writer;
             }
 
             public override void WalkIfTag(IfTag ifTag)
@@ -44,7 +49,7 @@ namespace Weave.Compiler
                 {
                     if (!first)
                     {
-                        this.result.Code += "else ";
+                        this.writer.Write("else ");
                     }
 
                     this.WalkBranch(branch);
@@ -57,12 +62,12 @@ namespace Weave.Compiler
             {
                 if (branch.Expression != null)
                 {
-                    this.result.Code += "if (" + branch.Expression + ")\r\n";
+                    this.writer.Write("if (" + branch.Expression + ")\r\n");
                 }
 
-                this.result.Code += "{\r\n";
+                this.writer.Write("{\r\n");
                 this.WalkElements(branch.Body);
-                this.result.Code += "}\r\n";
+                this.writer.Write("}\r\n");
             }
 
             public override void WalkEachTag(EachTag eachTag)
@@ -71,35 +76,35 @@ namespace Weave.Compiler
 
                 if (eachTag.NoneBody != null)
                 {
-                    this.result.Code += "bool " + flag + ";\r\n";
+                    this.writer.Write("bool " + flag + ";\r\n");
                 }
 
-                this.result.Code += "foreach (" + eachTag.Expression + ")\r\n{\r\n";
+                this.writer.Write("foreach (" + eachTag.Expression + ")\r\n{\r\n");
 
                 if (eachTag.NoneBody != null)
                 {
-                    this.result.Code += flag + " = true;\r\n";
+                    this.writer.Write(flag + " = true;\r\n");
                 }
 
                 this.WalkElements(eachTag.Body);
-                this.result.Code += "}\r\n";
+                this.writer.Write("}\r\n");
 
                 if (eachTag.NoneBody != null)
                 {
-                    this.result.Code += "if (!" + flag + ")\r\n{\r\n";
+                    this.writer.Write("if (!" + flag + ")\r\n{\r\n");
                     this.WalkElements(eachTag.NoneBody);
-                    this.result.Code += "}\r\n";
+                    this.writer.Write("}\r\n");
                 }
             }
 
             public override void WalkEchoTag(EchoTag echoTag)
             {
-                this.result.Code += "writer.Write(" + echoTag.Expression + ");\r\n";
+                this.writer.Write("writer.Write(" + echoTag.Expression + ");\r\n");
             }
 
             public override void WalkTextElement(TextElement textElement)
             {
-                this.result.Code += "writer.Write(" + ToLiteral(textElement.Value) + ");\r\n";
+                this.writer.Write("writer.Write(" + ToLiteral(textElement.Value) + ");\r\n");
             }
 
             private static string ToLiteral(string input)
