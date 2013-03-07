@@ -43,5 +43,13 @@ namespace Weave.Expressions
         {
             get { return this.body; }
         }
+
+        /// <summary>
+        /// The code expression that determines whether this branch will execute.
+        /// </summary>
+        public string Expression
+        {
+            get { return this.expression; }
+        }
     }
 }

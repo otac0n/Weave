@@ -30,5 +30,13 @@ namespace Weave.Expressions
 
             this.value = value;
         }
+
+        /// <summary>
+        /// Gets the value of this <see cref="TextElement"/>.
+        /// </summary>
+        public string Value
+        {
+            get { return this.value; }
+        }
     }
 }

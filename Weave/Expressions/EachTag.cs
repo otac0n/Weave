@@ -53,6 +53,14 @@ namespace Weave.Expressions
         }
 
         /// <summary>
+        /// Gets code expression that describes the iteration subject.
+        /// </summary>
+        public string Expression
+        {
+            get { return this.expression; }
+        }
+
+        /// <summary>
         /// Gets the optional none-body of this <see cref="EachTag"/>.
         /// </summary>
         public IList<Element> NoneBody

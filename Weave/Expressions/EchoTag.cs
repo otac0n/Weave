@@ -33,5 +33,13 @@ namespace Weave.Expressions
             this.expression = expression;
             this.encoded = encoded;
         }
+
+        /// <summary>
+        /// Gets the code expression that will be used to compute the text to render.
+        /// </summary>
+        public string Expression
+        {
+            get { return this.expression; }
+        }
     }
 }
