@@ -45,7 +45,7 @@ namespace Weave.Expressions
         }
 
         /// <summary>
-        /// The code expression that determines whether this branch will execute.
+        /// Gets the code expression that determines whether this branch will execute.
         /// </summary>
         public string Expression
         {
