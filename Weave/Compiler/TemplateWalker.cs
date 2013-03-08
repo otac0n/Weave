@@ -36,12 +36,17 @@ namespace Weave.Compiler
 
         public virtual void WalkElement(Element element)
         {
+            CodeElement codeElement;
             EachTag eachTag;
             EchoTag echoTag;
             IfTag ifTag;
             TextElement textElement;
 
-            if ((eachTag = element as EachTag) != null)
+            if ((codeElement = element as CodeElement) != null)
+            {
+                this.WalkCodeElement(codeElement);
+            }
+            else if ((eachTag = element as EachTag) != null)
             {
                 this.WalkEachTag(eachTag);
             }
@@ -61,6 +66,10 @@ namespace Weave.Compiler
             {
                 throw new NotImplementedException(string.Format(CultureInfo.CurrentCulture, "Unimplemented element '{0}'.", element.GetType().Name));
             }
+        }
+
+        public virtual void WalkCodeElement(CodeElement codeElement)
+        {
         }
 
         public virtual void WalkElements(IEnumerable<Element> elements)

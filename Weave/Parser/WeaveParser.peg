@@ -20,6 +20,7 @@ tag <Element>
     / eachTag
     / "{{:" WS? expr:expression "}}" { new EchoTag(expr, encoded: true) }
     / "{{=" WS? expr:expression "}}" { new EchoTag(expr, encoded: false) }
+    / "{{" &WS expr:expression "}}" { new CodeElement(expr) }
 
 ifTag <IfTag>
     = if:ifBody elseIfs:elifBody* else:elseBody? endIf {
@@ -56,7 +57,7 @@ expression
     = "" (!"}}" .)+
 
 WS
-    = [ \t\v\f\u00A0\uFEFF\u1680\u180E\u2000-\u200A\u202F\u205F\u3000]
+    = [ \t\r\n\v\f\u00A0\uFEFF\u1680\u180E\u2000-\u200A\u202F\u205F\u3000]
 
 EOF
   = !.

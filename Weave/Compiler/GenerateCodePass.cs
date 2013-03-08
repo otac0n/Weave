@@ -42,6 +42,11 @@ namespace Weave.Compiler
                 this.writer = writer;
             }
 
+            public override void WalkCodeElement(CodeElement codeElement)
+            {
+                this.writer.Write(codeElement.Expression);
+            }
+
             public override void WalkIfTag(IfTag ifTag)
             {
                 var first = true;
