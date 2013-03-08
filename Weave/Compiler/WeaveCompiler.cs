@@ -17,7 +17,7 @@ namespace Weave.Compiler
     /// <summary>
     /// Provides error checking and compilation services for Weave templates.
     /// </summary>
-    public class WeaveCompiler
+    public static class WeaveCompiler
     {
         private static readonly IList<Type> PassTypes = Assembly.GetExecutingAssembly().GetTypes()
             .Where(t => !t.IsAbstract && t.IsSubclassOf(typeof(CompilePass)))
@@ -29,7 +29,7 @@ namespace Weave.Compiler
         /// </summary>
         /// <param name="template">The template to compile.</param>
         /// <returns>A <see cref="CompileResult"/> containing the errors, warnings, and results of compilation.</returns>
-        public CompileResult Compile(Template template)
+        public static CompileResult Compile(Template template)
         {
             var result = new CompileResult();
 

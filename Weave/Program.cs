@@ -21,8 +21,7 @@ namespace Weave
             var parser = new WeaveParser();
             var parsed = parser.Parse(input);
 
-            var compiler = new WeaveCompiler();
-            var output = compiler.Compile(parsed);
+            var output = WeaveCompiler.Compile(parsed);
 
             File.WriteAllText(args[0] + ".cs", output.Code);
         }
