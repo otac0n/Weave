@@ -16,14 +16,17 @@ namespace Weave
     {
         private static void Main(string[] args)
         {
-            var input = File.ReadAllText(args[0]);
+            foreach (var arg in args)
+            {
+                var input = File.ReadAllText(arg);
 
-            var parser = new WeaveParser();
-            var parsed = parser.Parse(input);
+                var parser = new WeaveParser();
+                var parsed = parser.Parse(input, arg);
 
-            var output = WeaveCompiler.Compile(parsed);
+                var output = WeaveCompiler.Compile(parsed);
 
-            File.WriteAllText(args[0] + ".cs", output.Code);
+                File.WriteAllText(arg + ".cs", output.Code);
+            }
         }
     }
 }
