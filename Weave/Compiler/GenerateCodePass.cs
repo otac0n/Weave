@@ -54,7 +54,15 @@ namespace Weave.Compiler
 
                 this.writer.Write("namespace ");
                 this.writer.Write(@namespace);
-                this.writer.Write("\r\n{\r\n");
+                this.writer.Write("\r\n{\r\nusing System.IO;\r\n");
+
+                foreach (var @using in settings["using"])
+                {
+                    this.writer.Write("using ");
+                    this.writer.Write(@using);
+                    this.writer.Write(";\r\n");
+                }
+
                 this.writer.Write(accessibility);
                 this.writer.Write(" partial class ");
                 this.writer.Write(classname);
