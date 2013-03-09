@@ -1,0 +1,30 @@
+﻿@namespace Weave.Compiler
+@methodname RenderTemplate
+@model Template
+@using System.Linq
+@using Weave.Expressions
+
+{{
+    var settings = model.Settings.ToLookup(s => s.Key, s => s.Value);
+    var @namespace = settings["namespace"].Single();
+    var accessibility = settings["accessibility"].SingleOrDefault() ?? string.Empty;
+    var className = settings["classname"].SingleOrDefault() ?? "Templates";
+    var methodName = settings["methodname"].SingleOrDefault() ?? "Render";
+    var modelName = settings["model"].SingleOrDefault() ?? "dynamic";
+}}
+
+namespace {{= @namespace }}
+{
+    using System.IO;
+    {{each @using in settings["using"]}}
+        using {{= @using }};
+    {{/each}}
+
+    {{= accessibility }} partial class {{= className }}
+    {
+        public void {{= methodName }}({{= modelName }} model, TextWriter writer)
+        {
+            {{ base.WalkTemplate(model); }}
+        }
+    }
+}

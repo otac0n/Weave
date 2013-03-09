@@ -1,0 +1,6 @@
+﻿@namespace Weave.Compiler
+@methodname RenderTextElement
+@model TextElement
+@using Weave.Expressions
+
+writer.Write({{= ToLiteral(model.Value) }});

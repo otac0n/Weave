@@ -1,0 +1,6 @@
+﻿@namespace Weave.Compiler
+@methodname RenderCodeElement
+@model CodeElement
+@using Weave.Expressions
+
+{{= model.Expression }}

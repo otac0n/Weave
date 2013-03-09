@@ -1,0 +1,6 @@
+﻿@namespace Weave.Compiler
+@methodname RenderEchoTag
+@model EchoTag
+@using Weave.Expressions
+
+writer.Write({{= model.Expression }});

@@ -1,0 +1,11 @@
+﻿@namespace Weave.Compiler
+@methodname RenderBranch
+@model Branch
+@using Weave.Expressions
+
+{{if model.Expression != null}}
+    if ({{= model.Expression }})
+{{/if}}
+{
+    {{ this.WalkElements(model.Body); }}
+}
