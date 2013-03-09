@@ -120,7 +120,7 @@ namespace Weave.Compiler
                     this.writer.Write("bool " + flag + ";\r\n");
                 }
 
-                this.writer.Write("foreach (" + eachTag.Expression + ")\r\n{\r\n");
+                this.writer.Write("foreach (var " + eachTag.Expression + ")\r\n{\r\n");
 
                 if (eachTag.NoneBody != null)
                 {
