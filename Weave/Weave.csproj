@@ -59,14 +59,23 @@
     <Compile Include="Compiler\Templates\Branch.weave.cs">
       <DependentUpon>Branch.weave</DependentUpon>
     </Compile>
+    <Compile Include="Compiler\Templates\CodeElement.weave.cs">
+      <DependentUpon>CodeElement.weave</DependentUpon>
+    </Compile>
     <Compile Include="Compiler\Templates\EachTag.weave.cs">
       <DependentUpon>EachTag.weave</DependentUpon>
+    </Compile>
+    <Compile Include="Compiler\Templates\EchoTag.weave.cs">
+      <DependentUpon>EchoTag.weave</DependentUpon>
     </Compile>
     <Compile Include="Compiler\Templates\IfTag.weave.cs">
       <DependentUpon>IfTag.weave</DependentUpon>
     </Compile>
     <Compile Include="Compiler\Templates\Template.weave.cs">
       <DependentUpon>Template.weave</DependentUpon>
+    </Compile>
+    <Compile Include="Compiler\Templates\TextElement.weave.cs">
+      <DependentUpon>TextElement.weave</DependentUpon>
     </Compile>
     <Compile Include="Compiler\TemplateWalker.cs" />
     <Compile Include="Compiler\WeaveCompiler.cs" />
@@ -83,9 +92,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Compiler\Templates\Branch.weave" />
+    <None Include="Compiler\Templates\CodeElement.weave" />
     <None Include="Compiler\Templates\EachTag.weave" />
+    <None Include="Compiler\Templates\EchoTag.weave" />
     <None Include="Compiler\Templates\IfTag.weave" />
     <None Include="Compiler\Templates\Template.weave" />
+    <None Include="Compiler\Templates\TextElement.weave" />
     <None Include="packages.config" />
     <PegGrammar Include="Parser\WeaveParser.peg" />
   </ItemGroup>
