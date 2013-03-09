@@ -54,7 +54,7 @@ namespace Weave.Compiler
 
                 this.writer.Write("namespace ");
                 this.writer.Write(@namespace);
-                this.writer.Write("\r\n{\r\n");
+                this.writer.Write("\r\n{\r\nusing System.IO;\r\n");
 
                 foreach (var @using in settings["using"])
                 {
