@@ -1,6 +1,7 @@
 ﻿@namespace Weave.Compiler
 @methodname RenderEachTag
 @model EachTag
+@using Weave.Expressions
 
 {{
     var flag = this.CreateVariable("_flag");

@@ -1,5 +1,7 @@
 namespace Weave.Compiler
 {
+using System.IO;
+using Weave.Expressions;
  partial class Templates
 {
 public void RenderEachTag(EachTag model, TextWriter writer)
