@@ -17,7 +17,7 @@ public void RenderTemplate(Template model, TextWriter writer)
 writer.Write("\r\n\r\nnamespace ");
 writer.Write(@namespace );
 writer.Write("\r\n{\r\n    using System.IO;\r\n    ");
-foreach (var @using in settings["using"])
+foreach (var  @using in settings["using"])
 {
 writer.Write("\r\n        using ");
 writer.Write(@using );
