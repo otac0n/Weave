@@ -11,7 +11,7 @@
     bool {{= flag }};
 {{/if}}
 
-foreach ({{= model.Expression }})
+foreach (var {{= model.Expression }})
 {
     {{if model.NoneBody != null}}
         {{= flag }} = true;
