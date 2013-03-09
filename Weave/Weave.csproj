@@ -61,8 +61,8 @@
     <Compile Include="Compiler\Templates\Branch.weave.cs">
       <DependentUpon>Branch.weave</DependentUpon>
     </Compile>
-    <Compile Include="Compiler\Templates\CodeElement.weave.cs">
-      <DependentUpon>CodeElement.weave</DependentUpon>
+    <Compile Include="Compiler\Templates\Code.weave.cs">
+      <DependentUpon>Code.weave</DependentUpon>
     </Compile>
     <Compile Include="Compiler\Templates\EachTag.weave.cs">
       <DependentUpon>EachTag.weave</DependentUpon>
@@ -100,7 +100,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Compiler\Templates\Branch.weave" />
-    <None Include="Compiler\Templates\CodeElement.weave" />
+    <None Include="Compiler\Templates\Code.weave" />
     <None Include="Compiler\Templates\EachTag.weave" />
     <None Include="Compiler\Templates\EchoTag.weave" />
     <None Include="Compiler\Templates\IfTag.weave" />

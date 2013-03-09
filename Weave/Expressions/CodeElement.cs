@@ -15,13 +15,13 @@ namespace Weave.Expressions
     /// </summary>
     public class CodeElement : Element
     {
-        private readonly string expression;
+        private readonly SourceSpan expression;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CodeElement"/> class.
         /// </summary>
         /// <param name="expression">The code expression that will be executed.</param>
-        public CodeElement(string expression)
+        public CodeElement(SourceSpan expression)
         {
             if (expression == null)
             {
@@ -34,7 +34,7 @@ namespace Weave.Expressions
         /// <summary>
         /// Gets the code expression that will be executed.
         /// </summary>
-        public string Expression
+        public SourceSpan Expression
         {
             get { return this.expression; }
         }

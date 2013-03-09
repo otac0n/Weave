@@ -1,0 +1,15 @@
+﻿@namespace Weave.Compiler
+@methodname RenderCode
+@model object
+@using Weave.Expressions
+
+{{ var span = model as SourceSpan; }}
+{{if span != null}}
+
+#line {{= span.Start.Line }} "{{= Path.GetFileName(span.Start.FileName) }}"
+{{= new string(' ', span.Start.Column - 1) }}{{= span.Value }}
+#line default
+
+{{else}}
+    {{= model }}
+{{/if}}

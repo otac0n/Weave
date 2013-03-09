@@ -16,14 +16,14 @@ namespace Weave.Expressions
     public class EchoTag : Element
     {
         private readonly bool encoded;
-        private readonly string expression;
+        private readonly SourceSpan expression;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="EchoTag"/> class.
         /// </summary>
         /// <param name="expression">The code expression that will be used to compute the text to render.</param>
         /// <param name="encoded">True, if the output is to be encoded; false, otherwise.</param>
-        public EchoTag(string expression, bool encoded)
+        public EchoTag(SourceSpan expression, bool encoded)
         {
             if (expression == null)
             {
@@ -37,7 +37,7 @@ namespace Weave.Expressions
         /// <summary>
         /// Gets the code expression that will be used to compute the text to render.
         /// </summary>
-        public string Expression
+        public SourceSpan Expression
         {
             get { return this.expression; }
         }

@@ -61,10 +61,5 @@ namespace Weave.Expressions
         {
             get { return this.start; }
         }
-
-        public override string ToString()
-        {
-            return this.Value;
-        }
     }
 }

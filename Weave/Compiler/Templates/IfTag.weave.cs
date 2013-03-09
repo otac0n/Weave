@@ -12,21 +12,61 @@ namespace Weave.Compiler
 {
     using System.IO;
     
-        using Weave.Expressions;
+        using 
+
+
+#line 4 "IfTag.weave"
+       Weave.Expressions
+#line default
+
+;
     
 
-     partial class Templates
+    
+
+    
+ partial class 
+
+    Templates
+
     {
         [System.CodeDom.Compiler.GeneratedCode("Weave", "1.0.0.0")]
-        public void RenderIfTag(IfTag model, TextWriter writer)
+        public void 
+
+
+#line 2 "IfTag.weave"
+            RenderIfTag
+#line default
+
+(
+
+
+#line 3 "IfTag.weave"
+       IfTag
+#line default
+
+ model, TextWriter writer)
         {
-             var first = true; 
+            
+
+
+#line 6 "IfTag.weave"
+   var first = true; 
+#line default
+
 writer.Write("\r\n");
 
 
 
 
-foreach (var  branch in model.Branches)
+foreach (var 
+
+
+#line 7 "IfTag.weave"
+       branch in model.Branches
+#line default
+
+)
 {
     
 
@@ -35,7 +75,14 @@ foreach (var  branch in model.Branches)
 
     
     
-    if ( !first)
+    if (
+
+
+#line 8 "IfTag.weave"
+         !first
+#line default
+
+)
 
 {
     writer.Write("\r\n        else\r\n    ");
@@ -43,9 +90,21 @@ foreach (var  branch in model.Branches)
 }
     
 writer.Write("\r\n    ");
- this.WalkBranch(branch); 
+
+
+
+#line 11 "IfTag.weave"
+       this.WalkBranch(branch); 
+#line default
+
 writer.Write("\r\n    ");
- first = false; 
+
+
+
+#line 12 "IfTag.weave"
+       first = false; 
+#line default
+
 writer.Write("\r\n");
 
 }

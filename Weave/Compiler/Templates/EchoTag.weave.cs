@@ -12,16 +12,49 @@ namespace Weave.Compiler
 {
     using System.IO;
     
-        using Weave.Expressions;
+        using 
+
+
+#line 4 "EchoTag.weave"
+       Weave.Expressions
+#line default
+
+;
     
 
-     partial class Templates
+    
+
+    
+ partial class 
+
+    Templates
+
     {
         [System.CodeDom.Compiler.GeneratedCode("Weave", "1.0.0.0")]
-        public void RenderEchoTag(EchoTag model, TextWriter writer)
+        public void 
+
+
+#line 2 "EchoTag.weave"
+            RenderEchoTag
+#line default
+
+(
+
+
+#line 3 "EchoTag.weave"
+       EchoTag
+#line default
+
+ model, TextWriter writer)
         {
             writer.Write("writer.Write(");
-writer.Write(model.Expression );
+
+
+
+#line 6 "EchoTag.weave"
+                this.RenderCode(model.Expression, writer); 
+#line default
+
 writer.Write(");\r\n");
 
         }

@@ -18,7 +18,7 @@ namespace Weave.Expressions
     public class EachTag : Element
     {
         private readonly IList<Element> body;
-        private readonly string expression;
+        private readonly SourceSpan expression;
         private readonly IList<Element> noneBody;
 
         /// <summary>
@@ -27,7 +27,7 @@ namespace Weave.Expressions
         /// <param name="expression">The code expression that describes the iteration subject.</param>
         /// <param name="body">The body of the loop.</param>
         /// <param name="noneBody">An optional body that is rendered when the iteration subject is empty.</param>
-        public EachTag(string expression, IList<Element> body, IList<Element> noneBody)
+        public EachTag(SourceSpan expression, IList<Element> body, IList<Element> noneBody)
         {
             if (expression == null)
             {
@@ -55,7 +55,7 @@ namespace Weave.Expressions
         /// <summary>
         /// Gets code expression that describes the iteration subject.
         /// </summary>
-        public string Expression
+        public SourceSpan Expression
         {
             get { return this.expression; }
         }

@@ -4,7 +4,7 @@
 @using Weave.Expressions
 
 {{if model.Expression != null}}
-    if ({{= model.Expression }})
+    if ({{ this.RenderCode(model.Expression, writer); }})
 {{/if}}
 {
     {{ this.WalkElements(model.Body); }}

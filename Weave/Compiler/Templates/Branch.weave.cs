@@ -12,29 +12,75 @@ namespace Weave.Compiler
 {
     using System.IO;
     
-        using Weave.Expressions;
+        using 
+
+
+#line 4 "Branch.weave"
+       Weave.Expressions
+#line default
+
+;
     
 
-     partial class Templates
+    
+
+    
+ partial class 
+
+    Templates
+
     {
         [System.CodeDom.Compiler.GeneratedCode("Weave", "1.0.0.0")]
-        public void RenderBranch(Branch model, TextWriter writer)
+        public void 
+
+
+#line 2 "Branch.weave"
+            RenderBranch
+#line default
+
+(
+
+
+#line 3 "Branch.weave"
+       Branch
+#line default
+
+ model, TextWriter writer)
         {
             
 
     
     
-    if ( model.Expression != null)
+    if (
+
+
+#line 6 "Branch.weave"
+     model.Expression != null
+#line default
+
+)
 
 {
     writer.Write("\r\n    if (");
-writer.Write(model.Expression );
+
+
+
+#line 7 "Branch.weave"
+           this.RenderCode(model.Expression, writer); 
+#line default
+
 writer.Write(")\r\n");
 
 }
     
 writer.Write("\r\n{\r\n    ");
- this.WalkElements(model.Body); 
+
+
+
+#line 10 "Branch.weave"
+       this.WalkElements(model.Body); 
+#line default
+
 writer.Write("\r\n}");
 
         }

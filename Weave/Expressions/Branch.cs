@@ -18,14 +18,14 @@ namespace Weave.Expressions
     public class Branch
     {
         private readonly IList<Element> body;
-        private readonly string expression;
+        private readonly SourceSpan expression;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Branch"/> class.
         /// </summary>
         /// <param name="expression">The code expression that determines whether this branch will execute. Null, if this is the default branch.</param>
         /// <param name="body">The body of the branch.</param>
-        public Branch(string expression, IList<Element> body)
+        public Branch(SourceSpan expression, IList<Element> body)
         {
             if (body == null)
             {
@@ -47,7 +47,7 @@ namespace Weave.Expressions
         /// <summary>
         /// Gets the code expression that determines whether this branch will execute.
         /// </summary>
-        public string Expression
+        public SourceSpan Expression
         {
             get { return this.expression; }
         }

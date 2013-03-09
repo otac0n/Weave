@@ -12,16 +12,50 @@ namespace Weave.Compiler
 {
     using System.IO;
     
-        using Weave.Expressions;
+        using 
+
+
+#line 4 "TextElement.weave"
+       Weave.Expressions
+#line default
+
+;
     
 
-     partial class Templates
+    
+
+    
+ partial class 
+
+    Templates
+
     {
         [System.CodeDom.Compiler.GeneratedCode("Weave", "1.0.0.0")]
-        public void RenderTextElement(TextElement model, TextWriter writer)
+        public void 
+
+
+#line 2 "TextElement.weave"
+            RenderTextElement
+#line default
+
+(
+
+
+#line 3 "TextElement.weave"
+       TextElement
+#line default
+
+ model, TextWriter writer)
         {
             writer.Write("writer.Write(");
-writer.Write(ToLiteral(model.Value) );
+writer.Write(
+
+
+#line 6 "TextElement.weave"
+                 ToLiteral(model.Value) 
+#line default
+
+);
 writer.Write(");\r\n");
 
         }
