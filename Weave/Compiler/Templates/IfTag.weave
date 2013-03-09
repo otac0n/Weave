@@ -1,0 +1,13 @@
+﻿@namespace Weave.Compiler
+@methodname RenderIfTag
+@model IfTag
+@using Weave.Expressions
+
+{{ var first = true; }}
+{{each branch in model.Branches}}
+    {{if !first}}
+        else
+    {{/if}}
+    {{ this.WalkBranch(branch); }}
+    {{ first = false; }}
+{{/each}}

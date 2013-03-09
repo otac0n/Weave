@@ -56,8 +56,14 @@
     <Compile Include="Compiler\CompileResult.cs" />
     <Compile Include="Compiler\GenerateCodePass.cs" />
     <Compile Include="Compiler\Templates.cs" />
+    <Compile Include="Compiler\Templates\Branch.weave.cs">
+      <DependentUpon>Branch.weave</DependentUpon>
+    </Compile>
     <Compile Include="Compiler\Templates\EachTag.weave.cs">
       <DependentUpon>EachTag.weave</DependentUpon>
+    </Compile>
+    <Compile Include="Compiler\Templates\IfTag.weave.cs">
+      <DependentUpon>IfTag.weave</DependentUpon>
     </Compile>
     <Compile Include="Compiler\Templates\Template.weave.cs">
       <DependentUpon>Template.weave</DependentUpon>
@@ -76,7 +82,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Compiler\Templates\Branch.weave" />
     <None Include="Compiler\Templates\EachTag.weave" />
+    <None Include="Compiler\Templates\IfTag.weave" />
     <None Include="Compiler\Templates\Template.weave" />
     <None Include="packages.config" />
     <PegGrammar Include="Parser\WeaveParser.peg" />
