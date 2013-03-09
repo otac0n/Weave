@@ -47,6 +47,7 @@ namespace Weave.Compiler
             {
                 var settings = template.Settings.ToLookup(s => s.Key, s => s.Value);
                 var @namespace = settings["namespace"].Single();
+                var accessibility = settings["accessibility"].SingleOrDefault() ?? string.Empty;
                 var classname = settings["classname"].SingleOrDefault() ?? "Templates";
                 var methodname = settings["methodname"].SingleOrDefault() ?? "Render";
                 var model = settings["model"].SingleOrDefault() ?? "dynamic";
@@ -54,7 +55,8 @@ namespace Weave.Compiler
                 this.writer.Write("namespace ");
                 this.writer.Write(@namespace);
                 this.writer.Write("\r\n{\r\n");
-                this.writer.Write("public partial class ");
+                this.writer.Write(accessibility);
+                this.writer.Write(" partial class ");
                 this.writer.Write(classname);
                 this.writer.Write("\r\n{\r\n");
                 this.writer.Write("public void ");
