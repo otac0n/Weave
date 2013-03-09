@@ -46,8 +46,8 @@ namespace Weave.Compiler
             public override void WalkTemplate(Template template)
             {
                 var settings = template.Settings.ToLookup(s => s.Key, s => s.Value);
-                var @namespace = settings["namespace"].SingleOrDefault() ?? "Templates";
-                var classname = settings["classname"].SingleOrDefault() ?? "Template";
+                var @namespace = settings["namespace"].Single();
+                var classname = settings["classname"].SingleOrDefault() ?? "Templates";
                 var methodname = settings["methodname"].SingleOrDefault() ?? "Render";
                 var model = settings["model"].SingleOrDefault() ?? "dynamic";
 
