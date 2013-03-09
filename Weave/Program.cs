@@ -8,9 +8,7 @@
 
 namespace Weave
 {
-    using System.IO;
-    using Weave.Compiler;
-    using Weave.Parser;
+    using System;
 
     internal class Program
     {
@@ -18,14 +16,7 @@ namespace Weave
         {
             foreach (var arg in args)
             {
-                var input = File.ReadAllText(arg);
-
-                var parser = new WeaveParser();
-                var parsed = parser.Parse(input, arg);
-
-                var output = WeaveCompiler.Compile(parsed);
-
-                File.WriteAllText(arg + ".cs", output.Code);
+                CompileManager.CompileFile(arg, null, Console.WriteLine);
             }
         }
     }
