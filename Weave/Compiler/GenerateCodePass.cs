@@ -8,11 +8,8 @@
 
 namespace Weave.Compiler
 {
-    using System.Collections.Generic;
     using System.Globalization;
     using System.IO;
-    using System.Linq;
-    using System.Text;
     using Weave.Expressions;
 
     internal class GenerateCodePass : CompilePass
@@ -21,166 +18,8 @@ namespace Weave.Compiler
         {
             using (var stringWriter = new StringWriter(CultureInfo.InvariantCulture))
             {
-                new GenerateCodeWalker(stringWriter).WalkTemplate(template);
+                new Templates(stringWriter).WalkTemplate(template);
                 result.Code = stringWriter.ToString();
-            }
-        }
-
-        private class GenerateCodeWalker : TemplateWalker
-        {
-            private static Dictionary<char, string> simpleEscapeChars = new Dictionary<char, string>()
-            {
-                { '\'', "\\'" }, { '\"', "\\\"" }, { '\\', "\\\\" }, { '\0', "\\0" },
-                { '\a', "\\a" }, { '\b', "\\b" }, { '\f', "\\f" }, { '\n', "\\n" },
-                { '\r', "\\r" }, { '\t', "\\t" }, { '\v', "\\v" },
-            };
-
-            private readonly TextWriter writer;
-            private readonly Dictionary<string, int> variables = new Dictionary<string, int>();
-
-            public GenerateCodeWalker(TextWriter writer)
-            {
-                this.writer = writer;
-            }
-
-            public override void WalkTemplate(Template template)
-            {
-                var settings = template.Settings.ToLookup(s => s.Key, s => s.Value);
-                var @namespace = settings["namespace"].Single();
-                var accessibility = settings["accessibility"].SingleOrDefault() ?? string.Empty;
-                var classname = settings["classname"].SingleOrDefault() ?? "Templates";
-                var methodname = settings["methodname"].SingleOrDefault() ?? "Render";
-                var model = settings["model"].SingleOrDefault() ?? "dynamic";
-
-                this.writer.Write("namespace ");
-                this.writer.Write(@namespace);
-                this.writer.Write("\r\n{\r\nusing System.IO;\r\n");
-
-                foreach (var @using in settings["using"])
-                {
-                    this.writer.Write("using ");
-                    this.writer.Write(@using);
-                    this.writer.Write(";\r\n");
-                }
-
-                this.writer.Write(accessibility);
-                this.writer.Write(" partial class ");
-                this.writer.Write(classname);
-                this.writer.Write("\r\n{\r\n");
-                this.writer.Write("public void ");
-                this.writer.Write(methodname);
-                this.writer.Write("(");
-                this.writer.Write(model);
-                this.writer.Write(" model, TextWriter writer)\r\n{\r\n");
-                base.WalkTemplate(template);
-                this.writer.Write("}\r\n");
-                this.writer.Write("}\r\n");
-                this.writer.Write("}\r\n");
-            }
-
-            public override void WalkCodeElement(CodeElement codeElement)
-            {
-                this.writer.Write(codeElement.Expression);
-            }
-
-            public override void WalkIfTag(IfTag ifTag)
-            {
-                var first = true;
-                foreach (var branch in ifTag.Branches)
-                {
-                    if (!first)
-                    {
-                        this.writer.Write("else ");
-                    }
-
-                    this.WalkBranch(branch);
-
-                    first = false;
-                }
-            }
-
-            public override void WalkBranch(Branch branch)
-            {
-                if (branch.Expression != null)
-                {
-                    this.writer.Write("if (" + branch.Expression + ")\r\n");
-                }
-
-                this.writer.Write("{\r\n");
-                this.WalkElements(branch.Body);
-                this.writer.Write("}\r\n");
-            }
-
-            public override void WalkEachTag(EachTag eachTag)
-            {
-                var flag = this.CreateVariable("_flag");
-
-                if (eachTag.NoneBody != null)
-                {
-                    this.writer.Write("bool " + flag + ";\r\n");
-                }
-
-                this.writer.Write("foreach (var " + eachTag.Expression + ")\r\n{\r\n");
-
-                if (eachTag.NoneBody != null)
-                {
-                    this.writer.Write(flag + " = true;\r\n");
-                }
-
-                this.WalkElements(eachTag.Body);
-                this.writer.Write("}\r\n");
-
-                if (eachTag.NoneBody != null)
-                {
-                    this.writer.Write("if (!" + flag + ")\r\n{\r\n");
-                    this.WalkElements(eachTag.NoneBody);
-                    this.writer.Write("}\r\n");
-                }
-            }
-
-            public override void WalkEchoTag(EchoTag echoTag)
-            {
-                this.writer.Write("writer.Write(" + echoTag.Expression + ");\r\n");
-            }
-
-            public override void WalkTextElement(TextElement textElement)
-            {
-                this.writer.Write("writer.Write(" + ToLiteral(textElement.Value) + ");\r\n");
-            }
-
-            private static string ToLiteral(string input)
-            {
-                var sb = new StringBuilder(input.Length * 2);
-                sb.Append("\"");
-                for (int i = 0; i < input.Length; i++)
-                {
-                    var c = input[i];
-
-                    string literal;
-                    if (simpleEscapeChars.TryGetValue(c, out literal))
-                    {
-                        sb.Append(literal);
-                    }
-                    else if (c >= 32 && c <= 126)
-                    {
-                        sb.Append(c);
-                    }
-                    else
-                    {
-                        sb.Append("\\u").Append(((int)c).ToString("x4", CultureInfo.InvariantCulture));
-                    }
-                }
-
-                sb.Append("\"");
-                return sb.ToString();
-            }
-
-            private string CreateVariable(string prefix)
-            {
-                int instance;
-                this.variables.TryGetValue(prefix, out instance);
-                this.variables[prefix] = instance + 1;
-                return prefix + instance;
             }
         }
     }

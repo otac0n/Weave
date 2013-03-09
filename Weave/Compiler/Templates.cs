@@ -2,7 +2,9 @@
 {
     using System.Collections.Generic;
     using System.Globalization;
+    using System.IO;
     using System.Text;
+    using Weave.Expressions;
 
     internal partial class Templates : TemplateWalker
     {
@@ -14,6 +16,47 @@
         };
 
         private readonly Dictionary<string, int> variables = new Dictionary<string, int>();
+        private readonly TextWriter writer;
+
+        public Templates(TextWriter writer)
+        {
+            this.writer = writer;
+        }
+
+        public override void WalkTemplate(Template template)
+        {
+            this.RenderTemplate(template, this.writer);
+        }
+
+        public override void WalkCodeElement(CodeElement codeElement)
+        {
+            this.RenderCodeElement(codeElement, this.writer);
+        }
+
+        public override void WalkIfTag(IfTag ifTag)
+        {
+            this.RenderIfTag(ifTag, this.writer);
+        }
+
+        public override void WalkBranch(Branch branch)
+        {
+            this.RenderBranch(branch, this.writer);
+        }
+
+        public override void WalkEachTag(EachTag eachTag)
+        {
+            this.RenderEachTag(eachTag, this.writer);
+        }
+
+        public override void WalkEchoTag(EchoTag echoTag)
+        {
+            this.RenderEchoTag(echoTag, this.writer);
+        }
+
+        public override void WalkTextElement(TextElement textElement)
+        {
+            this.RenderTextElement(textElement, this.writer);
+        }
 
         private static string ToLiteral(string input)
         {
