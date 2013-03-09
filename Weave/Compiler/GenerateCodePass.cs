@@ -11,6 +11,7 @@ namespace Weave.Compiler
     using System.Collections.Generic;
     using System.Globalization;
     using System.IO;
+    using System.Linq;
     using System.Text;
     using Weave.Expressions;
 
@@ -40,6 +41,31 @@ namespace Weave.Compiler
             public GenerateCodeWalker(TextWriter writer)
             {
                 this.writer = writer;
+            }
+
+            public override void WalkTemplate(Template template)
+            {
+                var settings = template.Settings.ToLookup(s => s.Key, s => s.Value);
+                var @namespace = settings["namespace"].SingleOrDefault() ?? "Templates";
+                var classname = settings["classname"].SingleOrDefault() ?? "Template";
+                var methodname = settings["methodname"].SingleOrDefault() ?? "Render";
+                var model = settings["model"].SingleOrDefault() ?? "dynamic";
+
+                this.writer.Write("namespace ");
+                this.writer.Write(@namespace);
+                this.writer.Write("\r\n{\r\n");
+                this.writer.Write("public partial class ");
+                this.writer.Write(classname);
+                this.writer.Write("\r\n{\r\n");
+                this.writer.Write("public void ");
+                this.writer.Write(methodname);
+                this.writer.Write("(");
+                this.writer.Write(model);
+                this.writer.Write(" model, TextWriter writer)\r\n{\r\n");
+                base.WalkTemplate(template);
+                this.writer.Write("}\r\n");
+                this.writer.Write("}\r\n");
+                this.writer.Write("}\r\n");
             }
 
             public override void WalkCodeElement(CodeElement codeElement)

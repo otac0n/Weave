@@ -18,18 +18,26 @@ namespace Weave.Expressions
     public class Template
     {
         private readonly IList<Element> elements;
+        private readonly IList<KeyValuePair<string, string>> settings;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Template"/> class.
         /// </summary>
+        /// <param name="settings">The settings in this <see cref="Template"/>.</param>
         /// <param name="elements">The elements in this <see cref="Template"/>.</param>
-        public Template(IEnumerable<Element> elements)
+        public Template(IEnumerable<KeyValuePair<string, string>> settings, IEnumerable<Element> elements)
         {
+            if (settings == null)
+            {
+                throw new ArgumentNullException("settings");
+            }
+
             if (elements == null)
             {
                 throw new ArgumentNullException("elements");
             }
 
+            this.settings = settings.ToList().AsReadOnly();
             this.elements = elements.ToList().AsReadOnly();
         }
 
@@ -39,6 +47,14 @@ namespace Weave.Expressions
         public IList<Element> Elements
         {
             get { return this.elements; }
+        }
+
+        /// <summary>
+        /// Gets the settings in this <see cref="Template"/>.
+        /// </summary>
+        public IList<KeyValuePair<string, string>> Settings
+        {
+            get { return this.settings; }
         }
     }
 }

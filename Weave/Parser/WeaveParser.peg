@@ -4,12 +4,14 @@
 @using Weave.Expressions
 
 template <Template>
-    = s:section EOF {
-        new Template(s)
+    = settings:setting* EOL? elements:element* EOF {
+        new Template(settings, elements)
     }
 
-section <IList<Element>>
-    = element*
+setting <KeyValuePair<string, string>>
+    = "@" key:identifier (!EOL WS)+ value:("" (!EOL .)+) (EOL / !.) {
+        new KeyValuePair<string, string>(key, value)
+    }
 
 element <Element>
     = tag
@@ -56,8 +58,32 @@ text <TextElement>
 expression
     = "" (!"}}" .)+
 
+identifier
+    = !digit (letter / digit / "_" / "$")+
+
+digit
+  = [0-9]
+
+letter
+  = lowerCaseLetter
+  / upperCaseLetter
+
+lowerCaseLetter
+  = [a-z]
+
+upperCaseLetter
+  = [A-Z]
+
 WS
-    = [ \t\r\n\v\f\u00A0\uFEFF\u1680\u180E\u2000-\u200A\u202F\u205F\u3000]
+    = [ \t\v\f\u00A0\uFEFF\u1680\u180E\u2000-\u200A\u202F\u205F\u3000]
+    / EOL
+
+EOL
+    = "\n"
+    / "\r\n"
+    / "\r"
+    / "\u2028"
+    / "\u2029"
 
 EOF
   = !.
