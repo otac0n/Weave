@@ -21,6 +21,7 @@ namespace Weave.Compiler
             { "accessibility", true },
             { "classname", true },
             { "methodname", true },
+            { "model", true },
             { "using", false },
         };
 
