@@ -1,0 +1,27 @@
+﻿@namespace Weave.Compiler
+@methodname RenderEachTag
+@model EachTag
+
+{{
+    var flag = this.CreateVariable("_flag");
+}}
+
+{{if model.NoneBody != null}}
+    bool {{= flag }};
+{{/if}}
+
+foreach ({{= model.Expression }})
+{
+    {{if model.NoneBody != null}}
+        {{= flag }} = true;
+    {{/if}}
+
+    {{ this.WalkElements(model.Body); }}
+}
+
+{{if model.NoneBody != null}}
+    if (!{{= flag }})
+    {
+        {{ this.WalkElements(model.NoneBody); }}
+    }
+{{/if}}
