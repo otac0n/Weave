@@ -11,6 +11,7 @@ namespace Weave.Expressions
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Pegasus.Common;
 
     /// <summary>
     /// Represents a Weave <see cref="Template"/>.
@@ -18,18 +19,25 @@ namespace Weave.Expressions
     public class Template
     {
         private readonly IList<Element> elements;
-        private readonly IList<KeyValuePair<string, string>> settings;
+        private readonly Cursor settingsEnd;
+        private readonly IList<KeyValuePair<SourceSpan, SourceSpan>> settings;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Template"/> class.
         /// </summary>
         /// <param name="settings">The settings in this <see cref="Template"/>.</param>
+        /// <param name="settingsEnd">The ending cursor of the settings section.</param>
         /// <param name="elements">The elements in this <see cref="Template"/>.</param>
-        public Template(IEnumerable<KeyValuePair<string, string>> settings, IEnumerable<Element> elements)
+        public Template(IEnumerable<KeyValuePair<SourceSpan, SourceSpan>> settings, Cursor settingsEnd, IEnumerable<Element> elements)
         {
             if (settings == null)
             {
                 throw new ArgumentNullException("settings");
+            }
+
+            if (settingsEnd == null)
+            {
+                throw new ArgumentNullException("settingsEnd");
             }
 
             if (elements == null)
@@ -38,6 +46,7 @@ namespace Weave.Expressions
             }
 
             this.settings = settings.ToList().AsReadOnly();
+            this.settingsEnd = settingsEnd;
             this.elements = elements.ToList().AsReadOnly();
         }
 
@@ -50,9 +59,17 @@ namespace Weave.Expressions
         }
 
         /// <summary>
+        /// Gets the cursor after the settings section.
+        /// </summary>
+        public Cursor SettingsEnd
+        {
+            get { return this.settingsEnd; }
+        }
+
+        /// <summary>
         /// Gets the settings in this <see cref="Template"/>.
         /// </summary>
-        public IList<KeyValuePair<string, string>> Settings
+        public IList<KeyValuePair<SourceSpan, SourceSpan>> Settings
         {
             get { return this.settings; }
         }

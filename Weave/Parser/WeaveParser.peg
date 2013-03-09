@@ -5,12 +5,14 @@
 
 template <Template>
     = settings:setting* EOL? elements:element* EOF {
-        new Template(settings, elements)
+        new Template(settings, settingsEnd, elements)
     }
 
-setting <KeyValuePair<string, string>>
+setting <KeyValuePair<SourceSpan, SourceSpan>>
     = "@" key:identifier (!EOL WS)+ value:("" (!EOL .)+) (EOL / !.) {
-        new KeyValuePair<string, string>(key, value)
+        new KeyValuePair<SourceSpan, SourceSpan>(
+            new SourceSpan(key, keyStart, keyEnd),
+            new SourceSpan(value, valueStart, valueEnd))
     }
 
 element <Element>

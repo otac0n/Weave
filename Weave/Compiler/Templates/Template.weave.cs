@@ -14,7 +14,7 @@ namespace Weave.Compiler
         public void RenderTemplate(Template model, TextWriter writer)
         {
             
-    var settings = model.Settings.ToLookup(s => s.Key, s => s.Value);
+    var settings = model.Settings.ToLookup(s => s.Key.Value, s => (object)s.Value);
     var @namespace = settings["namespace"].Single();
     var accessibility = settings["accessibility"].SingleOrDefault() ?? string.Empty;
     var className = settings["classname"].SingleOrDefault() ?? "Templates";

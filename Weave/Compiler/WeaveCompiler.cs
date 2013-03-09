@@ -34,9 +34,26 @@ namespace Weave.Compiler
             var result = new CompileResult();
 
             var passes = PassTypes.Select(t => (CompilePass)Activator.CreateInstance(t)).ToList();
-            foreach (var pass in passes)
+            while (true)
             {
-                pass.Run(template, result);
+                var existingErrors = new HashSet<string>(result.Errors.Select(e => e.ErrorNumber));
+                var pendingErrors = new HashSet<string>(passes.SelectMany(p => p.ErrorsProduced));
+
+                var nextPasses = passes
+                    .Where(p => !p.BlockedByErrors.Any(e => existingErrors.Contains(e)))
+                    .Where(p => !p.BlockedByErrors.Any(e => pendingErrors.Contains(e)))
+                    .ToList();
+
+                if (nextPasses.Count == 0)
+                {
+                    break;
+                }
+
+                foreach (var pass in nextPasses)
+                {
+                    pass.Run(template, result);
+                    passes.Remove(pass);
+                }
             }
 
             return result;
