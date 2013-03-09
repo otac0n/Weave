@@ -30,10 +30,10 @@ ifTag <IfTag>
     }
 
 ifBody <Branch>
-    = "{{if" WS+ expr:expression "}}" body:element* { new Branch(expr, body) }
+    = "{{if" &WS expr:expression "}}" body:element* { new Branch(expr, body) }
 
 elifBody <Branch>
-    = "{{elif" WS+ expr:expression "}}" body:element* { new Branch(expr, body) }
+    = "{{elif" &WS expr:expression "}}" body:element* { new Branch(expr, body) }
 
 elseBody <Branch>
     = "{{else}}" body:element* { new Branch(null, body) }
@@ -42,7 +42,7 @@ endIf
     = "{{/if}}"
 
 eachTag <EachTag>
-    = "{{each" WS+ expr:expression "}}" body:element* none:noneBody? endEach {
+    = "{{each" &WS expr:expression "}}" body:element* none:noneBody? endEach {
         new EachTag(expr, body, none.SingleOrDefault())
     }
 
