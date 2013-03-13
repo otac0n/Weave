@@ -42,10 +42,17 @@
     <Compile Include="..\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="TemplateHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
     <None Include="Settings.StyleCop" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Weave\Weave.csproj">
+      <Project>{5f547992-8b86-4191-b259-2b7b72bfaea6}</Project>
+      <Name>Weave</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(ProgramFiles)\MSBuild\StyleCop\v4.7\StyleCop.Targets" Condition="Exists('$(ProgramFiles)\MSBuild\StyleCop\v4.7\StyleCop.Targets')" />
