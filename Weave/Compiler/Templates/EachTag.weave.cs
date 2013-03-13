@@ -8,7 +8,14 @@
 // </auto-generated>
 // -----------------------------------------------------------------------
 
-namespace Weave.Compiler
+namespace 
+
+
+#line 1 "EachTag.weave"
+           Weave.Compiler
+#line default
+
+
 {
     using System.IO;
     

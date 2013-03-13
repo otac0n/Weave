@@ -8,7 +8,14 @@
 // </auto-generated>
 // -----------------------------------------------------------------------
 
-namespace Weave.Compiler
+namespace 
+
+
+#line 1 "Template.weave"
+           Weave.Compiler
+#line default
+
+
 {
     using System.IO;
     
@@ -99,14 +106,13 @@ writer.Write(
 
 );
 writer.Write("\r\n//\r\n//   Changes to this file may cause incorrect behavior and will be lost if\r\n//   the code is regenerated.\r\n// </auto-generated>\r\n// -----------------------------------------------------------------------\r\n\r\nnamespace ");
-writer.Write(
+
 
 
 #line 26 "Template.weave"
-              @namespace 
+             this.RenderCode(@namespace, writer); 
 #line default
 
-);
 writer.Write("\r\n{\r\n    using System.IO;\r\n    ");
 
 

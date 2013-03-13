@@ -23,7 +23,7 @@
 // </auto-generated>
 // -----------------------------------------------------------------------
 
-namespace {{= @namespace }}
+namespace {{ this.RenderCode(@namespace, writer); }}
 {
     using System.IO;
     {{each @using in settings["using"]}}
