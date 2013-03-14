@@ -25,6 +25,61 @@ namespace Weave.Tests.IntegrationTests
         }
 
         [Test]
+        public void SimpleIfBlockWithASingleLineBody_EmitsASingleLineWhenTheConditionIsMet()
+        {
+            var template = "foo\n{{if model}}\n    bar\n{{/if}}\nbaz";
+            var model = true;
+
+            var result = TemplateHelper.Render(template, model);
+
+            Assert.That(result, Is.EqualTo("foo\n    bar\nbaz"));
+        }
+
+        [Test]
+        public void IfBlockWithAnInlineStartTag_EmitsAllWhitespaceWhenTheConditionIsMet()
+        {
+            var template = "foo\n    bar {{if model}}\n    baz\n{{/if}}\nbaz";
+            var model = true;
+
+            var result = TemplateHelper.Render(template, model);
+
+            Assert.That(result, Is.EqualTo("foo\n    bar \n    baz\n\nbaz"));
+        }
+
+        [Test]
+        public void IfBlockWithAnInlineStartTag_EmitsSurroundingWhitespaceWhenTheConditionIsNotMet()
+        {
+            var template = "foo\n    bar {{if model}}\n    baz\n{{/if}}\nbaz";
+            var model = false;
+
+            var result = TemplateHelper.Render(template, model);
+
+            Assert.That(result, Is.EqualTo("foo\n    bar \nbaz"));
+        }
+
+        [Test]
+        public void IfBlockWithAnInlineEndTag_EmitsAllWhitespaceWhenTheConditionIsMet()
+        {
+            var template = "foo\n{{if model}}\n    baz {{/if}}\nbaz";
+            var model = true;
+
+            var result = TemplateHelper.Render(template, model);
+
+            Assert.That(result, Is.EqualTo("foo\n\n    baz \nbaz"));
+        }
+
+        [Test]
+        public void IfBlockWithAnInlineEndTag_EmitsSurroundingWhitespaceWhenTheConditionIsNotMet()
+        {
+            var template = "foo\n{{if model}}\n    baz {{/if}}\nbaz";
+            var model = false;
+
+            var result = TemplateHelper.Render(template, model);
+
+            Assert.That(result, Is.EqualTo("foo\n\nbaz"));
+        }
+
+        [Test]
         public void StatementBlockOnALineOfItsOwn_DoesNotEmitItselfOrTheLine()
         {
             var template = "foo\n    {{ /* no-op */ }}    \r\nbar";
@@ -92,6 +147,26 @@ namespace Weave.Tests.IntegrationTests
             var result = TemplateHelper.Render(template, null);
 
             Assert.That(result, Is.EqualTo("foo\n"));
+        }
+
+        [Test]
+        public void StatementBlockAtTheBottomWithExtraPrecedingBlankLine_EmitsExtraBlankLineAtTheBottom()
+        {
+            var template = "foo\n\n\n{{ /* no-op */ }}\n";
+
+            var result = TemplateHelper.Render(template, null);
+
+            Assert.That(result, Is.EqualTo("foo\n\n"));
+        }
+
+        [Test]
+        public void StatementBlockAtTheBottomWithExtraPrecedingAndFollowingBlankLines_EmitsTwoBlankLinesAtTheBottom()
+        {
+            var template = "foo\n\n{{ /* no-op */ }}\n\n";
+
+            var result = TemplateHelper.Render(template, null);
+
+            Assert.That(result, Is.EqualTo("foo\n\n"));
         }
     }
 }
