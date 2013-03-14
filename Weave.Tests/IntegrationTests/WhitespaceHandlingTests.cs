@@ -14,7 +14,7 @@ namespace Weave.Tests.IntegrationTests
     public class WhitespaceHandlingTests
     {
         [Test]
-        public void SimpleEachBlocksWithASingleLineBody_EmitsASingleLinePerIterationOfTheBody()
+        public void SimpleEachBlockWithASingleLineBody_EmitsASingleLinePerIterationOfTheBody()
         {
             var template = "foo\n{{each i in model}}\n    bar\n{{/each}}\nbaz";
             var model = Enumerable.Range(0, 3);
