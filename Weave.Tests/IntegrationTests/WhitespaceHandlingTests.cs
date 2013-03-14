@@ -91,7 +91,7 @@ namespace Weave.Tests.IntegrationTests
 
             var result = TemplateHelper.Render(template, null);
 
-            Assert.That(result, Is.EqualTo("foo"));
+            Assert.That(result, Is.EqualTo("foo\n"));
         }
     }
 }
