@@ -51,7 +51,7 @@ namespace
 
 )
 {
-writer.Write("\r\n");
+writer.WriteLine();
 writer.Write("#line ");
 writer.Write(
 #line 9 "Code.weave"
@@ -67,7 +67,7 @@ writer.Write(
 
 );
 writer.Write("\"");
-writer.Write("\r\n");
+writer.WriteLine();
 writer.Write(
 #line 10 "Code.weave"
     new string(' ', span.Start.Column - 1) 
@@ -80,10 +80,10 @@ writer.Write(
 #line default
 
 );
-writer.Write("\r\n");
+writer.WriteLine();
 writer.Write("#line default");
-writer.Write("\r\n");
-writer.Write("\r\n");
+writer.WriteLine();
+writer.WriteLine();
 }        else
 {
 writer.Write("    ");
@@ -93,7 +93,7 @@ writer.Write(
 #line default
 
 );
-writer.Write("\r\n");
+writer.WriteLine();
 }        }
     }
 }

@@ -8,7 +8,7 @@
 // -----------------------------------------------------------------------
 
 namespace 
-#line 1 "Branch.weave"
+#line 1 "NewLineElement.weave"
            Weave.Compiler
 #line default
 
@@ -16,7 +16,7 @@ namespace
 {
     using System.IO;
         using 
-#line 4 "Branch.weave"
+#line 4 "NewLineElement.weave"
        Weave.Expressions
 #line default
 
@@ -28,40 +28,19 @@ namespace
     {
         [System.CodeDom.Compiler.GeneratedCode("Weave", "1.0.0.0")]
         public void 
-#line 2 "Branch.weave"
-            RenderBranch
+#line 2 "NewLineElement.weave"
+            RenderNewLineElement
 #line default
 
 (
-#line 3 "Branch.weave"
-       Branch
+#line 3 "NewLineElement.weave"
+       NewLineElement
 #line default
 
  model, TextWriter writer)
         {
-    if (
-#line 6 "Branch.weave"
-     model.Expression != null
-#line default
-
-)
-{
-writer.Write("    if (");
-
-#line 7 "Branch.weave"
-           this.RenderCode(model.Expression, writer); 
-#line default
-
-writer.Write(")");
+writer.Write("writer.WriteLine();");
 writer.WriteLine();
-}writer.Write("{");
-writer.WriteLine();
-
-#line 10 "Branch.weave"
-       this.WalkElements(model.Body); 
-#line default
-
-writer.Write("}");
         }
     }
 }

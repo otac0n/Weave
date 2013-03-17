@@ -61,6 +61,11 @@ namespace Weave.Compiler
             this.RenderEchoTag(echoTag, this.writer);
         }
 
+        public override void WalkNewLineElement(NewLineElement newLineElement)
+        {
+            this.RenderNewLineElement(newLineElement, this.writer);
+        }
+
         public override void WalkTextElement(TextElement textElement)
         {
             this.RenderTextElement(textElement, this.writer);

@@ -46,7 +46,7 @@ namespace
 
 #line default
 
-writer.Write("\r\n");
+writer.WriteLine();
     if (
 #line 10 "EachElement.weave"
      model.NoneBody != null
@@ -62,8 +62,8 @@ writer.Write(
 
 );
 writer.Write(";");
-writer.Write("\r\n");
-}writer.Write("\r\n");
+writer.WriteLine();
+}writer.WriteLine();
 writer.Write("foreach (var ");
 
 #line 14 "EachElement.weave"
@@ -71,9 +71,9 @@ writer.Write("foreach (var ");
 #line default
 
 writer.Write(")");
-writer.Write("\r\n");
+writer.WriteLine();
 writer.Write("{");
-writer.Write("\r\n");
+writer.WriteLine();
     if (
 #line 16 "EachElement.weave"
          model.NoneBody != null
@@ -89,16 +89,16 @@ writer.Write(
 
 );
 writer.Write(" = true;");
-writer.Write("\r\n");
-}writer.Write("\r\n");
+writer.WriteLine();
+}writer.WriteLine();
 
 #line 20 "EachElement.weave"
        this.WalkElements(model.Body); 
 #line default
 
 writer.Write("}");
-writer.Write("\r\n");
-writer.Write("\r\n");
+writer.WriteLine();
+writer.WriteLine();
     if (
 #line 23 "EachElement.weave"
      model.NoneBody != null
@@ -114,16 +114,16 @@ writer.Write(
 
 );
 writer.Write(")");
-writer.Write("\r\n");
+writer.WriteLine();
 writer.Write("    {");
-writer.Write("\r\n");
+writer.WriteLine();
 
 #line 26 "EachElement.weave"
            this.WalkElements(model.NoneBody); 
 #line default
 
 writer.Write("    }");
-writer.Write("\r\n");
+writer.WriteLine();
 }        }
     }
 }

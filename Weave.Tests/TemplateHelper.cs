@@ -47,6 +47,7 @@ namespace Weave.Tests
 
             using (var writer = new StringWriter())
             {
+                writer.NewLine = "\n";
                 var instance = Activator.CreateInstance(type);
                 method.Invoke(instance, new[] { model, writer });
                 return writer.ToString();

@@ -47,7 +47,7 @@ writer.Write(
 
 );
 writer.Write(");");
-writer.Write("\r\n");
+writer.WriteLine();
         }
     }
 }

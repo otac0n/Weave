@@ -62,7 +62,7 @@ foreach (var
 )
 {
 writer.Write("        else");
-writer.Write("\r\n");
+writer.WriteLine();
 }
 #line 11 "IfElement.weave"
        this.WalkBranch(branch); 

@@ -40,6 +40,7 @@ namespace Weave.Compiler
             EachElement eachElement;
             EchoTag echoTag;
             IfElement ifElement;
+            NewLineElement newLineElement;
             TextElement textElement;
 
             if ((codeElement = element as CodeElement) != null)
@@ -57,6 +58,10 @@ namespace Weave.Compiler
             else if ((ifElement = element as IfElement) != null)
             {
                 this.WalkIfElement(ifElement);
+            }
+            else if ((newLineElement = element as NewLineElement) != null)
+            {
+                this.WalkNewLineElement(newLineElement);
             }
             else if ((textElement = element as TextElement) != null)
             {
@@ -86,6 +91,10 @@ namespace Weave.Compiler
             {
                 this.WalkBranch(branch);
             }
+        }
+
+        public virtual void WalkNewLineElement(NewLineElement newLineElement)
+        {
         }
 
         public virtual void WalkTemplate(Template template)

@@ -73,6 +73,9 @@
     <Compile Include="Compiler\Templates\IfElement.weave.cs">
       <DependentUpon>IfElement.weave</DependentUpon>
     </Compile>
+    <Compile Include="Compiler\Templates\NewLineElement.weave.cs">
+      <DependentUpon>NewLineElement.weave</DependentUpon>
+    </Compile>
     <Compile Include="Compiler\Templates\Template.weave.cs">
       <DependentUpon>Template.weave</DependentUpon>
     </Compile>
@@ -87,6 +90,7 @@
     <Compile Include="Expressions\EchoTag.cs" />
     <Compile Include="Expressions\Element.cs" />
     <Compile Include="Expressions\IfElement.cs" />
+    <Compile Include="Expressions\NewLineElement.cs" />
     <Compile Include="Expressions\SourceSpan.cs" />
     <Compile Include="Expressions\Template.cs" />
     <Compile Include="Expressions\TextElement.cs" />
@@ -104,6 +108,7 @@
     <None Include="Compiler\Templates\EachElement.weave" />
     <None Include="Compiler\Templates\EchoTag.weave" />
     <None Include="Compiler\Templates\IfElement.weave" />
+    <None Include="Compiler\Templates\NewLineElement.weave" />
     <None Include="Compiler\Templates\Template.weave" />
     <None Include="Compiler\Templates\TextElement.weave" />
     <None Include="packages.config" />

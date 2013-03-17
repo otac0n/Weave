@@ -23,7 +23,7 @@ line <IList<Element>>
     / textLine
 
 textLine <IList<Element>>
-    = !EOF contents:inlineElement* end:(EOL / EOF) { contents.Concat(new[] { new TextElement(end) }).ToList() }
+    = !EOF contents:inlineElement* end:(EOL / EOF) { end == string.Empty ? contents : contents.Concat(new[] { new NewLineElement() }).ToList() }
 
 inlineContents <IList<Element>>
     = body:(<IEnumerable<Element>> first:textLine middle:lines { first.Concat(middle) })? rest:inlineElement* { body.SelectMany(b => b).Concat(rest).ToList() }
