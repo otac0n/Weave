@@ -51,9 +51,9 @@ namespace Weave.Compiler
             this.RenderBranch(branch, this.writer);
         }
 
-        public override void WalkEachTag(EachTag eachTag)
+        public override void WalkEachElement(EachElement eachElement)
         {
-            this.RenderEachTag(eachTag, this.writer);
+            this.RenderEachElement(eachElement, this.writer);
         }
 
         public override void WalkEchoTag(EchoTag echoTag)

@@ -8,7 +8,7 @@
 // -----------------------------------------------------------------------
 
 namespace 
-#line 1 "EachTag.weave"
+#line 1 "EachElement.weave"
            Weave.Compiler
 #line default
 
@@ -16,7 +16,7 @@ namespace
 {
     using System.IO;
         using 
-#line 4 "EachTag.weave"
+#line 4 "EachElement.weave"
        Weave.Expressions
 #line default
 
@@ -28,19 +28,19 @@ namespace
     {
         [System.CodeDom.Compiler.GeneratedCode("Weave", "1.0.0.0")]
         public void 
-#line 2 "EachTag.weave"
-            RenderEachTag
+#line 2 "EachElement.weave"
+            RenderEachElement
 #line default
 
 (
-#line 3 "EachTag.weave"
-       EachTag
+#line 3 "EachElement.weave"
+       EachElement
 #line default
 
  model, TextWriter writer)
         {
 
-#line 6 "EachTag.weave"
+#line 6 "EachElement.weave"
   
     var flag = this.CreateVariable("_flag");
 
@@ -48,7 +48,7 @@ namespace
 
 writer.Write("\r\n");
     if (
-#line 10 "EachTag.weave"
+#line 10 "EachElement.weave"
      model.NoneBody != null
 #line default
 
@@ -56,7 +56,7 @@ writer.Write("\r\n");
 {
 writer.Write("    bool ");
 writer.Write(
-#line 11 "EachTag.weave"
+#line 11 "EachElement.weave"
              flag 
 #line default
 
@@ -66,7 +66,7 @@ writer.Write("\r\n");
 }writer.Write("\r\n");
 writer.Write("foreach (var ");
 
-#line 14 "EachTag.weave"
+#line 14 "EachElement.weave"
                 this.RenderCode(model.Expression, writer); 
 #line default
 
@@ -75,7 +75,7 @@ writer.Write("\r\n");
 writer.Write("{");
 writer.Write("\r\n");
     if (
-#line 16 "EachTag.weave"
+#line 16 "EachElement.weave"
          model.NoneBody != null
 #line default
 
@@ -83,7 +83,7 @@ writer.Write("\r\n");
 {
 writer.Write("        ");
 writer.Write(
-#line 17 "EachTag.weave"
+#line 17 "EachElement.weave"
             flag 
 #line default
 
@@ -92,7 +92,7 @@ writer.Write(" = true;");
 writer.Write("\r\n");
 }writer.Write("\r\n");
 
-#line 20 "EachTag.weave"
+#line 20 "EachElement.weave"
        this.WalkElements(model.Body); 
 #line default
 
@@ -100,7 +100,7 @@ writer.Write("}");
 writer.Write("\r\n");
 writer.Write("\r\n");
     if (
-#line 23 "EachTag.weave"
+#line 23 "EachElement.weave"
      model.NoneBody != null
 #line default
 
@@ -108,7 +108,7 @@ writer.Write("\r\n");
 {
 writer.Write("    if (!");
 writer.Write(
-#line 24 "EachTag.weave"
+#line 24 "EachElement.weave"
              flag 
 #line default
 
@@ -118,7 +118,7 @@ writer.Write("\r\n");
 writer.Write("    {");
 writer.Write("\r\n");
 
-#line 26 "EachTag.weave"
+#line 26 "EachElement.weave"
            this.WalkElements(model.NoneBody); 
 #line default
 

@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="EachTag.cs" company="(none)">
+// <copyright file="EachElement.cs" company="(none)">
 //   Copyright © 2013 John Gietzen.  All Rights Reserved.
 //   This source is subject to the MIT license.
 //   Please see license.txt for more information.
@@ -15,19 +15,19 @@ namespace Weave.Expressions
     /// <summary>
     /// Represents a repeated section of the <see cref="Template"/>.
     /// </summary>
-    public class EachTag : Element
+    public class EachElement : Element
     {
         private readonly IList<Element> body;
         private readonly SourceSpan expression;
         private readonly IList<Element> noneBody;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="EachTag"/> class.
+        /// Initializes a new instance of the <see cref="EachElement"/> class.
         /// </summary>
         /// <param name="expression">The code expression that describes the iteration subject.</param>
         /// <param name="body">The body of the loop.</param>
         /// <param name="noneBody">An optional body that is rendered when the iteration subject is empty.</param>
-        public EachTag(SourceSpan expression, IEnumerable<Element> body, IEnumerable<Element> noneBody)
+        public EachElement(SourceSpan expression, IEnumerable<Element> body, IEnumerable<Element> noneBody)
         {
             if (expression == null)
             {
@@ -45,7 +45,7 @@ namespace Weave.Expressions
         }
 
         /// <summary>
-        /// Gets the elements in this <see cref="EachTag"/>
+        /// Gets the elements in this <see cref="EachElement"/>
         /// </summary>
         public IList<Element> Body
         {
@@ -61,7 +61,7 @@ namespace Weave.Expressions
         }
 
         /// <summary>
-        /// Gets the optional none-body of this <see cref="EachTag"/>.
+        /// Gets the optional none-body of this <see cref="EachElement"/>.
         /// </summary>
         public IList<Element> NoneBody
         {

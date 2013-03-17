@@ -20,13 +20,13 @@ namespace Weave.Compiler
             this.WalkElements(branch.Body);
         }
 
-        public virtual void WalkEachTag(EachTag eachTag)
+        public virtual void WalkEachElement(EachElement eachElement)
         {
-            this.WalkElements(eachTag.Body);
+            this.WalkElements(eachElement.Body);
 
-            if (eachTag.NoneBody != null)
+            if (eachElement.NoneBody != null)
             {
-                this.WalkElements(eachTag.NoneBody);
+                this.WalkElements(eachElement.NoneBody);
             }
         }
 
@@ -37,7 +37,7 @@ namespace Weave.Compiler
         public virtual void WalkElement(Element element)
         {
             CodeElement codeElement;
-            EachTag eachTag;
+            EachElement eachElement;
             EchoTag echoTag;
             IfElement ifElement;
             TextElement textElement;
@@ -46,9 +46,9 @@ namespace Weave.Compiler
             {
                 this.WalkCodeElement(codeElement);
             }
-            else if ((eachTag = element as EachTag) != null)
+            else if ((eachElement = element as EachElement) != null)
             {
-                this.WalkEachTag(eachTag);
+                this.WalkEachElement(eachElement);
             }
             else if ((echoTag = element as EchoTag) != null)
             {

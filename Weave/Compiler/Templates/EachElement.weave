@@ -1,6 +1,6 @@
 ﻿@namespace Weave.Compiler
-@methodname RenderEachTag
-@model EachTag
+@methodname RenderEachElement
+@model EachElement
 @using Weave.Expressions
 
 {{
