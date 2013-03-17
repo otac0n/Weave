@@ -10,7 +10,6 @@
 
 namespace 
 
-
 #line 1 "EchoTag.weave"
            Weave.Compiler
 #line default
@@ -18,35 +17,28 @@ namespace
 
 {
     using System.IO;
-    
         using 
-
 
 #line 4 "EchoTag.weave"
        Weave.Expressions
 #line default
 
 ;
-    
 
     
-
     
  partial class 
-
     Templates
 
     {
         [System.CodeDom.Compiler.GeneratedCode("Weave", "1.0.0.0")]
         public void 
 
-
 #line 2 "EchoTag.weave"
             RenderEchoTag
 #line default
 
 (
-
 
 #line 3 "EchoTag.weave"
        EchoTag
@@ -57,12 +49,12 @@ namespace
             writer.Write("writer.Write(");
 
 
-
 #line 6 "EchoTag.weave"
                 this.RenderCode(model.Expression, writer); 
 #line default
 
-writer.Write(");\r\n");
+writer.Write(");");
+writer.Write("\r\n");
 
         }
     }

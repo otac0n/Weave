@@ -4,58 +4,102 @@
 @using Weave.Expressions
 
 template <Template>
-    = settings:setting* EOL? elements:element* EOF {
+    = settings:setting* EOL? elements:lines (EOF / unexpected:. #ERROR{ string.Format("Unexpected character '{0}'.", unexpected) }) {
         new Template(settings, settingsEnd, elements)
     }
 
 setting <KeyValuePair<SourceSpan, SourceSpan>>
-    = "@" key:identifier (!EOL WS)+ value:("" (!EOL .)+) (EOL / !.) {
+    = "@" key:identifier (!EOL WS)+ value:("" (!EOL .)+) (EOL / EOF) {
         new KeyValuePair<SourceSpan, SourceSpan>(
             new SourceSpan(key, keyStart, keyEnd),
             new SourceSpan(value, valueStart, valueEnd))
     }
 
-element <Element>
-    = tag
-    / text
+lines <IList<Element>>
+    = lines:line* { lines.SelectMany(l => l).ToList() }
+
+line <IList<Element>>
+    = t:tag { new[] { t } }
+    / textLine
+
+textLine <IList<Element>>
+    = !EOF contents:inlineElement* end:(EOL / EOF) { contents.Concat(new[] { new TextElement(end) }).ToList() }
+
+inlineContents <IList<Element>>
+    = body:(<IEnumerable<Element>> first:textLine middle:lines { first.Concat(middle) })? rest:inlineElement* { body.SelectMany(b => b).Concat(rest).ToList() }
+
+inlineElement <Element>
+    = t:text                         { new TextElement(t)                }
+    / "{{:" WS? expr:expression "}}" { new EchoTag(expr, encoded: true)  }
+    / "{{=" WS? expr:expression "}}" { new EchoTag(expr, encoded: false) }
+    / "{{" &WS expr:expression "}}"  { new CodeElement(expr)             }
+    / inlineIfElement
+    / inlineEachElement
 
 tag <Element>
-    = ifTag
-    / eachTag
-    / "{{:" WS? expr:expression "}}" { new EchoTag(expr, encoded: true) }
-    / "{{=" WS? expr:expression "}}" { new EchoTag(expr, encoded: false) }
-    / "{{" &WS expr:expression "}}" { new CodeElement(expr) }
+    = ifElement
+    / eachElement
 
-ifTag <IfTag>
-    = if:ifBody elseIfs:elifBody* else:elseBody? endIf {
+ifElement <IfTag>
+    = if:ifBody elseIfs:elifBody* else:elseBody? (!EOL WS)* endIfTag (!EOL WS)* (EOL / EOF) {
         new IfTag(new[] { @if }.Concat(elseIfs).Concat(@else))
     }
 
 ifBody <Branch>
-    = "{{if" &WS expr:expression "}}" body:element* { new Branch(expr, body) }
+    = (!EOL WS)* expr:ifTag   (!EOL WS)* EOL body:lines { new Branch(expr, body) }
 
 elifBody <Branch>
-    = "{{elif" &WS expr:expression "}}" body:element* { new Branch(expr, body) }
+    = (!EOL WS)* expr:elifTag (!EOL WS)* EOL body:lines { new Branch(expr, body) }
 
 elseBody <Branch>
-    = "{{else}}" body:element* { new Branch(null, body) }
+    = (!EOL WS)* elseTag      (!EOL WS)* EOL body:lines { new Branch(null, body) }
 
-endIf
-    = "{{/if}}"
-
-eachTag <EachTag>
-    = "{{each" &WS expr:expression "}}" body:element* none:noneBody? endEach {
-        new EachTag(expr, body, none.SingleOrDefault())
+inlineIfElement <IfTag>
+    = if:inlineIfBody elseIfs:inlineElifBody* else:inlineElseBody? endIfTag {
+        new IfTag(new[] { @if }.Concat(elseIfs).Concat(@else))
     }
 
+inlineIfBody <Branch>
+    = expr:ifTag   body:inlineContents { new Branch(expr, body) }
+
+inlineElifBody <Branch>
+    = expr:elifTag body:inlineContents { new Branch(expr, body) }
+
+inlineElseBody <Branch>
+    = elseTag      body:inlineContents { new Branch(null, body) }
+
+eachElement <Element>
+    = each:eachBody none:noneBody? (!EOL WS)* endEachTag (!EOL WS)* (EOL / EOF) {
+        new EachTag(each.Item1, each.Item2, none.SingleOrDefault())
+    }
+
+eachBody <Tuple<SourceSpan, IList<Element>>>
+    = (!EOL WS)* expr:eachTag (!EOL WS)* EOL body:lines { Tuple.Create(expr, (IList<Element>)body) }
+
 noneBody <IList<Element>>
-    = "{{none}}" body:element* { body }
+    = (!EOL WS)* noneTag (!EOL WS)* EOL body:lines { body }
 
-endEach
-    = "{{/each}}"
+inlineEachElement <Element>
+    = each:inlineEachBody none:inlineNoneBody? endEachTag {
+        new EachTag(each.Item1, each.Item2, none.SingleOrDefault())
+    }
 
-text <TextElement>
-    = value:("" (!"{{" .)+) { new TextElement(value) }
+inlineEachBody <Tuple<SourceSpan, IList<Element>>>
+    = expr:eachTag body:inlineContents { Tuple.Create(expr, body) }
+
+inlineNoneBody <IList<Element>>
+    = noneTag body:inlineContents { body }
+
+ifTag   <SourceSpan> = "{{if" &WS expr:expression "}}"   { expr }
+elifTag <SourceSpan> = "{{elif" &WS expr:expression "}}" { expr }
+elseTag              = "{{else}}"
+endIfTag             = "{{/if}}"
+eachTag <SourceSpan> = "{{each" &WS expr:expression "}}" { expr }
+noneTag              = "{{none}}"
+endEachTag           = "{{/each}}"
+
+text -memoize
+    = "" (!EOL !"{{" .)+
 
 expression <SourceSpan>
     = text:("" (!"}}" .)+) { new SourceSpan(text, textStart, textEnd) }
@@ -89,4 +133,3 @@ EOL
 
 EOF
   = !.
-  / unexpected:. #ERROR{ string.Format("Unexpected character '{0}'.", unexpected) }

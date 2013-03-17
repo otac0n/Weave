@@ -27,7 +27,7 @@ namespace Weave.Expressions
         /// <param name="expression">The code expression that describes the iteration subject.</param>
         /// <param name="body">The body of the loop.</param>
         /// <param name="noneBody">An optional body that is rendered when the iteration subject is empty.</param>
-        public EachTag(SourceSpan expression, IList<Element> body, IList<Element> noneBody)
+        public EachTag(SourceSpan expression, IEnumerable<Element> body, IEnumerable<Element> noneBody)
         {
             if (expression == null)
             {

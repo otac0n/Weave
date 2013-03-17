@@ -10,7 +10,6 @@
 
 namespace 
 
-
 #line 1 "IfTag.weave"
            Weave.Compiler
 #line default
@@ -18,35 +17,28 @@ namespace
 
 {
     using System.IO;
-    
         using 
-
 
 #line 4 "IfTag.weave"
        Weave.Expressions
 #line default
 
 ;
-    
 
     
-
     
  partial class 
-
     Templates
 
     {
         [System.CodeDom.Compiler.GeneratedCode("Weave", "1.0.0.0")]
         public void 
 
-
 #line 2 "IfTag.weave"
             RenderIfTag
 #line default
 
 (
-
 
 #line 3 "IfTag.weave"
        IfTag
@@ -56,7 +48,6 @@ namespace
         {
             
 
-
 #line 6 "IfTag.weave"
    var first = true; 
 #line default
@@ -65,9 +56,7 @@ writer.Write("\r\n");
 
 
 
-
 foreach (var 
-
 
 #line 7 "IfTag.weave"
        branch in model.Branches
@@ -75,37 +64,30 @@ foreach (var
 
 )
 {
-    
-
-    writer.Write("\r\n    ");
-
 
     
-    
-    if (
-
+        if (
 
 #line 8 "IfTag.weave"
          !first
 #line default
 
 )
-
 {
-    writer.Write("\r\n        else\r\n    ");
+    writer.Write("        else");
+writer.Write("\r\n");
 
 }
     
-writer.Write("\r\n    ");
-
+writer.Write("    ");
 
 
 #line 11 "IfTag.weave"
        this.WalkBranch(branch); 
 #line default
 
-writer.Write("\r\n    ");
-
+writer.Write("\r\n");
+writer.Write("    ");
 
 
 #line 12 "IfTag.weave"

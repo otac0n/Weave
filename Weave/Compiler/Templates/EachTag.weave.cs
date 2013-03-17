@@ -10,7 +10,6 @@
 
 namespace 
 
-
 #line 1 "EachTag.weave"
            Weave.Compiler
 #line default
@@ -18,35 +17,28 @@ namespace
 
 {
     using System.IO;
-    
         using 
-
 
 #line 4 "EachTag.weave"
        Weave.Expressions
 #line default
 
 ;
-    
 
     
-
     
  partial class 
-
     Templates
 
     {
         [System.CodeDom.Compiler.GeneratedCode("Weave", "1.0.0.0")]
         public void 
 
-
 #line 2 "EachTag.weave"
             RenderEachTag
 #line default
 
 (
-
 
 #line 3 "EachTag.weave"
        EachTag
@@ -56,118 +48,113 @@ namespace
         {
             
 
-
 #line 6 "EachTag.weave"
   
     var flag = this.CreateVariable("_flag");
 
 #line default
 
-writer.Write("\r\n\r\n");
+writer.Write("\r\n");
+writer.Write("\r\n");
 
-
-    
-    
-    if (
-
+        if (
 
 #line 10 "EachTag.weave"
      model.NoneBody != null
 #line default
 
 )
-
 {
-    writer.Write("\r\n    bool ");
+    writer.Write("    bool ");
 writer.Write(
-
 
 #line 11 "EachTag.weave"
              flag 
 #line default
 
 );
-writer.Write(";\r\n");
+writer.Write(";");
+writer.Write("\r\n");
 
 }
     
-writer.Write("\r\n\r\nforeach (var ");
-
+writer.Write("\r\n");
+writer.Write("foreach (var ");
 
 
 #line 14 "EachTag.weave"
                 this.RenderCode(model.Expression, writer); 
 #line default
 
-writer.Write(")\r\n{\r\n    ");
+writer.Write(")");
+writer.Write("\r\n");
+writer.Write("{");
+writer.Write("\r\n");
 
-
-    
-    
-    if (
-
+        if (
 
 #line 16 "EachTag.weave"
          model.NoneBody != null
 #line default
 
 )
-
 {
-    writer.Write("\r\n        ");
+    writer.Write("        ");
 writer.Write(
-
 
 #line 17 "EachTag.weave"
             flag 
 #line default
 
 );
-writer.Write(" = true;\r\n    ");
+writer.Write(" = true;");
+writer.Write("\r\n");
 
 }
     
-writer.Write("\r\n\r\n    ");
-
+writer.Write("\r\n");
+writer.Write("    ");
 
 
 #line 20 "EachTag.weave"
        this.WalkElements(model.Body); 
 #line default
 
-writer.Write("\r\n}\r\n\r\n");
+writer.Write("\r\n");
+writer.Write("}");
+writer.Write("\r\n");
+writer.Write("\r\n");
 
-
-    
-    
-    if (
-
+        if (
 
 #line 23 "EachTag.weave"
      model.NoneBody != null
 #line default
 
 )
-
 {
-    writer.Write("\r\n    if (!");
+    writer.Write("    if (!");
 writer.Write(
-
 
 #line 24 "EachTag.weave"
              flag 
 #line default
 
 );
-writer.Write(")\r\n    {\r\n        ");
-
+writer.Write(")");
+writer.Write("\r\n");
+writer.Write("    {");
+writer.Write("\r\n");
+writer.Write("        ");
 
 
 #line 26 "EachTag.weave"
            this.WalkElements(model.NoneBody); 
 #line default
 
-writer.Write("\r\n    }\r\n");
+writer.Write("\r\n");
+writer.Write("    }");
+writer.Write("\r\n");
 
 }
     

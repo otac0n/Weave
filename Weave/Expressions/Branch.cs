@@ -25,7 +25,7 @@ namespace Weave.Expressions
         /// </summary>
         /// <param name="expression">The code expression that determines whether this branch will execute. Null, if this is the default branch.</param>
         /// <param name="body">The body of the branch.</param>
-        public Branch(SourceSpan expression, IList<Element> body)
+        public Branch(SourceSpan expression, IEnumerable<Element> body)
         {
             if (body == null)
             {

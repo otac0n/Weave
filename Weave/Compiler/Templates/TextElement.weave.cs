@@ -10,7 +10,6 @@
 
 namespace 
 
-
 #line 1 "TextElement.weave"
            Weave.Compiler
 #line default
@@ -18,35 +17,28 @@ namespace
 
 {
     using System.IO;
-    
         using 
-
 
 #line 4 "TextElement.weave"
        Weave.Expressions
 #line default
 
 ;
-    
 
     
-
     
  partial class 
-
     Templates
 
     {
         [System.CodeDom.Compiler.GeneratedCode("Weave", "1.0.0.0")]
         public void 
 
-
 #line 2 "TextElement.weave"
             RenderTextElement
 #line default
 
 (
-
 
 #line 3 "TextElement.weave"
        TextElement
@@ -57,13 +49,13 @@ namespace
             writer.Write("writer.Write(");
 writer.Write(
 
-
 #line 6 "TextElement.weave"
                  ToLiteral(model.Value) 
 #line default
 
 );
-writer.Write(");\r\n");
+writer.Write(");");
+writer.Write("\r\n");
 
         }
     }
