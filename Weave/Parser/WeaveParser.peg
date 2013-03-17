@@ -32,13 +32,20 @@ inlineElement <Element>
     = t:text                         { new TextElement(t)                }
     / "{{:" WS? expr:expression "}}" { new EchoTag(expr, encoded: true)  }
     / "{{=" WS? expr:expression "}}" { new EchoTag(expr, encoded: false) }
-    / "{{" &WS expr:expression "}}"  { new CodeElement(expr)             }
+    / inlineCodeElement
     / inlineIfElement
     / inlineEachElement
 
 tag <Element>
-    = ifElement
+    = codeElement
+    / ifElement
     / eachElement
+
+codeElement <CodeElement>
+    = (!EOL WS)* e:inlineCodeElement (!EOL WS)* (EOL / EOF) { e }
+
+inlineCodeElement <CodeElement>
+    = "{{" &WS expr:expression "}}"  { new CodeElement(expr) }
 
 ifElement <IfTag>
     = if:ifBody elseIfs:elifBody* else:elseBody? (!EOL WS)* endIfTag (!EOL WS)* (EOL / EOF) {
