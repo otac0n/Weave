@@ -47,9 +47,9 @@ codeElement <CodeElement>
 inlineCodeElement <CodeElement>
     = "{{" &WS expr:expression "}}"  { new CodeElement(expr) }
 
-ifElement <IfTag>
+ifElement <IfElement>
     = if:ifBody elseIfs:elifBody* else:elseBody? (!EOL WS)* endIfTag (!EOL WS)* (EOL / EOF) {
-        new IfTag(new[] { @if }.Concat(elseIfs).Concat(@else))
+        new IfElement(new[] { @if }.Concat(elseIfs).Concat(@else))
     }
 
 ifBody <Branch>
@@ -61,9 +61,9 @@ elifBody <Branch>
 elseBody <Branch>
     = (!EOL WS)* elseTag      (!EOL WS)* EOL body:lines { new Branch(null, body) }
 
-inlineIfElement <IfTag>
+inlineIfElement <IfElement>
     = if:inlineIfBody elseIfs:inlineElifBody* else:inlineElseBody? endIfTag {
-        new IfTag(new[] { @if }.Concat(elseIfs).Concat(@else))
+        new IfElement(new[] { @if }.Concat(elseIfs).Concat(@else))
     }
 
 inlineIfBody <Branch>

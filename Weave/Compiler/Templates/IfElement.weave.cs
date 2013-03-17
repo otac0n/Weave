@@ -8,7 +8,7 @@
 // -----------------------------------------------------------------------
 
 namespace 
-#line 1 "IfTag.weave"
+#line 1 "IfElement.weave"
            Weave.Compiler
 #line default
 
@@ -16,7 +16,7 @@ namespace
 {
     using System.IO;
         using 
-#line 4 "IfTag.weave"
+#line 4 "IfElement.weave"
        Weave.Expressions
 #line default
 
@@ -28,26 +28,26 @@ namespace
     {
         [System.CodeDom.Compiler.GeneratedCode("Weave", "1.0.0.0")]
         public void 
-#line 2 "IfTag.weave"
-            RenderIfTag
+#line 2 "IfElement.weave"
+            RenderIfElement
 #line default
 
 (
-#line 3 "IfTag.weave"
-       IfTag
+#line 3 "IfElement.weave"
+       IfElement
 #line default
 
  model, TextWriter writer)
         {
 
-#line 6 "IfTag.weave"
+#line 6 "IfElement.weave"
    var first = true; 
 #line default
 
 
 
 foreach (var 
-#line 7 "IfTag.weave"
+#line 7 "IfElement.weave"
        branch in model.Branches
 #line default
 
@@ -55,7 +55,7 @@ foreach (var
 {
 
     if (
-#line 8 "IfTag.weave"
+#line 8 "IfElement.weave"
          !first
 #line default
 
@@ -64,12 +64,12 @@ foreach (var
 writer.Write("        else");
 writer.Write("\r\n");
 }
-#line 11 "IfTag.weave"
+#line 11 "IfElement.weave"
        this.WalkBranch(branch); 
 #line default
 
 
-#line 12 "IfTag.weave"
+#line 12 "IfElement.weave"
        first = false; 
 #line default
 

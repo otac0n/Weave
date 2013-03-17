@@ -41,9 +41,9 @@ namespace Weave.Compiler
             this.RenderCode(codeElement.Expression, this.writer);
         }
 
-        public override void WalkIfTag(IfTag ifTag)
+        public override void WalkIfElement(IfElement ifElement)
         {
-            this.RenderIfTag(ifTag, this.writer);
+            this.RenderIfElement(ifElement, this.writer);
         }
 
         public override void WalkBranch(Branch branch)

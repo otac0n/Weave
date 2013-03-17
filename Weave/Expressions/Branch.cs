@@ -13,7 +13,7 @@ namespace Weave.Expressions
     using System.Linq;
 
     /// <summary>
-    /// Represents one branch of an <see cref="IfTag"/>.
+    /// Represents one branch of an <see cref="IfElement"/>.
     /// </summary>
     public class Branch
     {

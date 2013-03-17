@@ -1,6 +1,6 @@
 ﻿@namespace Weave.Compiler
-@methodname RenderIfTag
-@model IfTag
+@methodname RenderIfElement
+@model IfElement
 @using Weave.Expressions
 
 {{ var first = true; }}

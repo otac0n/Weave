@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="IfTag.cs" company="(none)">
+// <copyright file="IfElement.cs" company="(none)">
 //   Copyright © 2013 John Gietzen.  All Rights Reserved.
 //   This source is subject to the MIT license.
 //   Please see license.txt for more information.
@@ -15,15 +15,15 @@ namespace Weave.Expressions
     /// <summary>
     /// Represents a conditional section in the <see cref="Template"/>.
     /// </summary>
-    public class IfTag : Element
+    public class IfElement : Element
     {
         private readonly IList<Branch> branches;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="IfTag"/> class.
+        /// Initializes a new instance of the <see cref="IfElement"/> class.
         /// </summary>
         /// <param name="branches">The branches that make up this tag.</param>
-        public IfTag(IEnumerable<Branch> branches)
+        public IfElement(IEnumerable<Branch> branches)
         {
             if (branches == null)
             {
@@ -34,7 +34,7 @@ namespace Weave.Expressions
         }
 
         /// <summary>
-        /// Gets the branches in this <see cref="IfTag"/>.
+        /// Gets the branches in this <see cref="IfElement"/>.
         /// </summary>
         public IList<Branch> Branches
         {

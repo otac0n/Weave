@@ -39,7 +39,7 @@ namespace Weave.Compiler
             CodeElement codeElement;
             EachTag eachTag;
             EchoTag echoTag;
-            IfTag ifTag;
+            IfElement ifElement;
             TextElement textElement;
 
             if ((codeElement = element as CodeElement) != null)
@@ -54,9 +54,9 @@ namespace Weave.Compiler
             {
                 this.WalkEchoTag(echoTag);
             }
-            else if ((ifTag = element as IfTag) != null)
+            else if ((ifElement = element as IfElement) != null)
             {
-                this.WalkIfTag(ifTag);
+                this.WalkIfElement(ifElement);
             }
             else if ((textElement = element as TextElement) != null)
             {
@@ -80,9 +80,9 @@ namespace Weave.Compiler
             }
         }
 
-        public virtual void WalkIfTag(IfTag ifTag)
+        public virtual void WalkIfElement(IfElement ifElement)
         {
-            foreach (var branch in ifTag.Branches)
+            foreach (var branch in ifElement.Branches)
             {
                 this.WalkBranch(branch);
             }
