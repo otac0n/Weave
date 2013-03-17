@@ -68,7 +68,7 @@ inlineElifBody <Branch>
 inlineElseBody <Branch>
     = elseTag      body:inlineContents { new Branch(null, body) }
 
-eachElement <Element>
+eachElement <EachTag>
     = each:eachBody none:noneBody? (!EOL WS)* endEachTag (!EOL WS)* (EOL / EOF) {
         new EachTag(each.Item1, each.Item2, none.SingleOrDefault())
     }
@@ -79,7 +79,7 @@ eachBody <Tuple<SourceSpan, IList<Element>>>
 noneBody <IList<Element>>
     = (!EOL WS)* noneTag (!EOL WS)* EOL body:lines { body }
 
-inlineEachElement <Element>
+inlineEachElement <EachTag>
     = each:inlineEachBody none:inlineNoneBody? endEachTag {
         new EachTag(each.Item1, each.Item2, none.SingleOrDefault())
     }
