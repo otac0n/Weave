@@ -1,0 +1,8 @@
+﻿@namespace Weave.Compiler
+@methodname RenderIndentationElement
+@model IndentationElement
+@using Weave.Expressions
+
+{{if model.Indentation != string.Empty }}
+    writer.Write({{= ToLiteral(model.Indentation) }});
+{{/if}}

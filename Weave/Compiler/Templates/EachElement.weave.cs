@@ -54,7 +54,8 @@ writer.WriteLine();
 
 )
 {
-writer.Write("    bool ");
+    writer.Write("    ");
+writer.Write("bool ");
 writer.Write(
 #line 11 "EachElement.weave"
              flag 
@@ -81,7 +82,7 @@ writer.WriteLine();
 
 )
 {
-writer.Write("        ");
+    writer.Write("        ");
 writer.Write(
 #line 17 "EachElement.weave"
             flag 
@@ -106,7 +107,8 @@ writer.WriteLine();
 
 )
 {
-writer.Write("    if (!");
+    writer.Write("    ");
+writer.Write("if (!");
 writer.Write(
 #line 24 "EachElement.weave"
              flag 
@@ -115,14 +117,16 @@ writer.Write(
 );
 writer.Write(")");
 writer.WriteLine();
-writer.Write("    {");
+    writer.Write("    ");
+writer.Write("{");
 writer.WriteLine();
 
 #line 26 "EachElement.weave"
            this.WalkElements(model.NoneBody); 
 #line default
 
-writer.Write("    }");
+    writer.Write("    ");
+writer.Write("}");
 writer.WriteLine();
 }        }
     }

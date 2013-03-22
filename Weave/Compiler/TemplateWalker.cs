@@ -40,6 +40,7 @@ namespace Weave.Compiler
             EachElement eachElement;
             EchoTag echoTag;
             IfElement ifElement;
+            IndentationElement indentationElement;
             NewLineElement newLineElement;
             TextElement textElement;
 
@@ -58,6 +59,10 @@ namespace Weave.Compiler
             else if ((ifElement = element as IfElement) != null)
             {
                 this.WalkIfElement(ifElement);
+            }
+            else if ((indentationElement = element as IndentationElement) != null)
+            {
+                this.WalkIndentationElement(indentationElement);
             }
             else if ((newLineElement = element as NewLineElement) != null)
             {
@@ -91,6 +96,10 @@ namespace Weave.Compiler
             {
                 this.WalkBranch(branch);
             }
+        }
+
+        public virtual void WalkIndentationElement(IndentationElement indentationElement)
+        {
         }
 
         public virtual void WalkNewLineElement(NewLineElement newLineElement)

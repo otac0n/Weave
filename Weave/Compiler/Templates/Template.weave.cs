@@ -103,7 +103,8 @@ writer.Write("namespace ");
 writer.WriteLine();
 writer.Write("{");
 writer.WriteLine();
-writer.Write("    using System.IO;");
+    writer.Write("    ");
+writer.Write("using System.IO;");
 writer.WriteLine();
 
 
@@ -115,7 +116,8 @@ foreach (var
 )
 {
 
-writer.Write("        using ");
+    writer.Write("        ");
+writer.Write("using ");
 
 #line 30 "Template.weave"
                  this.RenderCode(@using, writer); 
@@ -126,7 +128,7 @@ writer.WriteLine();
 }
 
 writer.WriteLine();
-writer.Write("    ");
+    writer.Write("    ");
 
 #line 33 "Template.weave"
        this.RenderCode(accessibility, writer); 
@@ -139,9 +141,11 @@ writer.Write(" partial class ");
 #line default
 
 writer.WriteLine();
-writer.Write("    {");
+    writer.Write("    ");
+writer.Write("{");
 writer.WriteLine();
-writer.Write("        [System.CodeDom.Compiler.GeneratedCode(\"");
+    writer.Write("        ");
+writer.Write("[System.CodeDom.Compiler.GeneratedCode(\"");
 writer.Write(
 #line 35 "Template.weave"
                                                     assemblyName.Name 
@@ -157,7 +161,8 @@ writer.Write(
 );
 writer.Write("\")]");
 writer.WriteLine();
-writer.Write("        public void ");
+    writer.Write("        ");
+writer.Write("public void ");
 
 #line 36 "Template.weave"
                        this.RenderCode(methodName, writer); 
@@ -171,16 +176,19 @@ writer.Write("(");
 
 writer.Write(" model, TextWriter writer)");
 writer.WriteLine();
-writer.Write("        {");
+    writer.Write("        ");
+writer.Write("{");
 writer.WriteLine();
 
 #line 38 "Template.weave"
                base.WalkTemplate(model); 
 #line default
 
-writer.Write("        }");
+    writer.Write("        ");
+writer.Write("}");
 writer.WriteLine();
-writer.Write("    }");
+    writer.Write("    ");
+writer.Write("}");
 writer.WriteLine();
 writer.Write("}");
         }

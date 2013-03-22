@@ -86,7 +86,7 @@ writer.WriteLine();
 writer.WriteLine();
 }        else
 {
-writer.Write("    ");
+    writer.Write("    ");
 writer.Write(
 #line 14 "Code.weave"
         model 

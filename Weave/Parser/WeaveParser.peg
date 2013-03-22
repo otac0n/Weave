@@ -23,7 +23,21 @@ line <IList<Element>>
     / textLine
 
 textLine <IList<Element>>
-    = !EOF contents:inlineElement* end:(EOL / EOF) { end == string.Empty ? contents : contents.Concat(new[] { new NewLineElement() }).ToList() }
+    = !EOF indentation:("" (!EOL WS)*) contents:inlineElement* end:(EOL / EOF) {{
+        var results = new List<Element>
+        {
+            new IndentationElement(indentation),
+        };
+
+        results.AddRange(contents);
+
+        if (end != string.Empty)
+        {
+            results.Add(new NewLineElement());
+        }
+
+        return results;
+    }}
 
 inlineContents <IList<Element>>
     = body:(<IEnumerable<Element>> first:textLine middle:lines { first.Concat(middle) })? rest:inlineElement* { body.SelectMany(b => b).Concat(rest).ToList() }

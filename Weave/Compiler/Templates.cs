@@ -71,6 +71,11 @@ namespace Weave.Compiler
             this.RenderTextElement(textElement, this.writer);
         }
 
+        public override void WalkIndentationElement(IndentationElement indentationElement)
+        {
+            this.RenderIndentationElement(indentationElement, this.writer);
+        }
+
         private static string ToLiteral(string input)
         {
             var sb = new StringBuilder(input.Length * 2);

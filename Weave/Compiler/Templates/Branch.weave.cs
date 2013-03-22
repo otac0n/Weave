@@ -46,7 +46,8 @@ namespace
 
 )
 {
-writer.Write("    if (");
+    writer.Write("    ");
+writer.Write("if (");
 
 #line 7 "Branch.weave"
            this.RenderCode(model.Expression, writer); 

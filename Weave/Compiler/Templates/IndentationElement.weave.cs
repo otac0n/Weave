@@ -8,7 +8,7 @@
 // -----------------------------------------------------------------------
 
 namespace 
-#line 1 "IfElement.weave"
+#line 1 "IndentationElement.weave"
            Weave.Compiler
 #line default
 
@@ -16,7 +16,7 @@ namespace
 {
     using System.IO;
         using 
-#line 4 "IfElement.weave"
+#line 4 "IndentationElement.weave"
        Weave.Expressions
 #line default
 
@@ -28,54 +28,34 @@ namespace
     {
         [System.CodeDom.Compiler.GeneratedCode("Weave", "1.0.0.0")]
         public void 
-#line 2 "IfElement.weave"
-            RenderIfElement
+#line 2 "IndentationElement.weave"
+            RenderIndentationElement
 #line default
 
 (
-#line 3 "IfElement.weave"
-       IfElement
+#line 3 "IndentationElement.weave"
+       IndentationElement
 #line default
 
  model, TextWriter writer)
         {
-
-#line 6 "IfElement.weave"
-   var first = true; 
-#line default
-
-
-
-foreach (var 
-#line 7 "IfElement.weave"
-       branch in model.Branches
-#line default
-
-)
-{
-
     if (
-#line 8 "IfElement.weave"
-         !first
+#line 6 "IndentationElement.weave"
+     model.Indentation != string.Empty 
 #line default
 
 )
 {
-    writer.Write("        ");
-writer.Write("else");
+    writer.Write("    ");
+writer.Write("writer.Write(");
+writer.Write(
+#line 7 "IndentationElement.weave"
+                     ToLiteral(model.Indentation) 
+#line default
+
+);
+writer.Write(");");
 writer.WriteLine();
-}
-#line 11 "IfElement.weave"
-       this.WalkBranch(branch); 
-#line default
-
-
-#line 12 "IfElement.weave"
-       first = false; 
-#line default
-
-}
-
-        }
+}        }
     }
 }
