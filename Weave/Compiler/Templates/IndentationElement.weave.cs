@@ -57,6 +57,7 @@ writer.Write(
 );
 writer.Write(");");
 writer.WriteLine();
-}        }
+}
+        }
     }
 }

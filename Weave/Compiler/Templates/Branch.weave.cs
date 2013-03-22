@@ -56,7 +56,8 @@ writer.Write("if (");
 
 writer.Write(")");
 writer.WriteLine();
-}writer.Write("{");
+}
+writer.Write("{");
 writer.WriteLine();
 
 #line 10 "Branch.weave"
@@ -64,6 +65,7 @@ writer.WriteLine();
 #line default
 
 writer.Write("}");
+writer.WriteLine();
         }
     }
 }

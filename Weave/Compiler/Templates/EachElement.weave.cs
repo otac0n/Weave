@@ -65,7 +65,8 @@ writer.Write(
 );
 writer.Write(";");
 writer.WriteLine();
-}writer.WriteLine();
+}
+writer.WriteLine();
 writer.Write("foreach (var ");
 
 #line 14 "EachElement.weave"
@@ -92,7 +93,8 @@ writer.Write(
 );
 writer.Write(" = true;");
 writer.WriteLine();
-}writer.WriteLine();
+}
+writer.WriteLine();
 
 #line 20 "EachElement.weave"
        this.WalkElements(model.EachBody.Body); 
@@ -129,6 +131,7 @@ writer.WriteLine();
     writer.Write("    ");
 writer.Write("}");
 writer.WriteLine();
-}        }
+}
+        }
     }
 }

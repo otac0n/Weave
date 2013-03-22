@@ -85,7 +85,8 @@ writer.WriteLine();
 writer.Write("#line default");
 writer.WriteLine();
 writer.WriteLine();
-}        else
+}
+        else
 {
     writer.Write("    ");
 writer.Write(
@@ -95,6 +96,7 @@ writer.Write(
 
 );
 writer.WriteLine();
-}        }
+}
+        }
     }
 }
