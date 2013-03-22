@@ -33,8 +33,9 @@ namespace {{ this.RenderCode(@namespace, writer); }}
     {{ this.RenderCode(accessibility, writer); }} partial class {{ this.RenderCode(className, writer); }}
     {
         [System.CodeDom.Compiler.GeneratedCode("{{= assemblyName.Name }}", "{{= assemblyName.Version }}")]
-        public void {{ this.RenderCode(methodName, writer); }}({{ this.RenderCode(modelName, writer); }} model, TextWriter writer)
+        public void {{ this.RenderCode(methodName, writer); }}({{ this.RenderCode(modelName, writer); }} model, TextWriter writer, string indentation = null)
         {
+            indentation = indentation ?? string.Empty;
             {{ base.WalkTemplate(model); }}
         }
     }

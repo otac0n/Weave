@@ -37,8 +37,9 @@ namespace
        EachElement
 #line default
 
- model, TextWriter writer)
+ model, TextWriter writer, string indentation = null)
         {
+            indentation = indentation ?? string.Empty;
 
 #line 6 "EachElement.weave"
   

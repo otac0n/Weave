@@ -37,8 +37,9 @@ namespace
        Branch
 #line default
 
- model, TextWriter writer)
+ model, TextWriter writer, string indentation = null)
         {
+            indentation = indentation ?? string.Empty;
     if (
 #line 6 "Branch.weave"
      model.Expression != null

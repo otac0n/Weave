@@ -37,8 +37,9 @@ namespace
        object
 #line default
 
- model, TextWriter writer)
+ model, TextWriter writer, string indentation = null)
         {
+            indentation = indentation ?? string.Empty;
 
 #line 6 "Code.weave"
    var span = model as SourceSpan; 

@@ -37,8 +37,9 @@ namespace
        IndentationElement
 #line default
 
- model, TextWriter writer)
+ model, TextWriter writer, string indentation = null)
         {
+            indentation = indentation ?? string.Empty;
     if (
 #line 6 "IndentationElement.weave"
      model.Indentation != string.Empty 

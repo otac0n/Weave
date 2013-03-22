@@ -49,8 +49,9 @@ namespace
        Template
 #line default
 
- model, TextWriter writer)
+ model, TextWriter writer, string indentation = null)
         {
+            indentation = indentation ?? string.Empty;
 
 #line 8 "Template.weave"
   
@@ -174,13 +175,16 @@ writer.Write("(");
                                                                   this.RenderCode(modelName, writer); 
 #line default
 
-writer.Write(" model, TextWriter writer)");
+writer.Write(" model, TextWriter writer, string indentation = null)");
 writer.WriteLine();
     writer.Write("        ");
 writer.Write("{");
 writer.WriteLine();
+    writer.Write("            ");
+writer.Write("indentation = indentation ?? string.Empty;");
+writer.WriteLine();
 
-#line 38 "Template.weave"
+#line 39 "Template.weave"
                base.WalkTemplate(model); 
 #line default
 

@@ -37,8 +37,9 @@ namespace
        EchoTag
 #line default
 
- model, TextWriter writer)
+ model, TextWriter writer, string indentation = null)
         {
+            indentation = indentation ?? string.Empty;
 writer.Write("writer.Write(");
 
 #line 6 "EchoTag.weave"
