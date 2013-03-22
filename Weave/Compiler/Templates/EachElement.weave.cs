@@ -40,6 +40,7 @@ namespace
  model, TextWriter writer, string indentation = null)
         {
             indentation = indentation ?? string.Empty;
+var temp0 = indentation;
 
 #line 6 "EachElement.weave"
   
@@ -47,6 +48,7 @@ namespace
 
 #line default
 
+indentation = temp0;
 writer.WriteLine();
     if (
 #line 10 "EachElement.weave"
@@ -69,11 +71,13 @@ writer.WriteLine();
 }
 writer.WriteLine();
 writer.Write("foreach (var ");
+var temp1 = indentation;
 
 #line 14 "EachElement.weave"
                 this.RenderCode(model.EachBody.Expression, writer); 
 #line default
 
+indentation = temp1;
 writer.Write(")");
 writer.WriteLine();
 writer.Write("{");
@@ -97,11 +101,14 @@ writer.Write(" = true;");
 writer.WriteLine();
 }
 writer.WriteLine();
+var temp2 = indentation;
+    indentation += "    ";
 
 #line 20 "EachElement.weave"
        this.WalkElements(model.EachBody.Body); 
 #line default
 
+indentation = temp2;
 writer.Write("}");
 writer.WriteLine();
 writer.WriteLine();
@@ -127,11 +134,14 @@ writer.WriteLine();
     writer.Write("    ");
 writer.Write("{");
 writer.WriteLine();
+var temp3 = indentation;
+    indentation += "        ";
 
 #line 26 "EachElement.weave"
            this.WalkElements(model.NoneBody.Body); 
 #line default
 
+indentation = temp3;
     writer.Write(indentation);
     writer.Write("    ");
 writer.Write("}");

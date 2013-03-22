@@ -50,21 +50,26 @@ namespace
     writer.Write(indentation);
     writer.Write("    ");
 writer.Write("if (");
+var temp0 = indentation;
 
 #line 7 "Branch.weave"
            this.RenderCode(model.Expression, writer); 
 #line default
 
+indentation = temp0;
 writer.Write(")");
 writer.WriteLine();
 }
 writer.Write("{");
 writer.WriteLine();
+var temp1 = indentation;
+    indentation += "    ";
 
 #line 10 "Branch.weave"
        this.WalkElements(model.Body); 
 #line default
 
+indentation = temp1;
 writer.Write("}");
 writer.WriteLine();
         }

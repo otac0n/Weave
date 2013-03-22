@@ -40,11 +40,13 @@ namespace
  model, TextWriter writer, string indentation = null)
         {
             indentation = indentation ?? string.Empty;
+var temp0 = indentation;
 
 #line 6 "IfElement.weave"
    var first = true; 
 #line default
 
+indentation = temp0;
 
 
 foreach (var 
@@ -67,16 +69,22 @@ foreach (var
 writer.Write("else");
 writer.WriteLine();
 }
+var temp1 = indentation;
+    indentation += "    ";
 
 #line 11 "IfElement.weave"
        this.WalkBranch(branch); 
 #line default
 
+indentation = temp1;
+var temp2 = indentation;
+    indentation += "    ";
 
 #line 12 "IfElement.weave"
        first = false; 
 #line default
 
+indentation = temp2;
 }
 
         }

@@ -38,7 +38,7 @@ namespace Weave.Compiler
 
         public override void WalkCodeElement(CodeElement codeElement)
         {
-            this.RenderCode(codeElement.Expression, this.writer);
+            this.RenderCodeElement(codeElement, this.writer);
         }
 
         public override void WalkIfElement(IfElement ifElement)
