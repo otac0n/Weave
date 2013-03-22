@@ -88,6 +88,7 @@ writer.WriteLine();
 }
         else
 {
+    writer.Write(indentation);
     writer.Write("    ");
 writer.Write(
 #line 14 "Code.weave"

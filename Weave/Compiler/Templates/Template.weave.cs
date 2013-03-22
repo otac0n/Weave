@@ -104,6 +104,7 @@ writer.Write("namespace ");
 writer.WriteLine();
 writer.Write("{");
 writer.WriteLine();
+    writer.Write(indentation);
     writer.Write("    ");
 writer.Write("using System.IO;");
 writer.WriteLine();
@@ -117,6 +118,7 @@ foreach (var
 )
 {
 
+    writer.Write(indentation);
     writer.Write("        ");
 writer.Write("using ");
 
@@ -129,6 +131,7 @@ writer.WriteLine();
 }
 
 writer.WriteLine();
+    writer.Write(indentation);
     writer.Write("    ");
 
 #line 33 "Template.weave"
@@ -142,9 +145,11 @@ writer.Write(" partial class ");
 #line default
 
 writer.WriteLine();
+    writer.Write(indentation);
     writer.Write("    ");
 writer.Write("{");
 writer.WriteLine();
+    writer.Write(indentation);
     writer.Write("        ");
 writer.Write("[System.CodeDom.Compiler.GeneratedCode(\"");
 writer.Write(
@@ -162,6 +167,7 @@ writer.Write(
 );
 writer.Write("\")]");
 writer.WriteLine();
+    writer.Write(indentation);
     writer.Write("        ");
 writer.Write("public void ");
 
@@ -177,9 +183,11 @@ writer.Write("(");
 
 writer.Write(" model, TextWriter writer, string indentation = null)");
 writer.WriteLine();
+    writer.Write(indentation);
     writer.Write("        ");
 writer.Write("{");
 writer.WriteLine();
+    writer.Write(indentation);
     writer.Write("            ");
 writer.Write("indentation = indentation ?? string.Empty;");
 writer.WriteLine();
@@ -188,9 +196,11 @@ writer.WriteLine();
                base.WalkTemplate(model); 
 #line default
 
+    writer.Write(indentation);
     writer.Write("        ");
 writer.Write("}");
 writer.WriteLine();
+    writer.Write(indentation);
     writer.Write("    ");
 writer.Write("}");
 writer.WriteLine();

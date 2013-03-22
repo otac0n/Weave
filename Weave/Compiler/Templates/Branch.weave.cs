@@ -47,6 +47,7 @@ namespace
 
 )
 {
+    writer.Write(indentation);
     writer.Write("    ");
 writer.Write("if (");
 

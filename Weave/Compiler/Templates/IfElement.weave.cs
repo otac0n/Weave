@@ -62,6 +62,7 @@ foreach (var
 
 )
 {
+    writer.Write(indentation);
     writer.Write("        ");
 writer.Write("else");
 writer.WriteLine();

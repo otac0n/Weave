@@ -47,10 +47,15 @@ namespace
 
 )
 {
+    writer.Write(indentation);
+    writer.Write("    ");
+writer.Write("writer.Write(indentation);");
+writer.WriteLine();
+    writer.Write(indentation);
     writer.Write("    ");
 writer.Write("writer.Write(");
 writer.Write(
-#line 7 "IndentationElement.weave"
+#line 8 "IndentationElement.weave"
                      ToLiteral(model.Indentation) 
 #line default
 

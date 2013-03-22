@@ -55,6 +55,7 @@ writer.WriteLine();
 
 )
 {
+    writer.Write(indentation);
     writer.Write("    ");
 writer.Write("bool ");
 writer.Write(
@@ -84,6 +85,7 @@ writer.WriteLine();
 
 )
 {
+    writer.Write(indentation);
     writer.Write("        ");
 writer.Write(
 #line 17 "EachElement.weave"
@@ -110,6 +112,7 @@ writer.WriteLine();
 
 )
 {
+    writer.Write(indentation);
     writer.Write("    ");
 writer.Write("if (!");
 writer.Write(
@@ -120,6 +123,7 @@ writer.Write(
 );
 writer.Write(")");
 writer.WriteLine();
+    writer.Write(indentation);
     writer.Write("    ");
 writer.Write("{");
 writer.WriteLine();
@@ -128,6 +132,7 @@ writer.WriteLine();
            this.WalkElements(model.NoneBody.Body); 
 #line default
 
+    writer.Write(indentation);
     writer.Write("    ");
 writer.Write("}");
 writer.WriteLine();
