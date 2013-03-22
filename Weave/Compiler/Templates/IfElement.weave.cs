@@ -40,53 +40,58 @@ namespace
  model, TextWriter writer, string indentation = null)
         {
             indentation = indentation ?? string.Empty;
-var temp0 = indentation;
+            var temp0 = indentation;
 
 #line 6 "IfElement.weave"
    var first = true; 
 #line default
 
-indentation = temp0;
-
-
-foreach (var 
+            indentation = temp0;
+            
+            
+            foreach (var 
 #line 7 "IfElement.weave"
        branch in model.Branches
 #line default
 
 )
-{
-
-    if (
+            {
+            
+                        if (
 #line 8 "IfElement.weave"
          !first
 #line default
 
 )
-{
-    writer.Write(indentation);
-    writer.Write("        ");
-writer.Write("else");
-writer.WriteLine();
-}
-var temp1 = indentation;
-    indentation += "    ";
+                    {
+                        writer.Write(indentation);
+                            writer.Write("        ");
+                        writer.Write("else");
+                        writer.WriteLine();
+                    }
+                var temp1 = indentation;
+                    indentation += "    ";
 
 #line 11 "IfElement.weave"
-       this.WalkBranch(branch); 
+      
+        var temp = this.currentIndentation;
+        this.currentIndentation = indentation;
+        this.WalkBranch(branch);
+        this.currentIndentation = temp;
+    
 #line default
 
-indentation = temp1;
-var temp2 = indentation;
-    indentation += "    ";
+                indentation = temp1;
+                var temp2 = indentation;
+                    indentation += "    ";
 
-#line 12 "IfElement.weave"
+#line 17 "IfElement.weave"
        first = false; 
 #line default
 
-indentation = temp2;
-}
-
+                indentation = temp2;
+            }
+            
         }
     }
 }

@@ -40,8 +40,9 @@ namespace
  model, TextWriter writer, string indentation = null)
         {
             indentation = indentation ?? string.Empty;
-writer.Write("writer.WriteLine();");
-writer.WriteLine();
+            writer.Write(indentation);
+            writer.Write("writer.WriteLine();");
+            writer.WriteLine();
         }
     }
 }

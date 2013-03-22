@@ -3,7 +3,7 @@
 @model IndentationElement
 @using Weave.Expressions
 
+writer.Write(indentation);
 {{if model.Indentation != string.Empty }}
-    writer.Write(indentation);
     writer.Write({{= ToLiteral(model.Indentation) }});
 {{/if}}

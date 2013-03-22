@@ -40,16 +40,17 @@ namespace
  model, TextWriter writer, string indentation = null)
         {
             indentation = indentation ?? string.Empty;
-writer.Write("writer.Write(");
-var temp0 = indentation;
+            writer.Write(indentation);
+            writer.Write("writer.Write(");
+            var temp0 = indentation;
 
 #line 6 "EchoTag.weave"
                 this.RenderCode(model.Expression, writer); 
 #line default
 
-indentation = temp0;
-writer.Write(");");
-writer.WriteLine();
+            indentation = temp0;
+            writer.Write(");");
+            writer.WriteLine();
         }
     }
 }

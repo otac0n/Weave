@@ -26,6 +26,8 @@ namespace Weave.Compiler
         private readonly Dictionary<string, int> variables = new Dictionary<string, int>();
         private readonly TextWriter writer;
 
+        private string currentIndentation = string.Empty;
+
         public Templates(TextWriter writer)
         {
             this.writer = writer;
@@ -33,47 +35,47 @@ namespace Weave.Compiler
 
         public override void WalkTemplate(Template template)
         {
-            this.RenderTemplate(template, this.writer);
+            this.RenderTemplate(template, this.writer, this.currentIndentation);
         }
 
         public override void WalkCodeElement(CodeElement codeElement)
         {
-            this.RenderCodeElement(codeElement, this.writer);
+            this.RenderCodeElement(codeElement, this.writer, this.currentIndentation);
         }
 
         public override void WalkIfElement(IfElement ifElement)
         {
-            this.RenderIfElement(ifElement, this.writer);
+            this.RenderIfElement(ifElement, this.writer, this.currentIndentation);
         }
 
         public override void WalkBranch(Branch branch)
         {
-            this.RenderBranch(branch, this.writer);
+            this.RenderBranch(branch, this.writer, this.currentIndentation);
         }
 
         public override void WalkEachElement(EachElement eachElement)
         {
-            this.RenderEachElement(eachElement, this.writer);
+            this.RenderEachElement(eachElement, this.writer, this.currentIndentation);
         }
 
         public override void WalkEchoTag(EchoTag echoTag)
         {
-            this.RenderEchoTag(echoTag, this.writer);
+            this.RenderEchoTag(echoTag, this.writer, this.currentIndentation);
         }
 
         public override void WalkNewLineElement(NewLineElement newLineElement)
         {
-            this.RenderNewLineElement(newLineElement, this.writer);
+            this.RenderNewLineElement(newLineElement, this.writer, this.currentIndentation);
         }
 
         public override void WalkTextElement(TextElement textElement)
         {
-            this.RenderTextElement(textElement, this.writer);
+            this.RenderTextElement(textElement, this.writer, this.currentIndentation);
         }
 
         public override void WalkIndentationElement(IndentationElement indentationElement)
         {
-            this.RenderIndentationElement(indentationElement, this.writer);
+            this.RenderIndentationElement(indentationElement, this.writer, this.currentIndentation);
         }
 
         private static string ToLiteral(string input)

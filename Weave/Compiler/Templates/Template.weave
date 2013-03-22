@@ -36,7 +36,12 @@ namespace {{ this.RenderCode(@namespace, writer); }}
         public void {{ this.RenderCode(methodName, writer); }}({{ this.RenderCode(modelName, writer); }} model, TextWriter writer, string indentation = null)
         {
             indentation = indentation ?? string.Empty;
-            {{ base.WalkTemplate(model); }}
+            {{
+                var temp = this.currentIndentation;
+                this.currentIndentation = indentation;
+                base.WalkTemplate(model);
+                this.currentIndentation = temp;
+            }}
         }
     }
 }

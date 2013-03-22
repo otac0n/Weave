@@ -40,29 +40,28 @@ namespace
  model, TextWriter writer, string indentation = null)
         {
             indentation = indentation ?? string.Empty;
-    if (
-#line 6 "IndentationElement.weave"
+            writer.Write(indentation);
+            writer.Write("writer.Write(indentation);");
+            writer.WriteLine();
+                    if (
+#line 7 "IndentationElement.weave"
      model.Indentation != string.Empty 
 #line default
 
 )
-{
-    writer.Write(indentation);
-    writer.Write("    ");
-writer.Write("writer.Write(indentation);");
-writer.WriteLine();
-    writer.Write(indentation);
-    writer.Write("    ");
-writer.Write("writer.Write(");
-writer.Write(
+                {
+                    writer.Write(indentation);
+                        writer.Write("    ");
+                    writer.Write("writer.Write(");
+                    writer.Write(
 #line 8 "IndentationElement.weave"
                      ToLiteral(model.Indentation) 
 #line default
 
 );
-writer.Write(");");
-writer.WriteLine();
-}
+                    writer.Write(");");
+                    writer.WriteLine();
+                }
         }
     }
 }

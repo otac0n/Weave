@@ -40,7 +40,7 @@ namespace
  model, TextWriter writer, string indentation = null)
         {
             indentation = indentation ?? string.Empty;
-var temp0 = indentation;
+            var temp0 = indentation;
 
 #line 6 "EachElement.weave"
   
@@ -48,105 +48,122 @@ var temp0 = indentation;
 
 #line default
 
-indentation = temp0;
-writer.WriteLine();
-    if (
+            indentation = temp0;
+            writer.Write(indentation);
+            writer.WriteLine();
+                    if (
 #line 10 "EachElement.weave"
      model.NoneBody != null
 #line default
 
 )
-{
-    writer.Write(indentation);
-    writer.Write("    ");
-writer.Write("bool ");
-writer.Write(
+                {
+                    writer.Write(indentation);
+                        writer.Write("    ");
+                    writer.Write("bool ");
+                    writer.Write(
 #line 11 "EachElement.weave"
              flag 
 #line default
 
 );
-writer.Write(";");
-writer.WriteLine();
-}
-writer.WriteLine();
-writer.Write("foreach (var ");
-var temp1 = indentation;
+                    writer.Write(";");
+                    writer.WriteLine();
+                }
+            writer.Write(indentation);
+            writer.WriteLine();
+            writer.Write(indentation);
+            writer.Write("foreach (var ");
+            var temp1 = indentation;
 
 #line 14 "EachElement.weave"
                 this.RenderCode(model.EachBody.Expression, writer); 
 #line default
 
-indentation = temp1;
-writer.Write(")");
-writer.WriteLine();
-writer.Write("{");
-writer.WriteLine();
-    if (
+            indentation = temp1;
+            writer.Write(")");
+            writer.WriteLine();
+            writer.Write(indentation);
+            writer.Write("{");
+            writer.WriteLine();
+                    if (
 #line 16 "EachElement.weave"
          model.NoneBody != null
 #line default
 
 )
-{
-    writer.Write(indentation);
-    writer.Write("        ");
-writer.Write(
+                {
+                    writer.Write(indentation);
+                        writer.Write("        ");
+                    writer.Write(
 #line 17 "EachElement.weave"
             flag 
 #line default
 
 );
-writer.Write(" = true;");
-writer.WriteLine();
-}
-writer.WriteLine();
-var temp2 = indentation;
-    indentation += "    ";
+                    writer.Write(" = true;");
+                    writer.WriteLine();
+                }
+            writer.Write(indentation);
+            writer.WriteLine();
+            var temp2 = indentation;
+                indentation += "    ";
 
 #line 20 "EachElement.weave"
-       this.WalkElements(model.EachBody.Body); 
+      
+        var temp = this.currentIndentation;
+        this.currentIndentation = indentation;
+        this.WalkElements(model.EachBody.Body);
+        this.currentIndentation = temp;
+    
 #line default
 
-indentation = temp2;
-writer.Write("}");
-writer.WriteLine();
-writer.WriteLine();
-    if (
-#line 23 "EachElement.weave"
+            indentation = temp2;
+            writer.Write(indentation);
+            writer.Write("}");
+            writer.WriteLine();
+            writer.Write(indentation);
+            writer.WriteLine();
+                    if (
+#line 28 "EachElement.weave"
      model.NoneBody != null
 #line default
 
 )
-{
-    writer.Write(indentation);
-    writer.Write("    ");
-writer.Write("if (!");
-writer.Write(
-#line 24 "EachElement.weave"
+                {
+                    writer.Write(indentation);
+                        writer.Write("    ");
+                    writer.Write("if (!");
+                    writer.Write(
+#line 29 "EachElement.weave"
              flag 
 #line default
 
 );
-writer.Write(")");
-writer.WriteLine();
-    writer.Write(indentation);
-    writer.Write("    ");
-writer.Write("{");
-writer.WriteLine();
-var temp3 = indentation;
-    indentation += "        ";
+                    writer.Write(")");
+                    writer.WriteLine();
+                    writer.Write(indentation);
+                        writer.Write("    ");
+                    writer.Write("{");
+                    writer.WriteLine();
+                    var temp3 = indentation;
+                        indentation += "        ";
 
-#line 26 "EachElement.weave"
-           this.WalkElements(model.NoneBody.Body); 
+#line 31 "EachElement.weave"
+          
+            temp = this.currentIndentation;
+            this.currentIndentation = indentation;
+            this.WalkElements(model.NoneBody.Body);
+            this.currentIndentation = temp;
+        
 #line default
 
-indentation = temp3;
-    writer.Write(indentation);
-    writer.Write("    ");
-writer.Write("}");
-writer.WriteLine();
-}
+                    indentation = temp3;
+                    writer.Write(indentation);
+                        writer.Write("    ");
+                    writer.Write("}");
+                    writer.WriteLine();
+                }
         }
     }
 }

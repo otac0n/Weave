@@ -40,57 +40,59 @@ namespace
  model, TextWriter writer, string indentation = null)
         {
             indentation = indentation ?? string.Empty;
-var temp0 = indentation;
+            var temp0 = indentation;
 
 #line 6 "CodeElement.weave"
    var temp = this.CreateVariable("temp"); 
 #line default
 
-indentation = temp0;
-writer.Write("var ");
-writer.Write(
+            indentation = temp0;
+            writer.Write(indentation);
+            writer.Write("var ");
+            writer.Write(
 #line 7 "CodeElement.weave"
         temp 
 #line default
 
 );
-writer.Write(" = indentation;");
-writer.WriteLine();
-    if (
+            writer.Write(" = indentation;");
+            writer.WriteLine();
+                    if (
 #line 8 "CodeElement.weave"
      !string.IsNullOrEmpty(model.Indentation) 
 #line default
 
 )
-{
-    writer.Write(indentation);
-    writer.Write("    ");
-writer.Write("indentation += ");
-writer.Write(
+                {
+                    writer.Write(indentation);
+                        writer.Write("    ");
+                    writer.Write("indentation += ");
+                    writer.Write(
 #line 9 "CodeElement.weave"
                        ToLiteral(model.Indentation) 
 #line default
 
 );
-writer.Write(";");
-writer.WriteLine();
-}
-var temp1 = indentation;
+                    writer.Write(";");
+                    writer.WriteLine();
+                }
+            var temp1 = indentation;
 
 #line 11 "CodeElement.weave"
    this.RenderCode(model.Expression, writer); 
 #line default
 
-indentation = temp1;
-writer.Write("indentation = ");
-writer.Write(
+            indentation = temp1;
+            writer.Write(indentation);
+            writer.Write("indentation = ");
+            writer.Write(
 #line 12 "CodeElement.weave"
                   temp 
 #line default
 
 );
-writer.Write(";");
-writer.WriteLine();
+            writer.Write(";");
+            writer.WriteLine();
         }
     }
 }

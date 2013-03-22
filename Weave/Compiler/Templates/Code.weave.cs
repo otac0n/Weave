@@ -40,66 +40,71 @@ namespace
  model, TextWriter writer, string indentation = null)
         {
             indentation = indentation ?? string.Empty;
-var temp0 = indentation;
+            var temp0 = indentation;
 
 #line 6 "Code.weave"
    var span = model as SourceSpan; 
 #line default
 
-indentation = temp0;
-    if (
+            indentation = temp0;
+                    if (
 #line 7 "Code.weave"
      span != null
 #line default
 
 )
-{
-writer.WriteLine();
-writer.Write("#line ");
-writer.Write(
+                {
+                    writer.Write(indentation);
+                    writer.WriteLine();
+                    writer.Write(indentation);
+                    writer.Write("#line ");
+                    writer.Write(
 #line 9 "Code.weave"
           span.Start.Line 
 #line default
 
 );
-writer.Write(" \"");
-writer.Write(
+                    writer.Write(" \"");
+                    writer.Write(
 #line 9 "Code.weave"
                                   Path.GetFileName(span.Start.FileName) 
 #line default
 
 );
-writer.Write("\"");
-writer.WriteLine();
-writer.Write(
+                    writer.Write("\"");
+                    writer.WriteLine();
+                    writer.Write(indentation);
+                    writer.Write(
 #line 10 "Code.weave"
     new string(' ', span.Start.Column - 1) 
 #line default
 
 );
-writer.Write(
+                    writer.Write(
 #line 10 "Code.weave"
                                                  span.Value 
 #line default
 
 );
-writer.WriteLine();
-writer.Write("#line default");
-writer.WriteLine();
-writer.WriteLine();
-}
-        else
-{
-    writer.Write(indentation);
-    writer.Write("    ");
-writer.Write(
+                    writer.WriteLine();
+                    writer.Write(indentation);
+                    writer.Write("#line default");
+                    writer.WriteLine();
+                    writer.Write(indentation);
+                    writer.WriteLine();
+                }
+                    else
+                {
+                    writer.Write(indentation);
+                        writer.Write("    ");
+                    writer.Write(
 #line 14 "Code.weave"
         model 
 #line default
 
 );
-writer.WriteLine();
-}
+                    writer.WriteLine();
+                }
         }
     }
 }

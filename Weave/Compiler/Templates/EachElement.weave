@@ -17,12 +17,22 @@ foreach (var {{ this.RenderCode(model.EachBody.Expression, writer); }})
         {{= flag }} = true;
     {{/if}}
 
-    {{ this.WalkElements(model.EachBody.Body); }}
+    {{
+        var temp = this.currentIndentation;
+        this.currentIndentation = indentation;
+        this.WalkElements(model.EachBody.Body);
+        this.currentIndentation = temp;
+    }}
 }
 
 {{if model.NoneBody != null}}
     if (!{{= flag }})
     {
-        {{ this.WalkElements(model.NoneBody.Body); }}
+        {{
+            temp = this.currentIndentation;
+            this.currentIndentation = indentation;
+            this.WalkElements(model.NoneBody.Body);
+            this.currentIndentation = temp;
+        }}
     }
 {{/if}}
