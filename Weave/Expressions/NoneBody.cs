@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="Branch.cs" company="(none)">
+// <copyright file="NoneBody.cs" company="(none)">
 //   Copyright © 2013 John Gietzen.  All Rights Reserved.
 //   This source is subject to the MIT license.
 //   Please see license.txt for more information.
@@ -13,21 +13,19 @@ namespace Weave.Expressions
     using System.Linq;
 
     /// <summary>
-    /// Represents one branch of an <see cref="IfElement"/>.
+    /// Represents the none section of an <see cref="EachElement"/>.
     /// </summary>
-    public class Branch
+    public class NoneBody
     {
         private readonly IList<Element> body;
-        private readonly SourceSpan expression;
         private readonly string indentation;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Branch"/> class.
+        /// Initializes a new instance of the <see cref="NoneBody"/> class.
         /// </summary>
-        /// <param name="expression">The code expression that determines whether this branch will execute. Null, if this is the default branch.</param>
-        /// <param name="body">The body of the branch.</param>
-        /// <param name="indentation">The indentation of this <see cref="Branch"/>.</param>
-        public Branch(SourceSpan expression, IEnumerable<Element> body, string indentation = null)
+        /// <param name="body">The body of none section.</param>
+        /// <param name="indentation">The indentation of this <see cref="NoneBody"/>.</param>
+        public NoneBody(IEnumerable<Element> body, string indentation = null)
         {
             if (body == null)
             {
@@ -35,12 +33,11 @@ namespace Weave.Expressions
             }
 
             this.body = body.ToList().AsReadOnly();
-            this.expression = expression;
             this.indentation = indentation;
         }
 
         /// <summary>
-        /// Gets the body of this <see cref="Branch"/>.
+        /// Gets the elements in this <see cref="NoneBody"/>.
         /// </summary>
         public IList<Element> Body
         {
@@ -48,15 +45,7 @@ namespace Weave.Expressions
         }
 
         /// <summary>
-        /// Gets the code expression that determines whether this branch will execute.
-        /// </summary>
-        public SourceSpan Expression
-        {
-            get { return this.expression; }
-        }
-
-        /// <summary>
-        /// Gets the indentation of this <see cref="Branch"/>.
+        /// Gets the indentation text of this <see cref="NoneBody"/>.
         /// </summary>
         public string Indentation
         {

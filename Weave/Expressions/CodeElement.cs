@@ -16,12 +16,14 @@ namespace Weave.Expressions
     public class CodeElement : Element
     {
         private readonly SourceSpan expression;
+        private readonly string indentation;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CodeElement"/> class.
         /// </summary>
         /// <param name="expression">The code expression that will be executed.</param>
-        public CodeElement(SourceSpan expression)
+        /// <param name="indentation">The indentation of this <see cref="CodeElement"/>.</param>
+        public CodeElement(SourceSpan expression, string indentation = null)
         {
             if (expression == null)
             {
@@ -29,6 +31,7 @@ namespace Weave.Expressions
             }
 
             this.expression = expression;
+            this.indentation = indentation;
         }
 
         /// <summary>
@@ -37,6 +40,14 @@ namespace Weave.Expressions
         public SourceSpan Expression
         {
             get { return this.expression; }
+        }
+
+        /// <summary>
+        /// Gets the indentation of this <see cref="CodeElement"/>.
+        /// </summary>
+        public string Indentation
+        {
+            get { return this.indentation; }
         }
     }
 }

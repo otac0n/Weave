@@ -11,18 +11,18 @@
     bool {{= flag }};
 {{/if}}
 
-foreach (var {{ this.RenderCode(model.Expression, writer); }})
+foreach (var {{ this.RenderCode(model.EachBody.Expression, writer); }})
 {
     {{if model.NoneBody != null}}
         {{= flag }} = true;
     {{/if}}
 
-    {{ this.WalkElements(model.Body); }}
+    {{ this.WalkElements(model.EachBody.Body); }}
 }
 
 {{if model.NoneBody != null}}
     if (!{{= flag }})
     {
-        {{ this.WalkElements(model.NoneBody); }}
+        {{ this.WalkElements(model.NoneBody.Body); }}
     }
 {{/if}}

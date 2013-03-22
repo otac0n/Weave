@@ -68,7 +68,7 @@ writer.WriteLine();
 writer.Write("foreach (var ");
 
 #line 14 "EachElement.weave"
-                this.RenderCode(model.Expression, writer); 
+                this.RenderCode(model.EachBody.Expression, writer); 
 #line default
 
 writer.Write(")");
@@ -94,7 +94,7 @@ writer.WriteLine();
 }writer.WriteLine();
 
 #line 20 "EachElement.weave"
-       this.WalkElements(model.Body); 
+       this.WalkElements(model.EachBody.Body); 
 #line default
 
 writer.Write("}");
@@ -122,7 +122,7 @@ writer.Write("{");
 writer.WriteLine();
 
 #line 26 "EachElement.weave"
-           this.WalkElements(model.NoneBody); 
+           this.WalkElements(model.NoneBody.Body); 
 #line default
 
     writer.Write("    ");

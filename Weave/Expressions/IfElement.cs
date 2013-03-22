@@ -18,12 +18,14 @@ namespace Weave.Expressions
     public class IfElement : Element
     {
         private readonly IList<Branch> branches;
+        private readonly string endIndentation;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="IfElement"/> class.
         /// </summary>
         /// <param name="branches">The branches that make up this tag.</param>
-        public IfElement(IEnumerable<Branch> branches)
+        /// <param name="endIndentation">The ending indentation of this <see cref="IfElement"/>.</param>
+        public IfElement(IEnumerable<Branch> branches, string endIndentation = null)
         {
             if (branches == null)
             {
@@ -31,6 +33,7 @@ namespace Weave.Expressions
             }
 
             this.branches = branches.ToList().AsReadOnly();
+            this.endIndentation = endIndentation;
         }
 
         /// <summary>
@@ -39,6 +42,14 @@ namespace Weave.Expressions
         public IList<Branch> Branches
         {
             get { return this.branches; }
+        }
+
+        /// <summary>
+        /// Gets the ending indentation of this <see cref="IfElement"/>.
+        /// </summary>
+        public string EndIndentation
+        {
+            get { return this.endIndentation; }
         }
     }
 }

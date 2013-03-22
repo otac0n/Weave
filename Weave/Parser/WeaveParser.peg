@@ -56,24 +56,24 @@ tag <Element>
     / eachElement
 
 codeElement <CodeElement>
-    = (!EOL WS)* e:inlineCodeElement (!EOL WS)* (EOL / EOF) { e }
+    = indentation:("" (!EOL WS)*) expr:codeTag (!EOL WS)* (EOL / EOF) { new CodeElement(expr, indentation) }
 
 inlineCodeElement <CodeElement>
-    = "{{" &WS expr:expression "}}"  { new CodeElement(expr) }
+    = expr:codeTag  { new CodeElement(expr) }
 
 ifElement <IfElement>
-    = if:ifBody elseIfs:elifBody* else:elseBody? (!EOL WS)* endIfTag (!EOL WS)* (EOL / EOF) {
-        new IfElement(new[] { @if }.Concat(elseIfs).Concat(@else))
+    = if:ifBody elseIfs:elifBody* else:elseBody? endIndentation:("" (!EOL WS)*) endIfTag (!EOL WS)* (EOL / EOF) {
+        new IfElement(new[] { @if }.Concat(elseIfs).Concat(@else), endIndentation)
     }
 
 ifBody <Branch>
-    = (!EOL WS)* expr:ifTag   (!EOL WS)* EOL body:lines { new Branch(expr, body) }
+    = indentation:("" (!EOL WS)*) expr:ifTag   (!EOL WS)* EOL body:lines { new Branch(expr, body, indentation) }
 
 elifBody <Branch>
-    = (!EOL WS)* expr:elifTag (!EOL WS)* EOL body:lines { new Branch(expr, body) }
+    = indentation:("" (!EOL WS)*) expr:elifTag (!EOL WS)* EOL body:lines { new Branch(expr, body, indentation) }
 
 elseBody <Branch>
-    = (!EOL WS)* elseTag      (!EOL WS)* EOL body:lines { new Branch(null, body) }
+    = indentation:("" (!EOL WS)*) elseTag      (!EOL WS)* EOL body:lines { new Branch(null, body, indentation) }
 
 inlineIfElement <IfElement>
     = if:inlineIfBody elseIfs:inlineElifBody* else:inlineElseBody? endIfTag {
@@ -90,27 +90,28 @@ inlineElseBody <Branch>
     = elseTag      body:inlineContents { new Branch(null, body) }
 
 eachElement <EachElement>
-    = each:eachBody none:noneBody? (!EOL WS)* endEachTag (!EOL WS)* (EOL / EOF) {
-        new EachElement(each.Item1, each.Item2, none.SingleOrDefault())
+    = each:eachBody none:noneBody? endIndentation:("" (!EOL WS)*) endEachTag (!EOL WS)* (EOL / EOF) {
+        new EachElement(@each, none.SingleOrDefault(), endIndentation)
     }
 
-eachBody <Tuple<SourceSpan, IList<Element>>>
-    = (!EOL WS)* expr:eachTag (!EOL WS)* EOL body:lines { Tuple.Create(expr, (IList<Element>)body) }
+eachBody <EachBody>
+    = indentation:("" (!EOL WS)*) expr:eachTag (!EOL WS)* EOL body:lines { new EachBody(expr, (IList<Element>)body, indentation) }
 
-noneBody <IList<Element>>
-    = (!EOL WS)* noneTag (!EOL WS)* EOL body:lines { body }
+noneBody <NoneBody>
+    = indentation:("" (!EOL WS)*) noneTag (!EOL WS)* EOL body:lines { new NoneBody(body, indentation) }
 
 inlineEachElement <EachElement>
     = each:inlineEachBody none:inlineNoneBody? endEachTag {
-        new EachElement(each.Item1, each.Item2, none.SingleOrDefault())
+        new EachElement(@each, none.SingleOrDefault())
     }
 
-inlineEachBody <Tuple<SourceSpan, IList<Element>>>
-    = expr:eachTag body:inlineContents { Tuple.Create(expr, body) }
+inlineEachBody <EachBody>
+    = expr:eachTag body:inlineContents { new EachBody(expr, body) }
 
-inlineNoneBody <IList<Element>>
-    = noneTag body:inlineContents { body }
+inlineNoneBody <NoneBody>
+    = noneTag body:inlineContents { new NoneBody(body) }
 
+codeTag <SourceSpan> = "{{" &WS expr:expression "}}"     { expr }
 ifTag   <SourceSpan> = "{{if" &WS expr:expression "}}"   { expr }
 elifTag <SourceSpan> = "{{elif" &WS expr:expression "}}" { expr }
 elseTag              = "{{else}}"

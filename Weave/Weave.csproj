@@ -89,12 +89,14 @@
     <Compile Include="Compiler\WeaveCompiler.cs" />
     <Compile Include="Expressions\Branch.cs" />
     <Compile Include="Expressions\CodeElement.cs" />
+    <Compile Include="Expressions\EachBody.cs" />
     <Compile Include="Expressions\EachElement.cs" />
     <Compile Include="Expressions\EchoTag.cs" />
     <Compile Include="Expressions\Element.cs" />
     <Compile Include="Expressions\IfElement.cs" />
     <Compile Include="Expressions\IndentationElement.cs" />
     <Compile Include="Expressions\NewLineElement.cs" />
+    <Compile Include="Expressions\NoneBody.cs" />
     <Compile Include="Expressions\SourceSpan.cs" />
     <Compile Include="Expressions\Template.cs" />
     <Compile Include="Expressions\TextElement.cs" />

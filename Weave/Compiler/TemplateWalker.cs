@@ -22,11 +22,11 @@ namespace Weave.Compiler
 
         public virtual void WalkEachElement(EachElement eachElement)
         {
-            this.WalkElements(eachElement.Body);
+            this.WalkElements(eachElement.EachBody.Body);
 
             if (eachElement.NoneBody != null)
             {
-                this.WalkElements(eachElement.NoneBody);
+                this.WalkElements(eachElement.NoneBody.Body);
             }
         }
 
