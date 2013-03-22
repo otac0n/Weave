@@ -8,7 +8,10 @@
 
 namespace Weave.Expressions
 {
-    internal class NewLineElement : Element
+    /// <summary>
+    /// Represents the end of a line.
+    /// </summary>
+    public class NewLineElement : Element
     {
     }
 }
