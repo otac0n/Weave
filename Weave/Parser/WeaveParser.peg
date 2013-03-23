@@ -2,6 +2,15 @@
 @classname WeaveParser
 @using System.Linq
 @using Weave.Expressions
+@members
+{
+    private class RenderTag
+    {
+        public SourceSpan Method { get; set; }
+        public SourceSpan Expression { get; set; }
+    }
+}
+
 
 template <Template>
     = settings:setting* EOL? elements:lines (EOF / unexpected:. #ERROR{ string.Format("Unexpected character '{0}'.", unexpected) }) {
@@ -11,7 +20,7 @@ template <Template>
 setting <KeyValuePair<SourceSpan, SourceSpan>>
     = "@" key:identifier (!EOL WS)+ value:("" (!EOL .)+) (EOL / EOF) {
         new KeyValuePair<SourceSpan, SourceSpan>(
-            new SourceSpan(key, keyStart, keyEnd),
+            key,
             new SourceSpan(value, valueStart, valueEnd))
     }
 
@@ -49,11 +58,13 @@ inlineElement <Element>
     / inlineCodeElement
     / inlineIfElement
     / inlineEachElement
+    / inlineRenderElement
 
 tag <Element>
     = codeElement
     / ifElement
     / eachElement
+    / renderElement
 
 codeElement <CodeElement>
     = indentation:("" (!EOL WS)*) expr:codeTag (!EOL WS)* (EOL / EOF) { new CodeElement(expr, indentation) }
@@ -111,14 +122,21 @@ inlineEachBody <EachBody>
 inlineNoneBody <NoneBody>
     = noneTag body:inlineContents { new NoneBody(body) }
 
-codeTag <SourceSpan> = "{{" &WS expr:expression "}}"     { expr }
-ifTag   <SourceSpan> = "{{if" &WS expr:expression "}}"   { expr }
-elifTag <SourceSpan> = "{{elif" &WS expr:expression "}}" { expr }
-elseTag              = "{{else}}"
-endIfTag             = "{{/if}}"
-eachTag <SourceSpan> = "{{each" &WS expr:expression "}}" { expr }
-noneTag              = "{{none}}"
-endEachTag           = "{{/each}}"
+renderElement <RenderElement>
+    = indentation:("" (!EOL WS)*) tag:renderTag (!EOL WS)* (EOL / EOF) { new RenderElement(tag.Method, tag.Expression, indentation) }
+
+inlineRenderElement <RenderElement>
+    = tag:renderTag { new RenderElement(tag.Method, tag.Expression) }
+
+codeTag <SourceSpan>  = "{{" &WS expr:expression "}}"                  { expr }
+ifTag   <SourceSpan>  = "{{if" &WS expr:expression "}}"                { expr }
+elifTag <SourceSpan>  = "{{elif" &WS expr:expression "}}"              { expr }
+elseTag               = "{{else}}"
+endIfTag              = "{{/if}}"
+eachTag <SourceSpan>  = "{{each" &WS expr:expression "}}"              { expr }
+noneTag               = "{{none}}"
+endEachTag            = "{{/each}}"
+renderTag <RenderTag> = "{{@" name:identifier &WS expr:expression "}}" { new RenderTag { Method = name, Expression = expr } }
 
 text -memoize
     = "" (!EOL !"{{" .)+
@@ -126,8 +144,8 @@ text -memoize
 expression <SourceSpan>
     = text:("" (!"}}" .)+) { new SourceSpan(text, textStart, textEnd) }
 
-identifier
-    = !digit (letter / digit / "_" / "$")+
+identifier <SourceSpan>
+    = i:(!digit (letter / digit / "_" / "$")+) { new SourceSpan(i, iStart, iEnd) }
 
 digit
   = [0-9]

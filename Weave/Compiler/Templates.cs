@@ -68,6 +68,11 @@ namespace Weave.Compiler
             this.RenderNewLineElement(newLineElement, this.writer, this.currentIndentation);
         }
 
+        public override void WalkRenderElement(RenderElement renderElement)
+        {
+            this.RenderRenderElement(renderElement, this.writer, this.currentIndentation);
+        }
+
         public override void WalkTextElement(TextElement textElement)
         {
             this.RenderTextElement(textElement, this.writer, this.currentIndentation);

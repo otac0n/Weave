@@ -1,0 +1,8 @@
+﻿@namespace Weave.Compiler
+@methodname RenderRenderElement
+@model RenderElement
+@using Weave.Expressions
+
+{{ var newModel = this.CreateVariable("model"); }}
+var {{= newModel }} = {{ this.RenderCode(model.Expression, writer); }};
+{{ this.RenderCode(model.Method, writer); }}({{= newModel }}, writer, indentation + {{= ToLiteral(model.Indentation) }});

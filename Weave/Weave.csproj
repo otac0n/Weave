@@ -82,6 +82,9 @@
     <Compile Include="Compiler\Templates\NewLineElement.weave.cs">
       <DependentUpon>NewLineElement.weave</DependentUpon>
     </Compile>
+    <Compile Include="Compiler\Templates\RenderElement.weave.cs">
+      <DependentUpon>RenderElement.weave</DependentUpon>
+    </Compile>
     <Compile Include="Compiler\Templates\Template.weave.cs">
       <DependentUpon>Template.weave</DependentUpon>
     </Compile>
@@ -100,6 +103,7 @@
     <Compile Include="Expressions\IndentationElement.cs" />
     <Compile Include="Expressions\NewLineElement.cs" />
     <Compile Include="Expressions\NoneBody.cs" />
+    <Compile Include="Expressions\RenderElement.cs" />
     <Compile Include="Expressions\SourceSpan.cs" />
     <Compile Include="Expressions\Template.cs" />
     <Compile Include="Expressions\TextElement.cs" />
@@ -120,6 +124,7 @@
     <None Include="Compiler\Templates\IfElement.weave" />
     <None Include="Compiler\Templates\IndentationElement.weave" />
     <None Include="Compiler\Templates\NewLineElement.weave" />
+    <None Include="Compiler\Templates\RenderElement.weave" />
     <None Include="Compiler\Templates\Template.weave" />
     <None Include="Compiler\Templates\TextElement.weave" />
     <None Include="packages.config" />

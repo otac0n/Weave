@@ -42,6 +42,7 @@ namespace Weave.Compiler
             IfElement ifElement;
             IndentationElement indentationElement;
             NewLineElement newLineElement;
+            RenderElement renderElement;
             TextElement textElement;
 
             if ((codeElement = element as CodeElement) != null)
@@ -67,6 +68,10 @@ namespace Weave.Compiler
             else if ((newLineElement = element as NewLineElement) != null)
             {
                 this.WalkNewLineElement(newLineElement);
+            }
+            else if ((renderElement = element as RenderElement) != null)
+            {
+                this.WalkRenderElement(renderElement);
             }
             else if ((textElement = element as TextElement) != null)
             {
@@ -103,6 +108,10 @@ namespace Weave.Compiler
         }
 
         public virtual void WalkNewLineElement(NewLineElement newLineElement)
+        {
+        }
+
+        public virtual void WalkRenderElement(RenderElement renderElement)
         {
         }
 
