@@ -57,9 +57,9 @@ namespace
 
 ;
                     
-#line 7 "Branch.weave"
+                    #line 7 "Branch.weave"
            RenderCode
-#line default
+                    #line default
 
 (model0, writer, indentation);
                     writer.Write(")");
@@ -75,9 +75,9 @@ namespace
 
 ;
             
-#line 10 "Branch.weave"
+            #line 10 "Branch.weave"
        WalkElements
-#line default
+            #line default
 
 (model1, writer, indentation + "    ");
             writer.Write(indentation);

@@ -79,9 +79,9 @@ namespace
 
 ;
             
-#line 14 "EachElement.weave"
+            #line 14 "EachElement.weave"
                 RenderCode
-#line default
+            #line default
 
 (model0, writer, indentation);
             writer.Write(")");
@@ -115,9 +115,9 @@ namespace
 
 ;
             
-#line 20 "EachElement.weave"
+            #line 20 "EachElement.weave"
        WalkElements
-#line default
+            #line default
 
 (model1, writer, indentation + "    ");
             writer.Write(indentation);
@@ -153,9 +153,9 @@ namespace
 
 ;
                     
-#line 26 "EachElement.weave"
+                    #line 26 "EachElement.weave"
            WalkElements
-#line default
+                    #line default
 
 (model2, writer, indentation + "        ");
                     writer.Write(indentation);

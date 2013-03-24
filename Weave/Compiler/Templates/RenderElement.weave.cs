@@ -63,9 +63,9 @@ namespace
 
 ;
             
-#line 7 "RenderElement.weave"
+            #line 7 "RenderElement.weave"
                          RenderCode
-#line default
+            #line default
 
 (model0, writer, indentation);
             writer.Write(";");
@@ -78,9 +78,9 @@ namespace
 
 ;
             
-#line 8 "RenderElement.weave"
+            #line 8 "RenderElement.weave"
    RenderCode
-#line default
+            #line default
 
 (model1, writer, indentation);
             writer.Write("(");

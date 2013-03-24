@@ -49,9 +49,9 @@ namespace
 
 ;
             
-#line 6 "EchoTag.weave"
+            #line 6 "EchoTag.weave"
                 RenderCode
-#line default
+            #line default
 
 (model0, writer, indentation);
             writer.Write(");");

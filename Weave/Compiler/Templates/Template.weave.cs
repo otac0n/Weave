@@ -114,9 +114,9 @@ namespace
 
 ;
             
-#line 26 "Template.weave"
+            #line 26 "Template.weave"
              RenderCode
-#line default
+            #line default
 
 (model0, writer, indentation);
             writer.WriteLine();
@@ -147,9 +147,9 @@ namespace
 
 ;
                 
-#line 30 "Template.weave"
+                #line 30 "Template.weave"
                  RenderCode
-#line default
+                #line default
 
 (model1, writer, indentation);
                 writer.Write(";");
@@ -166,9 +166,9 @@ namespace
 
 ;
             
-#line 33 "Template.weave"
+            #line 33 "Template.weave"
        RenderCode
-#line default
+            #line default
 
 (model2, writer, indentation);
             writer.Write(" partial class ");
@@ -179,9 +179,9 @@ namespace
 
 ;
             
-#line 33 "Template.weave"
+            #line 33 "Template.weave"
                                                    RenderCode
-#line default
+            #line default
 
 (model3, writer, indentation);
             writer.WriteLine();
@@ -217,9 +217,9 @@ namespace
 
 ;
             
-#line 36 "Template.weave"
+            #line 36 "Template.weave"
                        RenderCode
-#line default
+            #line default
 
 (model4, writer, indentation);
             writer.Write("(");
@@ -230,9 +230,9 @@ namespace
 
 ;
             
-#line 36 "Template.weave"
+            #line 36 "Template.weave"
                                                   RenderCode
-#line default
+            #line default
 
 (model5, writer, indentation);
             writer.Write(" model, TextWriter writer, string indentation = null)");
@@ -252,9 +252,9 @@ namespace
 
 ;
             
-#line 39 "Template.weave"
+            #line 39 "Template.weave"
                BaseWalkTemplate
-#line default
+            #line default
 
 (model6, writer, indentation + "            ");
             writer.Write(indentation);
