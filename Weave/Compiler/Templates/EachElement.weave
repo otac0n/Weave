@@ -6,17 +6,15 @@
 {{
     var flag = this.CreateVariable("_flag");
 }}
-
 {{if model.NoneBody != null}}
     bool {{= flag }};
-{{/if}}
 
+{{/if}}
 foreach (var {{@RenderCode model.EachBody.Expression}})
 {
     {{if model.NoneBody != null}}
         {{= flag }} = true;
     {{/if}}
-
     {{@WalkElements model.EachBody.Body}}
 }
 
@@ -25,4 +23,5 @@ foreach (var {{@RenderCode model.EachBody.Expression}})
     {
         {{@WalkElements model.NoneBody.Body}}
     }
+
 {{/if}}

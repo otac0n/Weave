@@ -127,8 +127,6 @@ namespace
             writer.Write(indentation);
             writer.Write("using System.IO;");
             writer.WriteLine();
-
-
             foreach (var 
             #line 29 "Template.weave"
            @using in settings["using"]
@@ -136,7 +134,6 @@ namespace
 
 )
             {
-
                 indentation = originalIndentation + "        ";
                 writer.Write(indentation);
                 writer.Write("using ");

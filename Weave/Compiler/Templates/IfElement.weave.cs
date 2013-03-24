@@ -47,8 +47,6 @@ namespace
             #line default
 
             indentation = temp0;
-
-
             foreach (var 
             #line 7 "IfElement.weave"
        branch in model.Branches
@@ -56,7 +54,6 @@ namespace
 
 )
             {
-
                     if (
 
                         #line 8 "IfElement.weave"

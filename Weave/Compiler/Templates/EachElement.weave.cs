@@ -49,10 +49,9 @@ namespace
             #line default
 
             indentation = temp0;
-            writer.WriteLine();
                 if (
 
-                    #line 10 "EachElement.weave"
+                    #line 9 "EachElement.weave"
      model.NoneBody != null
                     #line default
 
@@ -61,25 +60,25 @@ namespace
                     writer.Write(indentation);
                     writer.Write("bool ");
                     writer.Write(
-                    #line 11 "EachElement.weave"
+                    #line 10 "EachElement.weave"
              flag 
                     #line default
 
 );
                     writer.Write(";");
                     writer.WriteLine();
+                    writer.WriteLine();
                 }
-            writer.WriteLine();
             writer.Write(indentation);
             writer.Write("foreach (var ");
             var model0 = 
-            #line 14 "EachElement.weave"
+            #line 13 "EachElement.weave"
                            model.EachBody.Expression
             #line default
 
 ;
             
-            #line 14 "EachElement.weave"
+            #line 13 "EachElement.weave"
                 RenderCode
             #line default
 
@@ -91,7 +90,7 @@ namespace
             writer.WriteLine();
                 if (
 
-                    #line 16 "EachElement.weave"
+                    #line 15 "EachElement.weave"
          model.NoneBody != null
                     #line default
 
@@ -100,7 +99,7 @@ namespace
                     indentation = originalIndentation + "    ";
                     writer.Write(indentation);
                     writer.Write(
-                    #line 17 "EachElement.weave"
+                    #line 16 "EachElement.weave"
             flag 
                     #line default
 
@@ -108,16 +107,15 @@ namespace
                     writer.Write(" = true;");
                     writer.WriteLine();
                 }
-            writer.WriteLine();
             indentation = originalIndentation + "    ";
             var model1 = 
-            #line 20 "EachElement.weave"
+            #line 18 "EachElement.weave"
                     model.EachBody.Body
             #line default
 
 ;
             
-            #line 20 "EachElement.weave"
+            #line 18 "EachElement.weave"
        WalkElements
             #line default
 
@@ -129,7 +127,7 @@ namespace
             writer.WriteLine();
                 if (
 
-                    #line 23 "EachElement.weave"
+                    #line 21 "EachElement.weave"
      model.NoneBody != null
                     #line default
 
@@ -138,7 +136,7 @@ namespace
                     writer.Write(indentation);
                     writer.Write("if (!");
                     writer.Write(
-                    #line 24 "EachElement.weave"
+                    #line 22 "EachElement.weave"
              flag 
                     #line default
 
@@ -150,13 +148,13 @@ namespace
                     writer.WriteLine();
                     indentation = originalIndentation + "    ";
                     var model2 = 
-                    #line 26 "EachElement.weave"
+                    #line 24 "EachElement.weave"
                         model.NoneBody.Body
                     #line default
 
 ;
                     
-                    #line 26 "EachElement.weave"
+                    #line 24 "EachElement.weave"
            WalkElements
                     #line default
 
@@ -164,6 +162,7 @@ namespace
                     indentation = originalIndentation;
                     writer.Write(indentation);
                     writer.Write("}");
+                    writer.WriteLine();
                     writer.WriteLine();
                 }
         }
