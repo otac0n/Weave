@@ -15,10 +15,10 @@ namespace
 
 {
     using System.IO;
-        using 
-        #line 4 "IndentationElement.weave"
+    using 
+    #line 4 "IndentationElement.weave"
        Weave.Expressions
-        #line default
+    #line default
 
 ;
 
@@ -40,42 +40,42 @@ namespace
  model, TextWriter writer, string indentation = null)
         {
             var originalIndentation = indentation = indentation ?? string.Empty;
+            if (
+
+                #line 6 "IndentationElement.weave"
+     this.lastIndentation.Length != model.Indentation.Length - this.amountToSubtract
+                #line default
+
+                )
+            {
+                writer.Write(indentation);
+                writer.Write("indentation = originalIndentation");
                 if (
 
-                    #line 6 "IndentationElement.weave"
-     this.lastIndentation.Length != model.Indentation.Length - this.amountToSubtract
+                    #line 7 "IndentationElement.weave"
+                                          model.Indentation.Length - this.amountToSubtract > 0
                     #line default
 
                     )
                 {
-                    writer.Write(indentation);
-                    writer.Write("indentation = originalIndentation");
-                        if (
-
-                            #line 7 "IndentationElement.weave"
-                                          model.Indentation.Length - this.amountToSubtract > 0
-                            #line default
-
-                            )
-                        {
-                            writer.Write(" + ");
-                            writer.Write(
-                            #line 7 "IndentationElement.weave"
+                    writer.Write(" + ");
+                    writer.Write(
+                    #line 7 "IndentationElement.weave"
                                                                                                        ToLiteral(model.Indentation.Substring(0, model.Indentation.Length - this.amountToSubtract)) 
-                            #line default
-
-);
-                        }
-                    writer.Write(";");
-                    writer.WriteLine();
-                    var temp0 = indentation;
-
-                    #line 8 "IndentationElement.weave"
-       this.lastIndentation = model.Indentation; 
                     #line default
 
-                    indentation = temp0;
+);
                 }
+                writer.Write(";");
+                writer.WriteLine();
+                var temp0 = indentation;
+
+                #line 8 "IndentationElement.weave"
+       this.lastIndentation = model.Indentation; 
+                #line default
+
+                indentation = temp0;
+            }
             writer.Write(indentation);
             writer.Write("writer.Write(indentation);");
             writer.WriteLine();

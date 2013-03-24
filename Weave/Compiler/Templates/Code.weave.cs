@@ -15,10 +15,10 @@ namespace
 
 {
     using System.IO;
-        using 
-        #line 4 "Code.weave"
+    using 
+    #line 4 "Code.weave"
        Weave.Expressions
-        #line default
+    #line default
 
 ;
 
@@ -47,67 +47,67 @@ namespace
             #line default
 
             indentation = temp0;
-                if (
+            if (
 
-                    #line 7 "Code.weave"
+                #line 7 "Code.weave"
      span != null
-                    #line default
+                #line default
 
-                    )
-                {
-                    writer.WriteLine();
-                    writer.Write(indentation);
-                    writer.Write("#line ");
-                    writer.Write(
-                    #line 9 "Code.weave"
+                )
+            {
+                writer.WriteLine();
+                writer.Write(indentation);
+                writer.Write("#line ");
+                writer.Write(
+                #line 9 "Code.weave"
           span.Start.Line 
-                    #line default
+                #line default
 
 );
-                    writer.Write(" \"");
-                    writer.Write(
-                    #line 9 "Code.weave"
+                writer.Write(" \"");
+                writer.Write(
+                #line 9 "Code.weave"
                                   Path.GetFileName(span.Start.FileName) 
-                    #line default
+                #line default
 
 );
-                    writer.Write("\"");
-                    var temp1 = indentation;
+                writer.Write("\"");
+                var temp1 = indentation;
 
-                    #line 9 "Code.weave"
+                #line 9 "Code.weave"
                                                                               writer.WriteLine(); 
-                    #line default
+                #line default
 
-                    indentation = temp1;
-                    writer.Write(
-                    #line 9 "Code.weave"
+                indentation = temp1;
+                writer.Write(
+                #line 9 "Code.weave"
                                                                                                         new string(' ', span.Start.Column - 1) 
-                    #line default
+                #line default
 
 );
-                    writer.Write(
-                    #line 9 "Code.weave"
+                writer.Write(
+                #line 9 "Code.weave"
                                                                                                                                                      span.Value 
-                    #line default
+                #line default
 
 );
-                    writer.WriteLine();
-                    writer.Write(indentation);
-                    writer.Write("#line default");
-                    writer.WriteLine();
-                    writer.WriteLine();
-                }
-                else
-                {
-                    writer.Write(indentation);
-                    writer.Write(
-                    #line 13 "Code.weave"
+                writer.WriteLine();
+                writer.Write(indentation);
+                writer.Write("#line default");
+                writer.WriteLine();
+                writer.WriteLine();
+            }
+            else
+            {
+                writer.Write(indentation);
+                writer.Write(
+                #line 13 "Code.weave"
         model 
-                    #line default
+                #line default
 
 );
-                    writer.WriteLine();
-                }
+                writer.WriteLine();
+            }
         }
     }
 }

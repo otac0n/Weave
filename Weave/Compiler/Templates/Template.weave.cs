@@ -15,22 +15,22 @@ namespace
 
 {
     using System.IO;
-        using 
-        #line 4 "Template.weave"
+    using 
+    #line 4 "Template.weave"
        System.Linq
-        #line default
+    #line default
 
 ;
-        using 
-        #line 5 "Template.weave"
+    using 
+    #line 5 "Template.weave"
        System.Reflection
-        #line default
+    #line default
 
 ;
-        using 
-        #line 6 "Template.weave"
+    using 
+    #line 6 "Template.weave"
        Weave.Expressions
-        #line default
+    #line default
 
 ;
 
@@ -134,7 +134,6 @@ namespace
 
 )
             {
-                indentation = originalIndentation + "        ";
                 writer.Write(indentation);
                 writer.Write("using ");
                 var model1 = 
@@ -154,7 +153,6 @@ namespace
             }
 
             writer.WriteLine();
-            indentation = originalIndentation + "    ";
             writer.Write(indentation);
             var model2 = 
             #line 33 "Template.weave"

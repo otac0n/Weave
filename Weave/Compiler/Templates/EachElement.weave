@@ -4,6 +4,8 @@
 @using Weave.Expressions
 
 {{
+    var amount = GetIndentationOffset(model.EachBody.Indentation, model.EachBody.Body);
+    this.amountToSubtract += amount;
     var flag = this.CreateVariable("_flag");
 }}
 {{if model.NoneBody != null}}
@@ -17,11 +19,21 @@ foreach (var {{@RenderCode model.EachBody.Expression}})
     {{/if}}
     {{@WalkElements model.EachBody.Body}}
 }
+{{
+    this.amountToSubtract -= amount;
+}}
 
 {{if model.NoneBody != null}}
+    {{
+        amount = GetIndentationOffset(model.EachBody.Indentation, model.EachBody.Body);
+        this.amountToSubtract += amount;
+    }}
     if (!{{= flag }})
     {
         {{@WalkElements model.NoneBody.Body}}
     }
 
+    {{
+        this.amountToSubtract -= amount;
+    }}
 {{/if}}

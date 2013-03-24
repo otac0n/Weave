@@ -15,10 +15,10 @@ namespace
 
 {
     using System.IO;
-        using 
-        #line 4 "IfElement.weave"
+    using 
+    #line 4 "IfElement.weave"
        Weave.Expressions
-        #line default
+    #line default
 
 ;
 
@@ -54,20 +54,18 @@ namespace
 
 )
             {
-                    if (
+                if (
 
-                        #line 8 "IfElement.weave"
+                    #line 8 "IfElement.weave"
          !first
-                        #line default
+                    #line default
 
-                        )
-                    {
-                        indentation = originalIndentation + "    ";
-                        writer.Write(indentation);
-                        writer.Write("else");
-                        writer.WriteLine();
-                    }
-                indentation = originalIndentation + "    ";
+                    )
+                {
+                    writer.Write(indentation);
+                    writer.Write("else");
+                    writer.WriteLine();
+                }
                 var model0 = 
                 #line 11 "IfElement.weave"
                   branch

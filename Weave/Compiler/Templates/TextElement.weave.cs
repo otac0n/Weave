@@ -15,10 +15,10 @@ namespace
 
 {
     using System.IO;
-        using 
-        #line 4 "TextElement.weave"
+    using 
+    #line 4 "TextElement.weave"
        Weave.Expressions
-        #line default
+    #line default
 
 ;
 

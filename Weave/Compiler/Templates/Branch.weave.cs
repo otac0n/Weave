@@ -15,10 +15,10 @@ namespace
 
 {
     using System.IO;
-        using 
-        #line 4 "Branch.weave"
+    using 
+    #line 4 "Branch.weave"
        Weave.Expressions
-        #line default
+    #line default
 
 ;
 
@@ -50,35 +50,35 @@ namespace
             #line default
 
             indentation = temp0;
-                if (
+            if (
 
-                    #line 10 "Branch.weave"
+                #line 10 "Branch.weave"
      model.Expression != null
-                    #line default
+                #line default
 
-                    )
-                {
-                    writer.Write(indentation);
-                    writer.Write("if (");
-                    writer.WriteLine();
-                    indentation = originalIndentation + "    ";
-                    var model0 = 
-                    #line 12 "Branch.weave"
+                )
+            {
+                writer.Write(indentation);
+                writer.Write("if (");
+                writer.WriteLine();
+                indentation = originalIndentation + "    ";
+                var model0 = 
+                #line 12 "Branch.weave"
                       model.Expression
-                    #line default
+                #line default
 
 ;
-                    
-                    #line 12 "Branch.weave"
+                
+                #line 12 "Branch.weave"
            RenderCode
-                    #line default
+                #line default
 
 (model0, writer, indentation);
-                    indentation = originalIndentation + "    ";
-                    writer.Write(indentation);
-                    writer.Write(")");
-                    writer.WriteLine();
-                }
+                indentation = originalIndentation + "    ";
+                writer.Write(indentation);
+                writer.Write(")");
+                writer.WriteLine();
+            }
             indentation = originalIndentation;
             writer.Write(indentation);
             writer.Write("{");

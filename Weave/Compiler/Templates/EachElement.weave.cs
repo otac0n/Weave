@@ -15,10 +15,10 @@ namespace
 
 {
     using System.IO;
-        using 
-        #line 4 "EachElement.weave"
+    using 
+    #line 4 "EachElement.weave"
        Weave.Expressions
-        #line default
+    #line default
 
 ;
 
@@ -44,41 +44,43 @@ namespace
 
             #line 6 "EachElement.weave"
   
+    var amount = GetIndentationOffset(model.EachBody.Indentation, model.EachBody.Body);
+    this.amountToSubtract += amount;
     var flag = this.CreateVariable("_flag");
 
             #line default
 
             indentation = temp0;
-                if (
+            if (
 
-                    #line 9 "EachElement.weave"
+                #line 11 "EachElement.weave"
      model.NoneBody != null
-                    #line default
+                #line default
 
-                    )
-                {
-                    writer.Write(indentation);
-                    writer.Write("bool ");
-                    writer.Write(
-                    #line 10 "EachElement.weave"
+                )
+            {
+                writer.Write(indentation);
+                writer.Write("bool ");
+                writer.Write(
+                #line 12 "EachElement.weave"
              flag 
-                    #line default
+                #line default
 
 );
-                    writer.Write(";");
-                    writer.WriteLine();
-                    writer.WriteLine();
-                }
+                writer.Write(";");
+                writer.WriteLine();
+                writer.WriteLine();
+            }
             writer.Write(indentation);
             writer.Write("foreach (var ");
             var model0 = 
-            #line 13 "EachElement.weave"
+            #line 15 "EachElement.weave"
                            model.EachBody.Expression
             #line default
 
 ;
             
-            #line 13 "EachElement.weave"
+            #line 15 "EachElement.weave"
                 RenderCode
             #line default
 
@@ -88,34 +90,34 @@ namespace
             writer.Write(indentation);
             writer.Write("{");
             writer.WriteLine();
-                if (
+            if (
 
-                    #line 15 "EachElement.weave"
+                #line 17 "EachElement.weave"
          model.NoneBody != null
-                    #line default
+                #line default
 
-                    )
-                {
-                    indentation = originalIndentation + "    ";
-                    writer.Write(indentation);
-                    writer.Write(
-                    #line 16 "EachElement.weave"
+                )
+            {
+                indentation = originalIndentation + "    ";
+                writer.Write(indentation);
+                writer.Write(
+                #line 18 "EachElement.weave"
             flag 
-                    #line default
+                #line default
 
 );
-                    writer.Write(" = true;");
-                    writer.WriteLine();
-                }
+                writer.Write(" = true;");
+                writer.WriteLine();
+            }
             indentation = originalIndentation + "    ";
             var model1 = 
-            #line 18 "EachElement.weave"
+            #line 20 "EachElement.weave"
                     model.EachBody.Body
             #line default
 
 ;
             
-            #line 18 "EachElement.weave"
+            #line 20 "EachElement.weave"
        WalkElements
             #line default
 
@@ -124,47 +126,76 @@ namespace
             writer.Write(indentation);
             writer.Write("}");
             writer.WriteLine();
+            var temp1 = indentation;
+
+            #line 22 "EachElement.weave"
+  
+    this.amountToSubtract -= amount;
+
+            #line default
+
+            indentation = temp1;
             writer.WriteLine();
-                if (
+            if (
 
-                    #line 21 "EachElement.weave"
+                #line 26 "EachElement.weave"
      model.NoneBody != null
-                    #line default
+                #line default
 
-                    )
-                {
-                    writer.Write(indentation);
-                    writer.Write("if (!");
-                    writer.Write(
-                    #line 22 "EachElement.weave"
+                )
+            {
+                var temp2 = indentation;
+
+                #line 27 "EachElement.weave"
+      
+        amount = GetIndentationOffset(model.EachBody.Indentation, model.EachBody.Body);
+        this.amountToSubtract += amount;
+    
+                #line default
+
+                indentation = temp2;
+                writer.Write(indentation);
+                writer.Write("if (!");
+                writer.Write(
+                #line 31 "EachElement.weave"
              flag 
-                    #line default
+                #line default
 
 );
-                    writer.Write(")");
-                    writer.WriteLine();
-                    writer.Write(indentation);
-                    writer.Write("{");
-                    writer.WriteLine();
-                    indentation = originalIndentation + "    ";
-                    var model2 = 
-                    #line 24 "EachElement.weave"
+                writer.Write(")");
+                writer.WriteLine();
+                writer.Write(indentation);
+                writer.Write("{");
+                writer.WriteLine();
+                indentation = originalIndentation + "    ";
+                var model2 = 
+                #line 33 "EachElement.weave"
                         model.NoneBody.Body
-                    #line default
+                #line default
 
 ;
-                    
-                    #line 24 "EachElement.weave"
+                
+                #line 33 "EachElement.weave"
            WalkElements
-                    #line default
+                #line default
 
 (model2, writer, indentation);
-                    indentation = originalIndentation;
-                    writer.Write(indentation);
-                    writer.Write("}");
-                    writer.WriteLine();
-                    writer.WriteLine();
-                }
+                indentation = originalIndentation;
+                writer.Write(indentation);
+                writer.Write("}");
+                writer.WriteLine();
+                writer.WriteLine();
+                var temp3 = indentation;
+                indentation = originalIndentation;
+
+                #line 36 "EachElement.weave"
+      
+        this.amountToSubtract -= amount;
+    
+                #line default
+
+                indentation = temp3;
+            }
         }
     }
 }
