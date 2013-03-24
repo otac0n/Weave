@@ -85,6 +85,11 @@ namespace Weave.Compiler
 
         private static string ToLiteral(string input)
         {
+            if (input == null)
+            {
+                return "default(string)";
+            }
+
             var sb = new StringBuilder(input.Length * 2);
             sb.Append("\"");
             for (int i = 0; i < input.Length; i++)
