@@ -17,12 +17,6 @@ namespace
     using System.IO;
         using 
         #line 4 "Branch.weave"
-       System.Linq
-        #line default
-
-;
-        using 
-        #line 5 "Branch.weave"
        Weave.Expressions
         #line default
 
@@ -48,16 +42,9 @@ namespace
             var originalIndentation = indentation = indentation ?? string.Empty;
             var temp0 = indentation;
 
-            #line 7 "Branch.weave"
+            #line 6 "Branch.weave"
   
-    var ourIndentation = (model.Indentation ?? string.Empty).Length;
-
-    var amount = (from element in model.Body
-                  let amt = FindIndentation(element) - ourIndentation
-                  where amt > 0
-                  orderby amt
-                  select (int?)amt).FirstOrDefault() ?? 0;
-
+    var amount = GetIndentationOffset(model.Indentation, model.Body);
     this.amountToSubtract += amount;
 
             #line default
@@ -65,7 +52,7 @@ namespace
             indentation = temp0;
                 if (
 
-                    #line 18 "Branch.weave"
+                    #line 10 "Branch.weave"
      model.Expression != null
                     #line default
 
@@ -76,13 +63,13 @@ namespace
                     writer.WriteLine();
                     indentation = originalIndentation + "    ";
                     var model0 = 
-                    #line 20 "Branch.weave"
+                    #line 12 "Branch.weave"
                       model.Expression
                     #line default
 
 ;
                     
-                    #line 20 "Branch.weave"
+                    #line 12 "Branch.weave"
            RenderCode
                     #line default
 
@@ -98,13 +85,13 @@ namespace
             writer.WriteLine();
             indentation = originalIndentation + "    ";
             var model1 = 
-            #line 24 "Branch.weave"
+            #line 16 "Branch.weave"
                     model.Body
             #line default
 
 ;
             
-            #line 24 "Branch.weave"
+            #line 16 "Branch.weave"
        WalkElements
             #line default
 
@@ -115,7 +102,7 @@ namespace
             writer.WriteLine();
             var temp1 = indentation;
 
-            #line 26 "Branch.weave"
+            #line 18 "Branch.weave"
   
     this.amountToSubtract -= amount;
 

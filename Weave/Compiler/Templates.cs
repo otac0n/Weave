@@ -11,6 +11,7 @@ namespace Weave.Compiler
     using System.Collections.Generic;
     using System.Globalization;
     using System.IO;
+    using System.Linq;
     using System.Text;
     using Weave.Expressions;
 
@@ -116,6 +117,22 @@ namespace Weave.Compiler
             }
 
             return 0;
+        }
+
+        private static int GetIndentationOffset(string indentation, IEnumerable<Element> body)
+        {
+            if (indentation == null)
+            {
+                return 0;
+            }
+
+            var ourIndentation = indentation.Length;
+
+            return (from element in body
+                    let offset = FindIndentation(element) - ourIndentation
+                    where offset > 0
+                    orderby offset
+                    select (int?)offset).FirstOrDefault() ?? 0;
         }
 
         private static string ToLiteral(string input)
