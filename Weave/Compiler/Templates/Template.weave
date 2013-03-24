@@ -23,17 +23,17 @@
 // </auto-generated>
 // -----------------------------------------------------------------------
 
-namespace {{ this.RenderCode(@namespace, writer); }}
+namespace {{@RenderCode @namespace}}
 {
     using System.IO;
     {{each @using in settings["using"]}}
-        using {{ this.RenderCode(@using, writer); }};
+        using {{@RenderCode @using}};
     {{/each}}
 
-    {{ this.RenderCode(accessibility, writer); }} partial class {{ this.RenderCode(className, writer); }}
+    {{@RenderCode accessibility}} partial class {{@RenderCode className}}
     {
         [System.CodeDom.Compiler.GeneratedCode("{{= assemblyName.Name }}", "{{= assemblyName.Version }}")]
-        public void {{ this.RenderCode(methodName, writer); }}({{ this.RenderCode(modelName, writer); }} model, TextWriter writer, string indentation = null)
+        public void {{@RenderCode methodName}}({{@RenderCode modelName}} model, TextWriter writer, string indentation = null)
         {
             indentation = indentation ?? string.Empty;
             {{@BaseWalkTemplate model}}

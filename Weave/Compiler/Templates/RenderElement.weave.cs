@@ -42,51 +42,70 @@ namespace
             indentation = indentation ?? string.Empty;
             var temp0 = indentation;
 
-#line 6 "RenderElement.weave"
+            #line 6 "RenderElement.weave"
    var newModel = this.CreateVariable("model"); 
-#line default
+            #line default
 
             indentation = temp0;
             writer.Write(indentation);
             writer.Write("var ");
             writer.Write(
-#line 7 "RenderElement.weave"
+            #line 7 "RenderElement.weave"
         newModel 
-#line default
+            #line default
 
 );
             writer.Write(" = ");
-            var temp1 = indentation;
+            var model0 = 
+            #line 7 "RenderElement.weave"
+                                    model.Expression
+            #line default
 
+;
+            
 #line 7 "RenderElement.weave"
-                         this.RenderCode(model.Expression, writer); 
+                         RenderCode
 #line default
 
-            indentation = temp1;
+(model0, writer, indentation);
             writer.Write(";");
             writer.WriteLine();
             writer.Write(indentation);
-            var temp2 = indentation;
+            var model1 = 
+            #line 8 "RenderElement.weave"
+              model.Method
+            #line default
 
+;
+            
 #line 8 "RenderElement.weave"
-   this.RenderCode(model.Method, writer); 
+   RenderCode
 #line default
 
-            indentation = temp2;
+(model1, writer, indentation);
             writer.Write("(");
             writer.Write(
-#line 8 "RenderElement.weave"
-                                                 newModel 
-#line default
+            #line 8 "RenderElement.weave"
+                                 newModel 
+            #line default
 
 );
-            writer.Write(", writer, indentation + ");
-            writer.Write(
-#line 8 "RenderElement.weave"
-                                                                                        ToLiteral(model.Indentation) 
-#line default
+            writer.Write(", writer, indentation");
+                    if (
+                #line 8 "RenderElement.weave"
+                                                                      !string.IsNullOrEmpty(model.Indentation)
+                #line default
+
+)
+                {
+                    writer.Write(" + ");
+                    writer.Write(
+                    #line 8 "RenderElement.weave"
+                                                                                                                       ToLiteral(model.Indentation) 
+                    #line default
 
 );
+                }
             writer.Write(");");
             writer.WriteLine();
         }

@@ -44,9 +44,9 @@ namespace
             writer.Write("writer.Write(indentation);");
             writer.WriteLine();
                     if (
-#line 7 "IndentationElement.weave"
+                #line 7 "IndentationElement.weave"
      model.Indentation != string.Empty 
-#line default
+                #line default
 
 )
                 {
@@ -54,9 +54,9 @@ namespace
                         writer.Write("    ");
                     writer.Write("writer.Write(");
                     writer.Write(
-#line 8 "IndentationElement.weave"
+                    #line 8 "IndentationElement.weave"
                      ToLiteral(model.Indentation) 
-#line default
+                    #line default
 
 );
                     writer.Write(");");

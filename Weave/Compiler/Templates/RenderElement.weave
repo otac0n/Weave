@@ -4,5 +4,5 @@
 @using Weave.Expressions
 
 {{ var newModel = this.CreateVariable("model"); }}
-var {{= newModel }} = {{ this.RenderCode(model.Expression, writer); }};
-{{ this.RenderCode(model.Method, writer); }}({{= newModel }}, writer, indentation + {{= ToLiteral(model.Indentation) }});
+var {{= newModel }} = {{@RenderCode model.Expression}};
+{{@RenderCode model.Method}}({{= newModel }}, writer, indentation{{if !string.IsNullOrEmpty(model.Indentation)}} + {{= ToLiteral(model.Indentation) }}{{/if}});

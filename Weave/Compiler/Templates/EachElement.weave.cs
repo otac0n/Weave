@@ -42,19 +42,18 @@ namespace
             indentation = indentation ?? string.Empty;
             var temp0 = indentation;
 
-#line 6 "EachElement.weave"
+            #line 6 "EachElement.weave"
   
     var flag = this.CreateVariable("_flag");
 
-#line default
+            #line default
 
             indentation = temp0;
-            writer.Write(indentation);
             writer.WriteLine();
                     if (
-#line 10 "EachElement.weave"
+                #line 10 "EachElement.weave"
      model.NoneBody != null
-#line default
+                #line default
 
 )
                 {
@@ -62,54 +61,57 @@ namespace
                         writer.Write("    ");
                     writer.Write("bool ");
                     writer.Write(
-#line 11 "EachElement.weave"
+                    #line 11 "EachElement.weave"
              flag 
-#line default
+                    #line default
 
 );
                     writer.Write(";");
                     writer.WriteLine();
                 }
-            writer.Write(indentation);
             writer.WriteLine();
             writer.Write(indentation);
             writer.Write("foreach (var ");
-            var temp1 = indentation;
+            var model0 = 
+            #line 14 "EachElement.weave"
+                           model.EachBody.Expression
+            #line default
 
+;
+            
 #line 14 "EachElement.weave"
-                this.RenderCode(model.EachBody.Expression, writer); 
+                RenderCode
 #line default
 
-            indentation = temp1;
+(model0, writer, indentation);
             writer.Write(")");
             writer.WriteLine();
             writer.Write(indentation);
             writer.Write("{");
             writer.WriteLine();
                     if (
-#line 16 "EachElement.weave"
+                #line 16 "EachElement.weave"
          model.NoneBody != null
-#line default
+                #line default
 
 )
                 {
                     writer.Write(indentation);
                         writer.Write("        ");
                     writer.Write(
-#line 17 "EachElement.weave"
+                    #line 17 "EachElement.weave"
             flag 
-#line default
+                    #line default
 
 );
                     writer.Write(" = true;");
                     writer.WriteLine();
                 }
-            writer.Write(indentation);
             writer.WriteLine();
-            var model0 = 
-#line 20 "EachElement.weave"
+            var model1 = 
+            #line 20 "EachElement.weave"
                     model.EachBody.Body
-#line default
+            #line default
 
 ;
             
@@ -117,16 +119,15 @@ namespace
        WalkElements
 #line default
 
-(model0, writer, indentation + "    ");
+(model1, writer, indentation + "    ");
             writer.Write(indentation);
             writer.Write("}");
             writer.WriteLine();
-            writer.Write(indentation);
             writer.WriteLine();
                     if (
-#line 23 "EachElement.weave"
+                #line 23 "EachElement.weave"
      model.NoneBody != null
-#line default
+                #line default
 
 )
                 {
@@ -134,9 +135,9 @@ namespace
                         writer.Write("    ");
                     writer.Write("if (!");
                     writer.Write(
-#line 24 "EachElement.weave"
+                    #line 24 "EachElement.weave"
              flag 
-#line default
+                    #line default
 
 );
                     writer.Write(")");
@@ -145,10 +146,10 @@ namespace
                         writer.Write("    ");
                     writer.Write("{");
                     writer.WriteLine();
-                    var model1 = 
-#line 26 "EachElement.weave"
+                    var model2 = 
+                    #line 26 "EachElement.weave"
                         model.NoneBody.Body
-#line default
+                    #line default
 
 ;
                     
@@ -156,7 +157,7 @@ namespace
            WalkElements
 #line default
 
-(model1, writer, indentation + "        ");
+(model2, writer, indentation + "        ");
                     writer.Write(indentation);
                         writer.Write("    ");
                     writer.Write("}");

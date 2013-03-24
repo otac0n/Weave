@@ -42,25 +42,25 @@ namespace
             indentation = indentation ?? string.Empty;
             var temp0 = indentation;
 
-#line 6 "CodeElement.weave"
+            #line 6 "CodeElement.weave"
    var temp = this.CreateVariable("temp"); 
-#line default
+            #line default
 
             indentation = temp0;
             writer.Write(indentation);
             writer.Write("var ");
             writer.Write(
-#line 7 "CodeElement.weave"
+            #line 7 "CodeElement.weave"
         temp 
-#line default
+            #line default
 
 );
             writer.Write(" = indentation;");
             writer.WriteLine();
                     if (
-#line 8 "CodeElement.weave"
+                #line 8 "CodeElement.weave"
      !string.IsNullOrEmpty(model.Indentation) 
-#line default
+                #line default
 
 )
                 {
@@ -68,27 +68,32 @@ namespace
                         writer.Write("    ");
                     writer.Write("indentation += ");
                     writer.Write(
-#line 9 "CodeElement.weave"
+                    #line 9 "CodeElement.weave"
                        ToLiteral(model.Indentation) 
-#line default
+                    #line default
 
 );
                     writer.Write(";");
                     writer.WriteLine();
                 }
-            var temp1 = indentation;
+            var model0 = 
+            #line 11 "CodeElement.weave"
+              model.Expression
+            #line default
 
+;
+            
 #line 11 "CodeElement.weave"
-   this.RenderCode(model.Expression, writer); 
+   RenderCode
 #line default
 
-            indentation = temp1;
+(model0, writer, indentation);
             writer.Write(indentation);
             writer.Write("indentation = ");
             writer.Write(
-#line 12 "CodeElement.weave"
+            #line 12 "CodeElement.weave"
                   temp 
-#line default
+            #line default
 
 );
             writer.Write(";");

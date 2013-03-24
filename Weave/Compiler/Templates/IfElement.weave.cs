@@ -42,25 +42,25 @@ namespace
             indentation = indentation ?? string.Empty;
             var temp0 = indentation;
 
-#line 6 "IfElement.weave"
+            #line 6 "IfElement.weave"
    var first = true; 
-#line default
+            #line default
 
             indentation = temp0;
-            
-            
+
+
             foreach (var 
-#line 7 "IfElement.weave"
+            #line 7 "IfElement.weave"
        branch in model.Branches
-#line default
+            #line default
 
 )
             {
-            
+
                         if (
-#line 8 "IfElement.weave"
+                    #line 8 "IfElement.weave"
          !first
-#line default
+                    #line default
 
 )
                     {
@@ -70,9 +70,9 @@ namespace
                         writer.WriteLine();
                     }
                 var model0 = 
-#line 11 "IfElement.weave"
+                #line 11 "IfElement.weave"
                   branch
-#line default
+                #line default
 
 ;
                 
@@ -84,13 +84,13 @@ namespace
                 var temp1 = indentation;
                     indentation += "    ";
 
-#line 12 "IfElement.weave"
+                #line 12 "IfElement.weave"
        first = false; 
-#line default
+                #line default
 
                 indentation = temp1;
             }
-            
+
         }
     }
 }

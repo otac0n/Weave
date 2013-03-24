@@ -43,9 +43,9 @@ namespace
             writer.Write(indentation);
             writer.Write("writer.Write(");
             writer.Write(
-#line 6 "TextElement.weave"
+            #line 6 "TextElement.weave"
                  ToLiteral(model.Value) 
-#line default
+            #line default
 
 );
             writer.Write(");");

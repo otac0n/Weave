@@ -42,55 +42,58 @@ namespace
             indentation = indentation ?? string.Empty;
             var temp0 = indentation;
 
-#line 6 "Code.weave"
+            #line 6 "Code.weave"
    var span = model as SourceSpan; 
-#line default
+            #line default
 
             indentation = temp0;
                     if (
-#line 7 "Code.weave"
+                #line 7 "Code.weave"
      span != null
-#line default
+                #line default
 
 )
                 {
-                    writer.Write(indentation);
                     writer.WriteLine();
                     writer.Write(indentation);
                     writer.Write("#line ");
                     writer.Write(
-#line 9 "Code.weave"
+                    #line 9 "Code.weave"
           span.Start.Line 
-#line default
+                    #line default
 
 );
                     writer.Write(" \"");
                     writer.Write(
-#line 9 "Code.weave"
+                    #line 9 "Code.weave"
                                   Path.GetFileName(span.Start.FileName) 
-#line default
+                    #line default
 
 );
                     writer.Write("\"");
-                    writer.WriteLine();
-                    writer.Write(indentation);
+                    var temp1 = indentation;
+
+                    #line 9 "Code.weave"
+                                                                              writer.WriteLine(); 
+                    #line default
+
+                    indentation = temp1;
                     writer.Write(
-#line 10 "Code.weave"
-    new string(' ', span.Start.Column - 1) 
-#line default
+                    #line 9 "Code.weave"
+                                                                                                        new string(' ', span.Start.Column - 1) 
+                    #line default
 
 );
                     writer.Write(
-#line 10 "Code.weave"
-                                                 span.Value 
-#line default
+                    #line 9 "Code.weave"
+                                                                                                                                                     span.Value 
+                    #line default
 
 );
                     writer.WriteLine();
                     writer.Write(indentation);
                     writer.Write("#line default");
                     writer.WriteLine();
-                    writer.Write(indentation);
                     writer.WriteLine();
                 }
                     else
@@ -98,9 +101,9 @@ namespace
                     writer.Write(indentation);
                         writer.Write("    ");
                     writer.Write(
-#line 14 "Code.weave"
+                    #line 13 "Code.weave"
         model 
-#line default
+                    #line default
 
 );
                     writer.WriteLine();

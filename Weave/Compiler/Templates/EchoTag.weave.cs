@@ -42,13 +42,18 @@ namespace
             indentation = indentation ?? string.Empty;
             writer.Write(indentation);
             writer.Write("writer.Write(");
-            var temp0 = indentation;
+            var model0 = 
+            #line 6 "EchoTag.weave"
+                           model.Expression
+            #line default
 
+;
+            
 #line 6 "EchoTag.weave"
-                this.RenderCode(model.Expression, writer); 
+                RenderCode
 #line default
 
-            indentation = temp0;
+(model0, writer, indentation);
             writer.Write(");");
             writer.WriteLine();
         }
