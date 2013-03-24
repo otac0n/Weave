@@ -22,8 +22,8 @@ namespace
 
 ;
 
-            
- partial class         Templates
+        
+ partial class     Templates
 
     {
         [System.CodeDom.Compiler.GeneratedCode("Weave", "1.0.0.0")]
@@ -40,29 +40,28 @@ namespace
  model, TextWriter writer, string indentation = null)
         {
             var originalIndentation = indentation = indentation ?? string.Empty;
-                    if (
+                if (
 
-                        #line 6 "IndentationElement.weave"
-     this.lastIndentation != model.Indentation
-                        #line default
+                    #line 6 "IndentationElement.weave"
+     this.lastIndentation.Length != model.Indentation.Length - this.amountToSubtract
+                    #line default
 
-                        )
+                    )
                 {
-                        indentation = originalIndentation + "    ";
                     writer.Write(indentation);
                     writer.Write("indentation = originalIndentation");
-                            if (
+                        if (
 
-                                #line 7 "IndentationElement.weave"
-                                          model.Indentation != string.Empty
-                                #line default
+                            #line 7 "IndentationElement.weave"
+                                          model.Indentation.Length - this.amountToSubtract > 0
+                            #line default
 
-                                )
+                            )
                         {
                             writer.Write(" + ");
                             writer.Write(
                             #line 7 "IndentationElement.weave"
-                                                                                    ToLiteral(model.Indentation) 
+                                                                                                       ToLiteral(model.Indentation.Substring(0, model.Indentation.Length - this.amountToSubtract)) 
                             #line default
 
 );
@@ -77,7 +76,6 @@ namespace
 
                     indentation = temp0;
                 }
-                indentation = originalIndentation;
             writer.Write(indentation);
             writer.Write("writer.Write(indentation);");
             writer.WriteLine();

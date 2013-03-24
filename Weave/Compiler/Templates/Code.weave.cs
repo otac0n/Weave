@@ -22,8 +22,8 @@ namespace
 
 ;
 
-            
- partial class         Templates
+        
+ partial class     Templates
 
     {
         [System.CodeDom.Compiler.GeneratedCode("Weave", "1.0.0.0")]
@@ -47,13 +47,13 @@ namespace
             #line default
 
             indentation = temp0;
-                    if (
+                if (
 
-                        #line 7 "Code.weave"
+                    #line 7 "Code.weave"
      span != null
-                        #line default
+                    #line default
 
-                        )
+                    )
                 {
                     writer.WriteLine();
                     writer.Write(indentation);
@@ -97,9 +97,8 @@ namespace
                     writer.WriteLine();
                     writer.WriteLine();
                 }
-                    else
+                else
                 {
-                        indentation = originalIndentation + "    ";
                     writer.Write(indentation);
                     writer.Write(
                     #line 13 "Code.weave"

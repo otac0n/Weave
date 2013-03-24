@@ -34,8 +34,8 @@ namespace
 
 ;
 
-            
- partial class         Templates
+        
+ partial class     Templates
 
     {
         [System.CodeDom.Compiler.GeneratedCode("Weave", "1.0.0.0")]
@@ -123,7 +123,7 @@ namespace
             writer.Write(indentation);
             writer.Write("{");
             writer.WriteLine();
-                indentation = originalIndentation + "    ";
+            indentation = originalIndentation + "    ";
             writer.Write(indentation);
             writer.Write("using System.IO;");
             writer.WriteLine();
@@ -137,7 +137,7 @@ namespace
 )
             {
 
-                    indentation = originalIndentation + "        ";
+                indentation = originalIndentation + "        ";
                 writer.Write(indentation);
                 writer.Write("using ");
                 var model1 = 
@@ -157,7 +157,7 @@ namespace
             }
 
             writer.WriteLine();
-                indentation = originalIndentation + "    ";
+            indentation = originalIndentation + "    ";
             writer.Write(indentation);
             var model2 = 
             #line 33 "Template.weave"
@@ -188,7 +188,7 @@ namespace
             writer.Write(indentation);
             writer.Write("{");
             writer.WriteLine();
-                indentation = originalIndentation + "        ";
+            indentation = originalIndentation + "        ";
             writer.Write(indentation);
             writer.Write("[System.CodeDom.Compiler.GeneratedCode(\"");
             writer.Write(
@@ -238,7 +238,7 @@ namespace
             writer.Write(indentation);
             writer.Write("{");
             writer.WriteLine();
-                indentation = originalIndentation + "            ";
+            indentation = originalIndentation + "            ";
             writer.Write(indentation);
             writer.Write("var originalIndentation = indentation = indentation ?? string.Empty;");
             writer.WriteLine();
@@ -254,15 +254,15 @@ namespace
             #line default
 
 (model6, writer, indentation);
-                indentation = originalIndentation + "        ";
+            indentation = originalIndentation + "        ";
             writer.Write(indentation);
             writer.Write("}");
             writer.WriteLine();
-                indentation = originalIndentation + "    ";
+            indentation = originalIndentation + "    ";
             writer.Write(indentation);
             writer.Write("}");
             writer.WriteLine();
-                indentation = originalIndentation;
+            indentation = originalIndentation;
             writer.Write(indentation);
             writer.Write("}");
         }

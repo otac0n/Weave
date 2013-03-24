@@ -3,8 +3,8 @@
 @model IndentationElement
 @using Weave.Expressions
 
-{{if this.lastIndentation != model.Indentation}}
-    indentation = originalIndentation{{if model.Indentation != string.Empty}} + {{= ToLiteral(model.Indentation) }}{{/if}};
+{{if this.lastIndentation.Length != model.Indentation.Length - this.amountToSubtract}}
+    indentation = originalIndentation{{if model.Indentation.Length - this.amountToSubtract > 0}} + {{= ToLiteral(model.Indentation.Substring(0, model.Indentation.Length - this.amountToSubtract)) }}{{/if}};
     {{ this.lastIndentation = model.Indentation; }}
 {{/if}}
 writer.Write(indentation);

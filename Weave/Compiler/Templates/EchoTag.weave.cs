@@ -22,8 +22,8 @@ namespace
 
 ;
 
-            
- partial class         Templates
+        
+ partial class     Templates
 
     {
         [System.CodeDom.Compiler.GeneratedCode("Weave", "1.0.0.0")]

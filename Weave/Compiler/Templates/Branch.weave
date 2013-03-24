@@ -1,8 +1,20 @@
 ﻿@namespace Weave.Compiler
 @methodname RenderBranch
 @model Branch
+@using System.Linq
 @using Weave.Expressions
 
+{{
+    var ourIndentation = (model.Indentation ?? string.Empty).Length;
+
+    var amount = (from element in model.Body
+                  let amt = FindIndentation(element) - ourIndentation
+                  where amt > 0
+                  orderby amt
+                  select (int?)amt).FirstOrDefault() ?? 0;
+
+    this.amountToSubtract += amount;
+}}
 {{if model.Expression != null}}
     if (
         {{@RenderCode model.Expression}}
@@ -11,3 +23,6 @@
 {
     {{@WalkElements model.Body}}
 }
+{{
+    this.amountToSubtract -= amount;
+}}

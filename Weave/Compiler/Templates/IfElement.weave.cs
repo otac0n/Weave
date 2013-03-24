@@ -22,8 +22,8 @@ namespace
 
 ;
 
-            
- partial class         Templates
+        
+ partial class     Templates
 
     {
         [System.CodeDom.Compiler.GeneratedCode("Weave", "1.0.0.0")]
@@ -57,30 +57,30 @@ namespace
 )
             {
 
-                        if (
+                    if (
 
-                            #line 8 "IfElement.weave"
+                        #line 8 "IfElement.weave"
          !first
-                            #line default
+                        #line default
 
-                            )
+                        )
                     {
-                            indentation = originalIndentation + "        ";
+                        indentation = originalIndentation + "    ";
                         writer.Write(indentation);
                         writer.Write("else");
                         writer.WriteLine();
                     }
-                    indentation = originalIndentation + "    ";
-                    var model0 = 
-                    #line 11 "IfElement.weave"
+                indentation = originalIndentation + "    ";
+                var model0 = 
+                #line 11 "IfElement.weave"
                   branch
-                    #line default
+                #line default
 
 ;
-                    
-                    #line 11 "IfElement.weave"
+                
+                #line 11 "IfElement.weave"
        WalkBranch
-                    #line default
+                #line default
 
 (model0, writer, indentation);
                 var temp1 = indentation;

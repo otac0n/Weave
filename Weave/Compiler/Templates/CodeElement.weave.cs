@@ -22,8 +22,8 @@ namespace
 
 ;
 
-            
- partial class         Templates
+        
+ partial class     Templates
 
     {
         [System.CodeDom.Compiler.GeneratedCode("Weave", "1.0.0.0")]
@@ -57,29 +57,28 @@ namespace
 );
             writer.Write(" = indentation;");
             writer.WriteLine();
-                    if (
+                if (
 
-                        #line 8 "CodeElement.weave"
-     model.Indentation != null && this.lastIndentation != model.Indentation
-                        #line default
+                    #line 8 "CodeElement.weave"
+     model.Indentation != null && this.lastIndentation.Length != model.Indentation.Length - this.amountToSubtract
+                    #line default
 
-                        )
+                    )
                 {
-                        indentation = originalIndentation + "    ";
                     writer.Write(indentation);
                     writer.Write("indentation = originalIndentation");
-                            if (
+                        if (
 
-                                #line 9 "CodeElement.weave"
-                                          model.Indentation != string.Empty
-                                #line default
+                            #line 9 "CodeElement.weave"
+                                          model.Indentation.Length - this.amountToSubtract > 0
+                            #line default
 
-                                )
+                            )
                         {
                             writer.Write(" + ");
                             writer.Write(
                             #line 9 "CodeElement.weave"
-                                                                                    ToLiteral(model.Indentation) 
+                                                                                                       ToLiteral(model.Indentation.Substring(0, model.Indentation.Length - this.amountToSubtract)) 
                             #line default
 
 );
@@ -94,17 +93,16 @@ namespace
 
                     indentation = temp1;
                 }
-                indentation = originalIndentation;
-                var model0 = 
-                #line 12 "CodeElement.weave"
+            var model0 = 
+            #line 12 "CodeElement.weave"
               model.Expression
-                #line default
+            #line default
 
 ;
-                
-                #line 12 "CodeElement.weave"
+            
+            #line 12 "CodeElement.weave"
    RenderCode
-                #line default
+            #line default
 
 (model0, writer, indentation);
             writer.Write(indentation);

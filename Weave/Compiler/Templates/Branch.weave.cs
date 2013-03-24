@@ -17,13 +17,19 @@ namespace
     using System.IO;
         using 
         #line 4 "Branch.weave"
+       System.Linq
+        #line default
+
+;
+        using 
+        #line 5 "Branch.weave"
        Weave.Expressions
         #line default
 
 ;
 
-            
- partial class         Templates
+        
+ partial class     Templates
 
     {
         [System.CodeDom.Compiler.GeneratedCode("Weave", "1.0.0.0")]
@@ -40,56 +46,82 @@ namespace
  model, TextWriter writer, string indentation = null)
         {
             var originalIndentation = indentation = indentation ?? string.Empty;
-                    if (
+            var temp0 = indentation;
 
-                        #line 6 "Branch.weave"
+            #line 7 "Branch.weave"
+  
+    var ourIndentation = (model.Indentation ?? string.Empty).Length;
+
+    var amount = (from element in model.Body
+                  let amt = FindIndentation(element) - ourIndentation
+                  where amt > 0
+                  orderby amt
+                  select (int?)amt).FirstOrDefault() ?? 0;
+
+    this.amountToSubtract += amount;
+
+            #line default
+
+            indentation = temp0;
+                if (
+
+                    #line 18 "Branch.weave"
      model.Expression != null
-                        #line default
+                    #line default
 
-                        )
+                    )
                 {
-                        indentation = originalIndentation + "    ";
                     writer.Write(indentation);
                     writer.Write("if (");
                     writer.WriteLine();
-                        indentation = originalIndentation + "        ";
-                        var model0 = 
-                        #line 8 "Branch.weave"
+                    indentation = originalIndentation + "    ";
+                    var model0 = 
+                    #line 20 "Branch.weave"
                       model.Expression
-                        #line default
+                    #line default
 
 ;
-                        
-                        #line 8 "Branch.weave"
+                    
+                    #line 20 "Branch.weave"
            RenderCode
-                        #line default
+                    #line default
 
 (model0, writer, indentation);
+                    indentation = originalIndentation + "    ";
                     writer.Write(indentation);
                     writer.Write(")");
                     writer.WriteLine();
                 }
-                indentation = originalIndentation;
+            indentation = originalIndentation;
             writer.Write(indentation);
             writer.Write("{");
             writer.WriteLine();
-                indentation = originalIndentation + "    ";
-                var model1 = 
-                #line 12 "Branch.weave"
+            indentation = originalIndentation + "    ";
+            var model1 = 
+            #line 24 "Branch.weave"
                     model.Body
-                #line default
+            #line default
 
 ;
-                
-                #line 12 "Branch.weave"
+            
+            #line 24 "Branch.weave"
        WalkElements
-                #line default
+            #line default
 
 (model1, writer, indentation);
-                indentation = originalIndentation;
+            indentation = originalIndentation;
             writer.Write(indentation);
             writer.Write("}");
             writer.WriteLine();
+            var temp1 = indentation;
+
+            #line 26 "Branch.weave"
+  
+    this.amountToSubtract -= amount;
+
+            #line default
+
+            indentation = temp1;
         }
     }
 }

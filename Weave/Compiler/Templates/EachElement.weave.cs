@@ -22,8 +22,8 @@ namespace
 
 ;
 
-            
- partial class         Templates
+        
+ partial class     Templates
 
     {
         [System.CodeDom.Compiler.GeneratedCode("Weave", "1.0.0.0")]
@@ -50,15 +50,14 @@ namespace
 
             indentation = temp0;
             writer.WriteLine();
-                    if (
+                if (
 
-                        #line 10 "EachElement.weave"
+                    #line 10 "EachElement.weave"
      model.NoneBody != null
-                        #line default
+                    #line default
 
-                        )
+                    )
                 {
-                        indentation = originalIndentation + "    ";
                     writer.Write(indentation);
                     writer.Write("bool ");
                     writer.Write(
@@ -71,7 +70,6 @@ namespace
                     writer.WriteLine();
                 }
             writer.WriteLine();
-                indentation = originalIndentation;
             writer.Write(indentation);
             writer.Write("foreach (var ");
             var model0 = 
@@ -91,15 +89,15 @@ namespace
             writer.Write(indentation);
             writer.Write("{");
             writer.WriteLine();
-                    if (
+                if (
 
-                        #line 16 "EachElement.weave"
+                    #line 16 "EachElement.weave"
          model.NoneBody != null
-                        #line default
+                    #line default
 
-                        )
+                    )
                 {
-                        indentation = originalIndentation + "        ";
+                    indentation = originalIndentation + "    ";
                     writer.Write(indentation);
                     writer.Write(
                     #line 17 "EachElement.weave"
@@ -111,33 +109,32 @@ namespace
                     writer.WriteLine();
                 }
             writer.WriteLine();
-                indentation = originalIndentation + "    ";
-                var model1 = 
-                #line 20 "EachElement.weave"
+            indentation = originalIndentation + "    ";
+            var model1 = 
+            #line 20 "EachElement.weave"
                     model.EachBody.Body
-                #line default
+            #line default
 
 ;
-                
-                #line 20 "EachElement.weave"
+            
+            #line 20 "EachElement.weave"
        WalkElements
-                #line default
+            #line default
 
 (model1, writer, indentation);
-                indentation = originalIndentation;
+            indentation = originalIndentation;
             writer.Write(indentation);
             writer.Write("}");
             writer.WriteLine();
             writer.WriteLine();
-                    if (
+                if (
 
-                        #line 23 "EachElement.weave"
+                    #line 23 "EachElement.weave"
      model.NoneBody != null
-                        #line default
+                    #line default
 
-                        )
+                    )
                 {
-                        indentation = originalIndentation + "    ";
                     writer.Write(indentation);
                     writer.Write("if (!");
                     writer.Write(
@@ -151,20 +148,20 @@ namespace
                     writer.Write(indentation);
                     writer.Write("{");
                     writer.WriteLine();
-                        indentation = originalIndentation + "        ";
-                        var model2 = 
-                        #line 26 "EachElement.weave"
+                    indentation = originalIndentation + "    ";
+                    var model2 = 
+                    #line 26 "EachElement.weave"
                         model.NoneBody.Body
-                        #line default
+                    #line default
 
 ;
-                        
-                        #line 26 "EachElement.weave"
+                    
+                    #line 26 "EachElement.weave"
            WalkElements
-                        #line default
+                    #line default
 
 (model2, writer, indentation);
-                        indentation = originalIndentation + "    ";
+                    indentation = originalIndentation;
                     writer.Write(indentation);
                     writer.Write("}");
                     writer.WriteLine();

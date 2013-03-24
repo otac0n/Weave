@@ -29,6 +29,7 @@ namespace Weave.Compiler
         private string currentIndentation = string.Empty;
 
         private string lastIndentation = string.Empty;
+        private int amountToSubtract = 0;
 
         public Templates(TextWriter writer)
         {
@@ -83,6 +84,38 @@ namespace Weave.Compiler
         public override void WalkIndentationElement(IndentationElement indentationElement)
         {
             this.RenderIndentationElement(indentationElement, this.writer, this.currentIndentation);
+        }
+
+        private static int FindIndentation(Element element)
+        {
+            CodeElement codeElement;
+            EachElement eachElement;
+            IfElement ifElement;
+            IndentationElement indentationElement;
+            RenderElement renderElement;
+
+            if ((codeElement = element as CodeElement) != null)
+            {
+                return (codeElement.Indentation ?? string.Empty).Length;
+            }
+            else if ((eachElement = element as EachElement) != null)
+            {
+                return (eachElement.EachBody.Indentation ?? string.Empty).Length;
+            }
+            else if ((ifElement = element as IfElement) != null)
+            {
+                return (ifElement.Branches[0].Indentation ?? string.Empty).Length;
+            }
+            else if ((indentationElement = element as IndentationElement) != null)
+            {
+                return (indentationElement.Indentation ?? string.Empty).Length;
+            }
+            else if ((renderElement = element as RenderElement) != null)
+            {
+                return (renderElement.Indentation ?? string.Empty).Length;
+            }
+
+            return 0;
         }
 
         private static string ToLiteral(string input)
