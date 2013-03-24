@@ -108,5 +108,25 @@ namespace Weave.Tests.IntegrationTests
 
             Assert.That(result, Is.EqualTo("<!DOCTYPE html>"));
         }
+
+        [Test]
+        public void NestedIfStatements_StripAllIndentation()
+        {
+            var template = "{{if true}}\n    {{if true}}\n        foo\n    {{/if}}\n{{/if}}";
+
+            var result = TemplateHelper.Render(template, null);
+
+            Assert.That(result, Is.EqualTo("foo\n"));
+        }
+
+        [Test]
+        public void IfStatementWithInconsistentIndenting_ChoosesSmallestNonZeroIndentation()
+        {
+            var template = "    {{if true}}\n        foo\n      foo\n       foo\n    foo\n    {{/if}}";
+
+            var result = TemplateHelper.Render(template, null);
+
+            Assert.That(result, Is.EqualTo("      foo\n    foo\n     foo\n  foo\n"));
+        }
     }
 }
