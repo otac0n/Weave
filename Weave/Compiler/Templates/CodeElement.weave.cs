@@ -58,21 +58,23 @@ namespace
             writer.Write(" = indentation;");
             writer.WriteLine();
                     if (
-                    #line 8 "CodeElement.weave"
-     model.Indentation != null && this.lastIndentation != model.Indentation
-                    #line default
 
-)
+                        #line 8 "CodeElement.weave"
+     model.Indentation != null && this.lastIndentation != model.Indentation
+                        #line default
+
+                        )
                 {
                         indentation = originalIndentation + "    ";
                     writer.Write(indentation);
                     writer.Write("indentation = originalIndentation");
                             if (
-                            #line 9 "CodeElement.weave"
-                                          model.Indentation != string.Empty
-                            #line default
 
-)
+                                #line 9 "CodeElement.weave"
+                                          model.Indentation != string.Empty
+                                #line default
+
+                                )
                         {
                             writer.Write(" + ");
                             writer.Write(

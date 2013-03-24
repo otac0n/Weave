@@ -51,11 +51,12 @@ namespace
             indentation = temp0;
             writer.WriteLine();
                     if (
-                    #line 10 "EachElement.weave"
-     model.NoneBody != null
-                    #line default
 
-)
+                        #line 10 "EachElement.weave"
+     model.NoneBody != null
+                        #line default
+
+                        )
                 {
                         indentation = originalIndentation + "    ";
                     writer.Write(indentation);
@@ -91,11 +92,12 @@ namespace
             writer.Write("{");
             writer.WriteLine();
                     if (
-                    #line 16 "EachElement.weave"
-         model.NoneBody != null
-                    #line default
 
-)
+                        #line 16 "EachElement.weave"
+         model.NoneBody != null
+                        #line default
+
+                        )
                 {
                         indentation = originalIndentation + "        ";
                     writer.Write(indentation);
@@ -128,11 +130,12 @@ namespace
             writer.WriteLine();
             writer.WriteLine();
                     if (
-                    #line 23 "EachElement.weave"
-     model.NoneBody != null
-                    #line default
 
-)
+                        #line 23 "EachElement.weave"
+     model.NoneBody != null
+                        #line default
+
+                        )
                 {
                         indentation = originalIndentation + "    ";
                     writer.Write(indentation);

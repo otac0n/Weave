@@ -48,11 +48,12 @@ namespace
 
             indentation = temp0;
                     if (
-                    #line 7 "Code.weave"
-     span != null
-                    #line default
 
-)
+                        #line 7 "Code.weave"
+     span != null
+                        #line default
+
+                        )
                 {
                     writer.WriteLine();
                     writer.Write(indentation);

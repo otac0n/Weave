@@ -41,27 +41,31 @@ namespace
         {
             var originalIndentation = indentation = indentation ?? string.Empty;
                     if (
-                    #line 6 "Branch.weave"
-     model.Expression != null
-                    #line default
 
-)
+                        #line 6 "Branch.weave"
+     model.Expression != null
+                        #line default
+
+                        )
                 {
                         indentation = originalIndentation + "    ";
                     writer.Write(indentation);
                     writer.Write("if (");
-                    var model0 = 
-                    #line 7 "Branch.weave"
+                    writer.WriteLine();
+                        indentation = originalIndentation + "        ";
+                        var model0 = 
+                        #line 8 "Branch.weave"
                       model.Expression
-                    #line default
+                        #line default
 
 ;
-                    
-                    #line 7 "Branch.weave"
+                        
+                        #line 8 "Branch.weave"
            RenderCode
-                    #line default
+                        #line default
 
 (model0, writer, indentation);
+                    writer.Write(indentation);
                     writer.Write(")");
                     writer.WriteLine();
                 }
@@ -71,13 +75,13 @@ namespace
             writer.WriteLine();
                 indentation = originalIndentation + "    ";
                 var model1 = 
-                #line 10 "Branch.weave"
+                #line 12 "Branch.weave"
                     model.Body
                 #line default
 
 ;
                 
-                #line 10 "Branch.weave"
+                #line 12 "Branch.weave"
        WalkElements
                 #line default
 

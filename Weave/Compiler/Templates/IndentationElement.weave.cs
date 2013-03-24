@@ -41,21 +41,23 @@ namespace
         {
             var originalIndentation = indentation = indentation ?? string.Empty;
                     if (
-                    #line 6 "IndentationElement.weave"
-     this.lastIndentation != model.Indentation
-                    #line default
 
-)
+                        #line 6 "IndentationElement.weave"
+     this.lastIndentation != model.Indentation
+                        #line default
+
+                        )
                 {
                         indentation = originalIndentation + "    ";
                     writer.Write(indentation);
                     writer.Write("indentation = originalIndentation");
                             if (
-                            #line 7 "IndentationElement.weave"
-                                          model.Indentation != string.Empty
-                            #line default
 
-)
+                                #line 7 "IndentationElement.weave"
+                                          model.Indentation != string.Empty
+                                #line default
+
+                                )
                         {
                             writer.Write(" + ");
                             writer.Write(

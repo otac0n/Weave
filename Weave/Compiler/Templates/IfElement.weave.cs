@@ -58,11 +58,12 @@ namespace
             {
 
                         if (
-                        #line 8 "IfElement.weave"
-         !first
-                        #line default
 
-)
+                            #line 8 "IfElement.weave"
+         !first
+                            #line default
+
+                            )
                     {
                             indentation = originalIndentation + "        ";
                         writer.Write(indentation);
