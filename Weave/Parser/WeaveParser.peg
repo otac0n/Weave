@@ -32,12 +32,9 @@ line <IList<Element>>
     / textLine
 
 textLine <IList<Element>>
-    = !EOF indentation:("" (!EOL WS)*) contents:inlineElement* end:(EOL / EOF) {{
-        var results = new List<Element>
-        {
-            new IndentationElement(indentation),
-        };
-
+    = !EOF indentation:(!EOL (!EOL WS)*)? contents:inlineElement* end:(EOL / EOF) {{
+        var results = new List<Element>();
+        results.AddRange(indentation.Select(i => new IndentationElement(i)));
         results.AddRange(contents);
 
         if (end != string.Empty)
