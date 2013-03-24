@@ -21,7 +21,7 @@ namespace Weave.Tests.IntegrationTests
 
             var result = TemplateHelper.Render(template, model);
 
-            Assert.That(result, Is.EqualTo("foo\n    bar\n    bar\n    bar\nbaz"));
+            Assert.That(result, Is.EqualTo("foo\nbar\nbar\nbar\nbaz"));
         }
 
         [Test]
@@ -32,7 +32,7 @@ namespace Weave.Tests.IntegrationTests
 
             var result = TemplateHelper.Render(template, model);
 
-            Assert.That(result, Is.EqualTo("foo\n    bar\nbaz"));
+            Assert.That(result, Is.EqualTo("foo\nbar\nbaz"));
         }
 
         [Test]

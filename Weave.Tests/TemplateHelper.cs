@@ -49,7 +49,7 @@ namespace Weave.Tests
             {
                 writer.NewLine = "\n";
                 var instance = Activator.CreateInstance(type);
-                method.Invoke(instance, new[] { model, writer });
+                method.Invoke(instance, new[] { model, writer, null });
                 return writer.ToString();
             }
         }
