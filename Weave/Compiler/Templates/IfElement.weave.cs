@@ -69,27 +69,26 @@ namespace
                         writer.Write("else");
                         writer.WriteLine();
                     }
+                var model0 = 
+#line 11 "IfElement.weave"
+                  branch
+#line default
+
+;
+                
+#line 11 "IfElement.weave"
+       WalkBranch
+#line default
+
+(model0, writer, indentation + "    ");
                 var temp1 = indentation;
                     indentation += "    ";
 
-#line 11 "IfElement.weave"
-      
-        var temp = this.currentIndentation;
-        this.currentIndentation = indentation;
-        this.WalkBranch(branch);
-        this.currentIndentation = temp;
-    
-#line default
-
-                indentation = temp1;
-                var temp2 = indentation;
-                    indentation += "    ";
-
-#line 17 "IfElement.weave"
+#line 12 "IfElement.weave"
        first = false; 
 #line default
 
-                indentation = temp2;
+                indentation = temp1;
             }
             
         }

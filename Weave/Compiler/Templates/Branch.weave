@@ -7,8 +7,5 @@
     if ({{ this.RenderCode(model.Expression, writer); }})
 {{/if}}
 {
-    {{
-        this.currentIndentation = indentation;
-        this.WalkElements(model.Body);
-    }}
+    {{@WalkElements model.Body}}
 }

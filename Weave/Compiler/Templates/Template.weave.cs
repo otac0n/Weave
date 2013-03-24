@@ -217,19 +217,18 @@ namespace
                 writer.Write("            ");
             writer.Write("indentation = indentation ?? string.Empty;");
             writer.WriteLine();
-            var temp7 = indentation;
-                indentation += "            ";
-
+            var model0 = 
 #line 39 "Template.weave"
-              
-                var temp = this.currentIndentation;
-                this.currentIndentation = indentation;
-                base.WalkTemplate(model);
-                this.currentIndentation = temp;
-            
+                                model
 #line default
 
-            indentation = temp7;
+;
+            
+#line 39 "Template.weave"
+               BaseWalkTemplate
+#line default
+
+(model0, writer, indentation + "            ");
             writer.Write(indentation);
                 writer.Write("        ");
             writer.Write("}");

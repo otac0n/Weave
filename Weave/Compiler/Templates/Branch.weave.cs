@@ -63,17 +63,18 @@ namespace
             writer.Write(indentation);
             writer.Write("{");
             writer.WriteLine();
-            var temp1 = indentation;
-                indentation += "    ";
-
+            var model0 = 
 #line 10 "Branch.weave"
-      
-        this.currentIndentation = indentation;
-        this.WalkElements(model.Body);
-    
+                    model.Body
 #line default
 
-            indentation = temp1;
+;
+            
+#line 10 "Branch.weave"
+       WalkElements
+#line default
+
+(model0, writer, indentation + "    ");
             writer.Write(indentation);
             writer.Write("}");
             writer.WriteLine();

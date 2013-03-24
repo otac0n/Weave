@@ -117,5 +117,29 @@ namespace Weave.Compiler
             this.variables[prefix] = instance + 1;
             return prefix + instance;
         }
+
+        private void BaseWalkTemplate(Template template, TextWriter writer, string indentation)
+        {
+            var temp = this.currentIndentation;
+            this.currentIndentation = indentation;
+            base.WalkTemplate(template);
+            this.currentIndentation = temp;
+        }
+
+        private void WalkElements(IEnumerable<Element> elements, TextWriter writer, string indentation)
+        {
+            var temp = this.currentIndentation;
+            this.currentIndentation = indentation;
+            this.WalkElements(elements);
+            this.currentIndentation = temp;
+        }
+
+        private void WalkBranch(Branch branch, TextWriter writer, string indentation)
+        {
+            var temp = this.currentIndentation;
+            this.currentIndentation = indentation;
+            this.WalkBranch(branch);
+            this.currentIndentation = temp;
+        }
     }
 }

@@ -8,11 +8,6 @@
     {{if !first}}
         else
     {{/if}}
-    {{
-        var temp = this.currentIndentation;
-        this.currentIndentation = indentation;
-        this.WalkBranch(branch);
-        this.currentIndentation = temp;
-    }}
+    {{@WalkBranch branch}}
     {{ first = false; }}
 {{/each}}
