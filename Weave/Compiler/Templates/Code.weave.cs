@@ -16,30 +16,30 @@ namespace
 {
     using System.IO;
         using 
-#line 4 "Code.weave"
+        #line 4 "Code.weave"
        Weave.Expressions
-#line default
+        #line default
 
 ;
 
-        
- partial class     Templates
+            
+ partial class         Templates
 
     {
         [System.CodeDom.Compiler.GeneratedCode("Weave", "1.0.0.0")]
         public void 
-#line 2 "Code.weave"
+        #line 2 "Code.weave"
             RenderCode
-#line default
+        #line default
 
 (
-#line 3 "Code.weave"
+        #line 3 "Code.weave"
        object
-#line default
+        #line default
 
  model, TextWriter writer, string indentation = null)
         {
-            indentation = indentation ?? string.Empty;
+            var originalIndentation = indentation = indentation ?? string.Empty;
             var temp0 = indentation;
 
             #line 6 "Code.weave"
@@ -48,9 +48,9 @@ namespace
 
             indentation = temp0;
                     if (
-                #line 7 "Code.weave"
+                    #line 7 "Code.weave"
      span != null
-                #line default
+                    #line default
 
 )
                 {
@@ -98,8 +98,8 @@ namespace
                 }
                     else
                 {
+                        indentation = originalIndentation + "    ";
                     writer.Write(indentation);
-                        writer.Write("    ");
                     writer.Write(
                     #line 13 "Code.weave"
         model 

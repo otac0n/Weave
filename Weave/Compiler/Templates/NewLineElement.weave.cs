@@ -16,30 +16,30 @@ namespace
 {
     using System.IO;
         using 
-#line 4 "NewLineElement.weave"
+        #line 4 "NewLineElement.weave"
        Weave.Expressions
-#line default
+        #line default
 
 ;
 
-        
- partial class     Templates
+            
+ partial class         Templates
 
     {
         [System.CodeDom.Compiler.GeneratedCode("Weave", "1.0.0.0")]
         public void 
-#line 2 "NewLineElement.weave"
+        #line 2 "NewLineElement.weave"
             RenderNewLineElement
-#line default
+        #line default
 
 (
-#line 3 "NewLineElement.weave"
+        #line 3 "NewLineElement.weave"
        NewLineElement
-#line default
+        #line default
 
  model, TextWriter writer, string indentation = null)
         {
-            indentation = indentation ?? string.Empty;
+            var originalIndentation = indentation = indentation ?? string.Empty;
             writer.Write(indentation);
             writer.Write("writer.WriteLine();");
             writer.WriteLine();

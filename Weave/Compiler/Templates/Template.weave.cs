@@ -16,42 +16,42 @@ namespace
 {
     using System.IO;
         using 
-#line 4 "Template.weave"
+        #line 4 "Template.weave"
        System.Linq
-#line default
+        #line default
 
 ;
         using 
-#line 5 "Template.weave"
+        #line 5 "Template.weave"
        System.Reflection
-#line default
+        #line default
 
 ;
         using 
-#line 6 "Template.weave"
+        #line 6 "Template.weave"
        Weave.Expressions
-#line default
+        #line default
 
 ;
 
-        
- partial class     Templates
+            
+ partial class         Templates
 
     {
         [System.CodeDom.Compiler.GeneratedCode("Weave", "1.0.0.0")]
         public void 
-#line 2 "Template.weave"
+        #line 2 "Template.weave"
             RenderTemplate
-#line default
+        #line default
 
 (
-#line 3 "Template.weave"
+        #line 3 "Template.weave"
        Template
-#line default
+        #line default
 
  model, TextWriter writer, string indentation = null)
         {
-            indentation = indentation ?? string.Empty;
+            var originalIndentation = indentation = indentation ?? string.Empty;
             var temp0 = indentation;
 
             #line 8 "Template.weave"
@@ -123,8 +123,8 @@ namespace
             writer.Write(indentation);
             writer.Write("{");
             writer.WriteLine();
+                indentation = originalIndentation + "    ";
             writer.Write(indentation);
-                writer.Write("    ");
             writer.Write("using System.IO;");
             writer.WriteLine();
 
@@ -137,8 +137,8 @@ namespace
 )
             {
 
+                    indentation = originalIndentation + "        ";
                 writer.Write(indentation);
-                    writer.Write("        ");
                 writer.Write("using ");
                 var model1 = 
                 #line 30 "Template.weave"
@@ -157,8 +157,8 @@ namespace
             }
 
             writer.WriteLine();
+                indentation = originalIndentation + "    ";
             writer.Write(indentation);
-                writer.Write("    ");
             var model2 = 
             #line 33 "Template.weave"
                   accessibility
@@ -186,11 +186,10 @@ namespace
 (model3, writer, indentation);
             writer.WriteLine();
             writer.Write(indentation);
-                writer.Write("    ");
             writer.Write("{");
             writer.WriteLine();
+                indentation = originalIndentation + "        ";
             writer.Write(indentation);
-                writer.Write("        ");
             writer.Write("[System.CodeDom.Compiler.GeneratedCode(\"");
             writer.Write(
             #line 35 "Template.weave"
@@ -208,7 +207,6 @@ namespace
             writer.Write("\")]");
             writer.WriteLine();
             writer.Write(indentation);
-                writer.Write("        ");
             writer.Write("public void ");
             var model4 = 
             #line 36 "Template.weave"
@@ -238,12 +236,11 @@ namespace
             writer.Write(" model, TextWriter writer, string indentation = null)");
             writer.WriteLine();
             writer.Write(indentation);
-                writer.Write("        ");
             writer.Write("{");
             writer.WriteLine();
+                indentation = originalIndentation + "            ";
             writer.Write(indentation);
-                writer.Write("            ");
-            writer.Write("indentation = indentation ?? string.Empty;");
+            writer.Write("var originalIndentation = indentation = indentation ?? string.Empty;");
             writer.WriteLine();
             var model6 = 
             #line 39 "Template.weave"
@@ -256,15 +253,16 @@ namespace
                BaseWalkTemplate
             #line default
 
-(model6, writer, indentation + "            ");
+(model6, writer, indentation);
+                indentation = originalIndentation + "        ";
             writer.Write(indentation);
-                writer.Write("        ");
             writer.Write("}");
             writer.WriteLine();
+                indentation = originalIndentation + "    ";
             writer.Write(indentation);
-                writer.Write("    ");
             writer.Write("}");
             writer.WriteLine();
+                indentation = originalIndentation;
             writer.Write(indentation);
             writer.Write("}");
         }

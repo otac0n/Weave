@@ -5,8 +5,9 @@
 
 {{ var temp = this.CreateVariable("temp"); }}
 var {{= temp }} = indentation;
-{{if !string.IsNullOrEmpty(model.Indentation) }}
-    indentation += {{= ToLiteral(model.Indentation) }};
+{{if model.Indentation != null && this.lastIndentation != model.Indentation}}
+    indentation = originalIndentation{{if model.Indentation != string.Empty}} + {{= ToLiteral(model.Indentation) }}{{/if}};
+    {{ this.lastIndentation = model.Indentation; }}
 {{/if}}
 {{@RenderCode model.Expression}}
 indentation = {{= temp }};

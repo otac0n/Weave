@@ -28,6 +28,8 @@ namespace Weave.Compiler
 
         private string currentIndentation = string.Empty;
 
+        private string lastIndentation = string.Empty;
+
         public Templates(TextWriter writer)
         {
             this.writer = writer;

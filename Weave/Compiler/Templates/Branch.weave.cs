@@ -16,39 +16,39 @@ namespace
 {
     using System.IO;
         using 
-#line 4 "Branch.weave"
+        #line 4 "Branch.weave"
        Weave.Expressions
-#line default
+        #line default
 
 ;
 
-        
- partial class     Templates
+            
+ partial class         Templates
 
     {
         [System.CodeDom.Compiler.GeneratedCode("Weave", "1.0.0.0")]
         public void 
-#line 2 "Branch.weave"
+        #line 2 "Branch.weave"
             RenderBranch
-#line default
+        #line default
 
 (
-#line 3 "Branch.weave"
+        #line 3 "Branch.weave"
        Branch
-#line default
+        #line default
 
  model, TextWriter writer, string indentation = null)
         {
-            indentation = indentation ?? string.Empty;
+            var originalIndentation = indentation = indentation ?? string.Empty;
                     if (
-                #line 6 "Branch.weave"
+                    #line 6 "Branch.weave"
      model.Expression != null
-                #line default
+                    #line default
 
 )
                 {
+                        indentation = originalIndentation + "    ";
                     writer.Write(indentation);
-                        writer.Write("    ");
                     writer.Write("if (");
                     var model0 = 
                     #line 7 "Branch.weave"
@@ -65,21 +65,24 @@ namespace
                     writer.Write(")");
                     writer.WriteLine();
                 }
+                indentation = originalIndentation;
             writer.Write(indentation);
             writer.Write("{");
             writer.WriteLine();
-            var model1 = 
-            #line 10 "Branch.weave"
+                indentation = originalIndentation + "    ";
+                var model1 = 
+                #line 10 "Branch.weave"
                     model.Body
-            #line default
+                #line default
 
 ;
-            
-            #line 10 "Branch.weave"
+                
+                #line 10 "Branch.weave"
        WalkElements
-            #line default
+                #line default
 
-(model1, writer, indentation + "    ");
+(model1, writer, indentation);
+                indentation = originalIndentation;
             writer.Write(indentation);
             writer.Write("}");
             writer.WriteLine();

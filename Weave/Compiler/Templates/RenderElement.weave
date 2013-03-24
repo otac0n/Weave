@@ -3,6 +3,10 @@
 @model RenderElement
 @using Weave.Expressions
 
+{{if model.Indentation != null && this.lastIndentation != model.Indentation}}
+    indentation = originalIndentation{{if model.Indentation != string.Empty}} + {{= ToLiteral(model.Indentation) }}{{/if}};
+    {{ this.lastIndentation = model.Indentation; }}
+{{/if}}
 {{ var newModel = this.CreateVariable("model"); }}
 var {{= newModel }} = {{@RenderCode model.Expression}};
-{{@RenderCode model.Method}}({{= newModel }}, writer, indentation{{if !string.IsNullOrEmpty(model.Indentation)}} + {{= ToLiteral(model.Indentation) }}{{/if}});
+{{@RenderCode model.Method}}({{= newModel }}, writer, indentation);

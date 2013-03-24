@@ -16,30 +16,30 @@ namespace
 {
     using System.IO;
         using 
-#line 4 "IfElement.weave"
+        #line 4 "IfElement.weave"
        Weave.Expressions
-#line default
+        #line default
 
 ;
 
-        
- partial class     Templates
+            
+ partial class         Templates
 
     {
         [System.CodeDom.Compiler.GeneratedCode("Weave", "1.0.0.0")]
         public void 
-#line 2 "IfElement.weave"
+        #line 2 "IfElement.weave"
             RenderIfElement
-#line default
+        #line default
 
 (
-#line 3 "IfElement.weave"
+        #line 3 "IfElement.weave"
        IfElement
-#line default
+        #line default
 
  model, TextWriter writer, string indentation = null)
         {
-            indentation = indentation ?? string.Empty;
+            var originalIndentation = indentation = indentation ?? string.Empty;
             var temp0 = indentation;
 
             #line 6 "IfElement.weave"
@@ -58,31 +58,31 @@ namespace
             {
 
                         if (
-                    #line 8 "IfElement.weave"
+                        #line 8 "IfElement.weave"
          !first
-                    #line default
+                        #line default
 
 )
                     {
+                            indentation = originalIndentation + "        ";
                         writer.Write(indentation);
-                            writer.Write("        ");
                         writer.Write("else");
                         writer.WriteLine();
                     }
-                var model0 = 
-                #line 11 "IfElement.weave"
+                    indentation = originalIndentation + "    ";
+                    var model0 = 
+                    #line 11 "IfElement.weave"
                   branch
-                #line default
+                    #line default
 
 ;
-                
-                #line 11 "IfElement.weave"
+                    
+                    #line 11 "IfElement.weave"
        WalkBranch
-                #line default
+                    #line default
 
-(model0, writer, indentation + "    ");
+(model0, writer, indentation);
                 var temp1 = indentation;
-                    indentation += "    ";
 
                 #line 12 "IfElement.weave"
        first = false; 
