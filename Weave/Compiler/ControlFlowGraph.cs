@@ -8,15 +8,18 @@
 
 namespace Weave.Compiler
 {
+    using System.Collections;
     using System.Collections.Generic;
     using System.Diagnostics;
+    using System.Diagnostics.CodeAnalysis;
 
     /// <summary>
     /// Represents a double-linked directed graph of nodes.
     /// </summary>
     /// <typeparam name="T">The type of the values of the nodes in the graph.</typeparam>
     [DebuggerDisplay("Graph(Count = {nodes.Count})")]
-    public class ControlFlowGraph<T>
+    [SuppressMessage("Microsoft.Naming", "CA1710:IdentifiersShouldHaveCorrectSuffix", Justification = "'Graph' in the name of this class takes the place of 'Collection'.")]
+    public class ControlFlowGraph<T> : IEnumerable<ControlFlowGraph<T>.Node>
     {
         private Dictionary<T, Node> nodes = new Dictionary<T, Node>();
 
@@ -47,6 +50,20 @@ namespace Weave.Compiler
             fromNode.AddNext(toNode);
         }
 
+        /// <summary>
+        /// Returns an enumerator that iterates through the <see cref="ControlFlowGraph&lt;T&gt;"/>.
+        /// </summary>
+        /// <returns>An <see cref="IEnumerator&lt;Node&gt;"/> for the <see cref="ControlFlowGraph&lt;T&gt;"/>.</returns>
+        public IEnumerator<Node> GetEnumerator()
+        {
+            return this.nodes.Values.GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return this.GetEnumerator();
+        }
+
         private Node EnsureNode(T value)
         {
             Node node;
@@ -62,6 +79,7 @@ namespace Weave.Compiler
         /// Represents a node in a <see cref="ControlFlowGraph&lt;T&gt;"/>.
         /// </summary>
         [DebuggerDisplay("Node({Value}, Previous = {previous.Count}, Next = {next.Count})")]
+        [SuppressMessage("Microsoft.Design", "CA1034:NestedTypesShouldNotBeVisible", Justification = "This is a clean way of dealing with graph nodes.")]
         public sealed class Node
         {
             private readonly ControlFlowGraph<T> graph;
