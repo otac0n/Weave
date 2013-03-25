@@ -42,16 +42,29 @@ namespace Weave.Compiler
 
             public override void WalkEachElement(EachElement eachElement)
             {
+                this.previous.Clear();
+
+                this.graph.AddEdge(eachElement, eachElement.EachBody);
+                this.previous.Add(eachElement.EachBody);
+
                 this.WalkElements(eachElement.EachBody.Body);
+
+                foreach (var prev in this.previous)
+                {
+                    this.graph.AddEdge(prev, eachElement.EachBody);
+                }
+
+                this.previous.Clear();
 
                 if (eachElement.NoneBody != null)
                 {
-                    var resulting = this.previous.ToList();
+                    this.graph.AddEdge(eachElement, eachElement.NoneBody);
+                    this.previous.Add(eachElement.NoneBody);
+
                     this.WalkElements(eachElement.NoneBody.Body);
-                    resulting.AddRange(this.previous);
-                    this.previous.Clear();
-                    this.previous.AddRange(resulting);
                 }
+
+                this.previous.Insert(0, eachElement.EachBody);
             }
 
             public override void WalkElement(Element element)
@@ -84,7 +97,11 @@ namespace Weave.Compiler
                     this.previous.Clear();
                 }
 
-                this.previous.Add(ifElement);
+                if (ifElement.Branches.Last().Expression != null)
+                {
+                    this.previous.Add(ifElement);
+                }
+
                 this.previous.AddRange(previous);
             }
         }
