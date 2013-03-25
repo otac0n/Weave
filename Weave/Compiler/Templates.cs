@@ -29,6 +29,7 @@ namespace Weave.Compiler
 
         private string currentIndentation = string.Empty;
 
+        private ControlFlowGraph<Element> graph;
         private int amountToSubtract = 0;
 
         public Templates(TextWriter writer)
@@ -38,6 +39,7 @@ namespace Weave.Compiler
 
         public override void WalkTemplate(Template template)
         {
+            this.graph = ControlFlowGraphCreator.Create(template);
             this.RenderTemplate(template, this.writer, this.currentIndentation);
         }
 

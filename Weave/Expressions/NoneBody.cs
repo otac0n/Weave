@@ -15,7 +15,7 @@ namespace Weave.Expressions
     /// <summary>
     /// Represents the none section of an <see cref="EachElement"/>.
     /// </summary>
-    public class NoneBody
+    public class NoneBody : Element
     {
         private readonly IList<Element> body;
         private readonly string indentation;
