@@ -40,6 +40,7 @@ namespace
  model, TextWriter writer, string indentation = null)
         {
             var originalIndentation = indentation = indentation ?? string.Empty;
+            indentation = originalIndentation;
             writer.Write(indentation);
             writer.Write("writer.Write(");
             writer.Write(

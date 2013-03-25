@@ -40,6 +40,7 @@ namespace
  model, TextWriter writer, string indentation = null)
         {
             var originalIndentation = indentation = indentation ?? string.Empty;
+            indentation = originalIndentation;
             var temp0 = indentation;
 
             #line 6 "EachElement.weave"
@@ -59,6 +60,7 @@ namespace
 
                 )
             {
+                indentation = originalIndentation;
                 writer.Write(indentation);
                 writer.Write("bool ");
                 writer.Write(
@@ -71,6 +73,7 @@ namespace
                 writer.WriteLine();
                 writer.WriteLine();
             }
+            indentation = originalIndentation;
             writer.Write(indentation);
             writer.Write("foreach (var ");
             var model0 = 
@@ -87,6 +90,7 @@ namespace
 (model0, writer, indentation);
             writer.Write(")");
             writer.WriteLine();
+            indentation = originalIndentation;
             writer.Write(indentation);
             writer.Write("{");
             writer.WriteLine();
@@ -109,6 +113,7 @@ namespace
                 writer.Write(" = true;");
                 writer.WriteLine();
             }
+            indentation = originalIndentation + "    ";
             var model1 = 
             #line 20 "EachElement.weave"
                     model.EachBody.Body
@@ -125,6 +130,7 @@ namespace
             writer.Write(indentation);
             writer.Write("}");
             writer.WriteLine();
+            indentation = originalIndentation;
             var temp1 = indentation;
 
             #line 22 "EachElement.weave"
@@ -143,6 +149,7 @@ namespace
 
                 )
             {
+                indentation = originalIndentation;
                 var temp2 = indentation;
 
                 #line 27 "EachElement.weave"
@@ -153,6 +160,7 @@ namespace
                 #line default
 
                 indentation = temp2;
+                indentation = originalIndentation;
                 writer.Write(indentation);
                 writer.Write("if (!");
                 writer.Write(
@@ -163,6 +171,7 @@ namespace
 );
                 writer.Write(")");
                 writer.WriteLine();
+                indentation = originalIndentation;
                 writer.Write(indentation);
                 writer.Write("{");
                 writer.WriteLine();
@@ -184,6 +193,7 @@ namespace
                 writer.Write("}");
                 writer.WriteLine();
                 writer.WriteLine();
+                indentation = originalIndentation;
                 var temp3 = indentation;
 
                 #line 36 "EachElement.weave"

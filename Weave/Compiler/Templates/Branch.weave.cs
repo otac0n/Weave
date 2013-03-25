@@ -40,6 +40,7 @@ namespace
  model, TextWriter writer, string indentation = null)
         {
             var originalIndentation = indentation = indentation ?? string.Empty;
+            indentation = originalIndentation;
             var temp0 = indentation;
 
             #line 6 "Branch.weave"
@@ -58,6 +59,7 @@ namespace
 
                 )
             {
+                indentation = originalIndentation;
                 writer.Write(indentation);
                 writer.Write("if (");
                 writer.WriteLine();
@@ -74,6 +76,7 @@ namespace
                 #line default
 
 (model0, writer, indentation);
+                indentation = originalIndentation + "    ";
                 writer.Write(indentation);
                 writer.Write(")");
                 writer.WriteLine();
@@ -99,6 +102,7 @@ namespace
             writer.Write(indentation);
             writer.Write("}");
             writer.WriteLine();
+            indentation = originalIndentation;
             var temp1 = indentation;
 
             #line 18 "Branch.weave"

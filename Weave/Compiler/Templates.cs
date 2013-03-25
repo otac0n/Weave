@@ -29,7 +29,6 @@ namespace Weave.Compiler
 
         private string currentIndentation = string.Empty;
 
-        private string lastIndentation = string.Empty;
         private int amountToSubtract = 0;
 
         public Templates(TextWriter writer)
@@ -247,22 +246,17 @@ namespace Weave.Compiler
                 model = TrimIndentation(model, this.amountToSubtract);
             }
 
-            if (model != this.lastIndentation)
+            writer.Write(indentation);
+            writer.Write("indentation = originalIndentation");
+
+            if (model.Length > 0)
             {
-                writer.Write(indentation);
-                writer.Write("indentation = originalIndentation");
-
-                if (model.Length > 0)
-                {
-                    writer.Write(" + ");
-                    writer.Write(ToLiteral(model));
-                }
-
-                writer.Write(";");
-                writer.WriteLine();
-
-                this.lastIndentation = model;
+                writer.Write(" + ");
+                writer.Write(ToLiteral(model));
             }
+
+            writer.Write(";");
+            writer.WriteLine();
         }
 
         private void BaseWalkTemplate(Template template, TextWriter writer, string indentation)

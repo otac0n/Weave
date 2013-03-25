@@ -40,6 +40,7 @@ namespace
  model, TextWriter writer, string indentation = null)
         {
             var originalIndentation = indentation = indentation ?? string.Empty;
+            indentation = originalIndentation;
             var temp0 = indentation;
 
             #line 6 "IfElement.weave"
@@ -54,37 +55,40 @@ namespace
 
 )
             {
-            if (
+                if (
 
-                #line 8 "IfElement.weave"
+                    #line 8 "IfElement.weave"
          !first
+                    #line default
+
+                    )
+                {
+                    indentation = originalIndentation;
+                    writer.Write(indentation);
+                    writer.Write("else");
+                    writer.WriteLine();
+                }
+                indentation = originalIndentation;
+                var model0 = 
+                #line 11 "IfElement.weave"
+                  branch
                 #line default
 
-                )
-            {
-                writer.Write(indentation);
-                writer.Write("else");
-                writer.WriteLine();
-            }
-            var model0 = 
-            #line 11 "IfElement.weave"
-                  branch
-            #line default
-
 ;
-            
-            #line 11 "IfElement.weave"
+                
+                #line 11 "IfElement.weave"
        WalkBranch
-            #line default
+                #line default
 
 (model0, writer, indentation);
-            var temp1 = indentation;
+                indentation = originalIndentation;
+                var temp1 = indentation;
 
-            #line 12 "IfElement.weave"
+                #line 12 "IfElement.weave"
        first = false; 
-            #line default
+                #line default
 
-            indentation = temp1;
+                indentation = temp1;
             }
 
         }

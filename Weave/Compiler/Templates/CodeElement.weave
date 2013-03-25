@@ -3,8 +3,8 @@
 @model CodeElement
 @using Weave.Expressions
 
+{{@UpdateIndentation model.Indentation}}
 {{ var temp = this.CreateVariable("temp"); }}
 var {{= temp }} = indentation;
-{{@UpdateIndentation model.Indentation}}
 {{@RenderCode model.Expression}}
 indentation = {{= temp }};
