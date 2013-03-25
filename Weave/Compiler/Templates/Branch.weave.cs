@@ -74,7 +74,6 @@ namespace
                 #line default
 
 (model0, writer, indentation);
-                indentation = originalIndentation + "    ";
                 writer.Write(indentation);
                 writer.Write(")");
                 writer.WriteLine();

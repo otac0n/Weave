@@ -40,88 +40,64 @@ namespace
  model, TextWriter writer, string indentation = null)
         {
             var originalIndentation = indentation = indentation ?? string.Empty;
-            if (
+            var model0 = 
+            #line 6 "RenderElement.weave"
+                     model.Indentation
+            #line default
 
-                #line 6 "RenderElement.weave"
-     model.Indentation != null && this.lastIndentation.Length != model.Indentation.Length - this.amountToSubtract
-                #line default
+;
+            
+            #line 6 "RenderElement.weave"
+   UpdateIndentation
+            #line default
 
-                )
-            {
-                writer.Write(indentation);
-                writer.Write("indentation = originalIndentation");
-                if (
+(model0, writer, indentation);
+            var temp0 = indentation;
 
-                    #line 7 "RenderElement.weave"
-                                          model.Indentation.Length - this.amountToSubtract > 0
-                    #line default
-
-                    )
-                {
-                    writer.Write(" + ");
-                    writer.Write(
-                    #line 7 "RenderElement.weave"
-                                                                                                       ToLiteral(model.Indentation.Substring(0, model.Indentation.Length - this.amountToSubtract)) 
-                    #line default
-
-);
-                }
-                writer.Write(";");
-                writer.WriteLine();
-                var temp0 = indentation;
-
-                #line 8 "RenderElement.weave"
-       this.lastIndentation = model.Indentation; 
-                #line default
-
-                indentation = temp0;
-            }
-            var temp1 = indentation;
-
-            #line 10 "RenderElement.weave"
+            #line 7 "RenderElement.weave"
    var newModel = this.CreateVariable("model"); 
             #line default
 
-            indentation = temp1;
+            indentation = temp0;
             writer.Write(indentation);
             writer.Write("var ");
             writer.Write(
-            #line 11 "RenderElement.weave"
+            #line 8 "RenderElement.weave"
         newModel 
             #line default
 
 );
             writer.Write(" = ");
-            var model0 = 
-            #line 11 "RenderElement.weave"
+            var model1 = 
+            #line 8 "RenderElement.weave"
                                     model.Expression
             #line default
 
 ;
             
-            #line 11 "RenderElement.weave"
+            #line 8 "RenderElement.weave"
                          RenderCode
             #line default
 
-(model0, writer, indentation);
+(model1, writer, indentation);
             writer.Write(";");
             writer.WriteLine();
             writer.Write(indentation);
-            var model1 = 
-            #line 12 "RenderElement.weave"
+            var model2 = 
+            #line 9 "RenderElement.weave"
               model.Method
             #line default
 
 ;
             
-            #line 12 "RenderElement.weave"
+            #line 9 "RenderElement.weave"
    RenderCode
             #line default
 
-(model1, writer, indentation);
+(model2, writer, indentation);
             writer.Write("(");
             writer.Write(
-            #line 12 "RenderElement.weave"
+            #line 9 "RenderElement.weave"
                                  newModel 
             #line default
 

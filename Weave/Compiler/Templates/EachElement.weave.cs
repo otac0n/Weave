@@ -109,7 +109,6 @@ namespace
                 writer.Write(" = true;");
                 writer.WriteLine();
             }
-            indentation = originalIndentation + "    ";
             var model1 = 
             #line 20 "EachElement.weave"
                     model.EachBody.Body
@@ -186,7 +185,6 @@ namespace
                 writer.WriteLine();
                 writer.WriteLine();
                 var temp3 = indentation;
-                indentation = originalIndentation;
 
                 #line 36 "EachElement.weave"
       

@@ -40,42 +40,18 @@ namespace
  model, TextWriter writer, string indentation = null)
         {
             var originalIndentation = indentation = indentation ?? string.Empty;
-            if (
+            var model0 = 
+            #line 6 "IndentationElement.weave"
+                     model.Indentation
+            #line default
 
-                #line 6 "IndentationElement.weave"
-     this.lastIndentation.Length != model.Indentation.Length - this.amountToSubtract
-                #line default
+;
+            
+            #line 6 "IndentationElement.weave"
+   UpdateIndentation
+            #line default
 
-                )
-            {
-                writer.Write(indentation);
-                writer.Write("indentation = originalIndentation");
-                if (
-
-                    #line 7 "IndentationElement.weave"
-                                          model.Indentation.Length - this.amountToSubtract > 0
-                    #line default
-
-                    )
-                {
-                    writer.Write(" + ");
-                    writer.Write(
-                    #line 7 "IndentationElement.weave"
-                                                                                                       ToLiteral(model.Indentation.Substring(0, model.Indentation.Length - this.amountToSubtract)) 
-                    #line default
-
-);
-                }
-                writer.Write(";");
-                writer.WriteLine();
-                var temp0 = indentation;
-
-                #line 8 "IndentationElement.weave"
-       this.lastIndentation = model.Indentation; 
-                #line default
-
-                indentation = temp0;
-            }
+(model0, writer, indentation);
             writer.Write(indentation);
             writer.Write("writer.Write(indentation);");
             writer.WriteLine();

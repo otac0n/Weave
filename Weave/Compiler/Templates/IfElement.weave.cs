@@ -54,37 +54,37 @@ namespace
 
 )
             {
-                if (
+            if (
 
-                    #line 8 "IfElement.weave"
+                #line 8 "IfElement.weave"
          !first
-                    #line default
-
-                    )
-                {
-                    writer.Write(indentation);
-                    writer.Write("else");
-                    writer.WriteLine();
-                }
-                var model0 = 
-                #line 11 "IfElement.weave"
-                  branch
                 #line default
+
+                )
+            {
+                writer.Write(indentation);
+                writer.Write("else");
+                writer.WriteLine();
+            }
+            var model0 = 
+            #line 11 "IfElement.weave"
+                  branch
+            #line default
 
 ;
-                
-                #line 11 "IfElement.weave"
+            
+            #line 11 "IfElement.weave"
        WalkBranch
-                #line default
+            #line default
 
 (model0, writer, indentation);
-                var temp1 = indentation;
+            var temp1 = indentation;
 
-                #line 12 "IfElement.weave"
+            #line 12 "IfElement.weave"
        first = false; 
-                #line default
+            #line default
 
-                indentation = temp1;
+            indentation = temp1;
             }
 
         }

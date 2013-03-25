@@ -57,58 +57,34 @@ namespace
 );
             writer.Write(" = indentation;");
             writer.WriteLine();
-            if (
-
-                #line 8 "CodeElement.weave"
-     model.Indentation != null && this.lastIndentation.Length != model.Indentation.Length - this.amountToSubtract
-                #line default
-
-                )
-            {
-                writer.Write(indentation);
-                writer.Write("indentation = originalIndentation");
-                if (
-
-                    #line 9 "CodeElement.weave"
-                                          model.Indentation.Length - this.amountToSubtract > 0
-                    #line default
-
-                    )
-                {
-                    writer.Write(" + ");
-                    writer.Write(
-                    #line 9 "CodeElement.weave"
-                                                                                                       ToLiteral(model.Indentation.Substring(0, model.Indentation.Length - this.amountToSubtract)) 
-                    #line default
-
-);
-                }
-                writer.Write(";");
-                writer.WriteLine();
-                var temp1 = indentation;
-
-                #line 10 "CodeElement.weave"
-       this.lastIndentation = model.Indentation; 
-                #line default
-
-                indentation = temp1;
-            }
             var model0 = 
-            #line 12 "CodeElement.weave"
+            #line 8 "CodeElement.weave"
+                     model.Indentation
+            #line default
+
+;
+            
+            #line 8 "CodeElement.weave"
+   UpdateIndentation
+            #line default
+
+(model0, writer, indentation);
+            var model1 = 
+            #line 9 "CodeElement.weave"
               model.Expression
             #line default
 
 ;
             
-            #line 12 "CodeElement.weave"
+            #line 9 "CodeElement.weave"
    RenderCode
             #line default
 
-(model0, writer, indentation);
+(model1, writer, indentation);
             writer.Write(indentation);
             writer.Write("indentation = ");
             writer.Write(
-            #line 13 "CodeElement.weave"
+            #line 10 "CodeElement.weave"
                   temp 
             #line default
 

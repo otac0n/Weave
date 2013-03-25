@@ -134,22 +134,22 @@ namespace
 
 )
             {
-                writer.Write(indentation);
-                writer.Write("using ");
-                var model1 = 
-                #line 30 "Template.weave"
+            writer.Write(indentation);
+            writer.Write("using ");
+            var model1 = 
+            #line 30 "Template.weave"
                             @using
-                #line default
+            #line default
 
 ;
-                
-                #line 30 "Template.weave"
+            
+            #line 30 "Template.weave"
                  RenderCode
-                #line default
+            #line default
 
 (model1, writer, indentation);
-                writer.Write(";");
-                writer.WriteLine();
+            writer.Write(";");
+            writer.WriteLine();
             }
 
             writer.WriteLine();

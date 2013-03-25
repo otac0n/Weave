@@ -128,5 +128,25 @@ namespace Weave.Tests.IntegrationTests
 
             Assert.That(result, Is.EqualTo("      foo\n    foo\n     foo\n  foo\n"));
         }
+
+        [Test]
+        public void IfStatementWithMixedTabsAndSpaces_TrimsFromTheRightWhenRemovingWhitespace()
+        {
+            var template = "@tabsize 4\n    {{if true}}\n\t\ta\n \t \tb\n  \t \tc\n   \t \td\n     \te\n \t \tf\n \t  \tg\n \t   \th\n \t    i\n    {{/if}}";
+
+            var result = TemplateHelper.Render(template, null);
+
+            Assert.That(result, Is.EqualTo("\ta\n \tb\n  \tc\n   \td\n    e\n \tf\n \tg\n \th\n \ti\n"));
+        }
+
+        [Test]
+        public void IfStatementWithMixedTabsAndSpacesAndIndentationsThatIsNotAnEvenMultipleOfTheTabSize_TrimsFromTheRightWhenRemovingWhitespace()
+        {
+            var template = "@tabsize 4\n     {{if true}}\n\t\ta\n\t \tb\n\t  \tc\n\t   \td\n\t    e\n\t\t f\n\t \t g\n\t  \t h\n\t   \t i\n\t     j\n     {{/if}}";
+
+            var result = TemplateHelper.Render(template, null);
+
+            Assert.That(result, Is.EqualTo("\t a\n\t b\n\t c\n\t d\n\t e\n\t  f\n\t  g\n\t  h\n\t  i\n\t  j\n"));
+        }
     }
 }
