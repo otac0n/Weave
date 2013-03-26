@@ -49,6 +49,12 @@ namespace Weave.Compiler
             this.RenderCodeElement(codeElement, this.writer, this.currentIndentation);
         }
 
+        public override void WalkElement(Element element)
+        {
+            this.UpdateIndentation(element, this.writer, this.currentIndentation);
+            base.WalkElement(element);
+        }
+
         public override void WalkIfElement(IfElement ifElement)
         {
             this.RenderIfElement(ifElement, this.writer, this.currentIndentation);

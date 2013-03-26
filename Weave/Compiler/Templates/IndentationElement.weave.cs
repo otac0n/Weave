@@ -41,19 +41,6 @@ namespace
         {
             var originalIndentation = indentation = indentation ?? string.Empty;
             indentation = originalIndentation;
-            var model0 = 
-            #line 6 "IndentationElement.weave"
-                     model
-            #line default
-
-;
-            
-            #line 6 "IndentationElement.weave"
-   UpdateIndentation
-            #line default
-
-(model0, writer, indentation);
-            indentation = originalIndentation;
             writer.Write(indentation);
             writer.Write("writer.Write(indentation);");
             writer.WriteLine();

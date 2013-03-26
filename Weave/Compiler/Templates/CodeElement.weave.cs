@@ -41,22 +41,9 @@ namespace
         {
             var originalIndentation = indentation = indentation ?? string.Empty;
             indentation = originalIndentation;
-            var model0 = 
-            #line 6 "CodeElement.weave"
-                     model
-            #line default
-
-;
-            
-            #line 6 "CodeElement.weave"
-   UpdateIndentation
-            #line default
-
-(model0, writer, indentation);
-            indentation = originalIndentation;
             var temp0 = indentation;
 
-            #line 7 "CodeElement.weave"
+            #line 6 "CodeElement.weave"
    var temp = this.CreateVariable("temp"); 
             #line default
 
@@ -65,7 +52,7 @@ namespace
             writer.Write(indentation);
             writer.Write("var ");
             writer.Write(
-            #line 8 "CodeElement.weave"
+            #line 7 "CodeElement.weave"
         temp 
             #line default
 
@@ -73,23 +60,23 @@ namespace
             writer.Write(" = indentation;");
             writer.WriteLine();
             indentation = originalIndentation;
-            var model1 = 
-            #line 9 "CodeElement.weave"
+            var model0 = 
+            #line 8 "CodeElement.weave"
               model.Expression
             #line default
 
 ;
             
-            #line 9 "CodeElement.weave"
+            #line 8 "CodeElement.weave"
    RenderCode
             #line default
 
-(model1, writer, indentation);
+(model0, writer, indentation);
             indentation = originalIndentation;
             writer.Write(indentation);
             writer.Write("indentation = ");
             writer.Write(
-            #line 10 "CodeElement.weave"
+            #line 9 "CodeElement.weave"
                   temp 
             #line default
 

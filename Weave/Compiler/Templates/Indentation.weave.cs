@@ -45,14 +45,15 @@ namespace
 
             #line 6 "Indentation.weave"
   
-    var indent = this.indentation[model];
+    string indent;
+    this.indentation.TryGetValue(model, out indent);
 
             #line default
 
             indentation = temp0;
             if (
 
-                #line 9 "Indentation.weave"
+                #line 10 "Indentation.weave"
      indent != null
                 #line default
 
@@ -63,7 +64,7 @@ namespace
                 writer.Write("indentation = originalIndentation");
                 if (
 
-                    #line 10 "Indentation.weave"
+                    #line 11 "Indentation.weave"
                                           indent.Length > 0
                     #line default
 
@@ -71,7 +72,7 @@ namespace
                 {
                     writer.Write(" + ");
                     writer.Write(
-                    #line 10 "Indentation.weave"
+                    #line 11 "Indentation.weave"
                                                                     ToLiteral(indent) 
                     #line default
 
