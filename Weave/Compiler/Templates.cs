@@ -137,28 +137,6 @@ namespace Weave.Compiler
             this.currentIndentation = temp;
         }
 
-        private void UpdateIndentation(Element element, TextWriter writer, string indentation)
-        {
-            var indent = this.indentation[element];
-
-            if (indent == null)
-            {
-                return;
-            }
-
-            writer.Write(indentation);
-            writer.Write("indentation = originalIndentation");
-
-            if (indent.Length > 0)
-            {
-                writer.Write(" + ");
-                writer.Write(ToLiteral(indent));
-            }
-
-            writer.Write(";");
-            writer.WriteLine();
-        }
-
         private void WalkElements(IEnumerable<Element> elements, TextWriter writer, string indentation)
         {
             var temp = this.currentIndentation;

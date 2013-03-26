@@ -81,6 +81,9 @@
     <Compile Include="Compiler\Templates\IndentationElement.weave.cs">
       <DependentUpon>IndentationElement.weave</DependentUpon>
     </Compile>
+    <Compile Include="Compiler\Templates\Indentation.weave.cs">
+      <DependentUpon>Indentation.weave</DependentUpon>
+    </Compile>
     <Compile Include="Compiler\Templates\NewLineElement.weave.cs">
       <DependentUpon>NewLineElement.weave</DependentUpon>
     </Compile>
@@ -125,6 +128,7 @@
     <None Include="Compiler\Templates\EachElement.weave" />
     <None Include="Compiler\Templates\EchoTag.weave" />
     <None Include="Compiler\Templates\IfElement.weave" />
+    <None Include="Compiler\Templates\Indentation.weave" />
     <None Include="Compiler\Templates\IndentationElement.weave" />
     <None Include="Compiler\Templates\NewLineElement.weave" />
     <None Include="Compiler\Templates\RenderElement.weave" />
