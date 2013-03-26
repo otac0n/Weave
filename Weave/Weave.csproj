@@ -58,6 +58,7 @@
     <Compile Include="Compiler\ControlFlowGraph.cs" />
     <Compile Include="Compiler\ControlFlowGraphCreator.cs" />
     <Compile Include="Compiler\GenerateCodePass.cs" />
+    <Compile Include="Compiler\GraphOperations.cs" />
     <Compile Include="Compiler\IndentationOptimizer.cs" />
     <Compile Include="Compiler\ReportSettingsIssuesPass.cs" />
     <Compile Include="Compiler\Templates.cs" />
