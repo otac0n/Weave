@@ -85,7 +85,6 @@ namespace
 (model0, writer, indentation);
             writer.Write(")");
             writer.WriteLine();
-            indentation = originalIndentation;
             writer.Write(indentation);
             writer.Write("{");
             writer.WriteLine();

@@ -49,7 +49,11 @@ namespace Weave.Compiler
 
             public override void WalkCodeElement(CodeElement codeElement)
             {
-                this.results[codeElement] = this.ComputeIndentation(codeElement.Indentation);
+                var indent = this.ComputeIndentation(codeElement.Indentation);
+                if (indent != null)
+                {
+                    this.results[codeElement] = indent;
+                }
             }
 
             public override void WalkEachElement(EachElement eachElement)
@@ -70,12 +74,20 @@ namespace Weave.Compiler
 
             public override void WalkIndentationElement(IndentationElement indentationElement)
             {
-                this.results[indentationElement] = this.ComputeIndentation(indentationElement.Indentation);
+                var indent = this.ComputeIndentation(indentationElement.Indentation);
+                if (indent != null)
+                {
+                    this.results[indentationElement] = indent;
+                }
             }
 
             public override void WalkRenderElement(RenderElement renderElement)
             {
-                this.results[renderElement] = this.ComputeIndentation(renderElement.Indentation);
+                var indent = this.ComputeIndentation(renderElement.Indentation);
+                if (indent != null)
+                {
+                    this.results[renderElement] = indent;
+                }
             }
 
             private static string FindIndentation(Element element)

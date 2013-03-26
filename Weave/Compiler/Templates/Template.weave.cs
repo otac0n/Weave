@@ -120,7 +120,6 @@ namespace
 
 (model0, writer, indentation);
             writer.WriteLine();
-            indentation = originalIndentation;
             writer.Write(indentation);
             writer.Write("{");
             writer.WriteLine();
@@ -135,7 +134,6 @@ namespace
 
 )
             {
-                indentation = originalIndentation + "    ";
                 writer.Write(indentation);
                 writer.Write("using ");
                 var model1 = 
@@ -155,7 +153,6 @@ namespace
             }
 
             writer.WriteLine();
-            indentation = originalIndentation + "    ";
             writer.Write(indentation);
             var model2 = 
             #line 33 "Template.weave"
@@ -183,7 +180,6 @@ namespace
 
 (model3, writer, indentation);
             writer.WriteLine();
-            indentation = originalIndentation + "    ";
             writer.Write(indentation);
             writer.Write("{");
             writer.WriteLine();
@@ -234,7 +230,6 @@ namespace
 (model5, writer, indentation);
             writer.Write(" model, TextWriter writer, string indentation = null)");
             writer.WriteLine();
-            indentation = originalIndentation + "        ";
             writer.Write(indentation);
             writer.Write("{");
             writer.WriteLine();

@@ -70,7 +70,6 @@ namespace
 (model0, writer, indentation);
             writer.Write(";");
             writer.WriteLine();
-            indentation = originalIndentation;
             writer.Write(indentation);
             var model1 = 
             #line 8 "RenderElement.weave"

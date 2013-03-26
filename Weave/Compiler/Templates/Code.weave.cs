@@ -92,7 +92,6 @@ namespace
 
 );
                 writer.WriteLine();
-                indentation = originalIndentation;
                 writer.Write(indentation);
                 writer.Write("#line default");
                 writer.WriteLine();
