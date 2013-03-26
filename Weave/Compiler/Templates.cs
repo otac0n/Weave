@@ -38,8 +38,7 @@ namespace Weave.Compiler
         public override void WalkTemplate(Template template)
         {
             this.indentation = IndentationAnalyzer.Analyze(template);
-
-            var graph = ControlFlowGraphCreator.Create(template);
+            IndentationOptimizer.Optimize(this.indentation, template);
 
             this.RenderTemplate(template, this.writer, this.currentIndentation);
         }
