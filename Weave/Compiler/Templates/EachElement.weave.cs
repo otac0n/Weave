@@ -40,7 +40,6 @@ namespace
  model, TextWriter writer, string indentation = null)
         {
             var originalIndentation = indentation = indentation ?? string.Empty;
-            indentation = originalIndentation;
             var temp0 = indentation;
 
             #line 6 "EachElement.weave"
@@ -58,7 +57,6 @@ namespace
 
                 )
             {
-                indentation = originalIndentation;
                 writer.Write(indentation);
                 writer.Write("bool ");
                 writer.Write(
@@ -71,7 +69,6 @@ namespace
                 writer.WriteLine();
                 writer.WriteLine();
             }
-            indentation = originalIndentation;
             writer.Write(indentation);
             writer.Write("foreach (var ");
             var model0 = 
@@ -137,7 +134,6 @@ namespace
 
                 )
             {
-                indentation = originalIndentation;
                 writer.Write(indentation);
                 writer.Write("if (!");
                 writer.Write(
@@ -148,7 +144,6 @@ namespace
 );
                 writer.Write(")");
                 writer.WriteLine();
-                indentation = originalIndentation;
                 writer.Write(indentation);
                 writer.Write("{");
                 writer.WriteLine();

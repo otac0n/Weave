@@ -9,6 +9,7 @@
 namespace Weave.Compiler
 {
     using System.Collections.Generic;
+    using System.Linq;
     using Weave.Expressions;
 
     /// <summary>
@@ -24,6 +25,33 @@ namespace Weave.Compiler
         public static void Optimize(Dictionary<Element, string> indentation, Template template)
         {
             var graph = ControlFlowGraphCreator.Create(template);
+
+            var toRemove = new List<Element>();
+
+            foreach (var node in graph)
+            {
+                string indent;
+                indentation.TryGetValue(node.Value, out indent);
+
+                if (indent != null)
+                {
+                    var predecessorsWithIndentation = node.FindFirstPredecessors(p => indentation.ContainsKey(p.Value)).ToList();
+
+                    var allPredecessorsHaveSameIndentation = predecessorsWithIndentation.Any()
+                        ? predecessorsWithIndentation.All(p => indentation[p.Value] == indent)
+                        : indent.Length == 0;
+
+                    if (allPredecessorsHaveSameIndentation)
+                    {
+                        toRemove.Add(node.Value);
+                    }
+                }
+            }
+
+            foreach (var e in toRemove)
+            {
+                indentation.Remove(e);
+            }
         }
     }
 }

@@ -40,7 +40,6 @@ namespace
  model, TextWriter writer, string indentation = null)
         {
             var originalIndentation = indentation = indentation ?? string.Empty;
-            indentation = originalIndentation;
             var temp0 = indentation;
 
             #line 6 "RenderElement.weave"
@@ -48,7 +47,6 @@ namespace
             #line default
 
             indentation = temp0;
-            indentation = originalIndentation;
             writer.Write(indentation);
             writer.Write("var ");
             writer.Write(
