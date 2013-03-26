@@ -95,6 +95,7 @@
     </Compile>
     <Compile Include="Compiler\TemplateWalker.cs" />
     <Compile Include="Compiler\WeaveCompiler.cs" />
+    <Compile Include="Compiler\IndentationAnalyzer.cs" />
     <Compile Include="Expressions\Branch.cs" />
     <Compile Include="Expressions\CodeElement.cs" />
     <Compile Include="Expressions\EachBody.cs" />

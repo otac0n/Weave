@@ -43,7 +43,7 @@ namespace
             indentation = originalIndentation;
             var model0 = 
             #line 6 "IndentationElement.weave"
-                     model.Indentation
+                     model
             #line default
 
 ;

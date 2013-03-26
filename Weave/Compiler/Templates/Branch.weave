@@ -3,10 +3,6 @@
 @model Branch
 @using Weave.Expressions
 
-{{
-    var amount = GetIndentationOffset(model.Indentation, model.Body);
-    this.amountToSubtract += amount;
-}}
 {{if model.Expression != null}}
     if (
         {{@RenderCode model.Expression}}
@@ -15,6 +11,3 @@
 {
     {{@WalkElements model.Body}}
 }
-{{
-    this.amountToSubtract -= amount;
-}}

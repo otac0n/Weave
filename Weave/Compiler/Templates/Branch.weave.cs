@@ -40,20 +40,9 @@ namespace
  model, TextWriter writer, string indentation = null)
         {
             var originalIndentation = indentation = indentation ?? string.Empty;
-            indentation = originalIndentation;
-            var temp0 = indentation;
-
-            #line 6 "Branch.weave"
-  
-    var amount = GetIndentationOffset(model.Indentation, model.Body);
-    this.amountToSubtract += amount;
-
-            #line default
-
-            indentation = temp0;
             if (
 
-                #line 10 "Branch.weave"
+                #line 6 "Branch.weave"
      model.Expression != null
                 #line default
 
@@ -65,13 +54,13 @@ namespace
                 writer.WriteLine();
                 indentation = originalIndentation + "    ";
                 var model0 = 
-                #line 12 "Branch.weave"
+                #line 8 "Branch.weave"
                       model.Expression
                 #line default
 
 ;
                 
-                #line 12 "Branch.weave"
+                #line 8 "Branch.weave"
            RenderCode
                 #line default
 
@@ -87,13 +76,13 @@ namespace
             writer.WriteLine();
             indentation = originalIndentation + "    ";
             var model1 = 
-            #line 16 "Branch.weave"
+            #line 12 "Branch.weave"
                     model.Body
             #line default
 
 ;
             
-            #line 16 "Branch.weave"
+            #line 12 "Branch.weave"
        WalkElements
             #line default
 
@@ -102,16 +91,6 @@ namespace
             writer.Write(indentation);
             writer.Write("}");
             writer.WriteLine();
-            indentation = originalIndentation;
-            var temp1 = indentation;
-
-            #line 18 "Branch.weave"
-  
-    this.amountToSubtract -= amount;
-
-            #line default
-
-            indentation = temp1;
         }
     }
 }
