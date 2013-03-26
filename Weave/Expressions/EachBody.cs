@@ -15,7 +15,7 @@ namespace Weave.Expressions
     /// <summary>
     /// Represents the main body of an <see cref="EachElement"/>.
     /// </summary>
-    public class EachBody
+    public class EachBody : Element
     {
         private readonly IList<Element> body;
         private readonly SourceSpan expression;

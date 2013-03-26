@@ -55,7 +55,11 @@
     <Compile Include="CompileManager.cs" />
     <Compile Include="Compiler\CompilePass.cs" />
     <Compile Include="Compiler\CompileResult.cs" />
+    <Compile Include="Compiler\ControlFlowGraph.cs" />
+    <Compile Include="Compiler\ControlFlowGraphCreator.cs" />
     <Compile Include="Compiler\GenerateCodePass.cs" />
+    <Compile Include="Compiler\GraphOperations.cs" />
+    <Compile Include="Compiler\IndentationOptimizer.cs" />
     <Compile Include="Compiler\ReportSettingsIssuesPass.cs" />
     <Compile Include="Compiler\Templates.cs" />
     <Compile Include="Compiler\Templates\Branch.weave.cs">
@@ -79,6 +83,9 @@
     <Compile Include="Compiler\Templates\IndentationElement.weave.cs">
       <DependentUpon>IndentationElement.weave</DependentUpon>
     </Compile>
+    <Compile Include="Compiler\Templates\Indentation.weave.cs">
+      <DependentUpon>Indentation.weave</DependentUpon>
+    </Compile>
     <Compile Include="Compiler\Templates\NewLineElement.weave.cs">
       <DependentUpon>NewLineElement.weave</DependentUpon>
     </Compile>
@@ -93,6 +100,7 @@
     </Compile>
     <Compile Include="Compiler\TemplateWalker.cs" />
     <Compile Include="Compiler\WeaveCompiler.cs" />
+    <Compile Include="Compiler\IndentationAnalyzer.cs" />
     <Compile Include="Expressions\Branch.cs" />
     <Compile Include="Expressions\CodeElement.cs" />
     <Compile Include="Expressions\EachBody.cs" />
@@ -122,6 +130,7 @@
     <None Include="Compiler\Templates\EachElement.weave" />
     <None Include="Compiler\Templates\EchoTag.weave" />
     <None Include="Compiler\Templates\IfElement.weave" />
+    <None Include="Compiler\Templates\Indentation.weave" />
     <None Include="Compiler\Templates\IndentationElement.weave" />
     <None Include="Compiler\Templates\NewLineElement.weave" />
     <None Include="Compiler\Templates\RenderElement.weave" />

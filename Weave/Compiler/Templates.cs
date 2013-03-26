@@ -11,7 +11,6 @@ namespace Weave.Compiler
     using System.Collections.Generic;
     using System.Globalization;
     using System.IO;
-    using System.Linq;
     using System.Text;
     using Weave.Expressions;
 
@@ -29,7 +28,7 @@ namespace Weave.Compiler
 
         private string currentIndentation = string.Empty;
 
-        private int amountToSubtract = 0;
+        private Dictionary<Element, string> indentation;
 
         public Templates(TextWriter writer)
         {
@@ -38,12 +37,21 @@ namespace Weave.Compiler
 
         public override void WalkTemplate(Template template)
         {
+            this.indentation = IndentationAnalyzer.Analyze(template);
+            IndentationOptimizer.Optimize(this.indentation, template);
+
             this.RenderTemplate(template, this.writer, this.currentIndentation);
         }
 
         public override void WalkCodeElement(CodeElement codeElement)
         {
             this.RenderCodeElement(codeElement, this.writer, this.currentIndentation);
+        }
+
+        public override void WalkElement(Element element)
+        {
+            this.UpdateIndentation(element, this.writer, this.currentIndentation);
+            base.WalkElement(element);
         }
 
         public override void WalkIfElement(IfElement ifElement)
@@ -86,78 +94,6 @@ namespace Weave.Compiler
             this.RenderIndentationElement(indentationElement, this.writer, this.currentIndentation);
         }
 
-        private static string FindIndentation(Element element)
-        {
-            CodeElement codeElement;
-            EachElement eachElement;
-            IfElement ifElement;
-            IndentationElement indentationElement;
-            RenderElement renderElement;
-
-            if ((codeElement = element as CodeElement) != null)
-            {
-                return codeElement.Indentation;
-            }
-            else if ((eachElement = element as EachElement) != null)
-            {
-                return eachElement.EachBody.Indentation;
-            }
-            else if ((ifElement = element as IfElement) != null)
-            {
-                return ifElement.Branches[0].Indentation;
-            }
-            else if ((indentationElement = element as IndentationElement) != null)
-            {
-                return indentationElement.Indentation;
-            }
-            else if ((renderElement = element as RenderElement) != null)
-            {
-                return renderElement.Indentation;
-            }
-
-            return null;
-        }
-
-        private static int GetIndentationOffset(string indentation, IEnumerable<Element> body)
-        {
-            if (indentation == null)
-            {
-                return 0;
-            }
-
-            var ourIndentation = MeasureString(indentation);
-
-            return (from element in body
-                    let offset = MeasureString(FindIndentation(element)) - ourIndentation
-                    where offset > 0
-                    orderby offset
-                    select (int?)offset).FirstOrDefault() ?? 0;
-        }
-
-        private static int MeasureString(string indentation, int tabWidth = 4)
-        {
-            var count = 0;
-
-            if (indentation == null)
-            {
-                return count;
-            }
-
-            for (var i = 0; i < indentation.Length; i++)
-            {
-                if (indentation[i] == '\t')
-                {
-                    count += tabWidth - (count % tabWidth);
-                }
-                else
-                {
-                    count++;
-                }
-            }
-
-            return count;
-        }
-
         private static string ToLiteral(string input)
         {
             if (input == null)
@@ -190,73 +126,12 @@ namespace Weave.Compiler
             return sb.ToString();
         }
 
-        private static string TrimIndentation(string indentation, int amoutToTrim, int tabWidth = 4)
-        {
-            var count = MeasureString(indentation, tabWidth);
-            var desiredCount = count - amoutToTrim;
-
-            if (desiredCount <= 0)
-            {
-                return string.Empty;
-            }
-
-            var newCount = 0;
-            var i = 0;
-
-            for (i = 0; i < indentation.Length; i++)
-            {
-                var previousCount = newCount;
-
-                if (indentation[i] == '\t')
-                {
-                    newCount += tabWidth - (newCount % tabWidth);
-                }
-                else
-                {
-                    newCount++;
-                }
-
-                if (newCount > desiredCount)
-                {
-                    newCount = previousCount;
-                    break;
-                }
-            }
-
-            return indentation.Substring(0, i) + new string(' ', desiredCount - newCount);
-        }
-
         private string CreateVariable(string prefix)
         {
             int instance;
             this.variables.TryGetValue(prefix, out instance);
             this.variables[prefix] = instance + 1;
             return prefix + instance;
-        }
-
-        private void UpdateIndentation(string model, TextWriter writer, string indentation)
-        {
-            if (model == null)
-            {
-                return;
-            }
-
-            if (this.amountToSubtract > 0)
-            {
-                model = TrimIndentation(model, this.amountToSubtract);
-            }
-
-            writer.Write(indentation);
-            writer.Write("indentation = originalIndentation");
-
-            if (model.Length > 0)
-            {
-                writer.Write(" + ");
-                writer.Write(ToLiteral(model));
-            }
-
-            writer.Write(";");
-            writer.WriteLine();
         }
 
         private void BaseWalkTemplate(Template template, TextWriter writer, string indentation)

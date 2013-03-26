@@ -15,7 +15,7 @@ namespace Weave.Expressions
     /// <summary>
     /// Represents one branch of an <see cref="IfElement"/>.
     /// </summary>
-    public class Branch
+    public class Branch : Element
     {
         private readonly IList<Element> body;
         private readonly SourceSpan expression;

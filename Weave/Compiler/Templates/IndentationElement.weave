@@ -3,5 +3,4 @@
 @model IndentationElement
 @using Weave.Expressions
 
-{{@UpdateIndentation model.Indentation}}
 writer.Write(indentation);

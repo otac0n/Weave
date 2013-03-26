@@ -8,7 +8,7 @@
 // -----------------------------------------------------------------------
 
 namespace 
-#line 1 "IfElement.weave"
+#line 1 "Indentation.weave"
            Weave.Compiler
 #line default
 
@@ -16,7 +16,7 @@ namespace
 {
     using System.IO;
     using 
-    #line 4 "IfElement.weave"
+    #line 4 "Indentation.weave"
        Weave.Expressions
     #line default
 
@@ -28,13 +28,13 @@ namespace
     {
         [System.CodeDom.Compiler.GeneratedCode("Weave", "1.0.0.0")]
         public void 
-        #line 2 "IfElement.weave"
-            RenderIfElement
+        #line 2 "Indentation.weave"
+            UpdateIndentation
         #line default
 
 (
-        #line 3 "IfElement.weave"
-       IfElement
+        #line 3 "Indentation.weave"
+       Element
         #line default
 
  model, TextWriter writer, string indentation = null)
@@ -42,51 +42,43 @@ namespace
             var originalIndentation = indentation = indentation ?? string.Empty;
             var temp0 = indentation;
 
-            #line 6 "IfElement.weave"
-   var first = true; 
+            #line 6 "Indentation.weave"
+  
+    string indent;
+    this.indentation.TryGetValue(model, out indent);
+
             #line default
 
             indentation = temp0;
-            foreach (var 
-            #line 7 "IfElement.weave"
-       branch in model.Branches
-            #line default
+            if (
 
-)
+                #line 10 "Indentation.weave"
+     indent != null
+                #line default
+
+                )
             {
+                writer.Write(indentation);
+                writer.Write("indentation = originalIndentation");
                 if (
 
-                    #line 8 "IfElement.weave"
-         !first
+                    #line 11 "Indentation.weave"
+                                          indent.Length > 0
                     #line default
 
                     )
                 {
-                    writer.Write(indentation);
-                    writer.Write("else");
-                    writer.WriteLine();
+                    writer.Write(" + ");
+                    writer.Write(
+                    #line 11 "Indentation.weave"
+                                                                    ToLiteral(indent) 
+                    #line default
+
+);
                 }
-                var model0 = 
-                #line 11 "IfElement.weave"
-                  branch
-                #line default
-
-;
-                
-                #line 11 "IfElement.weave"
-       WalkBranch
-                #line default
-
-(model0, writer, indentation);
-                var temp1 = indentation;
-
-                #line 12 "IfElement.weave"
-       first = false; 
-                #line default
-
-                indentation = temp1;
+                writer.Write(";");
+                writer.WriteLine();
             }
-
         }
     }
 }

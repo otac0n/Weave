@@ -40,68 +40,53 @@ namespace
  model, TextWriter writer, string indentation = null)
         {
             var originalIndentation = indentation = indentation ?? string.Empty;
-            indentation = originalIndentation;
-            var model0 = 
-            #line 6 "RenderElement.weave"
-                     model.Indentation
-            #line default
-
-;
-            
-            #line 6 "RenderElement.weave"
-   UpdateIndentation
-            #line default
-
-(model0, writer, indentation);
-            indentation = originalIndentation;
             var temp0 = indentation;
 
-            #line 7 "RenderElement.weave"
+            #line 6 "RenderElement.weave"
    var newModel = this.CreateVariable("model"); 
             #line default
 
             indentation = temp0;
-            indentation = originalIndentation;
             writer.Write(indentation);
             writer.Write("var ");
             writer.Write(
-            #line 8 "RenderElement.weave"
+            #line 7 "RenderElement.weave"
         newModel 
             #line default
 
 );
             writer.Write(" = ");
-            var model1 = 
-            #line 8 "RenderElement.weave"
+            var model0 = 
+            #line 7 "RenderElement.weave"
                                     model.Expression
             #line default
 
 ;
             
-            #line 8 "RenderElement.weave"
+            #line 7 "RenderElement.weave"
                          RenderCode
             #line default
 
-(model1, writer, indentation);
+(model0, writer, indentation);
             writer.Write(";");
             writer.WriteLine();
             indentation = originalIndentation;
             writer.Write(indentation);
-            var model2 = 
-            #line 9 "RenderElement.weave"
+            var model1 = 
+            #line 8 "RenderElement.weave"
               model.Method
             #line default
 
 ;
             
-            #line 9 "RenderElement.weave"
+            #line 8 "RenderElement.weave"
    RenderCode
             #line default
 
-(model2, writer, indentation);
+(model1, writer, indentation);
             writer.Write("(");
             writer.Write(
-            #line 9 "RenderElement.weave"
+            #line 8 "RenderElement.weave"
                                  newModel 
             #line default
 
