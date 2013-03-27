@@ -5,10 +5,11 @@
 
 {{ var span = model as SourceSpan; }}
 {{if span != null}}
-
-#line {{= span.Start.Line }} "{{= Path.GetFileName(span.Start.FileName) }}"{{ writer.WriteLine(); }}{{= new string(' ', span.Start.Column - 1) }}{{= span.Value }}
-#line default
-
+    #line {{= span.Start.Line }} "{{= Path.GetFileName(span.Start.FileName) }}"{{ writer.WriteLine(); }}{{= new string(' ', span.Start.Column - 1) }}{{= span.Value }}
+    #line default
 {{else}}
-    {{= model }}
+    {{ var value = model.ToString(); }}
+    {{if !string.IsNullOrEmpty(value) }}
+        {{= value }}
+    {{/if}}
 {{/if}}

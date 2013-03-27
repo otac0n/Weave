@@ -7,76 +7,60 @@
 // </auto-generated>
 // -----------------------------------------------------------------------
 
-namespace 
-#line 1 "CodeElement.weave"
+namespace
+    #line 1 "CodeElement.weave"
            Weave.Compiler
-#line default
-
-
+    #line default
 {
     using System.IO;
-    using 
-    #line 4 "CodeElement.weave"
+    using
+        #line 4 "CodeElement.weave"
        Weave.Expressions
-    #line default
+        #line default
+        ;
 
-;
-
-        
- partial class     Templates
-
+    partial class
+    Templates
     {
         [System.CodeDom.Compiler.GeneratedCode("Weave", "1.0.0.0")]
-        public void 
+        public void
         #line 2 "CodeElement.weave"
             RenderCodeElement
         #line default
-
-(
-        #line 3 "CodeElement.weave"
+            (
+            #line 3 "CodeElement.weave"
        CodeElement
-        #line default
-
- model, TextWriter writer, string indentation = null)
+            #line default
+            model, TextWriter writer, string indentation = null)
         {
             var originalIndentation = indentation = indentation ?? string.Empty;
             var temp0 = indentation;
-
             #line 6 "CodeElement.weave"
    var temp = this.CreateVariable("temp"); 
             #line default
-
             indentation = temp0;
             writer.Write(indentation);
             writer.Write("var ");
             writer.Write(
-            #line 7 "CodeElement.weave"
+                #line 7 "CodeElement.weave"
         temp 
-            #line default
-
-);
+                #line default
+                );
             writer.Write(" = indentation;");
             writer.WriteLine();
-            var model0 = 
-            #line 8 "CodeElement.weave"
+            var model0 =
+                #line 8 "CodeElement.weave"
               model.Expression
-            #line default
-
-;
-            
-            #line 8 "CodeElement.weave"
-   RenderCode
-            #line default
-
-(model0, writer, indentation);
+                #line default
+                ;
+            RenderCode(model0, writer, indentation);
             writer.Write(indentation);
             writer.Write("indentation = ");
             writer.Write(
-            #line 9 "CodeElement.weave"
+                #line 9 "CodeElement.weave"
                   temp 
-            #line default
-
-);
+                #line default
+                );
             writer.Write(";");
             writer.WriteLine();
         }

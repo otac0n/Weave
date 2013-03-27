@@ -7,53 +7,44 @@
 // </auto-generated>
 // -----------------------------------------------------------------------
 
-namespace 
-#line 1 "EchoTag.weave"
+namespace
+    #line 1 "EchoTag.weave"
            Weave.Compiler
-#line default
-
-
+    #line default
 {
     using System.IO;
-    using 
-    #line 4 "EchoTag.weave"
+    using
+        #line 4 "EchoTag.weave"
        Weave.Expressions
-    #line default
+        #line default
+        ;
 
-;
-
-        
- partial class     Templates
-
+    partial class
+    Templates
     {
         [System.CodeDom.Compiler.GeneratedCode("Weave", "1.0.0.0")]
-        public void 
+        public void
         #line 2 "EchoTag.weave"
             RenderEchoTag
         #line default
-
-(
-        #line 3 "EchoTag.weave"
+            (
+            #line 3 "EchoTag.weave"
        EchoTag
-        #line default
-
- model, TextWriter writer, string indentation = null)
+            #line default
+            model, TextWriter writer, string indentation = null)
         {
             var originalIndentation = indentation = indentation ?? string.Empty;
             writer.Write(indentation);
             writer.Write("writer.Write(");
-            var model0 = 
-            #line 6 "EchoTag.weave"
-                           model.Expression
-            #line default
-
-;
-            
-            #line 6 "EchoTag.weave"
-                RenderCode
-            #line default
-
-(model0, writer, indentation);
+            writer.WriteLine();
+            indentation = originalIndentation + "    ";
+            var model0 =
+                #line 7 "EchoTag.weave"
+                  model.Expression
+                #line default
+                ;
+            RenderCode(model0, writer, indentation);
+            writer.Write(indentation);
             writer.Write(");");
             writer.WriteLine();
         }

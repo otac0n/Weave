@@ -7,83 +7,64 @@
 // </auto-generated>
 // -----------------------------------------------------------------------
 
-namespace 
-#line 1 "IfElement.weave"
+namespace
+    #line 1 "IfElement.weave"
            Weave.Compiler
-#line default
-
-
+    #line default
 {
     using System.IO;
-    using 
-    #line 4 "IfElement.weave"
+    using
+        #line 4 "IfElement.weave"
        Weave.Expressions
-    #line default
+        #line default
+        ;
 
-;
-
-        
- partial class     Templates
-
+    partial class
+    Templates
     {
         [System.CodeDom.Compiler.GeneratedCode("Weave", "1.0.0.0")]
-        public void 
+        public void
         #line 2 "IfElement.weave"
             RenderIfElement
         #line default
-
-(
-        #line 3 "IfElement.weave"
+            (
+            #line 3 "IfElement.weave"
        IfElement
-        #line default
-
- model, TextWriter writer, string indentation = null)
+            #line default
+            model, TextWriter writer, string indentation = null)
         {
             var originalIndentation = indentation = indentation ?? string.Empty;
             var temp0 = indentation;
-
             #line 6 "IfElement.weave"
    var first = true; 
             #line default
-
             indentation = temp0;
-            foreach (var 
-            #line 7 "IfElement.weave"
+            foreach (var
+                #line 7 "IfElement.weave"
        branch in model.Branches
-            #line default
-
-)
+                #line default
+                )
             {
                 if (
-
                     #line 8 "IfElement.weave"
          !first
                     #line default
-
                     )
                 {
                     writer.Write(indentation);
                     writer.Write("else");
                     writer.WriteLine();
                 }
-                var model0 = 
-                #line 11 "IfElement.weave"
+                var model0 =
+                    #line 11 "IfElement.weave"
                   branch
-                #line default
-
-;
-                
-                #line 11 "IfElement.weave"
-       WalkBranch
-                #line default
-
-(model0, writer, indentation);
+                    #line default
+                    ;
+                WalkBranch(model0, writer, indentation);
                 var temp1 = indentation;
-
                 #line 12 "IfElement.weave"
        first = false; 
                 #line default
-
                 indentation = temp1;
             }
 

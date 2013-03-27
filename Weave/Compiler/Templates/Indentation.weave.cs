@@ -7,74 +7,61 @@
 // </auto-generated>
 // -----------------------------------------------------------------------
 
-namespace 
-#line 1 "Indentation.weave"
+namespace
+    #line 1 "Indentation.weave"
            Weave.Compiler
-#line default
-
-
+    #line default
 {
     using System.IO;
-    using 
-    #line 4 "Indentation.weave"
+    using
+        #line 4 "Indentation.weave"
        Weave.Expressions
-    #line default
+        #line default
+        ;
 
-;
-
-        
- partial class     Templates
-
+    partial class
+    Templates
     {
         [System.CodeDom.Compiler.GeneratedCode("Weave", "1.0.0.0")]
-        public void 
+        public void
         #line 2 "Indentation.weave"
             UpdateIndentation
         #line default
-
-(
-        #line 3 "Indentation.weave"
+            (
+            #line 3 "Indentation.weave"
        Element
-        #line default
-
- model, TextWriter writer, string indentation = null)
+            #line default
+            model, TextWriter writer, string indentation = null)
         {
             var originalIndentation = indentation = indentation ?? string.Empty;
             var temp0 = indentation;
-
             #line 6 "Indentation.weave"
   
     string indent;
     this.indentation.TryGetValue(model, out indent);
 
             #line default
-
             indentation = temp0;
             if (
-
                 #line 10 "Indentation.weave"
      indent != null
                 #line default
-
                 )
             {
                 writer.Write(indentation);
                 writer.Write("indentation = originalIndentation");
                 if (
-
                     #line 11 "Indentation.weave"
                                           indent.Length > 0
                     #line default
-
                     )
                 {
                     writer.Write(" + ");
                     writer.Write(
-                    #line 11 "Indentation.weave"
+                        #line 11 "Indentation.weave"
                                                                     ToLiteral(indent) 
-                    #line default
-
-);
+                        #line default
+                        );
                 }
                 writer.Write(";");
                 writer.WriteLine();

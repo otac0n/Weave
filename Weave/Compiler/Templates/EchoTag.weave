@@ -3,4 +3,6 @@
 @model EchoTag
 @using Weave.Expressions
 
-writer.Write({{@RenderCode model.Expression}});
+writer.Write(
+    {{@RenderCode model.Expression}}
+    );

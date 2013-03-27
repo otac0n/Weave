@@ -10,7 +10,9 @@
     bool {{= flag }};
 
 {{/if}}
-foreach (var {{@RenderCode model.EachBody.Expression}})
+foreach (var
+    {{@RenderCode model.EachBody.Expression}}
+    )
 {
     {{if model.NoneBody != null}}
         {{= flag }} = true;

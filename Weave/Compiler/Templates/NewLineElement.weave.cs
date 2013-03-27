@@ -7,37 +7,31 @@
 // </auto-generated>
 // -----------------------------------------------------------------------
 
-namespace 
-#line 1 "NewLineElement.weave"
+namespace
+    #line 1 "NewLineElement.weave"
            Weave.Compiler
-#line default
-
-
+    #line default
 {
     using System.IO;
-    using 
-    #line 4 "NewLineElement.weave"
+    using
+        #line 4 "NewLineElement.weave"
        Weave.Expressions
-    #line default
+        #line default
+        ;
 
-;
-
-        
- partial class     Templates
-
+    partial class
+    Templates
     {
         [System.CodeDom.Compiler.GeneratedCode("Weave", "1.0.0.0")]
-        public void 
+        public void
         #line 2 "NewLineElement.weave"
             RenderNewLineElement
         #line default
-
-(
-        #line 3 "NewLineElement.weave"
+            (
+            #line 3 "NewLineElement.weave"
        NewLineElement
-        #line default
-
- model, TextWriter writer, string indentation = null)
+            #line default
+            model, TextWriter writer, string indentation = null)
         {
             var originalIndentation = indentation = indentation ?? string.Empty;
             writer.Write(indentation);

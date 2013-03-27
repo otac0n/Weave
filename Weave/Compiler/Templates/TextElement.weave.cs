@@ -7,47 +7,40 @@
 // </auto-generated>
 // -----------------------------------------------------------------------
 
-namespace 
-#line 1 "TextElement.weave"
+namespace
+    #line 1 "TextElement.weave"
            Weave.Compiler
-#line default
-
-
+    #line default
 {
     using System.IO;
-    using 
-    #line 4 "TextElement.weave"
+    using
+        #line 4 "TextElement.weave"
        Weave.Expressions
-    #line default
+        #line default
+        ;
 
-;
-
-        
- partial class     Templates
-
+    partial class
+    Templates
     {
         [System.CodeDom.Compiler.GeneratedCode("Weave", "1.0.0.0")]
-        public void 
+        public void
         #line 2 "TextElement.weave"
             RenderTextElement
         #line default
-
-(
-        #line 3 "TextElement.weave"
+            (
+            #line 3 "TextElement.weave"
        TextElement
-        #line default
-
- model, TextWriter writer, string indentation = null)
+            #line default
+            model, TextWriter writer, string indentation = null)
         {
             var originalIndentation = indentation = indentation ?? string.Empty;
             writer.Write(indentation);
             writer.Write("writer.Write(");
             writer.Write(
-            #line 6 "TextElement.weave"
+                #line 6 "TextElement.weave"
                  ToLiteral(model.Value) 
-            #line default
-
-);
+                #line default
+                );
             writer.Write(");");
             writer.WriteLine();
         }

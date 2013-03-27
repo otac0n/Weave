@@ -7,63 +7,49 @@
 // </auto-generated>
 // -----------------------------------------------------------------------
 
-namespace 
-#line 1 "Branch.weave"
+namespace
+    #line 1 "Branch.weave"
            Weave.Compiler
-#line default
-
-
+    #line default
 {
     using System.IO;
-    using 
-    #line 4 "Branch.weave"
+    using
+        #line 4 "Branch.weave"
        Weave.Expressions
-    #line default
+        #line default
+        ;
 
-;
-
-        
- partial class     Templates
-
+    partial class
+    Templates
     {
         [System.CodeDom.Compiler.GeneratedCode("Weave", "1.0.0.0")]
-        public void 
+        public void
         #line 2 "Branch.weave"
             RenderBranch
         #line default
-
-(
-        #line 3 "Branch.weave"
+            (
+            #line 3 "Branch.weave"
        Branch
-        #line default
-
- model, TextWriter writer, string indentation = null)
+            #line default
+            model, TextWriter writer, string indentation = null)
         {
             var originalIndentation = indentation = indentation ?? string.Empty;
             if (
-
                 #line 6 "Branch.weave"
      model.Expression != null
                 #line default
-
                 )
             {
                 writer.Write(indentation);
                 writer.Write("if (");
                 writer.WriteLine();
                 indentation = originalIndentation + "    ";
-                var model0 = 
-                #line 8 "Branch.weave"
+                var model0 =
+                    #line 8 "Branch.weave"
                       model.Expression
-                #line default
-
-;
-                
-                #line 8 "Branch.weave"
-           RenderCode
-                #line default
-
-(model0, writer, indentation);
+                    #line default
+                    ;
+                RenderCode(model0, writer, indentation);
                 writer.Write(indentation);
                 writer.Write(")");
                 writer.WriteLine();
@@ -73,18 +59,12 @@ namespace
             writer.Write("{");
             writer.WriteLine();
             indentation = originalIndentation + "    ";
-            var model1 = 
-            #line 12 "Branch.weave"
+            var model1 =
+                #line 12 "Branch.weave"
                     model.Body
-            #line default
-
-;
-            
-            #line 12 "Branch.weave"
-       WalkElements
-            #line default
-
-(model1, writer, indentation);
+                #line default
+                ;
+            WalkElements(model1, writer, indentation);
             indentation = originalIndentation;
             writer.Write(indentation);
             writer.Write("}");
