@@ -26,8 +26,8 @@ namespace Weave.Compiler
         public static IEnumerable<ControlFlowGraph<T>.Node> FindFirstPredecessors<T>(this ControlFlowGraph<T>.Node node, Func<ControlFlowGraph<T>.Node, bool> predicate)
         {
             var visited = new HashSet<ControlFlowGraph<T>.Node>(node.Previous);
-            visited.Add(node);
             var toVisit = new Queue<ControlFlowGraph<T>.Node>(visited);
+            visited.Add(node);
 
             while (toVisit.Count > 0)
             {
