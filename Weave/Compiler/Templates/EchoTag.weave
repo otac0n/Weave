@@ -1,5 +1,4 @@
 ﻿@namespace Weave.Compiler
-@methodname RenderEchoTag
 @model EchoTag
 @using Weave.Expressions
 

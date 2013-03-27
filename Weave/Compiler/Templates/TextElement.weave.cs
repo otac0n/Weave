@@ -14,7 +14,7 @@ namespace
 {
     using System.IO;
     using
-        #line 4 "TextElement.weave"
+        #line 3 "TextElement.weave"
        Weave.Expressions
         #line default
         ;
@@ -24,11 +24,9 @@ namespace
     {
         [System.CodeDom.Compiler.GeneratedCode("Weave", "1.0.0.0")]
         public void
-        #line 2 "TextElement.weave"
-            RenderTextElement
-        #line default
+        RenderTextElement
             (
-            #line 3 "TextElement.weave"
+            #line 2 "TextElement.weave"
        TextElement
             #line default
             model, TextWriter writer, string indentation = null)
@@ -37,7 +35,7 @@ namespace
             writer.Write(indentation);
             writer.Write("writer.Write(");
             writer.Write(
-                #line 6 "TextElement.weave"
+                #line 5 "TextElement.weave"
                  ToLiteral(model.Value) 
                 #line default
                 );

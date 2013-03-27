@@ -1,5 +1,4 @@
 ﻿@namespace Weave.Compiler
-@methodname RenderTemplate
 @model Template
 @using System.Linq
 @using System.Reflection
@@ -10,7 +9,7 @@
     var @namespace = settings["namespace"].Single();
     var accessibility = settings["accessibility"].SingleOrDefault() ?? string.Empty;
     var className = settings["classname"].SingleOrDefault() ?? "Templates";
-    var methodName = settings["methodname"].SingleOrDefault() ?? "Render";
+    var methodName = settings["methodname"].SingleOrDefault() ?? "Render" + Path.GetFileNameWithoutExtension(model.Start.FileName);
     var modelName = settings["model"].SingleOrDefault() ?? "dynamic";
     var assemblyName = Assembly.GetExecutingAssembly().GetName();
 }}

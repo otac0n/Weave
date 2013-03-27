@@ -18,18 +18,27 @@ namespace Weave.Expressions
     /// </summary>
     public class Template
     {
+        private readonly Cursor start;
         private readonly IList<Element> elements;
         private readonly Cursor settingsEnd;
         private readonly IList<KeyValuePair<SourceSpan, SourceSpan>> settings;
+        private readonly Cursor end;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Template"/> class.
         /// </summary>
+        /// <param name="start">The starting cursor of the <see cref="Template"/>.</param>
         /// <param name="settings">The settings in this <see cref="Template"/>.</param>
         /// <param name="settingsEnd">The ending cursor of the settings section.</param>
         /// <param name="elements">The elements in this <see cref="Template"/>.</param>
-        public Template(IEnumerable<KeyValuePair<SourceSpan, SourceSpan>> settings, Cursor settingsEnd, IEnumerable<Element> elements)
+        /// <param name="end">The ending cursor of the <see cref="Template"/>.</param>
+        public Template(Cursor start, IEnumerable<KeyValuePair<SourceSpan, SourceSpan>> settings, Cursor settingsEnd, IEnumerable<Element> elements, Cursor end)
         {
+            if (start == null)
+            {
+                throw new ArgumentNullException("start");
+            }
+
             if (settings == null)
             {
                 throw new ArgumentNullException("settings");
@@ -45,9 +54,16 @@ namespace Weave.Expressions
                 throw new ArgumentNullException("elements");
             }
 
+            if (end == null)
+            {
+                throw new ArgumentNullException("end");
+            }
+
+            this.start = start;
             this.settings = settings.ToList().AsReadOnly();
             this.settingsEnd = settingsEnd;
             this.elements = elements.ToList().AsReadOnly();
+            this.end = end;
         }
 
         /// <summary>
@@ -59,11 +75,27 @@ namespace Weave.Expressions
         }
 
         /// <summary>
+        /// Gets the ending cursor of this <see cref="Template"/>.
+        /// </summary>
+        public Cursor End
+        {
+            get { return this.end; }
+        }
+
+        /// <summary>
         /// Gets the cursor after the settings section.
         /// </summary>
         public Cursor SettingsEnd
         {
             get { return this.settingsEnd; }
+        }
+
+        /// <summary>
+        /// Gets the starting cursor of this <see cref="Template"/>.
+        /// </summary>
+        public Cursor Start
+        {
+            get { return this.start; }
         }
 
         /// <summary>

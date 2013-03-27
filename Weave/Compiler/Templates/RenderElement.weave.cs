@@ -14,7 +14,7 @@ namespace
 {
     using System.IO;
     using
-        #line 4 "RenderElement.weave"
+        #line 3 "RenderElement.weave"
        Weave.Expressions
         #line default
         ;
@@ -24,25 +24,23 @@ namespace
     {
         [System.CodeDom.Compiler.GeneratedCode("Weave", "1.0.0.0")]
         public void
-        #line 2 "RenderElement.weave"
-            RenderRenderElement
-        #line default
+        RenderRenderElement
             (
-            #line 3 "RenderElement.weave"
+            #line 2 "RenderElement.weave"
        RenderElement
             #line default
             model, TextWriter writer, string indentation = null)
         {
             var originalIndentation = indentation = indentation ?? string.Empty;
             var temp0 = indentation;
-            #line 6 "RenderElement.weave"
+            #line 5 "RenderElement.weave"
    var newModel = this.CreateVariable("model"); 
             #line default
             indentation = temp0;
             writer.Write(indentation);
             writer.Write("var ");
             writer.Write(
-                #line 7 "RenderElement.weave"
+                #line 6 "RenderElement.weave"
         newModel 
                 #line default
                 );
@@ -50,7 +48,7 @@ namespace
             writer.WriteLine();
             indentation = originalIndentation + "    ";
             var model0 =
-                #line 8 "RenderElement.weave"
+                #line 7 "RenderElement.weave"
                   model.Expression
                 #line default
                 ;
@@ -61,13 +59,13 @@ namespace
             indentation = originalIndentation;
             writer.Write(indentation);
             writer.Write(
-                #line 10 "RenderElement.weave"
+                #line 9 "RenderElement.weave"
     model.Method.Value 
                 #line default
                 );
             writer.Write("(");
             writer.Write(
-                #line 10 "RenderElement.weave"
+                #line 9 "RenderElement.weave"
                               newModel 
                 #line default
                 );

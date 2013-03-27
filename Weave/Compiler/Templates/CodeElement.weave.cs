@@ -14,7 +14,7 @@ namespace
 {
     using System.IO;
     using
-        #line 4 "CodeElement.weave"
+        #line 3 "CodeElement.weave"
        Weave.Expressions
         #line default
         ;
@@ -24,32 +24,30 @@ namespace
     {
         [System.CodeDom.Compiler.GeneratedCode("Weave", "1.0.0.0")]
         public void
-        #line 2 "CodeElement.weave"
-            RenderCodeElement
-        #line default
+        RenderCodeElement
             (
-            #line 3 "CodeElement.weave"
+            #line 2 "CodeElement.weave"
        CodeElement
             #line default
             model, TextWriter writer, string indentation = null)
         {
             var originalIndentation = indentation = indentation ?? string.Empty;
             var temp0 = indentation;
-            #line 6 "CodeElement.weave"
+            #line 5 "CodeElement.weave"
    var temp = this.CreateVariable("temp"); 
             #line default
             indentation = temp0;
             writer.Write(indentation);
             writer.Write("var ");
             writer.Write(
-                #line 7 "CodeElement.weave"
+                #line 6 "CodeElement.weave"
         temp 
                 #line default
                 );
             writer.Write(" = indentation;");
             writer.WriteLine();
             var model0 =
-                #line 8 "CodeElement.weave"
+                #line 7 "CodeElement.weave"
               model.Expression
                 #line default
                 ;
@@ -57,7 +55,7 @@ namespace
             writer.Write(indentation);
             writer.Write("indentation = ");
             writer.Write(
-                #line 9 "CodeElement.weave"
+                #line 8 "CodeElement.weave"
                   temp 
                 #line default
                 );

@@ -1,5 +1,4 @@
 ﻿@namespace Weave.Compiler
-@methodname RenderCode
 @model object
 @using Weave.Expressions
 

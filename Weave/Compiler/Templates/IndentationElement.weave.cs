@@ -14,7 +14,7 @@ namespace
 {
     using System.IO;
     using
-        #line 4 "IndentationElement.weave"
+        #line 3 "IndentationElement.weave"
        Weave.Expressions
         #line default
         ;
@@ -24,11 +24,9 @@ namespace
     {
         [System.CodeDom.Compiler.GeneratedCode("Weave", "1.0.0.0")]
         public void
-        #line 2 "IndentationElement.weave"
-            RenderIndentationElement
-        #line default
+        RenderIndentationElement
             (
-            #line 3 "IndentationElement.weave"
+            #line 2 "IndentationElement.weave"
        IndentationElement
             #line default
             model, TextWriter writer, string indentation = null)

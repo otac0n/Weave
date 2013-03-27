@@ -1,5 +1,4 @@
 ﻿@namespace Weave.Compiler
-@methodname RenderBranch
 @model Branch
 @using Weave.Expressions
 

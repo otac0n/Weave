@@ -1,5 +1,4 @@
 ﻿@namespace Weave.Compiler
-@methodname RenderNewLineElement
 @model NewLineElement
 @using Weave.Expressions
 

@@ -14,7 +14,7 @@ namespace
 {
     using System.IO;
     using
-        #line 4 "NewLineElement.weave"
+        #line 3 "NewLineElement.weave"
        Weave.Expressions
         #line default
         ;
@@ -24,11 +24,9 @@ namespace
     {
         [System.CodeDom.Compiler.GeneratedCode("Weave", "1.0.0.0")]
         public void
-        #line 2 "NewLineElement.weave"
-            RenderNewLineElement
-        #line default
+        RenderNewLineElement
             (
-            #line 3 "NewLineElement.weave"
+            #line 2 "NewLineElement.weave"
        NewLineElement
             #line default
             model, TextWriter writer, string indentation = null)

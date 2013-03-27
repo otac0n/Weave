@@ -14,7 +14,7 @@ namespace
 {
     using System.IO;
     using
-        #line 4 "IfElement.weave"
+        #line 3 "IfElement.weave"
        Weave.Expressions
         #line default
         ;
@@ -24,29 +24,27 @@ namespace
     {
         [System.CodeDom.Compiler.GeneratedCode("Weave", "1.0.0.0")]
         public void
-        #line 2 "IfElement.weave"
-            RenderIfElement
-        #line default
+        RenderIfElement
             (
-            #line 3 "IfElement.weave"
+            #line 2 "IfElement.weave"
        IfElement
             #line default
             model, TextWriter writer, string indentation = null)
         {
             var originalIndentation = indentation = indentation ?? string.Empty;
             var temp0 = indentation;
-            #line 6 "IfElement.weave"
+            #line 5 "IfElement.weave"
    var first = true; 
             #line default
             indentation = temp0;
             foreach (var
-                #line 7 "IfElement.weave"
+                #line 6 "IfElement.weave"
        branch in model.Branches
                 #line default
                 )
             {
                 if (
-                    #line 8 "IfElement.weave"
+                    #line 7 "IfElement.weave"
          !first
                     #line default
                     )
@@ -56,13 +54,13 @@ namespace
                     writer.WriteLine();
                 }
                 var model0 =
-                    #line 11 "IfElement.weave"
+                    #line 10 "IfElement.weave"
                   branch
                     #line default
                     ;
                 WalkBranch(model0, writer, indentation);
                 var temp1 = indentation;
-                #line 12 "IfElement.weave"
+                #line 11 "IfElement.weave"
        first = false; 
                 #line default
                 indentation = temp1;

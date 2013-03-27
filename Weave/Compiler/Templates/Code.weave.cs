@@ -14,7 +14,7 @@ namespace
 {
     using System.IO;
     using
-        #line 4 "Code.weave"
+        #line 3 "Code.weave"
        Weave.Expressions
         #line default
         ;
@@ -24,23 +24,21 @@ namespace
     {
         [System.CodeDom.Compiler.GeneratedCode("Weave", "1.0.0.0")]
         public void
-        #line 2 "Code.weave"
-            RenderCode
-        #line default
+        RenderCode
             (
-            #line 3 "Code.weave"
+            #line 2 "Code.weave"
        object
             #line default
             model, TextWriter writer, string indentation = null)
         {
             var originalIndentation = indentation = indentation ?? string.Empty;
             var temp0 = indentation;
-            #line 6 "Code.weave"
+            #line 5 "Code.weave"
    var span = model as SourceSpan; 
             #line default
             indentation = temp0;
             if (
-                #line 7 "Code.weave"
+                #line 6 "Code.weave"
      span != null
                 #line default
                 )
@@ -48,29 +46,29 @@ namespace
                 writer.Write(indentation);
                 writer.Write("#line ");
                 writer.Write(
-                    #line 8 "Code.weave"
+                    #line 7 "Code.weave"
               span.Start.Line 
                     #line default
                     );
                 writer.Write(" \"");
                 writer.Write(
-                    #line 8 "Code.weave"
+                    #line 7 "Code.weave"
                                       Path.GetFileName(span.Start.FileName) 
                     #line default
                     );
                 writer.Write("\"");
                 var temp1 = indentation;
-                #line 8 "Code.weave"
+                #line 7 "Code.weave"
                                                                                   writer.WriteLine(); 
                 #line default
                 indentation = temp1;
                 writer.Write(
-                    #line 8 "Code.weave"
+                    #line 7 "Code.weave"
                                                                                                             new string(' ', span.Start.Column - 1) 
                     #line default
                     );
                 writer.Write(
-                    #line 8 "Code.weave"
+                    #line 7 "Code.weave"
                                                                                                                                                          span.Value 
                     #line default
                     );
@@ -82,19 +80,19 @@ namespace
             else
             {
                 var temp2 = indentation;
-                #line 11 "Code.weave"
+                #line 10 "Code.weave"
        var value = model.ToString(); 
                 #line default
                 indentation = temp2;
                 if (
-                    #line 12 "Code.weave"
+                    #line 11 "Code.weave"
          !string.IsNullOrEmpty(value) 
                     #line default
                     )
                 {
                     writer.Write(indentation);
                     writer.Write(
-                        #line 13 "Code.weave"
+                        #line 12 "Code.weave"
             value 
                         #line default
                         );

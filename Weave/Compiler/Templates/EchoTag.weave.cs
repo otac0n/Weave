@@ -14,7 +14,7 @@ namespace
 {
     using System.IO;
     using
-        #line 4 "EchoTag.weave"
+        #line 3 "EchoTag.weave"
        Weave.Expressions
         #line default
         ;
@@ -24,11 +24,9 @@ namespace
     {
         [System.CodeDom.Compiler.GeneratedCode("Weave", "1.0.0.0")]
         public void
-        #line 2 "EchoTag.weave"
-            RenderEchoTag
-        #line default
+        RenderEchoTag
             (
-            #line 3 "EchoTag.weave"
+            #line 2 "EchoTag.weave"
        EchoTag
             #line default
             model, TextWriter writer, string indentation = null)
@@ -39,7 +37,7 @@ namespace
             writer.WriteLine();
             indentation = originalIndentation + "    ";
             var model0 =
-                #line 7 "EchoTag.weave"
+                #line 6 "EchoTag.weave"
                   model.Expression
                 #line default
                 ;
