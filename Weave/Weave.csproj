@@ -137,6 +137,9 @@
     <None Include="Compiler\Templates\Template.weave" />
     <None Include="Compiler\Templates\TextElement.weave" />
     <None Include="packages.config" />
+    <None Include="Weave.targets">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <PegGrammar Include="Parser\WeaveParser.peg" />
   </ItemGroup>
   <ItemGroup>

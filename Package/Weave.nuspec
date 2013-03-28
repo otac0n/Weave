@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>Weave</id>
+    <owners>John Gietzen</owners>
+    <authors>John Gietzen</authors>
+    <projectUrl>https://github.com/otac0n/Weave</projectUrl>
+    <description>A templating engine that understands whitespace.  Generates beautiful text.</description>
+    <version>$version$</version>
+    <iconUrl>https://raw.github.com/otac0n/Weave/v$version-short$/Weave.ico</iconUrl>
+  </metadata>
+</package>
