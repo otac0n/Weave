@@ -9,6 +9,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		readme.md = readme.md
 		Settings.StyleCop = Settings.StyleCop
 		SharedAssemblyInfo.cs = SharedAssemblyInfo.cs
+		Weave.ico = Weave.ico
+		Weave.png = Weave.png
+		Weave.svg = Weave.svg
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{7A1D6884-3540-4BB2-999F-2FDB89F8EABD}"
