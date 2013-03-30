@@ -35,6 +35,14 @@ namespace Weave.Expressions
         }
 
         /// <summary>
+        /// Gets a value indicating whether or the output is to be encoded.
+        /// </summary>
+        public bool Encoded
+        {
+            get { return this.encoded; }
+        }
+
+        /// <summary>
         /// Gets the code expression that will be used to compute the text to render.
         /// </summary>
         public SourceSpan Expression

@@ -12,6 +12,7 @@ namespace
            Weave.Compiler
     #line default
 {
+    using System;
     using System.IO;
     using
         #line 3 "EchoTag.weave"
@@ -32,19 +33,42 @@ namespace
             model, TextWriter writer, string indentation = null)
         {
             var originalIndentation = indentation = indentation ?? string.Empty;
-            writer.Write(indentation);
-            writer.Write("writer.Write(");
-            writer.WriteLine();
-            indentation = originalIndentation + "    ";
-            var model0 =
-                #line 6 "EchoTag.weave"
-                  model.Expression
+            if (
+                #line 5 "EchoTag.weave"
+     model.Encoded
                 #line default
-                ;
-            RenderCode(model0, writer, indentation);
-            writer.Write(indentation);
-            writer.Write(");");
-            writer.WriteLine();
+                )
+            {
+                writer.Write(indentation);
+                writer.Write("writer.Write(encode(");
+                writer.WriteLine();
+                indentation = originalIndentation + "    ";
+                var model0 =
+                    #line 7 "EchoTag.weave"
+                      model.Expression
+                    #line default
+                    ;
+                RenderCode(model0, writer, indentation);
+                writer.Write(indentation);
+                writer.Write("));");
+                writer.WriteLine();
+            }
+            else
+            {
+                writer.Write(indentation);
+                writer.Write("writer.Write(");
+                writer.WriteLine();
+                indentation = originalIndentation + "    ";
+                var model1 =
+                    #line 11 "EchoTag.weave"
+                      model.Expression
+                    #line default
+                    ;
+                RenderCode(model1, writer, indentation);
+                writer.Write(indentation);
+                writer.Write(");");
+                writer.WriteLine();
+            }
         }
     }
 }

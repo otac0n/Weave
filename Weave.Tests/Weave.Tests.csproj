@@ -43,6 +43,7 @@
     <Compile Include="..\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="SettingsTests.cs" />
     <Compile Include="TemplateHelper.cs" />
   </ItemGroup>
   <ItemGroup>

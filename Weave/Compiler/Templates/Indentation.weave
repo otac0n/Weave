@@ -1,6 +1,7 @@
 ﻿@namespace Weave.Compiler
 @methodname UpdateIndentation
 @model Element
+@encode ToLiteral
 @using Weave.Expressions
 
 {{
@@ -8,5 +9,5 @@
     this.indentation.TryGetValue(model, out indent);
 }}
 {{if indent != null}}
-    indentation = originalIndentation{{if indent.Length > 0}} + {{= ToLiteral(indent) }}{{/if}};
+    indentation = originalIndentation{{if indent.Length > 0}} + {{: indent }}{{/if}};
 {{/if}}

@@ -22,7 +22,7 @@ namespace Weave.Compiler
 
         public override IList<string> BlockedByErrors
         {
-            get { return new[] { "WEAVE0001", "WEAVE0003", "WEAVE0004" }; }
+            get { return new[] { "WEAVE0001", "WEAVE0003", "WEAVE0004", "WEAVE0005" }; }
         }
 
         public override void Run(Template template, CompileResult result)

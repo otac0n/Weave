@@ -12,9 +12,10 @@ namespace
            Weave.Compiler
     #line default
 {
+    using System;
     using System.IO;
     using
-        #line 3 "TextElement.weave"
+        #line 4 "TextElement.weave"
        Weave.Expressions
         #line default
         ;
@@ -31,14 +32,19 @@ namespace
             #line default
             model, TextWriter writer, string indentation = null)
         {
+            var encode = new Func<object, string>(
+                #line 3 "TextElement.weave"
+        ToLiteral
+                #line default
+                );
             var originalIndentation = indentation = indentation ?? string.Empty;
             writer.Write(indentation);
             writer.Write("writer.Write(");
-            writer.Write(
-                #line 5 "TextElement.weave"
-                 ToLiteral(model.Value) 
+            writer.Write(encode(
+                #line 6 "TextElement.weave"
+                 model.Value 
                 #line default
-                );
+                ));
             writer.Write(");");
             writer.WriteLine();
         }

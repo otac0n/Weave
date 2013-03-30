@@ -12,6 +12,7 @@ namespace
            Weave.Compiler
     #line default
 {
+    using System;
     using System.IO;
     using
         #line 3 "CodeElement.weave"

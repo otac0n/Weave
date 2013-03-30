@@ -95,5 +95,14 @@ namespace Weave.Properties {
                 return ResourceManager.GetString("WEAVE0004_NAMESPACE_NOT_SPECIFIED", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Encoding is used in the template, but no encode method has been specified..
+        /// </summary>
+        internal static string WEAVE0005_ENCODE_NOT_SPECIFIED {
+            get {
+                return ResourceManager.GetString("WEAVE0005_ENCODE_NOT_SPECIFIED", resourceCulture);
+            }
+        }
     }
 }

@@ -2,6 +2,12 @@
 @model EchoTag
 @using Weave.Expressions
 
-writer.Write(
-    {{@RenderCode model.Expression}}
-    );
+{{if model.Encoded}}
+    writer.Write(encode(
+        {{@RenderCode model.Expression}}
+        ));
+{{else}}
+    writer.Write(
+        {{@RenderCode model.Expression}}
+        );
+{{/if}}

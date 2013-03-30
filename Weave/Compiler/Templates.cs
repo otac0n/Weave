@@ -94,6 +94,12 @@ namespace Weave.Compiler
             this.RenderIndentationElement(indentationElement, this.writer, this.currentIndentation);
         }
 
+        private static string ToLiteral(object input)
+        {
+            var s = input == null ? null : input.ToString();
+            return ToLiteral(s);
+        }
+
         private static string ToLiteral(string input)
         {
             if (input == null)

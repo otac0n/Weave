@@ -12,9 +12,10 @@ namespace
            Weave.Compiler
     #line default
 {
+    using System;
     using System.IO;
     using
-        #line 4 "Indentation.weave"
+        #line 5 "Indentation.weave"
        Weave.Expressions
         #line default
         ;
@@ -33,9 +34,14 @@ namespace
             #line default
             model, TextWriter writer, string indentation = null)
         {
+            var encode = new Func<object, string>(
+                #line 4 "Indentation.weave"
+        ToLiteral
+                #line default
+                );
             var originalIndentation = indentation = indentation ?? string.Empty;
             var temp0 = indentation;
-            #line 6 "Indentation.weave"
+            #line 7 "Indentation.weave"
   
     string indent;
     this.indentation.TryGetValue(model, out indent);
@@ -43,7 +49,7 @@ namespace
             #line default
             indentation = temp0;
             if (
-                #line 10 "Indentation.weave"
+                #line 11 "Indentation.weave"
      indent != null
                 #line default
                 )
@@ -51,17 +57,17 @@ namespace
                 writer.Write(indentation);
                 writer.Write("indentation = originalIndentation");
                 if (
-                    #line 11 "Indentation.weave"
+                    #line 12 "Indentation.weave"
                                           indent.Length > 0
                     #line default
                     )
                 {
                     writer.Write(" + ");
-                    writer.Write(
-                        #line 11 "Indentation.weave"
-                                                                    ToLiteral(indent) 
+                    writer.Write(encode(
+                        #line 12 "Indentation.weave"
+                                                                    indent 
                         #line default
-                        );
+                        ));
                 }
                 writer.Write(";");
                 writer.WriteLine();

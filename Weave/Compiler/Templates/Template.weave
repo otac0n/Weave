@@ -6,11 +6,12 @@
 
 {{
     var settings = model.Settings.ToLookup(s => s.Key.Value, s => (object)s.Value);
-    var @namespace = settings["namespace"].Single();
     var accessibility = settings["accessibility"].SingleOrDefault() ?? string.Empty;
     var className = settings["classname"].SingleOrDefault() ?? "Templates";
+    var encode = settings["encode"].SingleOrDefault();
     var methodName = settings["methodname"].SingleOrDefault() ?? "Render" + Path.GetFileNameWithoutExtension(model.Start.FileName);
     var modelName = settings["model"].SingleOrDefault() ?? "dynamic";
+    var @namespace = settings["namespace"].Single();
     var assemblyName = Assembly.GetExecutingAssembly().GetName();
 }}
 // -----------------------------------------------------------------------
@@ -25,6 +26,7 @@
 namespace
     {{@RenderCode @namespace}}
 {
+    using System;
     using System.IO;
     {{each @using in settings["using"]}}
         using
@@ -43,6 +45,11 @@ namespace
             {{@RenderCode modelName}}
             model, TextWriter writer, string indentation = null)
         {
+            {{if encode != null}}
+                var encode = new Func<object, string>(
+                    {{@RenderCode encode}}
+                    );
+            {{/if}}
             var originalIndentation = indentation = indentation ?? string.Empty;
             {{@BaseWalkTemplate model}}
         }

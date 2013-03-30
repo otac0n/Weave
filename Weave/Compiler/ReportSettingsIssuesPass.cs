@@ -17,11 +17,12 @@ namespace Weave.Compiler
     {
         private static readonly Dictionary<string, bool> KnownSettings = new Dictionary<string, bool>
         {
-            { "namespace", true },
             { "accessibility", true },
             { "classname", true },
+            { "encode", true },
             { "methodname", true },
             { "model", true },
+            { "namespace", true },
             { "using", false },
         };
 

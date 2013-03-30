@@ -129,4 +129,7 @@
   <data name="WEAVE0004_NAMESPACE_NOT_SPECIFIED" xml:space="preserve">
     <value>No namespace has been specified.</value>
   </data>
+  <data name="WEAVE0005_ENCODE_NOT_SPECIFIED" xml:space="preserve">
+    <value>Encoding is used in the template, but no encode method has been specified.</value>
+  </data>
 </root>
