@@ -24,7 +24,8 @@ namespace
     Templates
     {
         [System.CodeDom.Compiler.GeneratedCode("Weave", "1.0.0.0")]
-        public void
+        public
+        void
         #line 1 "Indentation.weave"
             UpdateIndentation
         #line default

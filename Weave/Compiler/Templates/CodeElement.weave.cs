@@ -24,7 +24,8 @@ namespace
     Templates
     {
         [System.CodeDom.Compiler.GeneratedCode("Weave", "1.0.0.0")]
-        public void
+        public
+        void
         RenderCodeElement
             (
             #line 1 "CodeElement.weave"

@@ -34,7 +34,8 @@ namespace
     Templates
     {
         [System.CodeDom.Compiler.GeneratedCode("Weave", "1.0.0.0")]
-        public void
+        public
+        void
         RenderTemplate
             (
             #line 1 "Template.weave"
@@ -47,7 +48,7 @@ namespace
             #line 5 "Template.weave"
   
     var settings = model.AllSettings.ToLookup(s => s.Key.Value, s => (object)s.Value);
-    var accessibility = settings["accessibility"].FirstOrDefault() ?? string.Empty;
+    var accessibility = settings["accessibility"].FirstOrDefault() ?? "public";
     var className = settings["classname"].FirstOrDefault() ?? "Templates";
     var encode = settings["encode"].FirstOrDefault();
     var methodName = settings["methodname"].FirstOrDefault() ?? "Render" + Path.GetFileNameWithoutExtension(model.Start.FileName);
@@ -138,21 +139,15 @@ namespace
 
             writer.WriteLine();
             indentation = __originalIndentation + "    ";
-            var __model2 =
-                #line 35 "Template.weave"
-                  accessibility
-                #line default
-                ;
-            RenderCode(__model2, writer, indentation);
             writer.Write(indentation);
             writer.Write("partial class");
             writer.WriteLine();
-            var __model3 =
-                #line 37 "Template.weave"
+            var __model2 =
+                #line 36 "Template.weave"
                   className
                 #line default
                 ;
-            RenderCode(__model3, writer, indentation);
+            RenderCode(__model2, writer, indentation);
             writer.Write(indentation);
             writer.Write("{");
             writer.WriteLine();
@@ -160,20 +155,26 @@ namespace
             writer.Write(indentation);
             writer.Write("[System.CodeDom.Compiler.GeneratedCode(\"");
             writer.Write(
-                #line 39 "Template.weave"
+                #line 38 "Template.weave"
                                                     assemblyName.Name 
                 #line default
                 );
             writer.Write("\", \"");
             writer.Write(
-                #line 39 "Template.weave"
+                #line 38 "Template.weave"
                                                                                 assemblyName.Version 
                 #line default
                 );
             writer.Write("\")]");
             writer.WriteLine();
+            var __model3 =
+                #line 39 "Template.weave"
+                      accessibility
+                #line default
+                ;
+            RenderCode(__model3, writer, indentation);
             writer.Write(indentation);
-            writer.Write("public void");
+            writer.Write("void");
             writer.WriteLine();
             var __model4 =
                 #line 41 "Template.weave"

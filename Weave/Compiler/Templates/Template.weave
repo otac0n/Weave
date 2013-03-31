@@ -4,7 +4,7 @@
 
 {{
     var settings = model.AllSettings.ToLookup(s => s.Key.Value, s => (object)s.Value);
-    var accessibility = settings["accessibility"].FirstOrDefault() ?? string.Empty;
+    var accessibility = settings["accessibility"].FirstOrDefault() ?? "public";
     var className = settings["classname"].FirstOrDefault() ?? "Templates";
     var encode = settings["encode"].FirstOrDefault();
     var methodName = settings["methodname"].FirstOrDefault() ?? "Render" + Path.GetFileNameWithoutExtension(model.Start.FileName);
@@ -32,12 +32,12 @@ namespace
             ;
     {{/each}}
 
-    {{@RenderCode accessibility}}
     partial class
     {{@RenderCode className}}
     {
         [System.CodeDom.Compiler.GeneratedCode("{{= assemblyName.Name }}", "{{= assemblyName.Version }}")]
-        public void
+        {{@RenderCode accessibility}}
+        void
         {{@RenderCode methodName}}
             (
             {{@RenderCode modelName}}
