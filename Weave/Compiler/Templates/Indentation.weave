@@ -1,6 +1,5 @@
 ﻿@methodname UpdateIndentation
 @model Element
-@encode ToLiteral
 
 {{
     string indent;

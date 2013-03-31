@@ -1,3 +1,4 @@
 ﻿@namespace Weave.Compiler
 @using Weave.Expressions
 @static false
+@encode ToLiteral

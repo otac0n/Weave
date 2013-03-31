@@ -33,6 +33,11 @@ namespace
             #line default
             model, TextWriter writer, string indentation = null)
         {
+            var __encode = new Func<object, string>(
+                #line 4 "_config.weave"
+        ToLiteral
+                #line default
+                );
             var __originalIndentation = indentation = indentation ?? string.Empty;
             if (
                 #line 3 "EchoTag.weave"
