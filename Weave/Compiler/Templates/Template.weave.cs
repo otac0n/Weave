@@ -42,8 +42,8 @@ namespace
             #line default
             model, TextWriter writer, string indentation = null)
         {
-            var originalIndentation = indentation = indentation ?? string.Empty;
-            var temp0 = indentation;
+            var __originalIndentation = indentation = indentation ?? string.Empty;
+            var __temp0 = indentation;
             #line 5 "Template.weave"
   
     var settings = model.AllSettings.ToLookup(s => s.Key.Value, s => (object)s.Value);
@@ -56,7 +56,7 @@ namespace
     var assemblyName = Assembly.GetExecutingAssembly().GetName();
 
             #line default
-            indentation = temp0;
+            indentation = __temp0;
             writer.Write(indentation);
             writer.Write("// -----------------------------------------------------------------------");
             writer.WriteLine();
@@ -96,18 +96,18 @@ namespace
             writer.Write(indentation);
             writer.Write("namespace");
             writer.WriteLine();
-            indentation = originalIndentation + "    ";
-            var model0 =
+            indentation = __originalIndentation + "    ";
+            var __model0 =
                 #line 25 "Template.weave"
                   @namespace
                 #line default
                 ;
-            RenderCode(model0, writer, indentation);
-            indentation = originalIndentation;
+            RenderCode(__model0, writer, indentation);
+            indentation = __originalIndentation;
             writer.Write(indentation);
             writer.Write("{");
             writer.WriteLine();
-            indentation = originalIndentation + "    ";
+            indentation = __originalIndentation + "    ";
             writer.Write(indentation);
             writer.Write("using System;");
             writer.WriteLine();
@@ -120,43 +120,43 @@ namespace
                 #line default
                 )
             {
-                indentation = originalIndentation + "    ";
+                indentation = __originalIndentation + "    ";
                 writer.Write(indentation);
                 writer.Write("using");
                 writer.WriteLine();
-                indentation = originalIndentation + "        ";
-                var model1 =
+                indentation = __originalIndentation + "        ";
+                var __model1 =
                     #line 31 "Template.weave"
                           @using
                     #line default
                     ;
-                RenderCode(model1, writer, indentation);
+                RenderCode(__model1, writer, indentation);
                 writer.Write(indentation);
                 writer.Write(";");
                 writer.WriteLine();
             }
 
             writer.WriteLine();
-            indentation = originalIndentation + "    ";
-            var model2 =
+            indentation = __originalIndentation + "    ";
+            var __model2 =
                 #line 35 "Template.weave"
                   accessibility
                 #line default
                 ;
-            RenderCode(model2, writer, indentation);
+            RenderCode(__model2, writer, indentation);
             writer.Write(indentation);
             writer.Write("partial class");
             writer.WriteLine();
-            var model3 =
+            var __model3 =
                 #line 37 "Template.weave"
                   className
                 #line default
                 ;
-            RenderCode(model3, writer, indentation);
+            RenderCode(__model3, writer, indentation);
             writer.Write(indentation);
             writer.Write("{");
             writer.WriteLine();
-            indentation = originalIndentation + "        ";
+            indentation = __originalIndentation + "        ";
             writer.Write(indentation);
             writer.Write("[System.CodeDom.Compiler.GeneratedCode(\"");
             writer.Write(
@@ -175,26 +175,26 @@ namespace
             writer.Write(indentation);
             writer.Write("public void");
             writer.WriteLine();
-            var model4 =
+            var __model4 =
                 #line 41 "Template.weave"
                       methodName
                 #line default
                 ;
-            RenderCode(model4, writer, indentation);
-            indentation = originalIndentation + "            ";
+            RenderCode(__model4, writer, indentation);
+            indentation = __originalIndentation + "            ";
             writer.Write(indentation);
             writer.Write("(");
             writer.WriteLine();
-            var model5 =
+            var __model5 =
                 #line 43 "Template.weave"
                           modelName
                 #line default
                 ;
-            RenderCode(model5, writer, indentation);
+            RenderCode(__model5, writer, indentation);
             writer.Write(indentation);
             writer.Write("model, TextWriter writer, string indentation = null)");
             writer.WriteLine();
-            indentation = originalIndentation + "        ";
+            indentation = __originalIndentation + "        ";
             writer.Write(indentation);
             writer.Write("{");
             writer.WriteLine();
@@ -204,40 +204,40 @@ namespace
                 #line default
                 )
             {
-                indentation = originalIndentation + "            ";
+                indentation = __originalIndentation + "            ";
                 writer.Write(indentation);
                 writer.Write("var encode = new Func<object, string>(");
                 writer.WriteLine();
-                indentation = originalIndentation + "                ";
-                var model6 =
+                indentation = __originalIndentation + "                ";
+                var __model6 =
                     #line 48 "Template.weave"
                                   encode
                     #line default
                     ;
-                RenderCode(model6, writer, indentation);
+                RenderCode(__model6, writer, indentation);
                 writer.Write(indentation);
                 writer.Write(");");
                 writer.WriteLine();
             }
-            indentation = originalIndentation + "            ";
+            indentation = __originalIndentation + "            ";
             writer.Write(indentation);
-            writer.Write("var originalIndentation = indentation = indentation ?? string.Empty;");
+            writer.Write("var __originalIndentation = indentation = indentation ?? string.Empty;");
             writer.WriteLine();
-            var model7 =
+            var __model7 =
                 #line 52 "Template.weave"
                                 model
                 #line default
                 ;
-            BaseWalkTemplate(model7, writer, indentation);
-            indentation = originalIndentation + "        ";
+            BaseWalkTemplate(__model7, writer, indentation);
+            indentation = __originalIndentation + "        ";
             writer.Write(indentation);
             writer.Write("}");
             writer.WriteLine();
-            indentation = originalIndentation + "    ";
+            indentation = __originalIndentation + "    ";
             writer.Write(indentation);
             writer.Write("}");
             writer.WriteLine();
-            indentation = originalIndentation;
+            indentation = __originalIndentation;
             writer.Write(indentation);
             writer.Write("}");
         }

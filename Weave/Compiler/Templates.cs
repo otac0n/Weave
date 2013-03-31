@@ -137,7 +137,7 @@ namespace Weave.Compiler
             int instance;
             this.variables.TryGetValue(prefix, out instance);
             this.variables[prefix] = instance + 1;
-            return prefix + instance;
+            return "__" + prefix + instance;
         }
 
         private void BaseWalkTemplate(Template template, TextWriter writer, string indentation)

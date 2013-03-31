@@ -37,7 +37,7 @@ namespace
         ToLiteral
                 #line default
                 );
-            var originalIndentation = indentation = indentation ?? string.Empty;
+            var __originalIndentation = indentation = indentation ?? string.Empty;
             writer.Write(indentation);
             writer.Write("writer.Write(");
             writer.Write(encode(

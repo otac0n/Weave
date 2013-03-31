@@ -48,7 +48,7 @@ namespace
                     {{@RenderCode encode}}
                     );
             {{/if}}
-            var originalIndentation = indentation = indentation ?? string.Empty;
+            var __originalIndentation = indentation = indentation ?? string.Empty;
             {{@BaseWalkTemplate model}}
         }
     }

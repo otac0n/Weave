@@ -39,15 +39,15 @@ namespace
         ToLiteral
                 #line default
                 );
-            var originalIndentation = indentation = indentation ?? string.Empty;
-            var temp0 = indentation;
+            var __originalIndentation = indentation = indentation ?? string.Empty;
+            var __temp0 = indentation;
             #line 5 "Indentation.weave"
   
     string indent;
     this.indentation.TryGetValue(model, out indent);
 
             #line default
-            indentation = temp0;
+            indentation = __temp0;
             if (
                 #line 9 "Indentation.weave"
      indent != null
@@ -55,17 +55,17 @@ namespace
                 )
             {
                 writer.Write(indentation);
-                writer.Write("indentation = originalIndentation");
+                writer.Write("indentation = __originalIndentation");
                 if (
                     #line 10 "Indentation.weave"
-                                          indent.Length > 0
+                                            indent.Length > 0
                     #line default
                     )
                 {
                     writer.Write(" + ");
                     writer.Write(encode(
                         #line 10 "Indentation.weave"
-                                                                    indent 
+                                                                      indent 
                         #line default
                         ));
                 }

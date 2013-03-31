@@ -32,12 +32,12 @@ namespace
             #line default
             model, TextWriter writer, string indentation = null)
         {
-            var originalIndentation = indentation = indentation ?? string.Empty;
-            var temp0 = indentation;
+            var __originalIndentation = indentation = indentation ?? string.Empty;
+            var __temp0 = indentation;
             #line 3 "IfElement.weave"
    var first = true; 
             #line default
-            indentation = temp0;
+            indentation = __temp0;
             foreach (var
                 #line 4 "IfElement.weave"
        branch in model.Branches
@@ -54,17 +54,17 @@ namespace
                     writer.Write("else");
                     writer.WriteLine();
                 }
-                var model0 =
+                var __model0 =
                     #line 8 "IfElement.weave"
                   branch
                     #line default
                     ;
-                WalkBranch(model0, writer, indentation);
-                var temp1 = indentation;
+                WalkBranch(__model0, writer, indentation);
+                var __temp1 = indentation;
                 #line 9 "IfElement.weave"
        first = false; 
                 #line default
-                indentation = temp1;
+                indentation = __temp1;
             }
 
         }

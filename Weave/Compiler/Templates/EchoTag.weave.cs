@@ -32,7 +32,7 @@ namespace
             #line default
             model, TextWriter writer, string indentation = null)
         {
-            var originalIndentation = indentation = indentation ?? string.Empty;
+            var __originalIndentation = indentation = indentation ?? string.Empty;
             if (
                 #line 3 "EchoTag.weave"
      model.Encoded
@@ -42,13 +42,13 @@ namespace
                 writer.Write(indentation);
                 writer.Write("writer.Write(encode(");
                 writer.WriteLine();
-                indentation = originalIndentation + "    ";
-                var model0 =
+                indentation = __originalIndentation + "    ";
+                var __model0 =
                     #line 5 "EchoTag.weave"
                       model.Expression
                     #line default
                     ;
-                RenderCode(model0, writer, indentation);
+                RenderCode(__model0, writer, indentation);
                 writer.Write(indentation);
                 writer.Write("));");
                 writer.WriteLine();
@@ -58,13 +58,13 @@ namespace
                 writer.Write(indentation);
                 writer.Write("writer.Write(");
                 writer.WriteLine();
-                indentation = originalIndentation + "    ";
-                var model1 =
+                indentation = __originalIndentation + "    ";
+                var __model1 =
                     #line 9 "EchoTag.weave"
                       model.Expression
                     #line default
                     ;
-                RenderCode(model1, writer, indentation);
+                RenderCode(__model1, writer, indentation);
                 writer.Write(indentation);
                 writer.Write(");");
                 writer.WriteLine();

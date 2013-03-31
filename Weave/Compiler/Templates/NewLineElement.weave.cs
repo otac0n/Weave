@@ -32,7 +32,7 @@ namespace
             #line default
             model, TextWriter writer, string indentation = null)
         {
-            var originalIndentation = indentation = indentation ?? string.Empty;
+            var __originalIndentation = indentation = indentation ?? string.Empty;
             writer.Write(indentation);
             writer.Write("writer.WriteLine();");
             writer.WriteLine();
