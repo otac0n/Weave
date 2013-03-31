@@ -1,17 +1,15 @@
-﻿@namespace Weave.Compiler
-@model Template
+﻿@model Template
 @using System.Linq
 @using System.Reflection
-@using Weave.Expressions
 
 {{
-    var settings = model.Settings.ToLookup(s => s.Key.Value, s => (object)s.Value);
-    var accessibility = settings["accessibility"].SingleOrDefault() ?? string.Empty;
-    var className = settings["classname"].SingleOrDefault() ?? "Templates";
-    var encode = settings["encode"].SingleOrDefault();
-    var methodName = settings["methodname"].SingleOrDefault() ?? "Render" + Path.GetFileNameWithoutExtension(model.Start.FileName);
-    var modelName = settings["model"].SingleOrDefault() ?? "dynamic";
-    var @namespace = settings["namespace"].Single();
+    var settings = model.AllSettings.ToLookup(s => s.Key.Value, s => (object)s.Value);
+    var accessibility = settings["accessibility"].FirstOrDefault() ?? string.Empty;
+    var className = settings["classname"].FirstOrDefault() ?? "Templates";
+    var encode = settings["encode"].FirstOrDefault();
+    var methodName = settings["methodname"].FirstOrDefault() ?? "Render" + Path.GetFileNameWithoutExtension(model.Start.FileName);
+    var modelName = settings["model"].FirstOrDefault() ?? "dynamic";
+    var @namespace = settings["namespace"].First();
     var assemblyName = Assembly.GetExecutingAssembly().GetName();
 }}
 // -----------------------------------------------------------------------

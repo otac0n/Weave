@@ -13,7 +13,7 @@
 
 template <Template>
     = settings:setting* EOL? elements:lines (EOF / unexpected:. #ERROR{ string.Format("Unexpected character '{0}'.", unexpected) }) {
-        new Template(settingsStart, settings, settingsEnd, elements, elementsEnd)
+        new Template(settingsStart, settings, elementsStart, elements, elementsEnd)
     }
 
 setting <KeyValuePair<SourceSpan, SourceSpan>>

@@ -8,14 +8,14 @@
 // -----------------------------------------------------------------------
 
 namespace
-    #line 1 "EchoTag.weave"
+    #line 1 "_config.weave"
            Weave.Compiler
     #line default
 {
     using System;
     using System.IO;
     using
-        #line 3 "EchoTag.weave"
+        #line 2 "_config.weave"
        Weave.Expressions
         #line default
         ;
@@ -27,14 +27,14 @@ namespace
         public void
         RenderEchoTag
             (
-            #line 2 "EchoTag.weave"
+            #line 1 "EchoTag.weave"
        EchoTag
             #line default
             model, TextWriter writer, string indentation = null)
         {
             var originalIndentation = indentation = indentation ?? string.Empty;
             if (
-                #line 5 "EchoTag.weave"
+                #line 3 "EchoTag.weave"
      model.Encoded
                 #line default
                 )
@@ -44,7 +44,7 @@ namespace
                 writer.WriteLine();
                 indentation = originalIndentation + "    ";
                 var model0 =
-                    #line 7 "EchoTag.weave"
+                    #line 5 "EchoTag.weave"
                       model.Expression
                     #line default
                     ;
@@ -60,7 +60,7 @@ namespace
                 writer.WriteLine();
                 indentation = originalIndentation + "    ";
                 var model1 =
-                    #line 11 "EchoTag.weave"
+                    #line 9 "EchoTag.weave"
                       model.Expression
                     #line default
                     ;

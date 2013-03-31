@@ -104,5 +104,14 @@ namespace Weave.Properties {
                 return ResourceManager.GetString("WEAVE0005_ENCODE_NOT_SPECIFIED", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Config files must not contain any content other than settings..
+        /// </summary>
+        internal static string WEAVE0006_CONFIG_NOT_EMPTY {
+            get {
+                return ResourceManager.GetString("WEAVE0006_CONFIG_NOT_EMPTY", resourceCulture);
+            }
+        }
     }
 }

@@ -8,14 +8,14 @@
 // -----------------------------------------------------------------------
 
 namespace
-    #line 1 "IfElement.weave"
+    #line 1 "_config.weave"
            Weave.Compiler
     #line default
 {
     using System;
     using System.IO;
     using
-        #line 3 "IfElement.weave"
+        #line 2 "_config.weave"
        Weave.Expressions
         #line default
         ;
@@ -27,25 +27,25 @@ namespace
         public void
         RenderIfElement
             (
-            #line 2 "IfElement.weave"
+            #line 1 "IfElement.weave"
        IfElement
             #line default
             model, TextWriter writer, string indentation = null)
         {
             var originalIndentation = indentation = indentation ?? string.Empty;
             var temp0 = indentation;
-            #line 5 "IfElement.weave"
+            #line 3 "IfElement.weave"
    var first = true; 
             #line default
             indentation = temp0;
             foreach (var
-                #line 6 "IfElement.weave"
+                #line 4 "IfElement.weave"
        branch in model.Branches
                 #line default
                 )
             {
                 if (
-                    #line 7 "IfElement.weave"
+                    #line 5 "IfElement.weave"
          !first
                     #line default
                     )
@@ -55,13 +55,13 @@ namespace
                     writer.WriteLine();
                 }
                 var model0 =
-                    #line 10 "IfElement.weave"
+                    #line 8 "IfElement.weave"
                   branch
                     #line default
                     ;
                 WalkBranch(model0, writer, indentation);
                 var temp1 = indentation;
-                #line 11 "IfElement.weave"
+                #line 9 "IfElement.weave"
        first = false; 
                 #line default
                 indentation = temp1;

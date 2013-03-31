@@ -8,14 +8,14 @@
 // -----------------------------------------------------------------------
 
 namespace
-    #line 1 "NewLineElement.weave"
+    #line 1 "_config.weave"
            Weave.Compiler
     #line default
 {
     using System;
     using System.IO;
     using
-        #line 3 "NewLineElement.weave"
+        #line 2 "_config.weave"
        Weave.Expressions
         #line default
         ;
@@ -27,7 +27,7 @@ namespace
         public void
         RenderNewLineElement
             (
-            #line 2 "NewLineElement.weave"
+            #line 1 "NewLineElement.weave"
        NewLineElement
             #line default
             model, TextWriter writer, string indentation = null)

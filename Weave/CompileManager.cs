@@ -22,25 +22,23 @@ namespace Weave
         public static void CompileFile(string inputFile, string outputFile, Action<CompilerError> logError)
         {
             outputFile = outputFile ?? inputFile + ".cs";
+            var configFile = Path.Combine(Path.GetDirectoryName(inputFile), "_config.weave");
 
-            var subject = File.ReadAllText(inputFile);
-            var parser = new WeaveParser();
-            Template template;
-            try
+            var template = ParseTemplate(inputFile, logError);
+            if (template == null)
             {
-                template = parser.Parse(subject, fileName: inputFile);
+                return;
             }
-            catch (FormatException ex)
+
+            if (File.Exists(configFile))
             {
-                var cursor = ex.Data["cursor"] as Cursor;
-                if (cursor != null && Regex.IsMatch(ex.Message, @"^WEAVE\d+:"))
+                var config = ParseTemplate(configFile, logError);
+                if (config == null)
                 {
-                    var parts = ex.Message.Split(new[] { ':' }, 2);
-                    logError(new CompilerError(cursor.FileName, cursor.Line, cursor.Column, parts[0], parts[1]));
                     return;
                 }
 
-                throw;
+                template = new Template(template, config);
             }
 
             var result = WeaveCompiler.Compile(template);
@@ -55,6 +53,28 @@ namespace Weave
             if (!hadFatal)
             {
                 File.WriteAllText(outputFile, result.Code);
+            }
+        }
+
+        private static Template ParseTemplate(string inputFile, Action<CompilerError> logError)
+        {
+            var subject = File.ReadAllText(inputFile);
+            var parser = new WeaveParser();
+            try
+            {
+                return parser.Parse(subject, fileName: inputFile);
+            }
+            catch (FormatException ex)
+            {
+                var cursor = ex.Data["cursor"] as Cursor;
+                if (cursor != null && Regex.IsMatch(ex.Message, @"^WEAVE\d+:"))
+                {
+                    var parts = ex.Message.Split(new[] { ':' }, 2);
+                    logError(new CompilerError(cursor.FileName, cursor.Line, cursor.Column, parts[0], parts[1]));
+                    return null;
+                }
+
+                throw;
             }
         }
     }

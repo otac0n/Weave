@@ -8,14 +8,14 @@
 // -----------------------------------------------------------------------
 
 namespace
-    #line 1 "Branch.weave"
+    #line 1 "_config.weave"
            Weave.Compiler
     #line default
 {
     using System;
     using System.IO;
     using
-        #line 3 "Branch.weave"
+        #line 2 "_config.weave"
        Weave.Expressions
         #line default
         ;
@@ -27,14 +27,14 @@ namespace
         public void
         RenderBranch
             (
-            #line 2 "Branch.weave"
+            #line 1 "Branch.weave"
        Branch
             #line default
             model, TextWriter writer, string indentation = null)
         {
             var originalIndentation = indentation = indentation ?? string.Empty;
             if (
-                #line 5 "Branch.weave"
+                #line 3 "Branch.weave"
      model.Expression != null
                 #line default
                 )
@@ -44,7 +44,7 @@ namespace
                 writer.WriteLine();
                 indentation = originalIndentation + "    ";
                 var model0 =
-                    #line 7 "Branch.weave"
+                    #line 5 "Branch.weave"
                       model.Expression
                     #line default
                     ;
@@ -59,7 +59,7 @@ namespace
             writer.WriteLine();
             indentation = originalIndentation + "    ";
             var model1 =
-                #line 11 "Branch.weave"
+                #line 9 "Branch.weave"
                     model.Body
                 #line default
                 ;

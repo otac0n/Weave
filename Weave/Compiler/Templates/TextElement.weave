@@ -1,6 +1,4 @@
-﻿@namespace Weave.Compiler
-@model TextElement
+﻿@model TextElement
 @encode ToLiteral
-@using Weave.Expressions
 
 writer.Write({{: model.Value }});

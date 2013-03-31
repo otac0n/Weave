@@ -1,6 +1,4 @@
-﻿@namespace Weave.Compiler
-@model RenderElement
-@using Weave.Expressions
+﻿@model RenderElement
 
 {{ var newModel = this.CreateVariable("model"); }}
 var {{= newModel }} =

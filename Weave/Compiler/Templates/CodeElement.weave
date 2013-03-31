@@ -1,6 +1,4 @@
-﻿@namespace Weave.Compiler
-@model CodeElement
-@using Weave.Expressions
+﻿@model CodeElement
 
 {{ var temp = this.CreateVariable("temp"); }}
 var {{= temp }} = indentation;

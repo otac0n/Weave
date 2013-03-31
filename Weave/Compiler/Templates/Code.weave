@@ -1,6 +1,4 @@
-﻿@namespace Weave.Compiler
-@model object
-@using Weave.Expressions
+﻿@model object
 
 {{ var span = model as SourceSpan; }}
 {{if span != null}}

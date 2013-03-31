@@ -1,6 +1,4 @@
-﻿@namespace Weave.Compiler
-@model EachElement
-@using Weave.Expressions
+﻿@model EachElement
 
 {{
     var flag = this.CreateVariable("_flag");

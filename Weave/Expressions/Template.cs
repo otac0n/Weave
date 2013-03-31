@@ -18,6 +18,7 @@ namespace Weave.Expressions
     /// </summary>
     public class Template
     {
+        private readonly Template config;
         private readonly Cursor start;
         private readonly IList<Element> elements;
         private readonly Cursor settingsEnd;
@@ -64,6 +65,54 @@ namespace Weave.Expressions
             this.settingsEnd = settingsEnd;
             this.elements = elements.ToList().AsReadOnly();
             this.end = end;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Template"/> class.
+        /// </summary>
+        /// <param name="template">The template to copy.</param>
+        /// <param name="config">The configuration to apply.</param>
+        public Template(Template template, Template config)
+        {
+            if (template == null)
+            {
+                throw new ArgumentNullException("template");
+            }
+
+            this.config = config;
+            this.start = template.start;
+            this.settings = template.settings;
+            this.settingsEnd = template.settingsEnd;
+            this.elements = template.elements;
+            this.end = template.end;
+        }
+
+        /// <summary>
+        /// Gets all settings that affect this <see cref="Template"/>, including those from config files.
+        /// </summary>
+        public IEnumerable<KeyValuePair<SourceSpan, SourceSpan>> AllSettings
+        {
+            get
+            {
+                var template = this;
+                while (template != null)
+                {
+                    foreach (var setting in template.settings)
+                    {
+                        yield return setting;
+                    }
+
+                    template = template.config;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets the config template for this <see cref="Template"/>.
+        /// </summary>
+        public Template Config
+        {
+            get { return this.config; }
         }
 
         /// <summary>

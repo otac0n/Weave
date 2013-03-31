@@ -1,8 +1,6 @@
-﻿@namespace Weave.Compiler
-@methodname UpdateIndentation
+﻿@methodname UpdateIndentation
 @model Element
 @encode ToLiteral
-@using Weave.Expressions
 
 {{
     string indent;

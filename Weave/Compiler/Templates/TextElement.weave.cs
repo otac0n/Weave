@@ -8,14 +8,14 @@
 // -----------------------------------------------------------------------
 
 namespace
-    #line 1 "TextElement.weave"
+    #line 1 "_config.weave"
            Weave.Compiler
     #line default
 {
     using System;
     using System.IO;
     using
-        #line 4 "TextElement.weave"
+        #line 2 "_config.weave"
        Weave.Expressions
         #line default
         ;
@@ -27,13 +27,13 @@ namespace
         public void
         RenderTextElement
             (
-            #line 2 "TextElement.weave"
+            #line 1 "TextElement.weave"
        TextElement
             #line default
             model, TextWriter writer, string indentation = null)
         {
             var encode = new Func<object, string>(
-                #line 3 "TextElement.weave"
+                #line 2 "TextElement.weave"
         ToLiteral
                 #line default
                 );
@@ -41,7 +41,7 @@ namespace
             writer.Write(indentation);
             writer.Write("writer.Write(");
             writer.Write(encode(
-                #line 6 "TextElement.weave"
+                #line 4 "TextElement.weave"
                  model.Value 
                 #line default
                 ));

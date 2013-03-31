@@ -61,6 +61,7 @@
     <Compile Include="Compiler\GraphOperations.cs" />
     <Compile Include="Compiler\IndentationOptimizer.cs" />
     <Compile Include="Compiler\ReportEncodingIssuePass.cs" />
+    <Compile Include="Compiler\ReportNonEmptyConfigPass.cs" />
     <Compile Include="Compiler\ReportSettingsIssuesPass.cs" />
     <Compile Include="Compiler\Templates.cs" />
     <Compile Include="Compiler\Templates\Branch.weave.cs">
@@ -125,6 +126,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Compiler\Templates\_config.weave" />
     <None Include="Compiler\Templates\Branch.weave" />
     <None Include="Compiler\Templates\Code.weave" />
     <None Include="Compiler\Templates\CodeElement.weave" />

@@ -1,6 +1,4 @@
-﻿@namespace Weave.Compiler
-@model IfElement
-@using Weave.Expressions
+﻿@model IfElement
 
 {{ var first = true; }}
 {{each branch in model.Branches}}

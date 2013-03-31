@@ -1,6 +1,4 @@
-﻿@namespace Weave.Compiler
-@model Branch
-@using Weave.Expressions
+﻿@model Branch
 
 {{if model.Expression != null}}
     if (

@@ -8,14 +8,14 @@
 // -----------------------------------------------------------------------
 
 namespace
-    #line 1 "Indentation.weave"
+    #line 1 "_config.weave"
            Weave.Compiler
     #line default
 {
     using System;
     using System.IO;
     using
-        #line 5 "Indentation.weave"
+        #line 2 "_config.weave"
        Weave.Expressions
         #line default
         ;
@@ -25,23 +25,23 @@ namespace
     {
         [System.CodeDom.Compiler.GeneratedCode("Weave", "1.0.0.0")]
         public void
-        #line 2 "Indentation.weave"
+        #line 1 "Indentation.weave"
             UpdateIndentation
         #line default
             (
-            #line 3 "Indentation.weave"
+            #line 2 "Indentation.weave"
        Element
             #line default
             model, TextWriter writer, string indentation = null)
         {
             var encode = new Func<object, string>(
-                #line 4 "Indentation.weave"
+                #line 3 "Indentation.weave"
         ToLiteral
                 #line default
                 );
             var originalIndentation = indentation = indentation ?? string.Empty;
             var temp0 = indentation;
-            #line 7 "Indentation.weave"
+            #line 5 "Indentation.weave"
   
     string indent;
     this.indentation.TryGetValue(model, out indent);
@@ -49,7 +49,7 @@ namespace
             #line default
             indentation = temp0;
             if (
-                #line 11 "Indentation.weave"
+                #line 9 "Indentation.weave"
      indent != null
                 #line default
                 )
@@ -57,14 +57,14 @@ namespace
                 writer.Write(indentation);
                 writer.Write("indentation = originalIndentation");
                 if (
-                    #line 12 "Indentation.weave"
+                    #line 10 "Indentation.weave"
                                           indent.Length > 0
                     #line default
                     )
                 {
                     writer.Write(" + ");
                     writer.Write(encode(
-                        #line 12 "Indentation.weave"
+                        #line 10 "Indentation.weave"
                                                                     indent 
                         #line default
                         ));

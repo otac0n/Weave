@@ -8,14 +8,14 @@
 // -----------------------------------------------------------------------
 
 namespace
-    #line 1 "EachElement.weave"
+    #line 1 "_config.weave"
            Weave.Compiler
     #line default
 {
     using System;
     using System.IO;
     using
-        #line 3 "EachElement.weave"
+        #line 2 "_config.weave"
        Weave.Expressions
         #line default
         ;
@@ -27,21 +27,21 @@ namespace
         public void
         RenderEachElement
             (
-            #line 2 "EachElement.weave"
+            #line 1 "EachElement.weave"
        EachElement
             #line default
             model, TextWriter writer, string indentation = null)
         {
             var originalIndentation = indentation = indentation ?? string.Empty;
             var temp0 = indentation;
-            #line 5 "EachElement.weave"
+            #line 3 "EachElement.weave"
   
     var flag = this.CreateVariable("_flag");
 
             #line default
             indentation = temp0;
             if (
-                #line 8 "EachElement.weave"
+                #line 6 "EachElement.weave"
      model.NoneBody != null
                 #line default
                 )
@@ -49,7 +49,7 @@ namespace
                 writer.Write(indentation);
                 writer.Write("bool ");
                 writer.Write(
-                    #line 9 "EachElement.weave"
+                    #line 7 "EachElement.weave"
              flag 
                     #line default
                     );
@@ -62,7 +62,7 @@ namespace
             writer.WriteLine();
             indentation = originalIndentation + "    ";
             var model0 =
-                #line 13 "EachElement.weave"
+                #line 11 "EachElement.weave"
                   model.EachBody.Expression
                 #line default
                 ;
@@ -75,7 +75,7 @@ namespace
             writer.Write("{");
             writer.WriteLine();
             if (
-                #line 16 "EachElement.weave"
+                #line 14 "EachElement.weave"
          model.NoneBody != null
                 #line default
                 )
@@ -83,7 +83,7 @@ namespace
                 indentation = originalIndentation + "    ";
                 writer.Write(indentation);
                 writer.Write(
-                    #line 17 "EachElement.weave"
+                    #line 15 "EachElement.weave"
             flag 
                     #line default
                     );
@@ -92,7 +92,7 @@ namespace
             }
             indentation = originalIndentation + "    ";
             var model1 =
-                #line 19 "EachElement.weave"
+                #line 17 "EachElement.weave"
                     model.EachBody.Body
                 #line default
                 ;
@@ -103,7 +103,7 @@ namespace
             writer.WriteLine();
             writer.WriteLine();
             if (
-                #line 22 "EachElement.weave"
+                #line 20 "EachElement.weave"
      model.NoneBody != null
                 #line default
                 )
@@ -111,7 +111,7 @@ namespace
                 writer.Write(indentation);
                 writer.Write("if (!");
                 writer.Write(
-                    #line 23 "EachElement.weave"
+                    #line 21 "EachElement.weave"
              flag 
                     #line default
                     );
@@ -122,7 +122,7 @@ namespace
                 writer.WriteLine();
                 indentation = originalIndentation + "    ";
                 var model2 =
-                    #line 25 "EachElement.weave"
+                    #line 23 "EachElement.weave"
                         model.NoneBody.Body
                     #line default
                     ;

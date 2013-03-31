@@ -1,6 +1,4 @@
-﻿@namespace Weave.Compiler
-@model EchoTag
-@using Weave.Expressions
+﻿@model EchoTag
 
 {{if model.Encoded}}
     writer.Write(encode(

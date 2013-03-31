@@ -43,37 +43,45 @@ namespace Weave.Compiler
 
         public override void Run(Template template, CompileResult result)
         {
-            var seenSettings = new HashSet<string>();
+            var allSettings = new HashSet<string>();
 
-            foreach (var setting in template.Settings)
+            while (template != null)
             {
-                var settingName = setting.Key.Value;
-                var cursor = setting.Key.Start;
+                var seenSettings = new HashSet<string>();
 
-                bool singleAllowed;
-                if (KnownSettings.TryGetValue(settingName, out singleAllowed))
+                foreach (var setting in template.Settings)
                 {
-                    if (singleAllowed && !seenSettings.Add(settingName))
+                    var settingName = setting.Key.Value;
+                    var cursor = setting.Key.Start;
+
+                    bool singleAllowed;
+                    if (KnownSettings.TryGetValue(settingName, out singleAllowed))
                     {
-                        result.AddError(cursor, () => Resources.WEAVE0001_SETTING_ALREADY_SPECIFIED, settingName);
+                        if (singleAllowed && !seenSettings.Add(settingName))
+                        {
+                            result.AddError(cursor, () => Resources.WEAVE0001_SETTING_ALREADY_SPECIFIED, settingName);
+                        }
+                    }
+                    else
+                    {
+                        result.AddWarning(cursor, () => Resources.WEAVE0002_SETTING_UNKNOWN, settingName);
+                    }
+
+                    string pattern;
+                    if (ValuePatterns.TryGetValue(settingName, out pattern))
+                    {
+                        if (!Regex.IsMatch(setting.Value.ToString(), pattern))
+                        {
+                            result.AddError(cursor, () => Resources.WEAVE0003_SETTING_VALUE_INVALID, setting.Value.Value, settingName);
+                        }
                     }
                 }
-                else
-                {
-                    result.AddWarning(cursor, () => Resources.WEAVE0002_SETTING_UNKNOWN, settingName);
-                }
 
-                string pattern;
-                if (ValuePatterns.TryGetValue(settingName, out pattern))
-                {
-                    if (!Regex.IsMatch(setting.Value.ToString(), pattern))
-                    {
-                        result.AddError(cursor, () => Resources.WEAVE0003_SETTING_VALUE_INVALID, setting.Value.Value, settingName);
-                    }
-                }
+                allSettings.UnionWith(seenSettings);
+                template = template.Config;
             }
 
-            if (!seenSettings.Contains("namespace"))
+            if (!allSettings.Contains("namespace"))
             {
                 result.AddError(template.SettingsEnd, () => Resources.WEAVE0004_NAMESPACE_NOT_SPECIFIED);
             }
