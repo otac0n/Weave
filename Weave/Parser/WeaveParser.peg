@@ -17,7 +17,7 @@ template <Template>
     }
 
 setting <KeyValuePair<SourceSpan, SourceSpan>>
-    = "@" key:identifier (!EOL WS)+ value:("" (!EOL .)+) (EOL / EOF) {
+    = "@" key:identifier WS+ value:("" (!EOL .)+) (EOL / EOF) {
         new KeyValuePair<SourceSpan, SourceSpan>(
             key,
             new SourceSpan(value, valueStart, valueEnd))
@@ -31,7 +31,7 @@ line <IList<Element>>
     / textLine
 
 textLine <IList<Element>>
-    = !EOF indentation:(!EOL (!EOL WS)*)? contents:inlineElement* end:(EOL / EOF) {{
+    = !EOF indentation:(!EOL WS*)? contents:inlineElement* end:(EOL / EOF) {{
         var results = new List<Element>();
         results.AddRange(indentation.Select(i => new IndentationElement(i)));
         results.AddRange(contents);
@@ -49,8 +49,7 @@ inlineContents <IList<Element>>
 
 inlineElement <Element>
     = t:text                         { new TextElement(t)                }
-    / "{{:" WS? expr:expression "}}" { new EchoTag(expr, encoded: true)  }
-    / "{{=" WS? expr:expression "}}" { new EchoTag(expr, encoded: false) }
+    / echoTag
     / inlineCodeElement
     / inlineIfElement
     / inlineEachElement
@@ -63,24 +62,24 @@ tag <Element>
     / renderElement
 
 codeElement <CodeElement>
-    = indentation:("" (!EOL WS)*) expr:codeTag (!EOL WS)* (EOL / EOF) { new CodeElement(expr, indentation) }
+    = indentation:("" WS*) expr:codeTag WS* (EOL / EOF) { new CodeElement(expr, indentation) }
 
 inlineCodeElement <CodeElement>
     = expr:codeTag  { new CodeElement(expr) }
 
 ifElement <IfElement>
-    = if:ifBody elseIfs:elifBody* else:elseBody? endIndentation:("" (!EOL WS)*) endIfTag (!EOL WS)* (EOL / EOF) {
+    = if:ifBody elseIfs:elifBody* else:elseBody? endIndentation:("" WS*) endIfTag WS* (EOL / EOF) {
         new IfElement(new[] { @if }.Concat(elseIfs).Concat(@else), endIndentation)
     }
 
 ifBody <Branch>
-    = indentation:("" (!EOL WS)*) expr:ifTag   (!EOL WS)* EOL body:lines { new Branch(expr, body, indentation) }
+    = indentation:("" WS*) expr:ifTag   WS* EOL body:lines { new Branch(expr, body, indentation) }
 
 elifBody <Branch>
-    = indentation:("" (!EOL WS)*) expr:elifTag (!EOL WS)* EOL body:lines { new Branch(expr, body, indentation) }
+    = indentation:("" WS*) expr:elifTag WS* EOL body:lines { new Branch(expr, body, indentation) }
 
 elseBody <Branch>
-    = indentation:("" (!EOL WS)*) elseTag      (!EOL WS)* EOL body:lines { new Branch(null, body, indentation) }
+    = indentation:("" WS*) elseTag      WS* EOL body:lines { new Branch(null, body, indentation) }
 
 inlineIfElement <IfElement>
     = if:inlineIfBody elseIfs:inlineElifBody* else:inlineElseBody? endIfTag {
@@ -97,15 +96,15 @@ inlineElseBody <Branch>
     = elseTag      body:inlineContents { new Branch(null, body) }
 
 eachElement <EachElement>
-    = each:eachBody none:noneBody? endIndentation:("" (!EOL WS)*) endEachTag (!EOL WS)* (EOL / EOF) {
+    = each:eachBody none:noneBody? endIndentation:("" WS*) endEachTag WS* (EOL / EOF) {
         new EachElement(@each, none.SingleOrDefault(), endIndentation)
     }
 
 eachBody <EachBody>
-    = indentation:("" (!EOL WS)*) expr:eachTag (!EOL WS)* EOL body:lines { new EachBody(expr, (IList<Element>)body, indentation) }
+    = indentation:("" WS*) expr:eachTag WS* EOL body:lines { new EachBody(expr, (IList<Element>)body, indentation) }
 
 noneBody <NoneBody>
-    = indentation:("" (!EOL WS)*) noneTag (!EOL WS)* EOL body:lines { new NoneBody(body, indentation) }
+    = indentation:("" WS*) noneTag WS* EOL body:lines { new NoneBody(body, indentation) }
 
 inlineEachElement <EachElement>
     = each:inlineEachBody none:inlineNoneBody? endEachTag {
@@ -119,20 +118,22 @@ inlineNoneBody <NoneBody>
     = noneTag body:inlineContents { new NoneBody(body) }
 
 renderElement <RenderElement>
-    = indentation:("" (!EOL WS)*) tag:renderTag (!EOL WS)* (EOL / EOF) { new RenderElement(tag.Method, tag.Expression, indentation) }
+    = indentation:("" WS*) tag:renderTag WS* (EOL / EOF) { new RenderElement(tag.Method, tag.Expression, indentation) }
 
 inlineRenderElement <RenderElement>
     = tag:renderTag { new RenderElement(tag.Method, tag.Expression) }
 
-codeTag <SourceSpan>  = "{{" &WS expr:expression "}}"                  { expr }
-ifTag   <SourceSpan>  = "{{if" &WS expr:expression "}}"                { expr }
-elifTag <SourceSpan>  = "{{elif" &WS expr:expression "}}"              { expr }
+codeTag <SourceSpan>  = "{{" &(WS / EOL) expr:expression "}}"                  { expr }
+ifTag   <SourceSpan>  = "{{if" &(WS / EOL) expr:expression "}}"                { expr }
+elifTag <SourceSpan>  = "{{elif" &(WS / EOL) expr:expression "}}"              { expr }
 elseTag               = "{{else}}"
 endIfTag              = "{{/if}}"
-eachTag <SourceSpan>  = "{{each" &WS expr:expression "}}"              { expr }
+eachTag <SourceSpan>  = "{{each" &(WS / EOL) expr:expression "}}"              { expr }
 noneTag               = "{{none}}"
 endEachTag            = "{{/each}}"
-renderTag <RenderTag> = "{{@" name:identifier &WS expr:expression "}}" { new RenderTag { Method = name, Expression = expr } }
+renderTag <RenderTag> = "{{@" name:identifier &(WS / EOL) expr:expression "}}" { new RenderTag { Method = name, Expression = expr } }
+echoTag <EchoTag>     = "{{:" expr:expression "}}"                             { new EchoTag(expr, encoded: true)  }
+                      / "{{=" expr:expression "}}"                             { new EchoTag(expr, encoded: false) }
 
 text -memoize
     = "" (!EOL !"{{" .)+
@@ -158,7 +159,6 @@ upperCaseLetter
 
 WS
     = [ \t\v\f\u00A0\uFEFF\u1680\u180E\u2000-\u200A\u202F\u205F\u3000]
-    / EOL
 
 EOL
     = "\n"
