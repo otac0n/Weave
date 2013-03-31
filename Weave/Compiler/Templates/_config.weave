@@ -1,2 +1,3 @@
 ﻿@namespace Weave.Compiler
 @using Weave.Expressions
+@static false

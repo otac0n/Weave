@@ -10,6 +10,7 @@
     var methodName = settings["methodname"].FirstOrDefault() ?? "Render" + Path.GetFileNameWithoutExtension(model.Start.FileName);
     var modelName = settings["model"].FirstOrDefault() ?? "dynamic";
     var @namespace = settings["namespace"].First();
+    var @static = bool.Parse(settings["static"].Select(v => ((SourceSpan)v).Value).FirstOrDefault() ?? "true");
     var assemblyName = Assembly.GetExecutingAssembly().GetName();
 }}
 // -----------------------------------------------------------------------
@@ -37,7 +38,7 @@ namespace
     {
         [System.CodeDom.Compiler.GeneratedCode("{{= assemblyName.Name }}", "{{= assemblyName.Version }}")]
         {{@RenderCode accessibility}}
-        void
+        {{if @static}}static {{/if}}void
         {{@RenderCode methodName}}
             (
             {{@RenderCode modelName}}

@@ -23,12 +23,14 @@ namespace Weave.Compiler
             { "methodname", true },
             { "model", true },
             { "namespace", true },
+            { "static", true },
             { "using", false },
         };
 
         private static readonly Dictionary<string, string> ValuePatterns = new Dictionary<string, string>
         {
             { "accessibility", @"^\s*(public|protected\s+internal|internal|protected|private)\s*$" },
+            { "static", @"^\s*([Tt][Rr][Uu][Ee]|[Ff][Aa][Ll][Ss][Ee])\s*$" },
         };
 
         public override IList<string> ErrorsProduced
