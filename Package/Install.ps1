@@ -1,10 +1,5 @@
 param($installPath, $toolsPath, $package, $project)
 
-write-host "Deleting Dummy File"
-$project.ProjectItems | ForEach { if ($_.Name -eq "weave-dummy.txt") { $_.Remove() } }
-$projectPath = Split-Path $project.FullName -Parent
-Join-Path $projectPath "weave-dummy.txt" | Remove-Item
-
 $targetsFile = [System.IO.Path]::Combine($toolsPath, 'Weave.targets')
 $targetsUri = new-object Uri('file://' + $targetsFile)
 $projectUri = new-object Uri('file://' + $project.FullName)
