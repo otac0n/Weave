@@ -70,7 +70,7 @@ namespace Weave.Compiler
                     string pattern;
                     if (ValuePatterns.TryGetValue(settingName, out pattern))
                     {
-                        if (!Regex.IsMatch(setting.Value.ToString(), pattern))
+                        if (!Regex.IsMatch(setting.Value.Value, pattern))
                         {
                             result.AddError(cursor, () => Resources.WEAVE0003_SETTING_VALUE_INVALID, setting.Value.Value, settingName);
                         }
