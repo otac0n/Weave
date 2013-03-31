@@ -10,6 +10,7 @@
     <MSBuild Projects="$(SolutionDir)Weave.sln" Properties="Configuration=$(Configuration)" Targets="Rebuild" />
   </Target>
   <Target Name="Package" DependsOnTargets="Build">
+    <MakeDir Directories="bin\" />
     <Copy SourceFiles="$(SolutionDir)Weave\bin\$(Configuration)\Weave.exe" DestinationFolder="obj\tools" />
     <Copy SourceFiles="$(SolutionDir)Weave\bin\$(Configuration)\Weave.targets" DestinationFolder="obj\tools" />
     <Copy SourceFiles="$(SolutionDir)readme.md" DestinationFiles="obj\readme.txt" />
