@@ -41,7 +41,7 @@ namespace
                 )
             {
                 writer.Write(indentation);
-                writer.Write("writer.Write(encode(");
+                writer.Write("writer.Write(__encode(");
                 writer.WriteLine();
                 indentation = __originalIndentation + "    ";
                 var __model0 =

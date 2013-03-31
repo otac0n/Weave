@@ -35,7 +35,7 @@ namespace
             #line default
             model, TextWriter writer, string indentation = null)
         {
-            var encode = new Func<object, string>(
+            var __encode = new Func<object, string>(
                 #line 3 "Indentation.weave"
         ToLiteral
                 #line default
@@ -64,7 +64,7 @@ namespace
                     )
                 {
                     writer.Write(" + ");
-                    writer.Write(encode(
+                    writer.Write(__encode(
                         #line 10 "Indentation.weave"
                                                                       indent 
                         #line default

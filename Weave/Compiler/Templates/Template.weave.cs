@@ -216,7 +216,7 @@ namespace
             {
                 indentation = __originalIndentation + "            ";
                 writer.Write(indentation);
-                writer.Write("var encode = new Func<object, string>(");
+                writer.Write("var __encode = new Func<object, string>(");
                 writer.WriteLine();
                 indentation = __originalIndentation + "                ";
                 var __model6 =

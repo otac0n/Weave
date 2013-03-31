@@ -45,7 +45,7 @@ namespace
             model, TextWriter writer, string indentation = null)
         {
             {{if encode != null}}
-                var encode = new Func<object, string>(
+                var __encode = new Func<object, string>(
                     {{@RenderCode encode}}
                     );
             {{/if}}
