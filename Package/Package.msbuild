@@ -12,6 +12,7 @@
   <Target Name="Package" DependsOnTargets="Build">
     <MakeDir Directories="bin\;obj\lib\" />
     <Copy SourceFiles="$(SolutionDir)Weave\bin\$(Configuration)\Weave.exe" DestinationFolder="obj\tools" />
+    <Copy SourceFiles="$(SolutionDir)Weave\bin\$(Configuration)\Pegasus.Common.dll" DestinationFolder="obj\tools" />
     <Copy SourceFiles="$(SolutionDir)Weave\bin\$(Configuration)\Weave.targets" DestinationFolder="obj\tools" />
     <Copy SourceFiles="$(SolutionDir)readme.md" DestinationFiles="obj\readme.txt" />
     <Copy SourceFiles="Install.ps1;Uninstall.ps1" DestinationFolder="obj\tools" />

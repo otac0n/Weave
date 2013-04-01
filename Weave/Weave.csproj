@@ -42,6 +42,8 @@
     <RunCodeAnalysis>true</RunCodeAnalysis>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Build.Framework" />
+    <Reference Include="Microsoft.Build.Utilities.v4.0" />
     <Reference Include="Pegasus.Common">
       <HintPath>..\packages\Pegasus.2.1.0\lib\net40\Pegasus.Common.dll</HintPath>
     </Reference>
@@ -102,6 +104,7 @@
     <Compile Include="Compiler\TemplateWalker.cs" />
     <Compile Include="Compiler\WeaveCompiler.cs" />
     <Compile Include="Compiler\IndentationAnalyzer.cs" />
+    <Compile Include="CompileWeaveTemplate.cs" />
     <Compile Include="Expressions\Branch.cs" />
     <Compile Include="Expressions\CodeElement.cs" />
     <Compile Include="Expressions\EachBody.cs" />
