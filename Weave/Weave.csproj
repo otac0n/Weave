@@ -6,6 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{5F547992-8B86-4191-B259-2B7B72BFAEA6}</ProjectGuid>
     <OutputType>Exe</OutputType>
+    <StartupObject>Weave.Program</StartupObject>
+    <ApplicationIcon>..\Weave.ico</ApplicationIcon>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Weave</RootNamespace>
     <AssemblyName>Weave</AssemblyName>
@@ -38,9 +40,6 @@
     <DocumentationFile>bin\Release\Weave.xml</DocumentationFile>
     <CodeAnalysisRuleSet>..\CodeAnalysis.ruleset</CodeAnalysisRuleSet>
     <RunCodeAnalysis>true</RunCodeAnalysis>
-  </PropertyGroup>
-  <PropertyGroup>
-    <StartupObject>Weave.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Pegasus.Common">

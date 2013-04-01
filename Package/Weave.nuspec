@@ -2,11 +2,12 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
     <id>Weave</id>
-    <owners>John Gietzen</owners>
-    <authors>John Gietzen</authors>
-    <projectUrl>https://github.com/otac0n/Weave</projectUrl>
-    <description>A templating engine that understands whitespace.  Generates beautiful text.</description>
     <version>$version$</version>
+    <authors>John Gietzen</authors>
+    <owners>John Gietzen</owners>
+    <projectUrl>https://github.com/otac0n/Weave</projectUrl>
     <iconUrl>https://raw.github.com/otac0n/Weave/v$version-short$/Weave.ico</iconUrl>
+    <description>Weave is a text templating engine that is all about attention to detail.  Weave handles the tricky work of making your rendered text beautiful.</description>
+    <tags>text templating transform generation text-transform text-templating text-generation</tags>
   </metadata>
 </package>
