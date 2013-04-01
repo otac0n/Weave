@@ -45,6 +45,7 @@ namespace Weave.Compiler
 
         public override void Run(Template template, CompileResult result)
         {
+            var topLevelTemplate = template;
             var allSettings = new HashSet<string>();
 
             while (template != null)
@@ -85,7 +86,7 @@ namespace Weave.Compiler
 
             if (!allSettings.Contains("namespace"))
             {
-                result.AddError(template.SettingsEnd, () => Resources.WEAVE0004_NAMESPACE_NOT_SPECIFIED);
+                result.AddError(topLevelTemplate.SettingsEnd, () => Resources.WEAVE0004_NAMESPACE_NOT_SPECIFIED);
             }
         }
     }
