@@ -130,7 +130,7 @@
     <value>No namespace has been specified.</value>
   </data>
   <data name="WEAVE0005_ENCODE_NOT_SPECIFIED" xml:space="preserve">
-    <value>Encoding is used in the template, but no encode method has been specified.</value>
+    <value>Encoding is used in the template, but no @encode setting has been specified.</value>
   </data>
   <data name="WEAVE0006_CONFIG_NOT_EMPTY" xml:space="preserve">
     <value>Config files must not contain any content other than settings.</value>

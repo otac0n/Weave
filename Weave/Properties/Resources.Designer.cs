@@ -97,7 +97,7 @@ namespace Weave.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Encoding is used in the template, but no encode method has been specified..
+        ///   Looks up a localized string similar to Encoding is used in the template, but no @encode setting has been specified..
         /// </summary>
         internal static string WEAVE0005_ENCODE_NOT_SPECIFIED {
             get {
