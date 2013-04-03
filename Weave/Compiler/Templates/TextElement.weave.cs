@@ -34,7 +34,7 @@ namespace
             model, TextWriter writer, string indentation = null)
         {
             var __encode = new Func<object, string>(
-                #line 2 "TextElement.weave"
+                #line 4 "_config.weave"
         ToLiteral
                 #line default
                 );
@@ -42,7 +42,7 @@ namespace
             writer.Write(indentation);
             writer.Write("writer.Write(");
             writer.Write(__encode(
-                #line 4 "TextElement.weave"
+                #line 3 "TextElement.weave"
                  model.Value 
                 #line default
                 ));

@@ -36,13 +36,13 @@ namespace
             model, TextWriter writer, string indentation = null)
         {
             var __encode = new Func<object, string>(
-                #line 3 "Indentation.weave"
+                #line 4 "_config.weave"
         ToLiteral
                 #line default
                 );
             var __originalIndentation = indentation = indentation ?? string.Empty;
             var __temp0 = indentation;
-            #line 5 "Indentation.weave"
+            #line 4 "Indentation.weave"
   
     string indent;
     this.indentation.TryGetValue(model, out indent);
@@ -50,7 +50,7 @@ namespace
             #line default
             indentation = __temp0;
             if (
-                #line 9 "Indentation.weave"
+                #line 8 "Indentation.weave"
      indent != null
                 #line default
                 )
@@ -58,14 +58,14 @@ namespace
                 writer.Write(indentation);
                 writer.Write("indentation = __originalIndentation");
                 if (
-                    #line 10 "Indentation.weave"
+                    #line 9 "Indentation.weave"
                                             indent.Length > 0
                     #line default
                     )
                 {
                     writer.Write(" + ");
                     writer.Write(__encode(
-                        #line 10 "Indentation.weave"
+                        #line 9 "Indentation.weave"
                                                                       indent 
                         #line default
                         ));

@@ -27,7 +27,7 @@ namespace Weave.Compiler
 
         public override void Run(Template template, CompileResult result)
         {
-            if (template.Settings.Any(s => s.Key.Value == "encode"))
+            if (template.AllSettings.Any(s => s.Key.Value == "encode"))
             {
                 return;
             }
