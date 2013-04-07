@@ -113,5 +113,14 @@ namespace Weave.Properties {
                 return ResourceManager.GetString("WEAVE0006_CONFIG_NOT_EMPTY", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unexpected character &apos;{0}&apos;..
+        /// </summary>
+        internal static string WEAVE0007_UNEXPECTED_CHARACTER {
+            get {
+                return ResourceManager.GetString("WEAVE0007_UNEXPECTED_CHARACTER", resourceCulture);
+            }
+        }
     }
 }

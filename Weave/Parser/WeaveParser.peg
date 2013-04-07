@@ -1,7 +1,9 @@
 ﻿@namespace Weave.Parser
 @classname WeaveParser
+@using System.Globalization
 @using System.Linq
 @using Weave.Expressions
+@using Weave.Properties
 @members
 {
     private class RenderTag
@@ -12,7 +14,7 @@
 }
 
 template <Template>
-    = settings:setting* EOL? elements:lines (EOF / unexpected:. #ERROR{ string.Format("Unexpected character '{0}'.", unexpected) }) {
+    = settings:setting* EOL? elements:lines (EOF / unexpected:. #ERROR{ "WEAVE0007:" + string.Format(CultureInfo.CurrentCulture, Resources.WEAVE0007_UNEXPECTED_CHARACTER, unexpected) }) {
         new Template(settingsStart, settings, elementsStart, elements, elementsEnd)
     }
 
