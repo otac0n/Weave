@@ -12,6 +12,7 @@
 _ReSharper.*
 *.[Cc]ache
 *.ncrunch*
+*.sln.ide/
 
 # Ignore all MonoDevelop generated files.
 *.userprefs
