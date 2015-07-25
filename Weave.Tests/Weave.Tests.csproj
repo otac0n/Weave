@@ -36,21 +36,20 @@
     <Reference Include="Microsoft.Build.Utilities.v4.0" />
     <Reference Include="nunit.framework">
       <HintPath>..\packages\NUnit.2.6.2\lib\nunit.framework.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IntegrationTests\WhitespaceHandlingTests.cs" />
+    <None Include="packages.config" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="..\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
+    <None Include="Settings.StyleCop" />
     <Compile Include="SettingsTests.cs" />
     <Compile Include="TemplateHelper.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
-    <None Include="Settings.StyleCop" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Weave\Weave.csproj">

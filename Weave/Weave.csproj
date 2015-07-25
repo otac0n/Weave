@@ -45,13 +45,11 @@
     <Reference Include="Microsoft.Build.Utilities.v4.0" />
     <Reference Include="Pegasus.Common">
       <HintPath>..\packages\Pegasus.3.1.1\lib\net40\Pegasus.Common.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\SharedAssemblyInfo.cs">
-      <Link>Properties\SharedAssemblyInfo.cs</Link>
-    </Compile>
     <Compile Include="CompileManager.cs" />
     <Compile Include="Compiler\CompilePass.cs" />
     <Compile Include="Compiler\CompileResult.cs" />
@@ -59,50 +57,63 @@
     <Compile Include="Compiler\ControlFlowGraphCreator.cs" />
     <Compile Include="Compiler\GenerateCodePass.cs" />
     <Compile Include="Compiler\GraphOperations.cs" />
+    <Compile Include="Compiler\IndentationAnalyzer.cs" />
     <Compile Include="Compiler\IndentationOptimizer.cs" />
     <Compile Include="Compiler\ReportEncodingIssuePass.cs" />
     <Compile Include="Compiler\ReportNonEmptyConfigPass.cs" />
     <Compile Include="Compiler\ReportSettingsIssuesPass.cs" />
-    <Compile Include="Compiler\Templates.cs" />
+    <None Include="Compiler\Templates\_config.weave" />
+    <None Include="Compiler\Templates\Branch.weave" />
     <Compile Include="Compiler\Templates\Branch.weave.cs">
       <DependentUpon>Branch.weave</DependentUpon>
     </Compile>
+    <None Include="Compiler\Templates\Code.weave" />
     <Compile Include="Compiler\Templates\Code.weave.cs">
       <DependentUpon>Code.weave</DependentUpon>
     </Compile>
+    <None Include="Compiler\Templates\CodeElement.weave" />
     <Compile Include="Compiler\Templates\CodeElement.weave.cs">
       <DependentUpon>CodeElement.weave</DependentUpon>
     </Compile>
+    <None Include="Compiler\Templates\EachElement.weave" />
     <Compile Include="Compiler\Templates\EachElement.weave.cs">
       <DependentUpon>EachElement.weave</DependentUpon>
     </Compile>
+    <None Include="Compiler\Templates\EchoTag.weave" />
     <Compile Include="Compiler\Templates\EchoTag.weave.cs">
       <DependentUpon>EchoTag.weave</DependentUpon>
     </Compile>
+    <None Include="Compiler\Templates\IfElement.weave" />
     <Compile Include="Compiler\Templates\IfElement.weave.cs">
       <DependentUpon>IfElement.weave</DependentUpon>
     </Compile>
-    <Compile Include="Compiler\Templates\IndentationElement.weave.cs">
-      <DependentUpon>IndentationElement.weave</DependentUpon>
-    </Compile>
+    <None Include="Compiler\Templates\Indentation.weave" />
     <Compile Include="Compiler\Templates\Indentation.weave.cs">
       <DependentUpon>Indentation.weave</DependentUpon>
     </Compile>
+    <None Include="Compiler\Templates\IndentationElement.weave" />
+    <Compile Include="Compiler\Templates\IndentationElement.weave.cs">
+      <DependentUpon>IndentationElement.weave</DependentUpon>
+    </Compile>
+    <None Include="Compiler\Templates\NewLineElement.weave" />
     <Compile Include="Compiler\Templates\NewLineElement.weave.cs">
       <DependentUpon>NewLineElement.weave</DependentUpon>
     </Compile>
+    <None Include="Compiler\Templates\RenderElement.weave" />
     <Compile Include="Compiler\Templates\RenderElement.weave.cs">
       <DependentUpon>RenderElement.weave</DependentUpon>
     </Compile>
+    <None Include="Compiler\Templates\Template.weave" />
     <Compile Include="Compiler\Templates\Template.weave.cs">
       <DependentUpon>Template.weave</DependentUpon>
     </Compile>
+    <None Include="Compiler\Templates\TextElement.weave" />
     <Compile Include="Compiler\Templates\TextElement.weave.cs">
       <DependentUpon>TextElement.weave</DependentUpon>
     </Compile>
+    <Compile Include="Compiler\Templates.cs" />
     <Compile Include="Compiler\TemplateWalker.cs" />
     <Compile Include="Compiler\WeaveCompiler.cs" />
-    <Compile Include="Compiler\IndentationAnalyzer.cs" />
     <Compile Include="CompileWeaveTemplate.cs" />
     <Compile Include="Expressions\Branch.cs" />
     <Compile Include="Expressions\CodeElement.cs" />
@@ -118,6 +129,8 @@
     <Compile Include="Expressions\SourceSpan.cs" />
     <Compile Include="Expressions\Template.cs" />
     <Compile Include="Expressions\TextElement.cs" />
+    <None Include="packages.config" />
+    <PegGrammar Include="Parser\WeaveParser.peg" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -125,32 +138,16 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Compiler\Templates\_config.weave" />
-    <None Include="Compiler\Templates\Branch.weave" />
-    <None Include="Compiler\Templates\Code.weave" />
-    <None Include="Compiler\Templates\CodeElement.weave" />
-    <None Include="Compiler\Templates\EachElement.weave" />
-    <None Include="Compiler\Templates\EchoTag.weave" />
-    <None Include="Compiler\Templates\IfElement.weave" />
-    <None Include="Compiler\Templates\Indentation.weave" />
-    <None Include="Compiler\Templates\IndentationElement.weave" />
-    <None Include="Compiler\Templates\NewLineElement.weave" />
-    <None Include="Compiler\Templates\RenderElement.weave" />
-    <None Include="Compiler\Templates\Template.weave" />
-    <None Include="Compiler\Templates\TextElement.weave" />
-    <None Include="packages.config" />
-    <None Include="Weave.targets">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <PegGrammar Include="Parser\WeaveParser.peg" />
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <Compile Include="..\SharedAssemblyInfo.cs">
+      <Link>Properties\SharedAssemblyInfo.cs</Link>
+    </Compile>
+    <None Include="Weave.targets">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(ProgramFiles)\MSBuild\StyleCop\v4.7\StyleCop.Targets" Condition="Exists('$(ProgramFiles)\MSBuild\StyleCop\v4.7\StyleCop.Targets')" />
