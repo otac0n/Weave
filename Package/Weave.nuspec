@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
-  <metadata>
+  <metadata minClientVersion="2.5">
     <id>Weave</id>
     <version>$version$</version>
     <authors>John Gietzen</authors>
@@ -12,5 +12,6 @@
     <tags>text templating transform generation text-transform text-templating text-generation</tags>
     <licenseUrl>https://raw.github.com/otac0n/Weave/v$version-short$/license.md</licenseUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <developmentDependency>true</developmentDependency>
   </metadata>
 </package>

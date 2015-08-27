@@ -18,13 +18,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Weave.Tests", "Weave.Tests\Weave.Tests.csproj", "{F2ECD1F3-7200-4FEA-A456-873F1749E008}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Package", "Package", "{4DC348ED-D44D-48ED-82C0-B34BC080D34D}"
-	ProjectSection(SolutionItems) = preProject
-		Package\Install.ps1 = Package\Install.ps1
-		Package\Package.msbuild = Package\Package.msbuild
-		Package\Uninstall.ps1 = Package\Uninstall.ps1
-		Package\Weave.nuspec = Package\Weave.nuspec
-	EndProjectSection
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Package", "Package\Package.csproj", "{7D630AC1-62A7-439F-AC80-0EA800F3A846}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -40,6 +34,10 @@ Global
 		{F2ECD1F3-7200-4FEA-A456-873F1749E008}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F2ECD1F3-7200-4FEA-A456-873F1749E008}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F2ECD1F3-7200-4FEA-A456-873F1749E008}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7D630AC1-62A7-439F-AC80-0EA800F3A846}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D630AC1-62A7-439F-AC80-0EA800F3A846}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7D630AC1-62A7-439F-AC80-0EA800F3A846}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7D630AC1-62A7-439F-AC80-0EA800F3A846}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
