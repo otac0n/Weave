@@ -46,6 +46,7 @@
     <Compile Include="..\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="RegressionTests.cs" />
     <None Include="Settings.StyleCop" />
     <Compile Include="SettingsTests.cs" />
     <Compile Include="TemplateHelper.cs" />

@@ -34,7 +34,7 @@ namespace Weave.Tests
             Options.ReferencedAssemblies.Add("Microsoft.CSharp.dll");
         }
 
-        public static string Render(string template, object model)
+        public static string Render(string template, object model, string indentation = null)
         {
             template = "@namespace Tests\n" + template;
 
@@ -49,7 +49,7 @@ namespace Weave.Tests
             {
                 writer.NewLine = "\n";
                 var instance = Activator.CreateInstance(type);
-                method.Invoke(instance, new[] { model, writer, null });
+                method.Invoke(instance, new[] { model, writer, indentation });
                 return writer.ToString();
             }
         }
