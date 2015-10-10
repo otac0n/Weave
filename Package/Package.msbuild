@@ -1,5 +1,4 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
-  <Import Project="$(SolutionDir)Version.msbuild" />
   <Target Name="Clean">
     <ItemGroup>
       <ToDelete Include="$(OutputPath)\**\*" />
@@ -10,16 +9,16 @@
   <Target Name="Rebuild" DependsOnTargets="Build">
   </Target>
   <Target Name="Build" DependsOnTargets="Clean">
+    <GetVersion SolutionDirectory="$(SolutionDir)" NoFetch="$(GitVersion_NoFetchEnabled)">
+      <Output TaskParameter="NuGetVersion" PropertyName="NuGetVersion" />
+    </GetVersion>
     <Copy SourceFiles="$(SolutionDir)Weave\bin\$(Configuration)\Weave.exe" DestinationFolder="obj\$(Configuration)\build" />
     <Copy SourceFiles="$(SolutionDir)Weave\bin\$(Configuration)\Pegasus.Common.dll" DestinationFolder="obj\$(Configuration)\build" />
     <Copy SourceFiles="Weave.targets" DestinationFolder="obj\$(Configuration)\build" />
     <Copy SourceFiles="$(SolutionDir)readme.md" DestinationFiles="obj\$(Configuration)\readme.txt" />
-    <PropertyGroup>
-      <NuSpec>$([System.IO.File]::ReadAllText("Weave.nuspec").Replace("$version$", $(PackageVersion)).Replace("$version-short$", $(PackageVersionShort)))</NuSpec>
-    </PropertyGroup>
-    <WriteLinesToFile File="obj\$(Configuration)\Weave.nuspec" Lines="$(NuSpec)" />
+    <Copy SourceFiles="Weave.nuspec" DestinationFolder="obj\$(Configuration)" />
     <MakeDir Directories="$(OutputPath)" />
-    <Exec Command="$(SolutionDir).nuget\nuget.exe pack obj\$(Configuration)\Weave.nuspec -NoPackageAnalysis -NonInteractive -OutputDir $(OutputPath)" />
+    <Exec Command="$(SolutionDir).nuget\nuget.exe pack obj\$(Configuration)\Weave.nuspec -NoPackageAnalysis -NonInteractive -OutputDir $(OutputPath) -Version $(NuGetVersion)" />
   </Target>
   <Target Name="GetNativeManifest"></Target>
   <Target Name="GetCopyToOutputDirectoryItems"></Target>

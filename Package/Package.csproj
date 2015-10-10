@@ -15,6 +15,7 @@
   </PropertyGroup>
   <ItemGroup>
     <None Include="Package.msbuild" />
+    <None Include="packages.config" />
     <None Include="Weave.nuspec" />
     <None Include="Weave.targets" />
   </ItemGroup>
@@ -24,5 +25,12 @@
       <Name>Weave</Name>
     </ProjectReference>
   </ItemGroup>
+  <Import Project="..\packages\GitVersionTask.3.1.2\build\dotnet\GitVersionTask.targets" Condition="Exists('..\packages\GitVersionTask.3.1.2\build\dotnet\GitVersionTask.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\GitVersionTask.3.1.2\build\dotnet\GitVersionTask.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\GitVersionTask.3.1.2\build\dotnet\GitVersionTask.targets'))" />
+  </Target>
   <Import Project="Package.msbuild" />
 </Project>
