@@ -53,7 +53,10 @@ namespace
                     writer.Write("else");
                     writer.WriteLine();
                 }
-                ___flag0 = true;
+                else
+                {
+                    ___flag0 = true;
+                }
                 var __model0 =
                     #line 4 "IfElement.weave"
                   branch

@@ -111,17 +111,37 @@ namespace
                 writer.Write(indentation);
                 writer.Write("}");
                 writer.WriteLine();
+                writer.Write(indentation);
+                writer.Write("else");
+                writer.WriteLine();
+                writer.Write(indentation);
+                writer.Write("{");
+                writer.WriteLine();
+                indentation = __originalIndentation + "        ";
+                writer.Write(indentation);
+                writer.Write(
+                    #line 22 "EachElement.weave"
+                flag 
+                    #line default
+                    );
+                writer.Write(" = true;");
+                writer.WriteLine();
+                indentation = __originalIndentation + "    ";
+                writer.Write(indentation);
+                writer.Write("}");
+                writer.WriteLine();
             }
+            else
             if (
-                #line 21 "EachElement.weave"
-         useFlag
+                #line 24 "EachElement.weave"
+           useFlag
                 #line default
                 )
             {
                 indentation = __originalIndentation + "    ";
                 writer.Write(indentation);
                 writer.Write(
-                    #line 22 "EachElement.weave"
+                    #line 25 "EachElement.weave"
             flag 
                     #line default
                     );
@@ -130,7 +150,7 @@ namespace
             }
             indentation = __originalIndentation + "    ";
             var __model2 =
-                #line 24 "EachElement.weave"
+                #line 27 "EachElement.weave"
                     model.EachBody.Body
                 #line default
                 ;
@@ -141,7 +161,7 @@ namespace
             writer.WriteLine();
             writer.WriteLine();
             if (
-                #line 27 "EachElement.weave"
+                #line 30 "EachElement.weave"
      model.NoneBody != null
                 #line default
                 )
@@ -149,7 +169,7 @@ namespace
                 writer.Write(indentation);
                 writer.Write("if (!");
                 writer.Write(
-                    #line 28 "EachElement.weave"
+                    #line 31 "EachElement.weave"
              flag 
                     #line default
                     );
@@ -160,7 +180,7 @@ namespace
                 writer.WriteLine();
                 indentation = __originalIndentation + "    ";
                 var __model3 =
-                    #line 30 "EachElement.weave"
+                    #line 33 "EachElement.weave"
                         model.NoneBody.Body
                     #line default
                     ;

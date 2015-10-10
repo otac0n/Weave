@@ -17,8 +17,11 @@ foreach (var
         {
             {{@WalkElements model.DelimitBody.Body}}
         }
-    {{/if}}
-    {{if useFlag}}
+        else
+        {
+            {{= flag }} = true;
+        }
+    {{elif useFlag}}
         {{= flag }} = true;
     {{/if}}
     {{@WalkElements model.EachBody.Body}}
