@@ -1,9 +1,10 @@
 ﻿@model EachElement
 
 {{
-    var flag = this.CreateVariable("_flag");
+    var useFlag = model.NoneBody != null || model.DelimitBody != null;
+    var flag = useFlag ? this.CreateVariable("_flag") : null;
 }}
-{{if model.NoneBody != null}}
+{{if useFlag}}
     bool {{= flag }};
 
 {{/if}}
@@ -11,7 +12,13 @@ foreach (var
     {{@RenderCode model.EachBody.Expression}}
     )
 {
-    {{if model.NoneBody != null}}
+    {{if model.DelimitBody != null}}
+        if ({{= flag}})
+        {
+            {{@WalkElements model.DelimitBody.Body}}
+        }
+    {{/if}}
+    {{if useFlag}}
         {{= flag }} = true;
     {{/if}}
     {{@WalkElements model.EachBody.Body}}

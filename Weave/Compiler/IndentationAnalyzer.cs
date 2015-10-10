@@ -63,6 +63,14 @@ namespace Weave.Compiler
                 this.WalkElements(eachElement.EachBody.Body);
                 this.amountToSubtract -= amount;
 
+                if (eachElement.DelimitBody != null)
+                {
+                    amount = GetIndentationOffset(eachElement.DelimitBody.Indentation, eachElement.DelimitBody.Body);
+                    this.amountToSubtract += amount;
+                    this.WalkElements(eachElement.DelimitBody.Body);
+                    this.amountToSubtract -= amount;
+                }
+
                 if (eachElement.NoneBody != null)
                 {
                     amount = GetIndentationOffset(eachElement.NoneBody.Indentation, eachElement.NoneBody.Body);

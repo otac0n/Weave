@@ -63,9 +63,25 @@ namespace Weave.Compiler
                     this.WalkElements(eachElement.EachBody.Body);
 
                     eachBodyTail.AddRange(this.previous);
-                    foreach (var prev in this.previous)
+
+                    if (eachElement.DelimitBody != null)
                     {
-                        this.graph.AddEdge(prev, eachElement.EachBody);
+                        this.Interpose(eachElement.DelimitBody, () =>
+                        {
+                            this.WalkElements(eachElement.DelimitBody.Body);
+
+                            foreach (var prev in this.previous)
+                            {
+                                this.graph.AddEdge(prev, eachElement.EachBody);
+                            }
+                        });
+                    }
+                    else
+                    {
+                        foreach (var prev in this.previous)
+                        {
+                            this.graph.AddEdge(prev, eachElement.EachBody);
+                        }
                     }
                 });
 

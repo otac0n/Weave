@@ -98,23 +98,29 @@ inlineElseBody <Branch>
     = elseTag      body:inlineContents { new Branch(null, body) }
 
 eachElement <EachElement>
-    = each:eachBody none:noneBody? endIndentation:("" WS*) endEachTag WS* (EOL / EOF) {
-        new EachElement(@each, none.SingleOrDefault(), endIndentation)
+    = each:eachBody delimit:delimitBody? none:noneBody? endIndentation:("" WS*) endEachTag WS* (EOL / EOF) {
+        new EachElement(@each, delimit.SingleOrDefault(), none.SingleOrDefault(), endIndentation)
     }
 
 eachBody <EachBody>
     = indentation:("" WS*) expr:eachTag WS* EOL body:lines { new EachBody(expr, (IList<Element>)body, indentation) }
 
+delimitBody <DelimitBody>
+    = indentation:("" WS*) delimitTag WS* EOL body:lines { new DelimitBody(body, indentation) }
+
 noneBody <NoneBody>
     = indentation:("" WS*) noneTag WS* EOL body:lines { new NoneBody(body, indentation) }
 
 inlineEachElement <EachElement>
-    = each:inlineEachBody none:inlineNoneBody? endEachTag {
-        new EachElement(@each, none.SingleOrDefault())
+    = each:inlineEachBody delimit:inlineDelimitBody? none:inlineNoneBody? endEachTag {
+        new EachElement(@each, delimit.SingleOrDefault(), none.SingleOrDefault())
     }
 
 inlineEachBody <EachBody>
     = expr:eachTag body:inlineContents { new EachBody(expr, body) }
+
+inlineDelimitBody <DelimitBody>
+    = delimitTag body:inlineContents { new DelimitBody(body) }
 
 inlineNoneBody <NoneBody>
     = noneTag body:inlineContents { new NoneBody(body) }
@@ -131,6 +137,7 @@ elifTag <SourceSpan>  = "{{elif" &(WS / EOL) expr:expression "}}"              {
 elseTag               = "{{else}}"
 endIfTag              = "{{/if}}"
 eachTag <SourceSpan>  = "{{each" &(WS / EOL) expr:expression "}}"              { expr }
+delimitTag            = "{{delimit}}"
 noneTag               = "{{none}}"
 endEachTag            = "{{/each}}"
 renderTag <RenderTag> = "{{@" name:identifier &(WS / EOL) expr:expression "}}" { new RenderTag { Method = name, Expression = expr } }

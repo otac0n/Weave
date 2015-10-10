@@ -24,6 +24,11 @@ namespace Weave.Compiler
         {
             this.WalkElements(eachElement.EachBody.Body);
 
+            if (eachElement.DelimitBody != null)
+            {
+                this.WalkElements(eachElement.DelimitBody.Body);
+            }
+
             if (eachElement.NoneBody != null)
             {
                 this.WalkElements(eachElement.NoneBody.Body);
