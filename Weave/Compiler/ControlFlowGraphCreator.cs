@@ -8,6 +8,7 @@
 
 namespace Weave.Compiler
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using Weave.Expressions;
@@ -42,29 +43,35 @@ namespace Weave.Compiler
 
             public override void WalkEachElement(EachElement eachElement)
             {
-                this.previous.Clear();
-
-                this.graph.AddEdge(eachElement, eachElement.EachBody);
-                this.previous.Add(eachElement.EachBody);
-
-                this.WalkElements(eachElement.EachBody.Body);
-
-                foreach (var prev in this.previous)
-                {
-                    this.graph.AddEdge(prev, eachElement.EachBody);
-                }
-
-                this.previous.Clear();
-
+                var noneBodyTail = new List<Element>();
                 if (eachElement.NoneBody != null)
                 {
-                    this.graph.AddEdge(eachElement, eachElement.NoneBody);
-                    this.previous.Add(eachElement.NoneBody);
-
-                    this.WalkElements(eachElement.NoneBody.Body);
+                    this.Interpose(eachElement.NoneBody, () =>
+                    {
+                        this.WalkElements(eachElement.NoneBody.Body);
+                        noneBodyTail.AddRange(this.previous);
+                    });
+                }
+                else
+                {
+                    noneBodyTail.AddRange(this.previous);
                 }
 
-                this.previous.Insert(0, eachElement.EachBody);
+                var eachBodyTail = new List<Element>();
+                this.Interpose(eachElement.EachBody, () =>
+                {
+                    this.WalkElements(eachElement.EachBody.Body);
+
+                    eachBodyTail.AddRange(this.previous);
+                    foreach (var prev in this.previous)
+                    {
+                        this.graph.AddEdge(prev, eachElement.EachBody);
+                    }
+                });
+
+                this.previous.Clear();
+                this.previous.AddRange(eachBodyTail);
+                this.previous.AddRange(noneBodyTail);
             }
 
             public override void WalkElement(Element element)
@@ -103,6 +110,26 @@ namespace Weave.Compiler
                 }
 
                 this.previous.AddRange(previous);
+            }
+
+            private void Interpose(Element next, Action action)
+            {
+                // Wire up the list of previous to the next.
+                var originalPrevious = this.previous.ToList();
+                foreach (var prev in originalPrevious)
+                {
+                    this.graph.AddEdge(prev, next);
+                }
+
+                // Set up for the action.
+                this.previous.Clear();
+                this.previous.Add(next);
+
+                action();
+
+                // Reset to the original state.
+                this.previous.Clear();
+                this.previous.AddRange(originalPrevious);
             }
         }
     }
