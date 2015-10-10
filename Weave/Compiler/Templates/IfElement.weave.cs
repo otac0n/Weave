@@ -39,7 +39,7 @@ namespace
                 #line default
                 );
             var __originalIndentation = indentation = indentation ?? string.Empty;
-            bool ___flag0;
+            bool ___flag0 = false;
 
             foreach (var
                 #line 3 "IfElement.weave"

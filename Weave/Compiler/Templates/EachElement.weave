@@ -5,7 +5,7 @@
     var flag = useFlag ? this.CreateVariable("_flag") : null;
 }}
 {{if useFlag}}
-    bool {{= flag }};
+    bool {{= flag }} = false;
 
 {{/if}}
 foreach (var

@@ -60,7 +60,7 @@ namespace
              flag 
                     #line default
                     );
-                writer.Write(";");
+                writer.Write(" = false;");
                 writer.WriteLine();
                 writer.WriteLine();
             }
