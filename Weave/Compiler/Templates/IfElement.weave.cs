@@ -39,38 +39,27 @@ namespace
                 #line default
                 );
             var __originalIndentation = indentation = indentation ?? string.Empty;
-            var __temp0 = indentation;
-            #line 3 "IfElement.weave"
-   var first = true; 
-            #line default
-            indentation = __temp0;
+            bool ___flag0;
+
             foreach (var
-                #line 4 "IfElement.weave"
+                #line 3 "IfElement.weave"
        branch in model.Branches
                 #line default
                 )
             {
-                if (
-                    #line 5 "IfElement.weave"
-         !first
-                    #line default
-                    )
+                if (___flag0)
                 {
                     writer.Write(indentation);
                     writer.Write("else");
                     writer.WriteLine();
                 }
+                ___flag0 = true;
                 var __model0 =
-                    #line 8 "IfElement.weave"
+                    #line 4 "IfElement.weave"
                   branch
                     #line default
                     ;
                 WalkBranch(__model0, writer, indentation);
-                var __temp1 = indentation;
-                #line 9 "IfElement.weave"
-       first = false; 
-                #line default
-                indentation = __temp1;
             }
 
         }

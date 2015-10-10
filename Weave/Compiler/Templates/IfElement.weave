@@ -1,10 +1,7 @@
 ﻿@model IfElement
 
-{{ var first = true; }}
 {{each branch in model.Branches}}
-    {{if !first}}
-        else
-    {{/if}}
     {{@WalkBranch branch}}
-    {{ first = false; }}
+{{delimit}}
+    else
 {{/each}}
