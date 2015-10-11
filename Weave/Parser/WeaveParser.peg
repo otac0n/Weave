@@ -47,7 +47,7 @@ textLine <IList<Element>>
     }}
 
 inlineContents <IList<Element>>
-    = body:(<IEnumerable<Element>> first:textLine middle:lines { first.Concat(middle) })? rest:inlineElement* { body.SelectMany(b => b).Concat(rest).ToList() }
+    = head:inlineElement* tail:(<IEnumerable<Element>> EOL l:lines restIndent:(!(EOL / EOF) WS*)? rest:inlineElement* { new[] { new NewLineElement() }.Concat(l).Concat(restIndent.Select(i => new IndentationElement(i))).Concat(rest) })? { head.Concat(tail.SelectMany(e => e)).ToList() }
 
 inlineElement <Element>
     = t:text { new TextElement(t) }

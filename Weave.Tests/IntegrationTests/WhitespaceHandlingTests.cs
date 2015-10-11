@@ -14,6 +14,28 @@ namespace Weave.Tests.IntegrationTests
     public class WhitespaceHandlingTests
     {
         [Test]
+        public void EachBlockWithBlankLineDelimiter_EmitsTightlySpacedBlock()
+        {
+            var template = "{\n    {{each i in model}}\n        {{= i }}\n    {{delimit}}\n\n    {{/each}}\n}";
+            var model = Enumerable.Range(0, 3);
+
+            var result = TemplateHelper.Render(template, model);
+
+            Assert.That(result, Is.EqualTo("{\n    0\n\n    1\n\n    2\n}"));
+        }
+
+        [Test]
+        public void InlineEachBlockWithDelimiterContainingNewline_EmitsExpectedIndentation()
+        {
+            var template = "{{if true}}\n    var foo = {{each i in model}}x[{{= i }}]{{delimit}} ??\n              {{/each}};\n{{/if}}\n";
+            var model = Enumerable.Range(0, 3);
+
+            var result = TemplateHelper.Render(template, model);
+
+            Assert.That(result, Is.EqualTo("var foo = x[0] ??\n          x[1] ??\n          x[2];\n"));
+        }
+
+        [Test]
         public void SimpleEachBlockWithASingleLineBody_EmitsASingleLinePerIterationOfTheBody()
         {
             var template = "foo\n{{each i in model}}\n    bar\n{{/each}}\nbaz";
