@@ -8,7 +8,7 @@
     <AvailableItemName Include="WeaveTemplate" />
   </ItemGroup>
   <UsingTask AssemblyFile="Weave.exe" TaskName="CompileWeaveTemplate" />
-  <Target Name="CompileWeaveTemplates" Condition=" '$(NCrunch)' != '1' ">
+  <Target Name="CompileWeaveTemplates">
     <CompileWeaveTemplate InputFile="%(WeaveTemplate.Identity)" Condition=" '@(WeaveTemplate)' != '' " />
     <ItemGroup>
       <Compile Include="@(WeaveTemplate -> '%(Identity).cs')" Exclude="@(Compile)" />
