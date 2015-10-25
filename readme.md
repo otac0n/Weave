@@ -29,13 +29,13 @@ Example
 
     {{each i in model}}
         {{if i % 3 == 0 && i % 5 == 0}}
-            {{: i }} FizzBuzz
+            {{= i }} FizzBuzz
         {{elif i % 3 == 0}}
-            {{: i }} Fizz
+            {{= i }} Fizz
         {{elif i % 5 == 0}}
-            {{: i }} Buzz
+            {{= i }} Buzz
         {{else}}
-            {{: i }}
+            {{= i }}
         {{/if}}
     {{/each}}
 
