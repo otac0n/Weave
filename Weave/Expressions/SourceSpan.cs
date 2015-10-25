@@ -9,11 +9,13 @@
 namespace Weave.Expressions
 {
     using System;
+    using System.Diagnostics;
     using Pegasus.Common;
 
     /// <summary>
     /// Represents a span of text in the subject.
     /// </summary>
+    [DebuggerDisplay("{Value}@{Start}")]
     public class SourceSpan
     {
         private readonly Cursor end;
@@ -60,6 +62,12 @@ namespace Weave.Expressions
         public Cursor Start
         {
             get { return this.start; }
+        }
+
+        /// <inheritdoc />
+        public override string ToString()
+        {
+            return this.value;
         }
     }
 }
