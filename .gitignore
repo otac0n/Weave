@@ -12,7 +12,9 @@
 _ReSharper.*
 *.[Cc]ache
 *.ncrunch*
+*.docstates
 *.sln.ide/
+.vs/
 
 # Ignore all MonoDevelop generated files.
 *.userprefs
