@@ -50,7 +50,7 @@
     <Compile Include="CompileManager.cs" />
     <Compile Include="Compiler\CompilePass.cs" />
     <Compile Include="Compiler\CompileResult.cs" />
-    <Compile Include="Compiler\ControlFlowGraph.cs" />
+    <Compile Include="Compiler\ControlFlowGraph{T}.cs" />
     <Compile Include="Compiler\ControlFlowGraphCreator.cs" />
     <Compile Include="Compiler\GenerateCodePass.cs" />
     <Compile Include="Compiler\GraphOperations.cs" />

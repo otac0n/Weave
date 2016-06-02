@@ -1,17 +1,13 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="WhitespaceHandlingTests.cs" company="(none)">
-//   Copyright © 2013 John Gietzen.  All Rights Reserved.
-//   This source is subject to the MIT license.
-//   Please see license.txt for more information.
-// </copyright>
-// -----------------------------------------------------------------------
+﻿// Copyright © 2016 John Gietzen.  All Rights Reserved.
+// This source is subject to the MIT license.
+// Please see license.md for more information.
 
 namespace Weave.Tests.IntegrationTests
 {
     using System.Linq;
     using NUnit.Framework;
 
-    public class WhitespaceHandlingTests
+    public class WhiteSpaceHandlingTests
     {
         [Test]
         public void EachBlockWithBlankLineDelimiter_EmitsTightlySpacedBlock()
@@ -25,7 +21,7 @@ namespace Weave.Tests.IntegrationTests
         }
 
         [Test]
-        public void InlineEachBlockWithDelimiterContainingNewline_EmitsExpectedIndentation()
+        public void InlineEachBlockWithDelimiterContainingNewLine_EmitsExpectedIndentation()
         {
             var template = "{{if true}}\n    var foo = {{each i in model}}x[{{= i }}]{{delimit}} ??\n              {{/each}};\n{{/if}}\n";
             var model = Enumerable.Range(0, 3);
@@ -58,7 +54,7 @@ namespace Weave.Tests.IntegrationTests
         }
 
         [Test]
-        public void IfBlockWithAnInlineStartTag_EmitsAllWhitespaceWhenTheConditionIsMet()
+        public void IfBlockWithAnInlineStartTag_EmitsAllWhiteSpaceWhenTheConditionIsMet()
         {
             var template = "foo\n    bar {{if model}}\n    baz\n{{/if}}\nbaz";
             var model = true;
@@ -69,7 +65,7 @@ namespace Weave.Tests.IntegrationTests
         }
 
         [Test]
-        public void IfBlockWithAnInlineStartTag_EmitsSurroundingWhitespaceWhenTheConditionIsNotMet()
+        public void IfBlockWithAnInlineStartTag_EmitsSurroundingWhiteSpaceWhenTheConditionIsNotMet()
         {
             var template = "foo\n    bar {{if model}}\n    baz\n{{/if}}\nbaz";
             var model = false;
@@ -80,7 +76,7 @@ namespace Weave.Tests.IntegrationTests
         }
 
         [Test]
-        public void IfBlockWithAnInlineEndTag_EmitsAllWhitespaceWhenTheConditionIsMet()
+        public void IfBlockWithAnInlineEndTag_EmitsAllWhiteSpaceWhenTheConditionIsMet()
         {
             var template = "foo\n{{if model}}\n    baz {{/if}}\nbaz";
             var model = true;
@@ -91,7 +87,7 @@ namespace Weave.Tests.IntegrationTests
         }
 
         [Test]
-        public void IfBlockWithAnInlineEndTag_EmitsSurroundingWhitespaceWhenTheConditionIsNotMet()
+        public void IfBlockWithAnInlineEndTag_EmitsSurroundingWhiteSpaceWhenTheConditionIsNotMet()
         {
             var template = "foo\n{{if model}}\n    baz {{/if}}\nbaz";
             var model = false;
@@ -112,7 +108,7 @@ namespace Weave.Tests.IntegrationTests
         }
 
         [Test]
-        public void StatementBlockLineWithExcessInternalWhitespace_DoesNotEmitAnyExternalWhitespace()
+        public void StatementBlockLineWithExcessInternalWhiteSpace_DoesNotEmitAnyExternalWhiteSpace()
         {
             var template = "    {{\n\n   /* no-op */\n\n               }}    ";
 
@@ -122,7 +118,7 @@ namespace Weave.Tests.IntegrationTests
         }
 
         [Test]
-        public void StatementBlockAtTheTop_DoesNotCauseAPrecedingNewlineToBeEmitted()
+        public void StatementBlockAtTheTop_DoesNotCauseAPrecedingNewLineToBeEmitted()
         {
             var template = "{{\n    /* no-op */\n}}\n<!DOCTYPE html>";
 
@@ -142,7 +138,7 @@ namespace Weave.Tests.IntegrationTests
         }
 
         [Test]
-        public void IfStatementWithInconsistentIndenting_ChoosesSmallestNonZeroIndentation()
+        public void IfStatementWithInconsistentIndenting_ChoosesSmallestNonzeroIndentation()
         {
             var template = "    {{if true}}\n        foo\n      foo\n       foo\n    foo\n    {{/if}}";
 
@@ -152,7 +148,7 @@ namespace Weave.Tests.IntegrationTests
         }
 
         [Test]
-        public void IfStatementWithMixedTabsAndSpaces_TrimsFromTheRightWhenRemovingWhitespace()
+        public void IfStatementWithMixedTabsAndSpaces_TrimsFromTheRightWhenRemovingWhiteSpace()
         {
             var template = "@tabsize 4\n    {{if true}}\n\t\ta\n \t \tb\n  \t \tc\n   \t \td\n     \te\n \t \tf\n \t  \tg\n \t   \th\n \t    i\n    {{/if}}";
 
@@ -162,7 +158,7 @@ namespace Weave.Tests.IntegrationTests
         }
 
         [Test]
-        public void IfStatementWithMixedTabsAndSpacesAndIndentationsThatIsNotAnEvenMultipleOfTheTabSize_TrimsFromTheRightWhenRemovingWhitespace()
+        public void IfStatementWithMixedTabsAndSpacesAndIndentationsThatIsNotAnEvenMultipleOfTheTabSize_TrimsFromTheRightWhenRemovingWhiteSpace()
         {
             var template = "@tabsize 4\n     {{if true}}\n\t\ta\n\t \tb\n\t  \tc\n\t   \td\n\t    e\n\t\t f\n\t \t g\n\t  \t h\n\t   \t i\n\t     j\n     {{/if}}";
 

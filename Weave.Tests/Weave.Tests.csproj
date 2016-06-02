@@ -60,7 +60,7 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
-    <Compile Include="IntegrationTests\WhitespaceHandlingTests.cs" />
+    <Compile Include="IntegrationTests\WhiteSpaceHandlingTests.cs" />
     <AdditionalFiles Include="..\stylecop.json">
       <Link>stylecop.json</Link>
     </AdditionalFiles>

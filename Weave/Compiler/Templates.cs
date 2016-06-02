@@ -1,14 +1,11 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="Templates.cs" company="(none)">
-//   Copyright © 2013 John Gietzen.  All Rights Reserved.
-//   This source is subject to the MIT license.
-//   Please see license.txt for more information.
-// </copyright>
-// -----------------------------------------------------------------------
+﻿// Copyright © 2016 John Gietzen.  All Rights Reserved.
+// This source is subject to the MIT license.
+// Please see license.md for more information.
 
 namespace Weave.Compiler
 {
     using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
     using System.Globalization;
     using System.IO;
     using System.Text;
@@ -140,6 +137,7 @@ namespace Weave.Compiler
             return "__" + prefix + instance;
         }
 
+        [SuppressMessage("Microsoft.Usage", "CA1801:ReviewUnusedParameters", MessageId = "writer", Justification = "Required by Weave.")]
         private void BaseWalkTemplate(Template template, TextWriter writer, string indentation)
         {
             var temp = this.currentIndentation;
@@ -148,6 +146,7 @@ namespace Weave.Compiler
             this.currentIndentation = temp;
         }
 
+        [SuppressMessage("Microsoft.Usage", "CA1801:ReviewUnusedParameters", MessageId = "writer", Justification = "Required by Weave.")]
         private void WalkElements(IEnumerable<Element> elements, TextWriter writer, string indentation)
         {
             var temp = this.currentIndentation;
@@ -156,6 +155,7 @@ namespace Weave.Compiler
             this.currentIndentation = temp;
         }
 
+        [SuppressMessage("Microsoft.Usage", "CA1801:ReviewUnusedParameters", MessageId = "writer", Justification = "Required by Weave.")]
         private void WalkBranch(Branch branch, TextWriter writer, string indentation)
         {
             var temp = this.currentIndentation;

@@ -1,10 +1,6 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="GraphOperations.cs" company="(none)">
-//   Copyright © 2013 John Gietzen.  All Rights Reserved.
-//   This source is subject to the MIT license.
-//   Please see license.txt for more information.
-// </copyright>
-// -----------------------------------------------------------------------
+﻿// Copyright © 2016 John Gietzen.  All Rights Reserved.
+// This source is subject to the MIT license.
+// Please see license.md for more information.
 
 namespace Weave.Compiler
 {
