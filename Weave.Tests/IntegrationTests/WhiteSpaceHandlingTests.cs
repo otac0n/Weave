@@ -166,5 +166,26 @@ namespace Weave.Tests.IntegrationTests
 
             Assert.That(result, Is.EqualTo("\t a\n\t b\n\t c\n\t d\n\t e\n\t  f\n\t  g\n\t  h\n\t  i\n\t  j\n"));
         }
+
+        [Test]
+        public void WrapIfBlock_EmitsExtraIndentationWhenTheConditionIsTrue()
+        {
+            var template = "{{wrapif true}}\n    outer\n        {{body}}\n        inner\n        {{/body}}\n    /outer\n{{/wrapif}}";
+
+            var result = TemplateHelper.Render(template, null);
+
+            Assert.That(result, Is.EqualTo("outer\n    inner\n/outer\n"));
+        }
+
+        [Test]
+        [Ignore("The current indentation mechanism assumes that each node has a constant final indentation.  This will need to modified heavily to enable variable indentation.")]
+        public void WrapIfBlock_EmitsNoExtraIndentationWhenTheConditionIsFalse()
+        {
+            var template = "{{wrapif false}}\n    outer\n        {{body}}\n        inner\n        {{/body}}\n    /outer\n{{/wrapif}}";
+
+            var result = TemplateHelper.Render(template, null);
+
+            Assert.That(result, Is.EqualTo("inner\n"));
+        }
     }
 }

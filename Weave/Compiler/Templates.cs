@@ -56,6 +56,11 @@ namespace Weave.Compiler
             this.RenderIfElement(ifElement, this.writer, this.currentIndentation);
         }
 
+        public override void WalkBodyElement(BodyElement bodyElement)
+        {
+            this.RenderBodyElement(bodyElement, this.writer, this.currentIndentation);
+        }
+
         public override void WalkBranch(Branch branch)
         {
             this.RenderBranch(branch, this.writer, this.currentIndentation);
@@ -84,6 +89,11 @@ namespace Weave.Compiler
         public override void WalkTextElement(TextElement textElement)
         {
             this.RenderTextElement(textElement, this.writer, this.currentIndentation);
+        }
+
+        public override void WalkWrapIfElement(WrapIfElement wrapIfElement)
+        {
+            this.RenderWrapIfElement(wrapIfElement, this.writer, this.currentIndentation);
         }
 
         public override void WalkIndentationElement(IndentationElement indentationElement)

@@ -35,6 +35,14 @@ namespace Weave.Compiler
                 get { return this.results; }
             }
 
+            public override void WalkBodyElement(BodyElement bodyElement)
+            {
+                var amount = GetIndentationOffset(bodyElement.Indentation, bodyElement.Body);
+                this.amountToSubtract += amount;
+                base.WalkBodyElement(bodyElement);
+                this.amountToSubtract -= amount;
+            }
+
             public override void WalkBranch(Branch branch)
             {
                 var amount = GetIndentationOffset(branch.Indentation, branch.Body);
@@ -94,15 +102,29 @@ namespace Weave.Compiler
                 }
             }
 
+            public override void WalkWrapIfElement(WrapIfElement wrapIfElement)
+            {
+                var amount = GetIndentationOffset(wrapIfElement.Indentation, wrapIfElement.Before.Concat(new[] { wrapIfElement.Body }).Concat(wrapIfElement.After));
+                this.amountToSubtract += amount;
+                base.WalkWrapIfElement(wrapIfElement);
+                this.amountToSubtract -= amount;
+            }
+
             private static string FindIndentation(Element element)
             {
+                BodyElement bodyElement;
                 CodeElement codeElement;
                 EachElement eachElement;
                 IfElement ifElement;
                 IndentationElement indentationElement;
                 RenderElement renderElement;
+                WrapIfElement wrapIfElement;
 
-                if ((codeElement = element as CodeElement) != null)
+                if ((bodyElement = element as BodyElement) != null)
+                {
+                    return bodyElement.Indentation;
+                }
+                else if ((codeElement = element as CodeElement) != null)
                 {
                     return codeElement.Indentation;
                 }
@@ -121,6 +143,10 @@ namespace Weave.Compiler
                 else if ((renderElement = element as RenderElement) != null)
                 {
                     return renderElement.Indentation;
+                }
+                else if ((wrapIfElement = element as WrapIfElement) != null)
+                {
+                    return wrapIfElement.Indentation;
                 }
 
                 return null;

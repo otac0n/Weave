@@ -1,0 +1,17 @@
+﻿@model WrapIfElement
+
+{{ var flag = this.CreateVariable("flag"); }}
+var {{= flag }} =
+    {{@RenderCode model.Expression}}
+    ;
+if ({{= flag }})
+{
+    {{@WalkElements model.Before}}
+}
+
+{{@WalkElements new[] { model.Body } }}
+
+if ({{= flag }})
+{
+    {{@WalkElements model.After}}
+}

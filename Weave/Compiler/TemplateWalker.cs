@@ -11,6 +11,11 @@ namespace Weave.Compiler
 
     internal abstract class TemplateWalker
     {
+        public virtual void WalkBodyElement(BodyElement bodyElement)
+        {
+            this.WalkElements(bodyElement.Body);
+        }
+
         public virtual void WalkBranch(Branch branch)
         {
             this.WalkElements(branch.Body);
@@ -37,6 +42,7 @@ namespace Weave.Compiler
 
         public virtual void WalkElement(Element element)
         {
+            BodyElement bodyElement;
             CodeElement codeElement;
             EachElement eachElement;
             EchoTag echoTag;
@@ -45,8 +51,13 @@ namespace Weave.Compiler
             NewLineElement newLineElement;
             RenderElement renderElement;
             TextElement textElement;
+            WrapIfElement wrapIfElement;
 
-            if ((codeElement = element as CodeElement) != null)
+            if ((bodyElement = element as BodyElement) != null)
+            {
+                this.WalkBodyElement(bodyElement);
+            }
+            else if ((codeElement = element as CodeElement) != null)
             {
                 this.WalkCodeElement(codeElement);
             }
@@ -77,6 +88,10 @@ namespace Weave.Compiler
             else if ((textElement = element as TextElement) != null)
             {
                 this.WalkTextElement(textElement);
+            }
+            else if ((wrapIfElement = element as WrapIfElement) != null)
+            {
+                this.WalkWrapIfElement(wrapIfElement);
             }
             else
             {
@@ -123,6 +138,13 @@ namespace Weave.Compiler
 
         public virtual void WalkTextElement(TextElement textElement)
         {
+        }
+
+        public virtual void WalkWrapIfElement(WrapIfElement wrapIfElement)
+        {
+            this.WalkElements(wrapIfElement.Before);
+            this.WalkElement(wrapIfElement.Body);
+            this.WalkElements(wrapIfElement.After);
         }
     }
 }

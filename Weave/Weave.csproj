@@ -63,6 +63,10 @@
       <Link>stylecop.json</Link>
     </AdditionalFiles>
     <None Include="Compiler\Templates\_config.weave" />
+    <None Include="Compiler\Templates\BodyElement.weave" />
+    <Compile Include="Compiler\Templates\BodyElement.weave.cs">
+      <DependentUpon>BodyElement.weave</DependentUpon>
+    </Compile>
     <None Include="Compiler\Templates\Branch.weave" />
     <Compile Include="Compiler\Templates\Branch.weave.cs">
       <DependentUpon>Branch.weave</DependentUpon>
@@ -111,10 +115,15 @@
     <Compile Include="Compiler\Templates\TextElement.weave.cs">
       <DependentUpon>TextElement.weave</DependentUpon>
     </Compile>
+    <None Include="Compiler\Templates\WrapIfElement.weave" />
+    <Compile Include="Compiler\Templates\WrapIfElement.weave.cs">
+      <DependentUpon>WrapIfElement.weave</DependentUpon>
+    </Compile>
     <Compile Include="Compiler\Templates.cs" />
     <Compile Include="Compiler\TemplateWalker.cs" />
     <Compile Include="Compiler\WeaveCompiler.cs" />
     <Compile Include="CompileWeaveTemplate.cs" />
+    <Compile Include="Expressions\BodyElement.cs" />
     <Compile Include="Expressions\Branch.cs" />
     <Compile Include="Expressions\CodeElement.cs" />
     <Compile Include="Expressions\DelimitBody.cs" />
@@ -130,6 +139,7 @@
     <Compile Include="Expressions\SourceSpan.cs" />
     <Compile Include="Expressions\Template.cs" />
     <Compile Include="Expressions\TextElement.cs" />
+    <Compile Include="Expressions\WrapIfElement.cs" />
     <None Include="packages.config" />
     <PegGrammar Include="Parser\WeaveParser.peg" />
     <Compile Include="Program.cs" />

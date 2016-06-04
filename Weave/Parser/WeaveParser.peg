@@ -55,12 +55,14 @@ inlineElement <Element>
     / inlineCodeElement
     / inlineIfElement
     / inlineEachElement
+    / inlineWrapIfElement
     / inlineRenderElement
 
 tag <Element>
     = codeElement
     / ifElement
     / eachElement
+    / wrapIfElement
     / renderElement
 
 codeElement <CodeElement>
@@ -125,24 +127,48 @@ inlineDelimitBody <DelimitBody>
 inlineNoneBody <NoneBody>
     = noneTag body:inlineContents { new NoneBody(body) }
 
+wrapIfElement <WrapIfElement>
+    = indentation:("" WS*) expr:wrapIfTag WS* EOL before:lines body:bodyElement after:lines endIndentation:("" WS*) endWrapIfTag WS* (EOL / EOF) {
+        new WrapIfElement(indentation, expr, before, body, after, endIndentation)
+    }
+
+bodyElement <BodyElement>
+    = indentation:("" WS*) bodyTag WS* EOL body:lines endIndentation:("" WS*) endBodyTag WS* (EOL / EOF) {
+        new BodyElement(indentation, body, endIndentation)
+    }
+
+inlineWrapIfElement <WrapIfElement>
+    = expr:wrapIfTag before:inlineContents body:inlineBodyElement after:inlineContents endWrapIfTag {
+        new WrapIfElement(null, expr, before, body, after, null)
+    }
+
+inlineBodyElement <BodyElement> 
+    = bodyTag body:inlineContents endBodyTag {
+        new BodyElement(null, body, null)
+    }
+
 renderElement <RenderElement>
     = indentation:("" WS*) tag:renderTag WS* (EOL / EOF) { new RenderElement(tag.Method, tag.Expression, indentation) }
 
 inlineRenderElement <RenderElement>
     = tag:renderTag { new RenderElement(tag.Method, tag.Expression) }
 
-codeTag <SourceSpan>  = "{{" &(WS / EOL) expr:expression "}}"                  { expr }
-ifTag   <SourceSpan>  = "{{if" &(WS / EOL) expr:expression "}}"                { expr }
-elifTag <SourceSpan>  = "{{elif" &(WS / EOL) expr:expression "}}"              { expr }
-elseTag               = "{{else}}"
-endIfTag              = "{{/if}}"
-eachTag <SourceSpan>  = "{{each" &(WS / EOL) expr:expression "}}"              { expr }
-delimitTag            = "{{delimit}}"
-noneTag               = "{{none}}"
-endEachTag            = "{{/each}}"
-renderTag <RenderTag> = "{{@" name:identifier &(WS / EOL) expr:expression "}}" { new RenderTag { Method = name, Expression = expr } }
-echoTag <EchoTag>     = "{{:" expr:expression "}}"                             { new EchoTag(expr, encoded: true)  }
-                      / "{{=" expr:expression "}}"                             { new EchoTag(expr, encoded: false) }
+codeTag <SourceSpan>   = "{{" &(WS / EOL) expr:expression "}}"                  { expr }
+ifTag   <SourceSpan>   = "{{if" &(WS / EOL) expr:expression "}}"                { expr }
+elifTag <SourceSpan>   = "{{elif" &(WS / EOL) expr:expression "}}"              { expr }
+elseTag                = "{{else}}"
+endIfTag               = "{{/if}}"
+eachTag <SourceSpan>   = "{{each" &(WS / EOL) expr:expression "}}"              { expr }
+delimitTag             = "{{delimit}}"
+noneTag                = "{{none}}"
+endEachTag             = "{{/each}}"
+wrapIfTag <SourceSpan> = "{{wrapif" &(WS / EOL) expr:expression "}}"            { expr }
+bodyTag                = "{{body}}"
+endBodyTag             = "{{/body}}"
+endWrapIfTag           = "{{/wrapif}}"
+renderTag <RenderTag>  = "{{@" name:identifier &(WS / EOL) expr:expression "}}" { new RenderTag { Method = name, Expression = expr } }
+echoTag <EchoTag>      = "{{:" expr:expression "}}"                             { new EchoTag(expr, encoded: true)  }
+                       / "{{=" expr:expression "}}"                             { new EchoTag(expr, encoded: false) }
 
 text -memoize
     = "" (!EOL !"{{" .)+

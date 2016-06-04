@@ -124,6 +124,12 @@ namespace Weave.Compiler
                 this.previous.AddRange(previous);
             }
 
+            public override void WalkWrapIfElement(WrapIfElement wrapIfElement)
+            {
+                base.WalkWrapIfElement(wrapIfElement);
+                this.graph.AddEdge(wrapIfElement, wrapIfElement.Body);
+            }
+
             private void Interpose(Element next, Action action)
             {
                 // Wire up the list of previous to the next.

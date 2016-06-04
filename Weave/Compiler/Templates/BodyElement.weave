@@ -1,0 +1,3 @@
+﻿@model BodyElement
+
+{{@WalkElements model.Body}}
