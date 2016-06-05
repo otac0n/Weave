@@ -1,15 +1,31 @@
 ﻿@model WrapIfElement
 
-{{ var flag = this.CreateVariable("flag"); }}
+{{
+    var flag = this.CreateVariable("flag");
+    var newIndentationBase = this.CreateVariable("baseIndentation");
+}}
 var {{= flag }} =
     {{@RenderCode model.Expression}}
     ;
+string {{= newIndentationBase }};
 if ({{= flag }})
 {
     {{@WalkElements model.Before}}
+    {{= newIndentationBase }} = {{= this.indentationBase }};
+}
+else
+{
+    {{= newIndentationBase }} = {{= this.indentationBase }};
 }
 
+{{
+    var oldIndentationBase = this.indentationBase;
+    this.indentationBase = newIndentationBase;
+}}
 {{@WalkElements new[] { model.Body } }}
+{{
+    this.indentationBase = oldIndentationBase;
+}}
 
 if ({{= flag }})
 {

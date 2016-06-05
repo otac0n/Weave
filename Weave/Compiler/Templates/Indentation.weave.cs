@@ -56,17 +56,22 @@ namespace
                 )
             {
                 writer.Write(indentation);
-                writer.Write("indentation = __originalIndentation");
+                writer.Write("indentation = ");
+                writer.Write(
+                    #line 9 "Indentation.weave"
+                      this.indentationBase 
+                    #line default
+                    );
                 if (
                     #line 9 "Indentation.weave"
-                                            indent.Length > 0
+                                                  indent.Length > 0
                     #line default
                     )
                 {
                     writer.Write(" + ");
                     writer.Write(__encode(
                         #line 9 "Indentation.weave"
-                                                                      indent 
+                                                                            indent 
                         #line default
                         ));
                 }

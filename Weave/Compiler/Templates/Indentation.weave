@@ -6,5 +6,5 @@
     this.indentation.TryGetValue(model, out indent);
 }}
 {{if indent != null}}
-    indentation = __originalIndentation{{if indent.Length > 0}} + {{: indent }}{{/if}};
+    indentation = {{= this.indentationBase }}{{if indent.Length > 0}} + {{: indent }}{{/if}};
 {{/if}}

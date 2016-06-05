@@ -26,6 +26,7 @@ namespace Weave.Compiler
         private string currentIndentation = string.Empty;
 
         private Dictionary<Element, string> indentation;
+        private string indentationBase = null;
 
         public Templates(TextWriter writer)
         {
