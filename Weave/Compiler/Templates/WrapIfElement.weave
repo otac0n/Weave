@@ -22,7 +22,7 @@ else
     var oldIndentationBase = this.indentationBase;
     this.indentationBase = newIndentationBase;
 }}
-{{@WalkElements new[] { model.Body } }}
+{{@WalkElement model.Body}}
 {{
     this.indentationBase = oldIndentationBase;
 }}

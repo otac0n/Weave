@@ -158,6 +158,15 @@ namespace Weave.Compiler
         }
 
         [SuppressMessage("Microsoft.Usage", "CA1801:ReviewUnusedParameters", MessageId = "writer", Justification = "Required by Weave.")]
+        private void WalkElement(Element element, TextWriter writer, string indentation)
+        {
+            var temp = this.currentIndentation;
+            this.currentIndentation = indentation;
+            this.WalkElement(element);
+            this.currentIndentation = temp;
+        }
+
+        [SuppressMessage("Microsoft.Usage", "CA1801:ReviewUnusedParameters", MessageId = "writer", Justification = "Required by Weave.")]
         private void WalkElements(IEnumerable<Element> elements, TextWriter writer, string indentation)
         {
             var temp = this.currentIndentation;
