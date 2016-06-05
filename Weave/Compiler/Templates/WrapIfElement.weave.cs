@@ -87,16 +87,18 @@ namespace
             writer.Write(indentation);
             writer.Write("}");
             writer.WriteLine();
+            writer.WriteLine();
             var __model2 =
-                #line 11 "WrapIfElement.weave"
+                #line 12 "WrapIfElement.weave"
                 new[] { model.Body } 
                 #line default
                 ;
             WalkElements(__model2, writer, indentation);
+            writer.WriteLine();
             writer.Write(indentation);
             writer.Write("if (");
             writer.Write(
-                #line 12 "WrapIfElement.weave"
+                #line 14 "WrapIfElement.weave"
         flag 
                 #line default
                 );
@@ -107,7 +109,7 @@ namespace
             writer.WriteLine();
             indentation = __originalIndentation + "    ";
             var __model3 =
-                #line 14 "WrapIfElement.weave"
+                #line 16 "WrapIfElement.weave"
                     model.After
                 #line default
                 ;

@@ -2,7 +2,7 @@
 
 {{
     var useFlag = model.NoneBody != null || model.DelimitBody != null;
-    var flag = useFlag ? this.CreateVariable("_flag") : null;
+    var flag = useFlag ? this.CreateVariable("flag") : null;
 }}
 {{if useFlag}}
     bool {{= flag }} = false;

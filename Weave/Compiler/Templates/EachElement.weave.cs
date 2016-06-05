@@ -43,7 +43,7 @@ namespace
             #line 3 "EachElement.weave"
   
     var useFlag = model.NoneBody != null || model.DelimitBody != null;
-    var flag = useFlag ? this.CreateVariable("_flag") : null;
+    var flag = useFlag ? this.CreateVariable("flag") : null;
 
             #line default
             indentation = __temp0;

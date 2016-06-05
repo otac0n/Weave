@@ -255,6 +255,7 @@ namespace
             indentation = __originalIndentation;
             writer.Write(indentation);
             writer.Write("}");
+            writer.WriteLine();
         }
     }
 }

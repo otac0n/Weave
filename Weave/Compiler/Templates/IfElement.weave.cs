@@ -39,7 +39,7 @@ namespace
                 #line default
                 );
             var __originalIndentation = indentation = indentation ?? string.Empty;
-            bool ___flag0 = false;
+            bool __flag0 = false;
 
             foreach (var
                 #line 3 "IfElement.weave"
@@ -47,7 +47,7 @@ namespace
                 #line default
                 )
             {
-                if (___flag0)
+                if (__flag0)
                 {
                     writer.Write(indentation);
                     writer.Write("else");
@@ -55,7 +55,7 @@ namespace
                 }
                 else
                 {
-                    ___flag0 = true;
+                    __flag0 = true;
                 }
                 var __model0 =
                     #line 4 "IfElement.weave"
