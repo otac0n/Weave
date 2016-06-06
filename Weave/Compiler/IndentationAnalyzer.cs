@@ -19,7 +19,7 @@ namespace Weave.Compiler
         /// </summary>
         /// <param name="template">The <see cref="Template"/> to analyze.</param>
         /// <returns>The indentation for the entire <see cref="Template"/>.</returns>
-        public static Dictionary<Element, string> Analyze(Template template)
+        public static Dictionary<Element, Tuple<Element, string>> Analyze(Template template)
         {
             var walker = new MeasureIndentationWalker();
             walker.WalkTemplate(template);
@@ -28,10 +28,11 @@ namespace Weave.Compiler
 
         private class MeasureIndentationWalker : TemplateWalker
         {
-            private Dictionary<Element, string> results = new Dictionary<Element, string>();
+            private Dictionary<Element, Tuple<Element, string>> results = new Dictionary<Element, Tuple<Element, string>>();
             private int amountToSubtract = 0;
+            private Element baseElement;
 
-            public Dictionary<Element, string> Results
+            public Dictionary<Element, Tuple<Element, string>> Results
             {
                 get { return this.results; }
             }
@@ -60,7 +61,7 @@ namespace Weave.Compiler
                 var indent = this.ComputeIndentation(codeElement.Indentation);
                 if (indent != null)
                 {
-                    this.results[codeElement] = indent;
+                    this.results[codeElement] = Tuple.Create(this.baseElement, indent);
                 }
             }
 
@@ -93,7 +94,7 @@ namespace Weave.Compiler
                 var indent = this.ComputeIndentation(indentationElement.Indentation);
                 if (indent != null)
                 {
-                    this.results[indentationElement] = indent;
+                    this.results[indentationElement] = Tuple.Create(this.baseElement, indent);
                 }
             }
 
@@ -102,7 +103,7 @@ namespace Weave.Compiler
                 var indent = this.ComputeIndentation(renderElement.Indentation);
                 if (indent != null)
                 {
-                    this.results[renderElement] = indent;
+                    this.results[renderElement] = Tuple.Create(this.baseElement, indent);
                 }
             }
 
@@ -199,13 +200,16 @@ namespace Weave.Compiler
             private void RebaseIndentation(Element element, Action walkInnerElements)
             {
                 var originalAmountToSubtract = this.amountToSubtract;
+                var originalBaseElement = this.baseElement;
 
                 var currentIndentation = FindIndentation(element);
-                this.results[element] = this.ComputeIndentation(currentIndentation);
+                this.results[element] = Tuple.Create(this.baseElement, this.ComputeIndentation(currentIndentation));
 
                 this.amountToSubtract = MeasureString(currentIndentation);
+                this.baseElement = element;
                 walkInnerElements();
                 this.amountToSubtract = originalAmountToSubtract;
+                this.baseElement = originalBaseElement;
             }
 
             private static string TrimIndentation(string indentation, int amoutToTrim, int tabWidth = 4)

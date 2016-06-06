@@ -107,6 +107,12 @@ namespace
                                     this.indentationBase 
                 #line default
                 );
+            writer.Write(" + ");
+            writer.Write(__encode(
+                #line 14 "WrapIfElement.weave"
+                                                                  this.indentation[model.Body].Item2 
+                #line default
+                ));
             writer.Write(";");
             writer.WriteLine();
             indentation = __originalIndentation;
@@ -149,10 +155,10 @@ namespace
             indentation = __temp1;
             var __model2 =
                 #line 25 "WrapIfElement.weave"
-                new[] { model.Body } 
+               model.Body
                 #line default
                 ;
-            WalkElements(__model2, writer, indentation);
+            WalkElement(__model2, writer, indentation);
             var __temp2 = indentation;
             #line 26 "WrapIfElement.weave"
   

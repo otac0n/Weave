@@ -44,7 +44,7 @@ namespace
             var __temp0 = indentation;
             #line 4 "Indentation.weave"
   
-    string indent;
+    Tuple<Element, string> indent;
     this.indentation.TryGetValue(model, out indent);
 
             #line default
@@ -64,14 +64,14 @@ namespace
                     );
                 if (
                     #line 9 "Indentation.weave"
-                                                  indent.Length > 0
+                                                  indent.Item2.Length > 0
                     #line default
                     )
                 {
                     writer.Write(" + ");
                     writer.Write(__encode(
                         #line 9 "Indentation.weave"
-                                                                            indent 
+                                                                                  indent.Item2 
                         #line default
                         ));
                 }

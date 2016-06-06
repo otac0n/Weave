@@ -4,6 +4,7 @@
 
 namespace Weave.Compiler
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using Weave.Expressions;
@@ -18,24 +19,29 @@ namespace Weave.Compiler
         /// </summary>
         /// <param name="indentation">The collection of indentation to modify.</param>
         /// <param name="template">The associated <see cref="Template"/> for the given indentation collection.</param>
-        public static void Optimize(Dictionary<Element, string> indentation, Template template)
+        public static void Optimize(Dictionary<Element, Tuple<Element, string>> indentation, Template template)
         {
             var graph = ControlFlowGraphCreator.Create(template);
 
+            var bases = new HashSet<Element>();
             var toRemove = new List<Element>();
 
             foreach (var node in graph)
             {
-                string indent;
+                Tuple<Element, string> indent;
                 indentation.TryGetValue(node.Value, out indent);
+                if (indent?.Item1 != null)
+                {
+                    bases.Add(indent.Item1);
+                }
 
                 if (indent != null)
                 {
                     var predecessorsWithIndentation = node.FindFirstPredecessors(p => indentation.ContainsKey(p.Value)).ToList();
 
                     var allPredecessorsHaveSameIndentation = predecessorsWithIndentation.Any()
-                        ? predecessorsWithIndentation.All(p => indentation[p.Value] == indent)
-                        : indent.Length == 0;
+                        ? predecessorsWithIndentation.All(p => indentation[p.Value].Equals(indent))
+                        : indent.Item2.Length == 0;
 
                     if (allPredecessorsHaveSameIndentation)
                     {
@@ -46,7 +52,10 @@ namespace Weave.Compiler
 
             foreach (var e in toRemove)
             {
-                indentation.Remove(e);
+                if (!bases.Contains(e))
+                {
+                    indentation.Remove(e);
+                }
             }
         }
     }

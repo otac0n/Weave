@@ -4,6 +4,7 @@
 
 namespace Weave.Compiler
 {
+    using System;
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
     using System.Globalization;
@@ -25,7 +26,7 @@ namespace Weave.Compiler
 
         private string currentIndentation = string.Empty;
 
-        private Dictionary<Element, string> indentation;
+        private Dictionary<Element, Tuple<Element, string>> indentation;
         private string indentationBase = null;
 
         public Templates(TextWriter writer)
@@ -36,7 +37,7 @@ namespace Weave.Compiler
         public override void WalkTemplate(Template template)
         {
             this.indentation = IndentationAnalyzer.Analyze(template);
-            ////IndentationOptimizer.Optimize(this.indentation, template);
+            IndentationOptimizer.Optimize(this.indentation, template);
 
             this.RenderTemplate(template, this.writer, this.currentIndentation);
         }

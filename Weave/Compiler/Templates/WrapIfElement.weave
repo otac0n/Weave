@@ -11,7 +11,7 @@ string {{= newIndentationBase }};
 if ({{= flag }})
 {
     {{@WalkElements model.Before}}
-    {{= newIndentationBase }} = {{= this.indentationBase }} + {{: this.indentation[model.Body] }};
+    {{= newIndentationBase }} = {{= this.indentationBase }} + {{: this.indentation[model.Body].Item2 }};
 }
 else
 {

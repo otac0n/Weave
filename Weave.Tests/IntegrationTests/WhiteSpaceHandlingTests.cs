@@ -186,5 +186,15 @@ namespace Weave.Tests.IntegrationTests
 
             Assert.That(result, Is.EqualTo("inner\n"));
         }
+
+        [Test]
+        public void WrapIfBlock_DoesntBreakOptimizationsWhenTheBodyMatchesTheIndentationOfTheBeforeAndWrapIfElements()
+        {
+            var template = "{{wrapif false}}\nouter\n{{body}}\n    inner\n{{/body}}\n/outer\n{{/wrapif}}";
+
+            var result = TemplateHelper.Render(template, null);
+
+            Assert.That(result, Is.EqualTo("inner\n"));
+        }
     }
 }
