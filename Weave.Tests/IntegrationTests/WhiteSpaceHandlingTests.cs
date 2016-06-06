@@ -170,7 +170,7 @@ namespace Weave.Tests.IntegrationTests
         [Test]
         public void WrapIfBlock_EmitsExtraIndentationWhenTheConditionIsTrue()
         {
-            var template = "{{wrapif true}}\n    outer\n        {{body}}\n        inner\n        {{/body}}\n    /outer\n{{/wrapif}}";
+            var template = "{{wrapif true}}\n    outer\n        {{body}}\n            inner\n        {{/body}}\n    /outer\n{{/wrapif}}";
 
             var result = TemplateHelper.Render(template, null);
 
@@ -178,10 +178,9 @@ namespace Weave.Tests.IntegrationTests
         }
 
         [Test]
-        [Ignore("The current indentation mechanism assumes that each node has a constant final indentation.  This will need to modified heavily to enable variable indentation.")]
         public void WrapIfBlock_EmitsNoExtraIndentationWhenTheConditionIsFalse()
         {
-            var template = "{{wrapif false}}\n    outer\n        {{body}}\n        inner\n        {{/body}}\n    /outer\n{{/wrapif}}";
+            var template = "{{wrapif false}}\n    outer\n        {{body}}\n            inner\n        {{/body}}\n    /outer\n{{/wrapif}}";
 
             var result = TemplateHelper.Render(template, null);
 

@@ -4,6 +4,7 @@
 
 namespace Weave.Compiler
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using Weave.Expressions;
@@ -37,10 +38,13 @@ namespace Weave.Compiler
 
             public override void WalkBodyElement(BodyElement bodyElement)
             {
-                var amount = GetIndentationOffset(bodyElement.Indentation, bodyElement.Body);
-                this.amountToSubtract += amount;
-                base.WalkBodyElement(bodyElement);
-                this.amountToSubtract -= amount;
+                this.RebaseIndentation(bodyElement, () =>
+                {
+                    var amount = GetIndentationOffset(bodyElement.Indentation, bodyElement.Body);
+                    this.amountToSubtract += amount;
+                    base.WalkBodyElement(bodyElement);
+                    this.amountToSubtract -= amount;
+                });
             }
 
             public override void WalkBranch(Branch branch)
@@ -165,7 +169,7 @@ namespace Weave.Compiler
                         let offset = MeasureString(FindIndentation(element)) - ourIndentation
                         where offset > 0
                         orderby offset
-                        select (int?)offset).FirstOrDefault() ?? 0;
+                        select offset).FirstOrDefault();
             }
 
             private static int MeasureString(string indentation, int tabWidth = 4)
@@ -190,6 +194,18 @@ namespace Weave.Compiler
                 }
 
                 return count;
+            }
+
+            private void RebaseIndentation(Element element, Action walkInnerElements)
+            {
+                var originalAmountToSubtract = this.amountToSubtract;
+
+                var currentIndentation = FindIndentation(element);
+                this.results[element] = this.ComputeIndentation(currentIndentation);
+
+                this.amountToSubtract = MeasureString(currentIndentation);
+                walkInnerElements();
+                this.amountToSubtract = originalAmountToSubtract;
             }
 
             private static string TrimIndentation(string indentation, int amoutToTrim, int tabWidth = 4)
