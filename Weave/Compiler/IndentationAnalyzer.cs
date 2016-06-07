@@ -197,21 +197,6 @@ namespace Weave.Compiler
                 return count;
             }
 
-            private void RebaseIndentation(Element element, Action walkInnerElements)
-            {
-                var originalAmountToSubtract = this.amountToSubtract;
-                var originalBaseElement = this.baseElement;
-
-                var currentIndentation = FindIndentation(element);
-                this.results[element] = Tuple.Create(this.baseElement, this.ComputeIndentation(currentIndentation));
-
-                this.amountToSubtract = MeasureString(currentIndentation);
-                this.baseElement = element;
-                walkInnerElements();
-                this.amountToSubtract = originalAmountToSubtract;
-                this.baseElement = originalBaseElement;
-            }
-
             private static string TrimIndentation(string indentation, int amoutToTrim, int tabWidth = 4)
             {
                 var count = MeasureString(indentation, tabWidth);
@@ -261,6 +246,21 @@ namespace Weave.Compiler
                 }
 
                 return indentation;
+            }
+
+            private void RebaseIndentation(Element element, Action walkInnerElements)
+            {
+                var originalAmountToSubtract = this.amountToSubtract;
+                var originalBaseElement = this.baseElement;
+
+                var currentIndentation = FindIndentation(element);
+                this.results[element] = Tuple.Create(this.baseElement, this.ComputeIndentation(currentIndentation));
+
+                this.amountToSubtract = MeasureString(currentIndentation);
+                this.baseElement = element;
+                walkInnerElements();
+                this.amountToSubtract = originalAmountToSubtract;
+                this.baseElement = originalBaseElement;
             }
         }
     }

@@ -188,7 +188,7 @@ namespace Weave.Tests.IntegrationTests
         }
 
         [Test]
-        public void WrapIfBlock_DoesntBreakOptimizationsWhenTheBodyMatchesTheIndentationOfTheBeforeAndWrapIfElements()
+        public void WrapIfBlock_DoesNotBreakOptimizationsWhenTheBodyMatchesTheIndentationOfTheBeforeAndWrapIfElements()
         {
             var template = "{{wrapif false}}\nouter\n{{body}}\n    inner\n{{/body}}\n/outer\n{{/wrapif}}";
 
