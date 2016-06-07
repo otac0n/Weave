@@ -1,10 +1,17 @@
 os: Visual Studio 2015
 configuration: Release
 install:
+  - "SET PATH=C:\\Python34;C:\\Python34\\Scripts;%PATH%"
   - choco install gitversion.portable -pre -y
+  - pip install codecov
 before_build:
   - nuget restore
   - ps: gitversion /l console /output buildserver /updateAssemblyInfo
+build:
+  project: Weave.sln
+after_test:
+  - .\packages\OpenCover.4.6.519\tools\OpenCover.Console.exe -register:user -target:"nunit-console.exe" -targetargs:".\Weave.Tests\bin\%CONFIGURATION%\Weave.Tests.dll /noshadow" -filter:"+[Weave]*" -hideskipped:All -output:.\Weave.Tests\bin\%CONFIGURATION%\coverage.xml
+  - codecov -X gcov -f ".\Weave.Tests\bin\%CONFIGURATION%\coverage.xml"
 cache:
   - packages -> **\packages.config
 artifacts:
