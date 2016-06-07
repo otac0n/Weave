@@ -7,7 +7,7 @@
     <owners>John Gietzen</owners>
     <projectUrl>https://github.com/otac0n/Weave</projectUrl>
     <iconUrl>https://raw.github.com/otac0n/Weave/master/Weave.ico</iconUrl>
-    <copyright>Copyright © 2015 John Gietzen</copyright>
+    <copyright>Copyright © 2016 John Gietzen</copyright>
     <description>Weave is a text templating engine that is all about attention to detail.  Weave handles the tricky work of making your rendered text beautiful.</description>
     <tags>text templating transform generation text-transform text-templating text-generation</tags>
     <licenseUrl>https://raw.github.com/otac0n/Weave/master/license.md</licenseUrl>
