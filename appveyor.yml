@@ -6,7 +6,7 @@ install:
   - pip install codecov
 before_build:
   - nuget restore
-  - ps: gitversion /l console /output buildserver /updateAssemblyInfo
+  - ps: gitversion /l console /output buildserver
 build:
   project: Weave.sln
 after_test:
