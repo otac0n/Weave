@@ -8,7 +8,9 @@ namespace Weave.Tests
     using System.CodeDom;
     using System.CodeDom.Compiler;
     using System.IO;
+    using System.Linq;
     using Microsoft.CSharp;
+    using NUnit.Framework;
     using Weave.Compiler;
     using Weave.Parser;
 
@@ -37,6 +39,7 @@ namespace Weave.Tests
             var result = WeaveCompiler.Compile(new WeaveParser().Parse(template));
             var compilationUnit = new CodeSnippetCompileUnit(result.Code);
             var results = Compiler.CompileAssemblyFromDom(Options, compilationUnit);
+            Assert.That(results.Errors.Cast<CompilerError>().Where(e => !e.IsWarning), Is.Empty);
             var assembly = results.CompiledAssembly;
             var type = assembly.GetType("Tests.Templates");
             var method = type.GetMethod("Render");
