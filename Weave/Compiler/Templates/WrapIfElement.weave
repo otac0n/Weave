@@ -2,30 +2,41 @@
 
 {{
     var flag = this.CreateVariable("flag");
+    var oldIndentationBase = this.indentationBase;
     var newIndentationBase = this.CreateVariable("baseIndentation");
+    var alterIndentation = model.Indentation != null;
 }}
 var {{= flag }} =
     {{@RenderCode model.Expression}}
     ;
-string {{= newIndentationBase }};
+{{if alterIndentation}}
+    string {{= newIndentationBase }};
+{{/if}}
 if ({{= flag }})
 {
     {{@WalkElements model.Before}}
-    {{= newIndentationBase }} = {{= this.indentationBase }} + {{: this.indentation[model.Body].Item2 }};
+    {{if alterIndentation}}
+        {{= newIndentationBase }} = {{= oldIndentationBase }} + {{: this.indentation[model.Body].Item2 }};
+    {{/if}}
 }
-else
-{
-    {{= newIndentationBase }} = {{= this.indentationBase }};
-}
+{{if alterIndentation}}
+    else
+    {
+        {{= newIndentationBase }} = {{= oldIndentationBase }} + {{: this.indentation[model].Item2 }};
+    }
+{{/if}}
 
-{{
-    var oldIndentationBase = this.indentationBase;
-    this.indentationBase = newIndentationBase;
-}}
-{{@WalkElement model.Body}}
-{{
-    this.indentationBase = oldIndentationBase;
-}}
+{{wrapif alterIndentation}}
+    {{
+        this.indentationBase = newIndentationBase;
+    }}
+    {{body}}
+        {{@WalkElement model.Body}}
+    {{/body}}
+    {{
+        this.indentationBase = oldIndentationBase;
+    }}
+{{/wrapif}}
 
 if ({{= flag }})
 {

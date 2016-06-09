@@ -39,13 +39,10 @@ namespace Weave.Compiler
 
             public override void WalkBodyElement(BodyElement bodyElement)
             {
-                this.RebaseIndentation(bodyElement, () =>
-                {
-                    var amount = GetIndentationOffset(bodyElement.Indentation, bodyElement.Body);
-                    this.amountToSubtract += amount;
-                    base.WalkBodyElement(bodyElement);
-                    this.amountToSubtract -= amount;
-                });
+                var amount = GetIndentationOffset(bodyElement.Indentation, bodyElement.Body);
+                this.amountToSubtract += amount;
+                base.WalkBodyElement(bodyElement);
+                this.amountToSubtract -= amount;
             }
 
             public override void WalkBranch(Branch branch)
@@ -111,7 +108,32 @@ namespace Weave.Compiler
             {
                 var amount = GetIndentationOffset(wrapIfElement.Indentation, wrapIfElement.Before.Concat(new[] { wrapIfElement.Body }).Concat(wrapIfElement.After));
                 this.amountToSubtract += amount;
-                base.WalkWrapIfElement(wrapIfElement);
+                this.WalkElements(wrapIfElement.Before);
+
+                if (wrapIfElement.Body.Indentation == null)
+                {
+                    this.WalkElement(wrapIfElement.Body);
+                }
+                else
+                {
+                    var originalBaseElement = this.baseElement;
+                    var originalAmountToSubtract = this.amountToSubtract;
+
+                    var trueIndentation = this.ComputeIndentation(wrapIfElement.Body.Indentation);
+                    this.amountToSubtract += GetIndentationOffset(wrapIfElement.Body.Indentation, wrapIfElement.Body.Body);
+                    var falseIndentation = this.ComputeIndentation(wrapIfElement.Body.Indentation);
+                    this.results[wrapIfElement] = Tuple.Create(this.baseElement, falseIndentation);
+                    this.results[wrapIfElement.Body] = Tuple.Create(this.baseElement, trueIndentation);
+
+                    this.baseElement = wrapIfElement.Body;
+                    this.amountToSubtract = MeasureString(wrapIfElement.Body.Indentation);
+                    this.WalkElement(wrapIfElement.Body);
+
+                    this.baseElement = originalBaseElement;
+                    this.amountToSubtract = originalAmountToSubtract;
+                }
+
+                this.WalkElements(wrapIfElement.After);
                 this.amountToSubtract -= amount;
             }
 
@@ -246,21 +268,6 @@ namespace Weave.Compiler
                 }
 
                 return indentation;
-            }
-
-            private void RebaseIndentation(Element element, Action walkInnerElements)
-            {
-                var originalAmountToSubtract = this.amountToSubtract;
-                var originalBaseElement = this.baseElement;
-
-                var currentIndentation = FindIndentation(element);
-                this.results[element] = Tuple.Create(this.baseElement, this.ComputeIndentation(currentIndentation));
-
-                this.amountToSubtract = MeasureString(currentIndentation);
-                this.baseElement = element;
-                walkInnerElements();
-                this.amountToSubtract = originalAmountToSubtract;
-                this.baseElement = originalBaseElement;
             }
         }
     }

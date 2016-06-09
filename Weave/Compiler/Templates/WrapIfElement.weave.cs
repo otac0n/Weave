@@ -43,14 +43,16 @@ namespace
             #line 3 "WrapIfElement.weave"
   
     var flag = this.CreateVariable("flag");
+    var oldIndentationBase = this.indentationBase;
     var newIndentationBase = this.CreateVariable("baseIndentation");
+    var alterIndentation = model.Indentation != null;
 
             #line default
             indentation = __temp0;
             writer.Write(indentation);
             writer.Write("var ");
             writer.Write(
-                #line 7 "WrapIfElement.weave"
+                #line 9 "WrapIfElement.weave"
         flag 
                 #line default
                 );
@@ -58,7 +60,7 @@ namespace
             writer.WriteLine();
             indentation = __originalIndentation + "    ";
             var __model0 =
-                #line 8 "WrapIfElement.weave"
+                #line 10 "WrapIfElement.weave"
                   model.Expression
                 #line default
                 ;
@@ -66,20 +68,28 @@ namespace
             writer.Write(indentation);
             writer.Write(";");
             writer.WriteLine();
-            indentation = __originalIndentation;
-            writer.Write(indentation);
-            writer.Write("string ");
-            writer.Write(
-                #line 10 "WrapIfElement.weave"
-           newIndentationBase 
+            if (
+                #line 12 "WrapIfElement.weave"
+     alterIndentation
                 #line default
-                );
-            writer.Write(";");
-            writer.WriteLine();
+                )
+            {
+                indentation = __originalIndentation;
+                writer.Write(indentation);
+                writer.Write("string ");
+                writer.Write(
+                    #line 13 "WrapIfElement.weave"
+               newIndentationBase 
+                    #line default
+                    );
+                writer.Write(";");
+                writer.WriteLine();
+            }
+            indentation = __originalIndentation;
             writer.Write(indentation);
             writer.Write("if (");
             writer.Write(
-                #line 11 "WrapIfElement.weave"
+                #line 15 "WrapIfElement.weave"
         flag 
                 #line default
                 );
@@ -90,87 +100,129 @@ namespace
             writer.WriteLine();
             indentation = __originalIndentation + "    ";
             var __model1 =
-                #line 13 "WrapIfElement.weave"
+                #line 17 "WrapIfElement.weave"
                     model.Before
                 #line default
                 ;
             WalkElements(__model1, writer, indentation);
-            writer.Write(indentation);
-            writer.Write(
-                #line 14 "WrapIfElement.weave"
-        newIndentationBase 
+            if (
+                #line 18 "WrapIfElement.weave"
+         alterIndentation
                 #line default
-                );
-            writer.Write(" = ");
-            writer.Write(
-                #line 14 "WrapIfElement.weave"
-                                    this.indentationBase 
-                #line default
-                );
-            writer.Write(" + ");
-            writer.Write(__encode(
-                #line 14 "WrapIfElement.weave"
-                                                                  this.indentation[model.Body].Item2 
-                #line default
-                ));
-            writer.Write(";");
-            writer.WriteLine();
+                )
+            {
+                writer.Write(indentation);
+                writer.Write(
+                    #line 19 "WrapIfElement.weave"
+            newIndentationBase 
+                    #line default
+                    );
+                writer.Write(" = ");
+                writer.Write(
+                    #line 19 "WrapIfElement.weave"
+                                        oldIndentationBase 
+                    #line default
+                    );
+                writer.Write(" + ");
+                writer.Write(__encode(
+                    #line 19 "WrapIfElement.weave"
+                                                                    this.indentation[model.Body].Item2 
+                    #line default
+                    ));
+                writer.Write(";");
+                writer.WriteLine();
+            }
             indentation = __originalIndentation;
             writer.Write(indentation);
             writer.Write("}");
             writer.WriteLine();
-            writer.Write(indentation);
-            writer.Write("else");
-            writer.WriteLine();
-            writer.Write(indentation);
-            writer.Write("{");
-            writer.WriteLine();
-            indentation = __originalIndentation + "    ";
-            writer.Write(indentation);
-            writer.Write(
-                #line 18 "WrapIfElement.weave"
-        newIndentationBase 
+            if (
+                #line 22 "WrapIfElement.weave"
+     alterIndentation
                 #line default
-                );
-            writer.Write(" = ");
-            writer.Write(
-                #line 18 "WrapIfElement.weave"
-                                    this.indentationBase 
-                #line default
-                );
-            writer.Write(";");
+                )
+            {
+                writer.Write(indentation);
+                writer.Write("else");
+                writer.WriteLine();
+                writer.Write(indentation);
+                writer.Write("{");
+                writer.WriteLine();
+                indentation = __originalIndentation + "    ";
+                writer.Write(indentation);
+                writer.Write(
+                    #line 25 "WrapIfElement.weave"
+            newIndentationBase 
+                    #line default
+                    );
+                writer.Write(" = ");
+                writer.Write(
+                    #line 25 "WrapIfElement.weave"
+                                        oldIndentationBase 
+                    #line default
+                    );
+                writer.Write(" + ");
+                writer.Write(__encode(
+                    #line 25 "WrapIfElement.weave"
+                                                                    this.indentation[model].Item2 
+                    #line default
+                    ));
+                writer.Write(";");
+                writer.WriteLine();
+                indentation = __originalIndentation;
+                writer.Write(indentation);
+                writer.Write("}");
+                writer.WriteLine();
+            }
             writer.WriteLine();
             indentation = __originalIndentation;
-            writer.Write(indentation);
-            writer.Write("}");
-            writer.WriteLine();
-            writer.WriteLine();
-            var __temp1 = indentation;
-            #line 21 "WrapIfElement.weave"
-  
-    var oldIndentationBase = this.indentationBase;
-    this.indentationBase = newIndentationBase;
+            var __flag0 =
+                #line 29 "WrapIfElement.weave"
+         alterIndentation
+                #line default
+                ;
+            string __baseIndentation0;
+            if (__flag0)
+            {
+                var __temp1 = indentation;
+                #line 30 "WrapIfElement.weave"
+      
+        this.indentationBase = newIndentationBase;
+    
+                #line default
+                indentation = __temp1;
+                __baseIndentation0 = __originalIndentation + "";
+            }
+            else
+            {
+                __baseIndentation0 = __originalIndentation + "";
+            }
 
-            #line default
-            indentation = __temp1;
+            indentation = __baseIndentation0;
+            indentation = __baseIndentation0;
             var __model2 =
-                #line 25 "WrapIfElement.weave"
-               model.Body
+                #line 34 "WrapIfElement.weave"
+                       model.Body
                 #line default
                 ;
             WalkElement(__model2, writer, indentation);
-            var __temp2 = indentation;
-            #line 26 "WrapIfElement.weave"
-  
-    this.indentationBase = oldIndentationBase;
 
-            #line default
-            indentation = __temp2;
+            if (__flag0)
+            {
+                indentation = __originalIndentation;
+                var __temp2 = indentation;
+                #line 36 "WrapIfElement.weave"
+      
+        this.indentationBase = oldIndentationBase;
+    
+                #line default
+                indentation = __temp2;
+            }
             writer.WriteLine();
             writer.Write(indentation);
             writer.Write("if (");
             writer.Write(
-                #line 30 "WrapIfElement.weave"
+                #line 41 "WrapIfElement.weave"
         flag 
                 #line default
                 );
@@ -181,7 +233,7 @@ namespace
             writer.WriteLine();
             indentation = __originalIndentation + "    ";
             var __model3 =
-                #line 32 "WrapIfElement.weave"
+                #line 43 "WrapIfElement.weave"
                     model.After
                 #line default
                 ;

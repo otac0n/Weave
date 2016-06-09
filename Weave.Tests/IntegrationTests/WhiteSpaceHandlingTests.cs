@@ -4,11 +4,14 @@
 
 namespace Weave.Tests.IntegrationTests
 {
+    using System.Collections.Generic;
     using System.Linq;
     using NUnit.Framework;
 
     public class WhiteSpaceHandlingTests
     {
+        public static readonly IList<string> OriginalIndentation = new List<string> { string.Empty, "    ", "\t" };
+
         [Test]
         public void EachBlockWithBlankLineDelimiter_EmitsTightlySpacedBlock()
         {
@@ -167,34 +170,74 @@ namespace Weave.Tests.IntegrationTests
             Assert.That(result, Is.EqualTo("\t a\n\t b\n\t c\n\t d\n\t e\n\t  f\n\t  g\n\t  h\n\t  i\n\t  j\n"));
         }
 
-        [Test]
-        public void WrapIfBlock_EmitsExtraIndentationWhenTheConditionIsTrue()
+        [TestCaseSource("OriginalIndentation")]
+        public void WrapIfBlock_EmitsExtraIndentationWhenTheConditionIsTrue(string indentation)
         {
             var template = "{{wrapif true}}\n    outer\n        {{body}}\n            inner\n        {{/body}}\n    /outer\n{{/wrapif}}";
 
-            var result = TemplateHelper.Render(template, null);
+            var result = TemplateHelper.Render(template, null, indentation);
 
-            Assert.That(result, Is.EqualTo("outer\n    inner\n/outer\n"));
+            Assert.That(result, Is.EqualTo(string.Format("{0}outer\n{0}    inner\n{0}/outer\n", indentation)));
         }
 
-        [Test]
-        public void WrapIfBlock_EmitsNoExtraIndentationWhenTheConditionIsFalse()
+        [TestCaseSource("OriginalIndentation")]
+        public void WrapIfBlock_EmitsNoExtraIndentationWhenTheConditionIsFalse(string indentation)
         {
             var template = "{{wrapif false}}\n    outer\n        {{body}}\n            inner\n        {{/body}}\n    /outer\n{{/wrapif}}";
 
-            var result = TemplateHelper.Render(template, null);
+            var result = TemplateHelper.Render(template, null, indentation);
 
-            Assert.That(result, Is.EqualTo("inner\n"));
+            Assert.That(result, Is.EqualTo(string.Format("{0}inner\n", indentation)));
         }
 
-        [Test]
-        public void WrapIfBlock_DoesNotBreakOptimizationsWhenTheBodyMatchesTheIndentationOfTheBeforeAndWrapIfElements()
+        [TestCaseSource("OriginalIndentation")]
+        public void WrapIfBlock_EmitsLeadingIndentationWhenTheConditionIsFalse(string indentation)
+        {
+            var template = "    {{wrapif false}}\n        outer\n            {{body}}\n                inner\n            {{/body}}\n        /outer\n    {{/wrapif}}";
+
+            var result = TemplateHelper.Render(template, null, indentation);
+
+            Assert.That(result, Is.EqualTo(string.Format("{0}    inner\n", indentation)));
+        }
+
+        [TestCaseSource("OriginalIndentation")]
+        public void WrapIfBlock_EmitsLeadingIndentationWhenTheConditionIsFalseAndTheWrapIfElementIsAlsoWrapped(string indentation)
+        {
+            var template = "    {{if true}}\n            {{wrapif false}}\n                outer\n                    {{body}}\n                        inner\n                    {{/body}}\n                /outer\n            {{/wrapif}}\n    {{/if}}";
+
+            var result = TemplateHelper.Render(template, null, indentation);
+
+            Assert.That(result, Is.EqualTo(string.Format("{0}    inner\n", indentation)));
+        }
+
+        [TestCaseSource("OriginalIndentation")]
+        public void WrapIfBlock_DoesNotBreakOptimizationsWhenTheBodyMatchesTheIndentationOfTheBeforeAndWrapIfElements(string indentation)
         {
             var template = "{{wrapif false}}\nouter\n{{body}}\n    inner\n{{/body}}\n/outer\n{{/wrapif}}";
 
-            var result = TemplateHelper.Render(template, null);
+            var result = TemplateHelper.Render(template, null, indentation);
 
-            Assert.That(result, Is.EqualTo("inner\n"));
+            Assert.That(result, Is.EqualTo(string.Format("{0}inner\n", indentation)));
+        }
+
+        [TestCaseSource("OriginalIndentation")]
+        public void InlineWrapIfBlock_EmitsExpectedIndentation(string indentation)
+        {
+            var template = "    {{wrapif false}}outer{{body}}inner{{/body}}/outer{{/wrapif}}";
+
+            var result = TemplateHelper.Render(template, null, indentation);
+
+            Assert.That(result, Is.EqualTo(string.Format("{0}    inner", indentation)));
+        }
+
+        [TestCaseSource("OriginalIndentation")]
+        public void WrapIfBlock_EmitsExpectedIndentation(string indentation)
+        {
+            var template = "    {{wrapif false}}outer{{body}}inner{{/body}}/outer{{/wrapif}}";
+
+            var result = TemplateHelper.Render(template, null, indentation);
+
+            Assert.That(result, Is.EqualTo(string.Format("{0}    inner", indentation)));
         }
     }
 }

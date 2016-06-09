@@ -23,16 +23,16 @@ namespace Weave.Compiler
         {
             var graph = ControlFlowGraphCreator.Create(template);
 
-            var bases = new HashSet<Element>();
             var toRemove = new List<Element>();
 
             foreach (var node in graph)
             {
                 Tuple<Element, string> indent;
                 indentation.TryGetValue(node.Value, out indent);
-                if (indent?.Item1 != null)
+
+                if (node.Value is WrapIfElement || node.Value is BodyElement)
                 {
-                    bases.Add(indent.Item1);
+                    continue;
                 }
 
                 if (indent != null)
@@ -52,10 +52,7 @@ namespace Weave.Compiler
 
             foreach (var e in toRemove)
             {
-                if (!bases.Contains(e))
-                {
-                    indentation.Remove(e);
-                }
+                indentation.Remove(e);
             }
         }
     }
