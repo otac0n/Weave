@@ -6,15 +6,16 @@
 *.orig
 
 # Ignore all Visual Studio generated files.
+*.sln.ide/
+.vs/
 *.suo
 *.user
 *.ncb
 _ReSharper.*
 *.[Cc]ache
+_NCrunch*/
 *.ncrunch*
 *.docstates
-*.sln.ide/
-.vs/
 
 # Ignore all MonoDevelop generated files.
 *.userprefs
@@ -27,8 +28,8 @@ Thumbs.db
 TestResult.xml
 *.VisualState.xml
 
-# Ignore Pegasus generated files.
-*.peg.cs
-
 # Ignore NuGet packages (let package restore handle these)
 /packages/
+
+# Ignore Pegasus generated files.
+*.peg.cs
