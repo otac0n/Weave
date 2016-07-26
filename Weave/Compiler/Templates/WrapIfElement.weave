@@ -6,7 +6,7 @@
     var newIndentationBase = this.CreateVariable("baseIndentation");
     var alterIndentation = model.Indentation != null;
 }}
-var {{= flag }} =
+bool {{= flag }} =
     {{@RenderCode model.Expression}}
     ;
 {{if alterIndentation}}
