@@ -15,105 +15,189 @@ namespace Weave.Tests.IntegrationTests
         [Test]
         public void EachBlockWithBlankLineDelimiter_EmitsTightlySpacedBlock()
         {
-            var template = "{\n    {{each i in model}}\n        {{= i }}\n    {{delimit}}\n\n    {{/each}}\n}";
+            var template = StringUtilities.JoinLines(
+                "{",
+                "    {{each i in model}}",
+                "        {{= i }}",
+                "    {{delimit}}",
+                "",
+                "    {{/each}}",
+                "}");
             var model = Enumerable.Range(0, 3);
 
             var result = TemplateHelper.Render(template, model);
 
-            Assert.That(result, Is.EqualTo("{\n    0\n\n    1\n\n    2\n}"));
+            Assert.That(result, Is.EqualTo(StringUtilities.JoinLines(
+                "{",
+                "    0",
+                "",
+                "    1",
+                "",
+                "    2",
+                "}")));
         }
 
         [Test]
         public void InlineEachBlockWithDelimiterContainingNewLine_EmitsExpectedIndentation()
         {
-            var template = "{{if true}}\n    var foo = {{each i in model}}x[{{= i }}]{{delimit}} ??\n              {{/each}};\n{{/if}}\n";
+            var template = StringUtilities.JoinLines(
+                "{{if true}}",
+                "    var foo = {{each i in model}}x[{{= i }}]{{delimit}} ??",
+                "              {{/each}};",
+                "{{/if}}",
+                "");
             var model = Enumerable.Range(0, 3);
 
             var result = TemplateHelper.Render(template, model);
 
-            Assert.That(result, Is.EqualTo("var foo = x[0] ??\n          x[1] ??\n          x[2];\n"));
+            Assert.That(result, Is.EqualTo(StringUtilities.JoinLines(
+                "var foo = x[0] ??",
+                "          x[1] ??",
+                "          x[2];",
+                "")));
         }
 
         [Test]
         public void SimpleEachBlockWithASingleLineBody_EmitsASingleLinePerIterationOfTheBody()
         {
-            var template = "foo\n{{each i in model}}\n    bar\n{{/each}}\nbaz";
+            var template = StringUtilities.JoinLines(
+                "foo",
+                "{{each i in model}}",
+                "    bar",
+                "{{/each}}",
+                "baz");
             var model = Enumerable.Range(0, 3);
 
             var result = TemplateHelper.Render(template, model);
 
-            Assert.That(result, Is.EqualTo("foo\nbar\nbar\nbar\nbaz"));
+            Assert.That(result, Is.EqualTo(StringUtilities.JoinLines(
+                "foo",
+                "bar",
+                "bar",
+                "bar",
+                "baz")));
         }
 
         [Test]
         public void SimpleIfBlockWithASingleLineBody_EmitsASingleLineWhenTheConditionIsMet()
         {
-            var template = "foo\n{{if model}}\n    bar\n{{/if}}\nbaz";
+            var template = StringUtilities.JoinLines(
+                "foo",
+                "{{if model}}",
+                "    bar",
+                "{{/if}}",
+                "baz");
             var model = true;
 
             var result = TemplateHelper.Render(template, model);
 
-            Assert.That(result, Is.EqualTo("foo\nbar\nbaz"));
+            Assert.That(result, Is.EqualTo(StringUtilities.JoinLines(
+                "foo",
+                "bar",
+                "baz")));
         }
 
         [Test]
         public void IfBlockWithAnInlineStartTag_EmitsAllWhiteSpaceWhenTheConditionIsMet()
         {
-            var template = "foo\n    bar {{if model}}\n    baz\n{{/if}}\nbaz";
+            var template = StringUtilities.JoinLines(
+                "foo",
+                "    bar {{if model}}",
+                "    baz",
+                "{{/if}}",
+                "baz");
             var model = true;
 
             var result = TemplateHelper.Render(template, model);
 
-            Assert.That(result, Is.EqualTo("foo\n    bar \n    baz\n\nbaz"));
+            Assert.That(result, Is.EqualTo(StringUtilities.JoinLines(
+                "foo",
+                "    bar ",
+                "    baz",
+                "",
+                "baz")));
         }
 
         [Test]
         public void IfBlockWithAnInlineStartTag_EmitsSurroundingWhiteSpaceWhenTheConditionIsNotMet()
         {
-            var template = "foo\n    bar {{if model}}\n    baz\n{{/if}}\nbaz";
+            var template = StringUtilities.JoinLines(
+                "foo",
+                "    bar {{if model}}",
+                "    baz",
+                "{{/if}}",
+                "baz");
             var model = false;
 
             var result = TemplateHelper.Render(template, model);
 
-            Assert.That(result, Is.EqualTo("foo\n    bar \nbaz"));
+            Assert.That(result, Is.EqualTo(StringUtilities.JoinLines(
+                "foo",
+                "    bar ",
+                "baz")));
         }
 
         [Test]
         public void IfBlockWithAnInlineEndTag_EmitsAllWhiteSpaceWhenTheConditionIsMet()
         {
-            var template = "foo\n{{if model}}\n    baz {{/if}}\nbaz";
+            var template = StringUtilities.JoinLines(
+                "foo",
+                "{{if model}}",
+                "    baz {{/if}}",
+                "baz");
             var model = true;
 
             var result = TemplateHelper.Render(template, model);
 
-            Assert.That(result, Is.EqualTo("foo\n\n    baz \nbaz"));
+            Assert.That(result, Is.EqualTo(StringUtilities.JoinLines(
+                "foo",
+                "",
+                "    baz ",
+                "baz")));
         }
 
         [Test]
         public void IfBlockWithAnInlineEndTag_EmitsSurroundingWhiteSpaceWhenTheConditionIsNotMet()
         {
-            var template = "foo\n{{if model}}\n    baz {{/if}}\nbaz";
+            var template = StringUtilities.JoinLines(
+                "foo",
+                "{{if model}}",
+                "    baz {{/if}}",
+                "baz");
             var model = false;
 
             var result = TemplateHelper.Render(template, model);
 
-            Assert.That(result, Is.EqualTo("foo\n\nbaz"));
+            Assert.That(result, Is.EqualTo(StringUtilities.JoinLines(
+                "foo",
+                "",
+                "baz")));
         }
 
         [Test]
         public void StatementBlockOnALineOfItsOwn_DoesNotEmitItselfOrTheLine()
         {
-            var template = "foo\n    {{ /* no-op */ }}    \r\nbar";
+            var template = StringUtilities.JoinLines(
+                "foo",
+                "    {{ /* no-op */ }}    ",
+                "bar");
 
             var result = TemplateHelper.Render(template, null);
 
-            Assert.That(result, Is.EqualTo("foo\nbar"));
+            Assert.That(result, Is.EqualTo(StringUtilities.JoinLines(
+                "foo",
+                "bar")));
         }
 
         [Test]
         public void StatementBlockLineWithExcessInternalWhiteSpace_DoesNotEmitAnyExternalWhiteSpace()
         {
-            var template = "    {{\n\n   /* no-op */\n\n               }}    ";
+            var template = StringUtilities.JoinLines(
+                "    {{",
+                "",
+                "   /* no-op */",
+                "",
+                "               }}    ");
 
             var result = TemplateHelper.Render(template, null);
 
@@ -123,7 +207,11 @@ namespace Weave.Tests.IntegrationTests
         [Test]
         public void StatementBlockAtTheTop_DoesNotCauseAPrecedingNewLineToBeEmitted()
         {
-            var template = "{{\n    /* no-op */\n}}\n<!DOCTYPE html>";
+            var template = StringUtilities.JoinLines(
+                "{{",
+                "    /* no-op */",
+                "}}",
+                "<!DOCTYPE html>");
 
             var result = TemplateHelper.Render(template, null);
 
@@ -133,91 +221,204 @@ namespace Weave.Tests.IntegrationTests
         [Test]
         public void NestedIfStatements_StripAllIndentation()
         {
-            var template = "{{if true}}\n    {{if true}}\n        foo\n    {{/if}}\n{{/if}}";
+            var template = StringUtilities.JoinLines(
+                "{{if true}}",
+                "    {{if true}}",
+                "        foo",
+                "    {{/if}}",
+                "{{/if}}");
 
             var result = TemplateHelper.Render(template, null);
 
-            Assert.That(result, Is.EqualTo("foo\n"));
+            Assert.That(result, Is.EqualTo(StringUtilities.JoinLines(
+                "foo",
+                "")));
         }
 
         [Test]
         public void IfStatementWithInconsistentIndenting_ChoosesSmallestNonzeroIndentation()
         {
-            var template = "    {{if true}}\n        foo\n      foo\n       foo\n    foo\n    {{/if}}";
+            var template = StringUtilities.JoinLines(
+                "    {{if true}}",
+                "        foo",
+                "      foo",
+                "       foo",
+                "    foo",
+                "    {{/if}}");
 
             var result = TemplateHelper.Render(template, null);
 
-            Assert.That(result, Is.EqualTo("      foo\n    foo\n     foo\n  foo\n"));
+            Assert.That(result, Is.EqualTo(StringUtilities.JoinLines(
+                "      foo",
+                "    foo",
+                "     foo",
+                "  foo",
+                "")));
         }
 
         [Test]
         public void IfStatementWithMixedTabsAndSpaces_TrimsFromTheRightWhenRemovingWhiteSpace()
         {
-            var template = "@tabsize 4\n    {{if true}}\n\t\ta\n \t \tb\n  \t \tc\n   \t \td\n     \te\n \t \tf\n \t  \tg\n \t   \th\n \t    i\n    {{/if}}";
+            var template = StringUtilities.JoinLines(
+                "@tabsize 4",
+                "    {{if true}}",
+                "\t\ta",
+                " \t \tb",
+                "  \t \tc",
+                "   \t \td",
+                "     \te",
+                " \t \tf",
+                " \t  \tg",
+                " \t   \th",
+                " \t    i",
+                "    {{/if}}");
 
             var result = TemplateHelper.Render(template, null);
 
-            Assert.That(result, Is.EqualTo("\ta\n \tb\n  \tc\n   \td\n    e\n \tf\n \tg\n \th\n \ti\n"));
+            Assert.That(result, Is.EqualTo(StringUtilities.JoinLines(
+                "\ta",
+                " \tb",
+                "  \tc",
+                "   \td",
+                "    e",
+                " \tf",
+                " \tg",
+                " \th",
+                " \ti",
+                "")));
         }
 
         [Test]
         public void IfStatementWithMixedTabsAndSpacesAndIndentationsThatIsNotAnEvenMultipleOfTheTabSize_TrimsFromTheRightWhenRemovingWhiteSpace()
         {
-            var template = "@tabsize 4\n     {{if true}}\n\t\ta\n\t \tb\n\t  \tc\n\t   \td\n\t    e\n\t\t f\n\t \t g\n\t  \t h\n\t   \t i\n\t     j\n     {{/if}}";
+            var template = StringUtilities.JoinLines(
+                "@tabsize 4",
+                "     {{if true}}",
+                "\t\ta",
+                "\t \tb",
+                "\t  \tc",
+                "\t   \td",
+                "\t    e",
+                "\t\t f",
+                "\t \t g",
+                "\t  \t h",
+                "\t   \t i",
+                "\t     j",
+                "     {{/if}}");
 
             var result = TemplateHelper.Render(template, null);
 
-            Assert.That(result, Is.EqualTo("\t a\n\t b\n\t c\n\t d\n\t e\n\t  f\n\t  g\n\t  h\n\t  i\n\t  j\n"));
+            Assert.That(result, Is.EqualTo(StringUtilities.JoinLines(
+                "\t a",
+                "\t b",
+                "\t c",
+                "\t d",
+                "\t e",
+                "\t  f",
+                "\t  g",
+                "\t  h",
+                "\t  i",
+                "\t  j",
+                "")));
         }
 
         [TestCaseSource("OriginalIndentation")]
         public void WrapIfBlock_EmitsExtraIndentationWhenTheConditionIsTrue(string indentation)
         {
-            var template = "{{wrapif true}}\n    outer\n        {{body}}\n            inner\n        {{/body}}\n    /outer\n{{/wrapif}}";
+            var template = StringUtilities.JoinLines(
+                "{{wrapif true}}",
+                "    outer",
+                "        {{body}}",
+                "            inner",
+                "        {{/body}}",
+                "    /outer",
+                "{{/wrapif}}");
 
             var result = TemplateHelper.Render(template, null, indentation);
 
-            Assert.That(result, Is.EqualTo(string.Format("{0}outer\n{0}    inner\n{0}/outer\n", indentation)));
+            Assert.That(result, Is.EqualTo(StringUtilities.JoinLines(
+                $"{indentation}outer",
+                $"{indentation}    inner",
+                $"{indentation}/outer",
+                $"")));
         }
 
         [TestCaseSource("OriginalIndentation")]
         public void WrapIfBlock_EmitsNoExtraIndentationWhenTheConditionIsFalse(string indentation)
         {
-            var template = "{{wrapif false}}\n    outer\n        {{body}}\n            inner\n        {{/body}}\n    /outer\n{{/wrapif}}";
+            var template = StringUtilities.JoinLines(
+                "{{wrapif false}}",
+                "    outer",
+                "        {{body}}",
+                "            inner",
+                "        {{/body}}",
+                "    /outer",
+                "{{/wrapif}}");
 
             var result = TemplateHelper.Render(template, null, indentation);
 
-            Assert.That(result, Is.EqualTo(string.Format("{0}inner\n", indentation)));
+            Assert.That(result, Is.EqualTo(StringUtilities.JoinLines(
+                $"{indentation}inner",
+                $"")));
         }
 
         [TestCaseSource("OriginalIndentation")]
         public void WrapIfBlock_EmitsLeadingIndentationWhenTheConditionIsFalse(string indentation)
         {
-            var template = "    {{wrapif false}}\n        outer\n            {{body}}\n                inner\n            {{/body}}\n        /outer\n    {{/wrapif}}";
+            var template = StringUtilities.JoinLines(
+                "    {{wrapif false}}",
+                "        outer",
+                "            {{body}}",
+                "                inner",
+                "            {{/body}}",
+                "        /outer",
+                "    {{/wrapif}}");
 
             var result = TemplateHelper.Render(template, null, indentation);
 
-            Assert.That(result, Is.EqualTo(string.Format("{0}    inner\n", indentation)));
+            Assert.That(result, Is.EqualTo(StringUtilities.JoinLines(
+                $"{indentation}    inner",
+                $"")));
         }
 
         [TestCaseSource("OriginalIndentation")]
         public void WrapIfBlock_EmitsLeadingIndentationWhenTheConditionIsFalseAndTheWrapIfElementIsAlsoWrapped(string indentation)
         {
-            var template = "    {{if true}}\n            {{wrapif false}}\n                outer\n                    {{body}}\n                        inner\n                    {{/body}}\n                /outer\n            {{/wrapif}}\n    {{/if}}";
+            var template = StringUtilities.JoinLines(
+                "    {{if true}}",
+                "            {{wrapif false}}",
+                "                outer",
+                "                    {{body}}",
+                "                        inner",
+                "                    {{/body}}",
+                "                /outer",
+                "            {{/wrapif}}",
+                "    {{/if}}");
 
             var result = TemplateHelper.Render(template, null, indentation);
 
-            Assert.That(result, Is.EqualTo(string.Format("{0}    inner\n", indentation)));
+            Assert.That(result, Is.EqualTo(StringUtilities.JoinLines(
+                $"{indentation}    inner",
+                $"")));
         }
 
         [TestCaseSource("OriginalIndentation")]
         public void WrapIfBlock_DoesNotBreakOptimizationsWhenTheBodyMatchesTheIndentationOfTheBeforeAndWrapIfElements(string indentation)
         {
-            var template = "{{wrapif false}}\nouter\n{{body}}\n    inner\n{{/body}}\n/outer\n{{/wrapif}}";
+            var template = StringUtilities.JoinLines(
+                "{{wrapif false}}",
+                "outer",
+                "{{body}}",
+                "    inner",
+                "{{/body}}",
+                "/outer",
+                "{{/wrapif}}");
 
             var result = TemplateHelper.Render(template, null, indentation);
 
-            Assert.That(result, Is.EqualTo(string.Format("{0}inner\n", indentation)));
+            Assert.That(result, Is.EqualTo(StringUtilities.JoinLines(
+                $"{indentation}inner",
+                $"")));
         }
 
         [TestCaseSource("OriginalIndentation")]
@@ -227,17 +428,7 @@ namespace Weave.Tests.IntegrationTests
 
             var result = TemplateHelper.Render(template, null, indentation);
 
-            Assert.That(result, Is.EqualTo(string.Format("{0}    inner", indentation)));
-        }
-
-        [TestCaseSource("OriginalIndentation")]
-        public void WrapIfBlock_EmitsExpectedIndentation(string indentation)
-        {
-            var template = "    {{wrapif false}}outer{{body}}inner{{/body}}/outer{{/wrapif}}";
-
-            var result = TemplateHelper.Render(template, null, indentation);
-
-            Assert.That(result, Is.EqualTo(string.Format("{0}    inner", indentation)));
+            Assert.That(result, Is.EqualTo($"{indentation}    inner"));
         }
     }
 }

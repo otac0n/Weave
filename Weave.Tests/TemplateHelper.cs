@@ -34,7 +34,7 @@ namespace Weave.Tests
 
         public static string Render(string template, object model, string indentation = null)
         {
-            template = "@namespace Tests\n" + template;
+            template = "@namespace Tests" + Environment.NewLine + template;
 
             var result = WeaveCompiler.Compile(new WeaveParser().Parse(template));
             var compilationUnit = new CodeSnippetCompileUnit(result.Code);
@@ -46,7 +46,7 @@ namespace Weave.Tests
 
             using (var writer = new StringWriter())
             {
-                writer.NewLine = "\n";
+                writer.NewLine = Environment.NewLine;
                 var instance = Activator.CreateInstance(type);
                 method.Invoke(instance, new[] { model, writer, indentation });
                 return writer.ToString();
