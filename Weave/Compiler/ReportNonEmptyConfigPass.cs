@@ -8,14 +8,14 @@ namespace Weave.Compiler
 
     internal class ReportNonEmptyConfigPass : CompilePass
     {
-        public override IList<string> ErrorsProduced
-        {
-            get { return new[] { "WEAVE0006" }; }
-        }
-
         public override IList<string> BlockedByErrors
         {
             get { return new string[0]; }
+        }
+
+        public override IList<string> ErrorsProduced
+        {
+            get { return new[] { "WEAVE0006" }; }
         }
 
         public override void Run(Template template, CompileResult result)

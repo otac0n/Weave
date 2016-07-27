@@ -26,9 +26,9 @@ namespace Weave.Compiler
 
         private class MeasureIndentationWalker : TemplateWalker
         {
-            private Dictionary<Element, Tuple<Element, string>> results = new Dictionary<Element, Tuple<Element, string>>();
             private int amountToSubtract = 0;
             private Element baseElement;
+            private Dictionary<Element, Tuple<Element, string>> results = new Dictionary<Element, Tuple<Element, string>>();
 
             public Dictionary<Element, Tuple<Element, string>> Results
             {

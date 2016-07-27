@@ -125,14 +125,14 @@ namespace Weave.Compiler
                 get { return this.value; }
             }
 
-            internal void AddPrevious(Node node)
-            {
-                this.previous.Add(node);
-            }
-
             internal void AddNext(Node node)
             {
                 this.next.Add(node);
+            }
+
+            internal void AddPrevious(Node node)
+            {
+                this.previous.Add(node);
             }
         }
     }

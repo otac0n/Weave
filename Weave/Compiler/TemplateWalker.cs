@@ -19,6 +19,10 @@ namespace Weave.Compiler
             this.WalkElements(branch.Body);
         }
 
+        public virtual void WalkCodeElement(CodeElement codeElement)
+        {
+        }
+
         public virtual void WalkEachElement(EachElement eachElement)
         {
             this.WalkElements(eachElement.EachBody.Body);
@@ -95,10 +99,6 @@ namespace Weave.Compiler
             {
                 throw new NotImplementedException(string.Format(CultureInfo.CurrentCulture, "Unimplemented element '{0}'.", element.GetType().Name));
             }
-        }
-
-        public virtual void WalkCodeElement(CodeElement codeElement)
-        {
         }
 
         public virtual void WalkElements(IEnumerable<Element> elements)

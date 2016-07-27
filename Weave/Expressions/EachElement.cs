@@ -9,10 +9,10 @@ namespace Weave.Expressions
     /// </summary>
     public class EachElement : Element
     {
-        private readonly EachBody eachBody;
         private readonly DelimitBody delimitBody;
-        private readonly NoneBody noneBody;
+        private readonly EachBody eachBody;
         private readonly string endIndentation;
+        private readonly NoneBody noneBody;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="EachElement"/> class.
@@ -35,14 +35,6 @@ namespace Weave.Expressions
         }
 
         /// <summary>
-        /// Gets the optional none-body of this <see cref="EachElement"/>.
-        /// </summary>
-        public EachBody EachBody
-        {
-            get { return this.eachBody; }
-        }
-
-        /// <summary>
         /// Gets the optional delimit-body of this <see cref="EachElement"/>.
         /// </summary>
         public DelimitBody DelimitBody
@@ -53,9 +45,9 @@ namespace Weave.Expressions
         /// <summary>
         /// Gets the optional none-body of this <see cref="EachElement"/>.
         /// </summary>
-        public NoneBody NoneBody
+        public EachBody EachBody
         {
-            get { return this.noneBody; }
+            get { return this.eachBody; }
         }
 
         /// <summary>
@@ -64,6 +56,14 @@ namespace Weave.Expressions
         public string EndIndentation
         {
             get { return this.endIndentation; }
+        }
+
+        /// <summary>
+        /// Gets the optional none-body of this <see cref="EachElement"/>.
+        /// </summary>
+        public NoneBody NoneBody
+        {
+            get { return this.noneBody; }
         }
     }
 }

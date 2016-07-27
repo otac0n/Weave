@@ -4,20 +4,18 @@ namespace Weave.Expressions
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
 
     /// <summary>
     /// Represents a body with conditional surrounding content.
     /// </summary>
     public class WrapIfElement : Element
     {
-        private readonly string indentation;
-        private readonly SourceSpan expression;
+        private readonly IList<Element> after;
         private readonly IList<Element> before;
         private readonly BodyElement body;
-        private readonly IList<Element> after;
         private readonly string endIndentation;
+        private readonly SourceSpan expression;
+        private readonly string indentation;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="WrapIfElement"/> class.
@@ -59,19 +57,11 @@ namespace Weave.Expressions
         }
 
         /// <summary>
-        /// Gets the indentation of this <see cref="WrapIfElement"/>.
+        /// Gets the content that conditionally appears after the <see cref="Body"/>.
         /// </summary>
-        public string Indentation
+        public IList<Element> After
         {
-            get { return this.indentation; }
-        }
-
-        /// <summary>
-        /// Gets the code expression that determines whether the <see cref="Body"/> will be surrounded by content.
-        /// </summary>
-        public SourceSpan Expression
-        {
-            get { return this.expression; }
+            get { return this.after; }
         }
 
         /// <summary>
@@ -91,19 +81,27 @@ namespace Weave.Expressions
         }
 
         /// <summary>
-        /// Gets the content that conditionally appears after the <see cref="Body"/>.
-        /// </summary>
-        public IList<Element> After
-        {
-            get { return this.after; }
-        }
-
-        /// <summary>
         /// Gets the ending indentation of this <see cref="WrapIfElement"/>.
         /// </summary>
         public string EndIndentation
         {
             get { return this.endIndentation; }
+        }
+
+        /// <summary>
+        /// Gets the code expression that determines whether the <see cref="Body"/> will be surrounded by content.
+        /// </summary>
+        public SourceSpan Expression
+        {
+            get { return this.expression; }
+        }
+
+        /// <summary>
+        /// Gets the indentation of this <see cref="WrapIfElement"/>.
+        /// </summary>
+        public string Indentation
+        {
+            get { return this.indentation; }
         }
     }
 }

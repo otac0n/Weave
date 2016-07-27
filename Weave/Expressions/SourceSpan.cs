@@ -13,8 +13,8 @@ namespace Weave.Expressions
     public class SourceSpan
     {
         private readonly Cursor end;
-        private readonly string value;
         private readonly Cursor start;
+        private readonly string value;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SourceSpan"/> class.
@@ -43,19 +43,19 @@ namespace Weave.Expressions
         }
 
         /// <summary>
-        /// Gets the value of the <see cref="SourceSpan"/>.
-        /// </summary>
-        public string Value
-        {
-            get { return this.value; }
-        }
-
-        /// <summary>
         /// Gets the cursor just before the <see cref="SourceSpan"/>.
         /// </summary>
         public Cursor Start
         {
             get { return this.start; }
+        }
+
+        /// <summary>
+        /// Gets the value of the <see cref="SourceSpan"/>.
+        /// </summary>
+        public string Value
+        {
+            get { return this.value; }
         }
 
         /// <inheritdoc />

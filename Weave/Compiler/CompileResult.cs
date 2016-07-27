@@ -23,14 +23,14 @@ namespace Weave.Compiler
         }
 
         /// <summary>
-        /// Gets the collection of errors that occurred during compilation.
-        /// </summary>
-        public IList<CompilerError> Errors { get; private set; }
-
-        /// <summary>
         /// Gets or sets the code resulting from compilation.
         /// </summary>
         public string Code { get; set; }
+
+        /// <summary>
+        /// Gets the collection of errors that occurred during compilation.
+        /// </summary>
+        public IList<CompilerError> Errors { get; private set; }
 
         internal void AddError(Cursor cursor, Expression<Func<string>> error, params object[] args)
         {

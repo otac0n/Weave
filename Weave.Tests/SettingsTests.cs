@@ -5,19 +5,18 @@ namespace Weave.Tests
     using System.Linq;
     using NUnit.Framework;
     using Weave.Compiler;
-    using Weave.Parser;
 
     [TestFixture]
     public class SettingsTests
     {
         [Test]
-        public void Compile_WhenTemplateDoesNotContainNamespaceSetting_YieldsError()
+        public void Compile_WhenTemplateContainsEncodedEchoExpressionAndEncodeSetting_Succeeds()
         {
-            var template = string.Empty;
+            var template = "@namespace Tests\n@encode EncodeFoo\n{{: foo }}";
 
             var results = WeaveCompiler.Compile(new WeaveParser().Parse(template));
 
-            Assert.That(results.Errors.Single().ErrorNumber, Is.EqualTo("WEAVE0004"));
+            Assert.That(results.Errors, Is.Empty);
         }
 
         [Test]
@@ -31,13 +30,13 @@ namespace Weave.Tests
         }
 
         [Test]
-        public void Compile_WhenTemplateContainsEncodedEchoExpressionAndEncodeSetting_Succeeds()
+        public void Compile_WhenTemplateDoesNotContainNamespaceSetting_YieldsError()
         {
-            var template = "@namespace Tests\n@encode EncodeFoo\n{{: foo }}";
+            var template = string.Empty;
 
             var results = WeaveCompiler.Compile(new WeaveParser().Parse(template));
 
-            Assert.That(results.Errors, Is.Empty);
+            Assert.That(results.Errors.Single().ErrorNumber, Is.EqualTo("WEAVE0004"));
         }
     }
 }

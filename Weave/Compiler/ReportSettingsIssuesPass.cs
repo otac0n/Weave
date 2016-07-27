@@ -27,14 +27,14 @@ namespace Weave.Compiler
             { "static", @"^\s*([Tt][Rr][Uu][Ee]|[Ff][Aa][Ll][Ss][Ee])\s*$" },
         };
 
-        public override IList<string> ErrorsProduced
-        {
-            get { return new[] { "WEAVE0001", "WEAVE0002", "WEAVE0003", "WEAVE0004" }; }
-        }
-
         public override IList<string> BlockedByErrors
         {
             get { return new string[0]; }
+        }
+
+        public override IList<string> ErrorsProduced
+        {
+            get { return new[] { "WEAVE0001", "WEAVE0002", "WEAVE0003", "WEAVE0004" }; }
         }
 
         public override void Run(Template template, CompileResult result)

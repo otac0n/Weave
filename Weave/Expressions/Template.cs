@@ -13,11 +13,11 @@ namespace Weave.Expressions
     public class Template
     {
         private readonly Template config;
-        private readonly Cursor start;
         private readonly IList<Element> elements;
-        private readonly Cursor settingsEnd;
-        private readonly IList<KeyValuePair<SourceSpan, SourceSpan>> settings;
         private readonly Cursor end;
+        private readonly IList<KeyValuePair<SourceSpan, SourceSpan>> settings;
+        private readonly Cursor settingsEnd;
+        private readonly Cursor start;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Template"/> class.
@@ -126,6 +126,14 @@ namespace Weave.Expressions
         }
 
         /// <summary>
+        /// Gets the settings in this <see cref="Template"/>.
+        /// </summary>
+        public IList<KeyValuePair<SourceSpan, SourceSpan>> Settings
+        {
+            get { return this.settings; }
+        }
+
+        /// <summary>
         /// Gets the cursor after the settings section.
         /// </summary>
         public Cursor SettingsEnd
@@ -139,14 +147,6 @@ namespace Weave.Expressions
         public Cursor Start
         {
             get { return this.start; }
-        }
-
-        /// <summary>
-        /// Gets the settings in this <see cref="Template"/>.
-        /// </summary>
-        public IList<KeyValuePair<SourceSpan, SourceSpan>> Settings
-        {
-            get { return this.settings; }
         }
     }
 }

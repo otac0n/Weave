@@ -9,14 +9,14 @@ namespace Weave.Compiler
 
     internal class ReportEncodingIssuePass : CompilePass
     {
-        public override IList<string> ErrorsProduced
-        {
-            get { return new[] { "WEAVE0005" }; }
-        }
-
         public override IList<string> BlockedByErrors
         {
             get { return new string[0]; }
+        }
+
+        public override IList<string> ErrorsProduced
+        {
+            get { return new[] { "WEAVE0005" }; }
         }
 
         public override void Run(Template template, CompileResult result)

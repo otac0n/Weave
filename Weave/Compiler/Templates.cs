@@ -32,17 +32,29 @@ namespace Weave.Compiler
             this.writer = writer;
         }
 
-        public override void WalkTemplate(Template template)
+        public override void WalkBodyElement(BodyElement bodyElement)
         {
-            this.indentation = IndentationAnalyzer.Analyze(template);
-            IndentationOptimizer.Optimize(this.indentation, template);
+            this.RenderBodyElement(bodyElement, this.writer, this.currentIndentation);
+        }
 
-            this.RenderTemplate(template, this.writer, this.currentIndentation);
+        public override void WalkBranch(Branch branch)
+        {
+            this.RenderBranch(branch, this.writer, this.currentIndentation);
         }
 
         public override void WalkCodeElement(CodeElement codeElement)
         {
             this.RenderCodeElement(codeElement, this.writer, this.currentIndentation);
+        }
+
+        public override void WalkEachElement(EachElement eachElement)
+        {
+            this.RenderEachElement(eachElement, this.writer, this.currentIndentation);
+        }
+
+        public override void WalkEchoTag(EchoTag echoTag)
+        {
+            this.RenderEchoTag(echoTag, this.writer, this.currentIndentation);
         }
 
         public override void WalkElement(Element element)
@@ -56,24 +68,9 @@ namespace Weave.Compiler
             this.RenderIfElement(ifElement, this.writer, this.currentIndentation);
         }
 
-        public override void WalkBodyElement(BodyElement bodyElement)
+        public override void WalkIndentationElement(IndentationElement indentationElement)
         {
-            this.RenderBodyElement(bodyElement, this.writer, this.currentIndentation);
-        }
-
-        public override void WalkBranch(Branch branch)
-        {
-            this.RenderBranch(branch, this.writer, this.currentIndentation);
-        }
-
-        public override void WalkEachElement(EachElement eachElement)
-        {
-            this.RenderEachElement(eachElement, this.writer, this.currentIndentation);
-        }
-
-        public override void WalkEchoTag(EchoTag echoTag)
-        {
-            this.RenderEchoTag(echoTag, this.writer, this.currentIndentation);
+            this.RenderIndentationElement(indentationElement, this.writer, this.currentIndentation);
         }
 
         public override void WalkNewLineElement(NewLineElement newLineElement)
@@ -86,6 +83,14 @@ namespace Weave.Compiler
             this.RenderRenderElement(renderElement, this.writer, this.currentIndentation);
         }
 
+        public override void WalkTemplate(Template template)
+        {
+            this.indentation = IndentationAnalyzer.Analyze(template);
+            IndentationOptimizer.Optimize(this.indentation, template);
+
+            this.RenderTemplate(template, this.writer, this.currentIndentation);
+        }
+
         public override void WalkTextElement(TextElement textElement)
         {
             this.RenderTextElement(textElement, this.writer, this.currentIndentation);
@@ -94,11 +99,6 @@ namespace Weave.Compiler
         public override void WalkWrapIfElement(WrapIfElement wrapIfElement)
         {
             this.RenderWrapIfElement(wrapIfElement, this.writer, this.currentIndentation);
-        }
-
-        public override void WalkIndentationElement(IndentationElement indentationElement)
-        {
-            this.RenderIndentationElement(indentationElement, this.writer, this.currentIndentation);
         }
 
         private static string ToLiteral(object input)
@@ -139,6 +139,15 @@ namespace Weave.Compiler
             return sb.ToString();
         }
 
+        [SuppressMessage("Microsoft.Usage", "CA1801:ReviewUnusedParameters", MessageId = "writer", Justification = "Required by Weave.")]
+        private void BaseWalkTemplate(Template template, TextWriter writer, string indentation)
+        {
+            var temp = this.currentIndentation;
+            this.currentIndentation = indentation;
+            base.WalkTemplate(template);
+            this.currentIndentation = temp;
+        }
+
         private string CreateVariable(string prefix)
         {
             int instance;
@@ -148,11 +157,11 @@ namespace Weave.Compiler
         }
 
         [SuppressMessage("Microsoft.Usage", "CA1801:ReviewUnusedParameters", MessageId = "writer", Justification = "Required by Weave.")]
-        private void BaseWalkTemplate(Template template, TextWriter writer, string indentation)
+        private void WalkBranch(Branch branch, TextWriter writer, string indentation)
         {
             var temp = this.currentIndentation;
             this.currentIndentation = indentation;
-            base.WalkTemplate(template);
+            this.WalkBranch(branch);
             this.currentIndentation = temp;
         }
 
@@ -171,15 +180,6 @@ namespace Weave.Compiler
             var temp = this.currentIndentation;
             this.currentIndentation = indentation;
             this.WalkElements(elements);
-            this.currentIndentation = temp;
-        }
-
-        [SuppressMessage("Microsoft.Usage", "CA1801:ReviewUnusedParameters", MessageId = "writer", Justification = "Required by Weave.")]
-        private void WalkBranch(Branch branch, TextWriter writer, string indentation)
-        {
-            var temp = this.currentIndentation;
-            this.currentIndentation = indentation;
-            this.WalkBranch(branch);
             this.currentIndentation = temp;
         }
     }

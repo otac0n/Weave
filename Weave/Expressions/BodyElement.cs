@@ -4,17 +4,15 @@ namespace Weave.Expressions
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
 
     /// <summary>
     /// Represents the unconditional portion of a <see cref="WrapIfElement"/>.
     /// </summary>
     public class BodyElement : Element
     {
-        private readonly string indentation;
         private readonly IList<Element> body;
         private readonly string endIndentation;
+        private readonly string indentation;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="BodyElement"/> class.
@@ -35,14 +33,6 @@ namespace Weave.Expressions
         }
 
         /// <summary>
-        /// Gets the indentation of this <see cref="BodyElement"/>.
-        /// </summary>
-        public string Indentation
-        {
-            get { return this.indentation; }
-        }
-
-        /// <summary>
         /// Gets the contents of the body.
         /// </summary>
         public IList<Element> Body
@@ -56,6 +46,14 @@ namespace Weave.Expressions
         public string EndIndentation
         {
             get { return this.endIndentation; }
+        }
+
+        /// <summary>
+        /// Gets the indentation of this <see cref="BodyElement"/>.
+        /// </summary>
+        public string Indentation
+        {
+            get { return this.indentation; }
         }
     }
 }
