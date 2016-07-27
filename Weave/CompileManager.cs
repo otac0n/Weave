@@ -9,6 +9,7 @@ namespace Weave
     using Pegasus.Common;
     using Weave.Compiler;
     using Weave.Expressions;
+    using Weave.Parser;
 
     internal static class CompileManager
     {

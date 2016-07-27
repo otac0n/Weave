@@ -5,6 +5,7 @@ namespace Weave.Tests
     using System.Linq;
     using NUnit.Framework;
     using Weave.Compiler;
+    using Weave.Parser;
 
     [TestFixture]
     public class SettingsTests

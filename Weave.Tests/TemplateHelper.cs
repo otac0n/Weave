@@ -10,6 +10,7 @@ namespace Weave.Tests
     using Microsoft.CSharp;
     using NUnit.Framework;
     using Weave.Compiler;
+    using Weave.Parser;
 
     internal static class TemplateHelper
     {
