@@ -120,7 +120,8 @@ namespace Weave.Compiler
                     var originalAmountToSubtract = this.amountToSubtract;
 
                     var trueIndentation = this.ComputeIndentation(wrapIfElement.Body.Indentation);
-                    this.amountToSubtract += GetIndentationOffset(wrapIfElement.Body.Indentation, wrapIfElement.Body.Body);
+                    this.amountToSubtract -= amount;
+                    this.amountToSubtract += Math.Max(0, MeasureString(wrapIfElement.Body.Indentation) - MeasureString(wrapIfElement.Indentation));
                     var falseIndentation = this.ComputeIndentation(wrapIfElement.Body.Indentation);
                     this.results[wrapIfElement] = Tuple.Create(this.baseElement, falseIndentation);
                     this.results[wrapIfElement.Body] = Tuple.Create(this.baseElement, trueIndentation);

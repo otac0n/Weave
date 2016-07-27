@@ -322,63 +322,37 @@ namespace Weave.Tests.IntegrationTests
                 "")));
         }
 
-        [TestCaseSource("OriginalIndentation")]
-        public void WrapIfBlock_EmitsExtraIndentationWhenTheConditionIsTrue(string indentation)
+        [Test]
+        public void WrapIfBlock_EmitsLeadingIndentationAndBodyIndentationAppropriately(
+            [ValueSource("OriginalIndentation")] string indentation,
+            [Values(true, false)] bool condition,
+            [Values("", " ", "    ")] string leading,
+            [Values(" ", "    ")] string wrapIfNested,
+            [Values("", " ", "    ")] string body,
+            [Values("", " ", "    ")] string bodyNested)
         {
             var template = StringUtilities.JoinLines(
-                "{{wrapif true}}",
-                "    outer",
-                "        {{body}}",
-                "            inner",
-                "        {{/body}}",
-                "    /outer",
-                "{{/wrapif}}");
+                leading + "{{wrapif model}}",
+                leading + wrapIfNested + "outer",
+                leading + wrapIfNested + body + "{{body}}",
+                leading + wrapIfNested + body + bodyNested + "inner",
+                leading + wrapIfNested + body + "{{/body}}",
+                leading + wrapIfNested + "/outer",
+                leading + "{{/wrapif}}");
+            var model = condition;
 
-            var result = TemplateHelper.Render(template, null, indentation);
+            var result = TemplateHelper.Render(template, model, indentation);
 
-            Assert.That(result, Is.EqualTo(StringUtilities.JoinLines(
-                $"{indentation}outer",
-                $"{indentation}    inner",
-                $"{indentation}/outer",
-                $"")));
-        }
-
-        [TestCaseSource("OriginalIndentation")]
-        public void WrapIfBlock_EmitsNoExtraIndentationWhenTheConditionIsFalse(string indentation)
-        {
-            var template = StringUtilities.JoinLines(
-                "{{wrapif false}}",
-                "    outer",
-                "        {{body}}",
-                "            inner",
-                "        {{/body}}",
-                "    /outer",
-                "{{/wrapif}}");
-
-            var result = TemplateHelper.Render(template, null, indentation);
-
-            Assert.That(result, Is.EqualTo(StringUtilities.JoinLines(
-                $"{indentation}inner",
-                $"")));
-        }
-
-        [TestCaseSource("OriginalIndentation")]
-        public void WrapIfBlock_EmitsLeadingIndentationWhenTheConditionIsFalse(string indentation)
-        {
-            var template = StringUtilities.JoinLines(
-                "    {{wrapif false}}",
-                "        outer",
-                "            {{body}}",
-                "                inner",
-                "            {{/body}}",
-                "        /outer",
-                "    {{/wrapif}}");
-
-            var result = TemplateHelper.Render(template, null, indentation);
-
-            Assert.That(result, Is.EqualTo(StringUtilities.JoinLines(
-                $"{indentation}    inner",
-                $"")));
+            Assert.That(result, Is.EqualTo(
+                condition
+                    ? StringUtilities.JoinLines(
+                        $"{indentation}{leading}outer",
+                        $"{indentation}{leading}{body}inner",
+                        $"{indentation}{leading}/outer",
+                        $"")
+                    : StringUtilities.JoinLines(
+                        $"{indentation}{leading}inner",
+                        $"")));
         }
 
         [TestCaseSource("OriginalIndentation")]
