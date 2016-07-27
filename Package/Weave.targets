@@ -9,10 +9,26 @@
     <AvailableItemName Include="WeaveTemplate" />
   </ItemGroup>
   <UsingTask AssemblyFile="Weave.exe" TaskName="CompileWeaveTemplate" />
-  <Target Name="CompileWeaveTemplates" Inputs="@(WeaveTemplate);$(MSBuildThisFileFullPath)" Outputs="@(WeaveTemplate -> '$(IntermediateOutputPath)%(Identity).cs')">
-    <CompileWeaveTemplate InputFile="%(WeaveTemplate.FullPath)" OutputFile="$(IntermediateOutputPath)%(WeaveTemplate.Identity).cs" Condition=" '@(WeaveTemplate)' != '' " />
+
+  <Target Name="CompileWeaveTemplates" DependsOnTargets="_CompileWeaveTemplates" Condition=" '@(WeaveTemplate)' != '' ">
     <ItemGroup>
-      <Compile Include="@(WeaveTemplate -> '$(IntermediateOutputPath)%(Identity).cs')" />
+      <Compile Include="%(WeaveTemplate.OutputPath)" />
     </ItemGroup>
+  </Target>
+
+  <Target Name="_UpdateWeaveTemplatesMetatdata">
+    <ItemGroup>
+      <WeaveTemplate Condition=" '%(WeaveTemplate.Link)' != '' ">
+        <OutputPath>$(IntermediateOutputPath)%(WeaveTemplate.Link).cs</OutputPath>
+      </WeaveTemplate>
+      <WeaveTemplate Condition=" '%(WeaveTemplate.Link)' == '' ">
+        <OutputPath>$(IntermediateOutputPath)%(WeaveTemplate.Identity).cs</OutputPath>
+      </WeaveTemplate>
+    </ItemGroup>
+  </Target>
+
+  <Target Name="_CompileWeaveTemplates" DependsOnTargets="_UpdateWeaveTemplatesMetatdata" Inputs="$(MSBuildThisFileFullPath);$(MSBuildProjectFile);@(WeaveTemplate)" Outputs="@(WeaveTemplate -> '%(OutputPath)')">
+    <CompileWeaveTemplate InputFile="%(WeaveTemplate.FullPath)" OutputFile="%(WeaveTemplate.OutputPath)" />
+    <Message Text="%(WeaveTemplate.Identity) -> %(WeaveTemplate.OutputPath)" />
   </Target>
 </Project>
