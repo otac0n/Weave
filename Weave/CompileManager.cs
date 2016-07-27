@@ -46,6 +46,7 @@ namespace Weave
 
             if (!hadFatal)
             {
+                Directory.CreateDirectory(Path.GetDirectoryName(outputFile));
                 File.WriteAllText(outputFile, result.Code);
             }
         }
