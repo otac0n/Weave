@@ -3,5 +3,4 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 
 [assembly: AssemblyProduct("Weave")]
-[assembly: AssemblyCopyright("Copyright © 2016 John Gietzen")]
 [assembly: ComVisible(false)]

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RuleSet Name="Weave" Description="Rules for the Weave project." ToolsVersion="14.0">
+  <Include Path="..\Strict.ruleset" Action="Default" />
+</RuleSet>

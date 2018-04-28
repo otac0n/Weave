@@ -1,14 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <PropertyGroup>
-    <CompileDependsOn>$(CompileDependsOn);CompileWeaveTemplates</CompileDependsOn>
-    <CoreCompileDependsOn>$(CoreCompileDependsOn);CompileWeaveTemplates</CoreCompileDependsOn>
-    <CoreBuildDependsOn>$(CoreBuildDependsOn);CompileWeaveTemplates</CoreBuildDependsOn>
+<Project ToolsVersion="4.0" TreatAsLocalProperty="WeaveAssemblyPath" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Condition=" '$(MSBuildRuntimeType)' == 'Core' ">
+    <WeaveAssemblyPath>$(MSBuildThisFileDirectory)netcoreapp2.0\Weave.dll</WeaveAssemblyPath>
   </PropertyGroup>
-  <ItemGroup>
-    <AvailableItemName Include="WeaveTemplate" />
-  </ItemGroup>
-  <UsingTask AssemblyFile="Weave.exe" TaskName="CompileWeaveTemplate" />
+  <PropertyGroup Condition=" '$(MSBuildRuntimeType)' != 'Core' ">
+    <WeaveAssemblyPath>$(MSBuildThisFileDirectory)net46\Weave.exe</WeaveAssemblyPath>
+  </PropertyGroup>
+  <UsingTask AssemblyFile="$(WeaveAssemblyPath)" TaskName="CompileWeaveTemplate" />
 
   <Target Name="CompileWeaveTemplates" DependsOnTargets="_CompileWeaveTemplates" Condition=" '@(WeaveTemplate)' != '' ">
     <ItemGroup>

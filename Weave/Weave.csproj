@@ -1,177 +1,129 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{5F547992-8B86-4191-B259-2B7B72BFAEA6}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <StartupObject>Weave.Program</StartupObject>
-    <ApplicationIcon>..\Weave.ico</ApplicationIcon>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Weave</RootNamespace>
-    <AssemblyName>Weave</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Debug\Weave.xml</DocumentationFile>
-    <CodeAnalysisRuleSet>..\Strict.ruleset</CodeAnalysisRuleSet>
-    <RunCodeAnalysis>true</RunCodeAnalysis>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
+    <Authors>John Gietzen</Authors>
+    <Copyright>Copyright © 2018 John Gietzen</Copyright>
+    <NeutralLanguage>en-US</NeutralLanguage>
+    <Description>Weave is a text templating engine that is all about attention to detail.  Weave handles the tricky work of making your rendered text beautiful.</Description>
+    <PackageTags>text;templating;transform;generation;text-transform;text-templating;text-generation</PackageTags>
+    <PackageProjectUrl>https://github.com/otac0n/Weave</PackageProjectUrl>
+    <PackageIconUrl>https://raw.github.com/otac0n/Weave/master/Weave.ico</PackageIconUrl>
+    <PackageLicenseUrl>https://raw.github.com/otac0n/Weave/master/license.md</PackageLicenseUrl>
+    <MinClientVersion>2.5</MinClientVersion>
+    <DevelopmentDependency>true</DevelopmentDependency>
+    <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
+    <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
+    <TargetFrameworks>net46;netcoreapp2.0</TargetFrameworks>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Release\Weave.xml</DocumentationFile>
-    <CodeAnalysisRuleSet>..\Strict.ruleset</CodeAnalysisRuleSet>
-    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <IncludeBuildOutput>false</IncludeBuildOutput>
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DefineConstants>$(DefineConstants);DEBUG</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'net46' ">
+    <DefineConstants>$(DefineConstants);NETFULL;NET46</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'netcoreapp2.0' ">
+    <DefineConstants>$(DefineConstants);NETCORE;NETCOREAPP2_0</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.Build.Framework" />
-    <Reference Include="Microsoft.Build.Utilities.v4.0" />
-    <Reference Include="Pegasus.Common, Version=3.1.2.0, Culture=neutral, PublicKeyToken=28c69b6c6d100f4a, processorArchitecture=MSIL">
-      <HintPath>..\packages\Pegasus.3.1.2\lib\net40\Pegasus.Common.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="CompileManager.cs" />
-    <Compile Include="Compiler\CompilePass.cs" />
-    <Compile Include="Compiler\CompileResult.cs" />
-    <Compile Include="Compiler\ControlFlowGraph{T}.cs" />
-    <Compile Include="Compiler\ControlFlowGraphCreator.cs" />
-    <Compile Include="Compiler\GenerateCodePass.cs" />
-    <Compile Include="Compiler\GraphOperations.cs" />
-    <Compile Include="Compiler\IndentationAnalyzer.cs" />
-    <Compile Include="Compiler\IndentationOptimizer.cs" />
-    <Compile Include="Compiler\ReportEncodingIssuePass.cs" />
-    <Compile Include="Compiler\ReportNonEmptyConfigPass.cs" />
-    <Compile Include="Compiler\ReportSettingsIssuesPass.cs" />
-    <AdditionalFiles Include="..\stylecop.json">
-      <Link>stylecop.json</Link>
-    </AdditionalFiles>
-    <None Include="Compiler\Templates\_config.weave" />
-    <None Include="Compiler\Templates\BodyElement.weave" />
-    <Compile Include="Compiler\Templates\BodyElement.weave.cs">
+    <Compile Update="Compiler\Templates\BodyElement.weave.cs">
       <DependentUpon>BodyElement.weave</DependentUpon>
     </Compile>
-    <None Include="Compiler\Templates\Branch.weave" />
-    <Compile Include="Compiler\Templates\Branch.weave.cs">
+    <Compile Update="Compiler\Templates\Branch.weave.cs">
       <DependentUpon>Branch.weave</DependentUpon>
     </Compile>
-    <None Include="Compiler\Templates\Code.weave" />
-    <Compile Include="Compiler\Templates\Code.weave.cs">
+    <Compile Update="Compiler\Templates\Code.weave.cs">
       <DependentUpon>Code.weave</DependentUpon>
     </Compile>
-    <None Include="Compiler\Templates\CodeElement.weave" />
-    <Compile Include="Compiler\Templates\CodeElement.weave.cs">
+    <Compile Update="Compiler\Templates\CodeElement.weave.cs">
       <DependentUpon>CodeElement.weave</DependentUpon>
     </Compile>
-    <None Include="Compiler\Templates\EachElement.weave" />
-    <Compile Include="Compiler\Templates\EachElement.weave.cs">
+    <Compile Update="Compiler\Templates\EachElement.weave.cs">
       <DependentUpon>EachElement.weave</DependentUpon>
     </Compile>
-    <None Include="Compiler\Templates\EchoTag.weave" />
-    <Compile Include="Compiler\Templates\EchoTag.weave.cs">
+    <Compile Update="Compiler\Templates\EchoTag.weave.cs">
       <DependentUpon>EchoTag.weave</DependentUpon>
     </Compile>
-    <None Include="Compiler\Templates\IfElement.weave" />
-    <Compile Include="Compiler\Templates\IfElement.weave.cs">
+    <Compile Update="Compiler\Templates\IfElement.weave.cs">
       <DependentUpon>IfElement.weave</DependentUpon>
     </Compile>
-    <None Include="Compiler\Templates\Indentation.weave" />
-    <Compile Include="Compiler\Templates\Indentation.weave.cs">
+    <Compile Update="Compiler\Templates\Indentation.weave.cs">
       <DependentUpon>Indentation.weave</DependentUpon>
     </Compile>
-    <None Include="Compiler\Templates\IndentationElement.weave" />
-    <Compile Include="Compiler\Templates\IndentationElement.weave.cs">
+    <Compile Update="Compiler\Templates\IndentationElement.weave.cs">
       <DependentUpon>IndentationElement.weave</DependentUpon>
     </Compile>
-    <None Include="Compiler\Templates\NewLineElement.weave" />
-    <Compile Include="Compiler\Templates\NewLineElement.weave.cs">
+    <Compile Update="Compiler\Templates\NewLineElement.weave.cs">
       <DependentUpon>NewLineElement.weave</DependentUpon>
     </Compile>
-    <None Include="Compiler\Templates\RenderElement.weave" />
-    <Compile Include="Compiler\Templates\RenderElement.weave.cs">
+    <Compile Update="Compiler\Templates\RenderElement.weave.cs">
       <DependentUpon>RenderElement.weave</DependentUpon>
     </Compile>
-    <None Include="Compiler\Templates\Template.weave" />
-    <Compile Include="Compiler\Templates\Template.weave.cs">
+    <Compile Update="Compiler\Templates\Template.weave.cs">
       <DependentUpon>Template.weave</DependentUpon>
     </Compile>
-    <None Include="Compiler\Templates\TextElement.weave" />
-    <Compile Include="Compiler\Templates\TextElement.weave.cs">
+    <Compile Update="Compiler\Templates\TextElement.weave.cs">
       <DependentUpon>TextElement.weave</DependentUpon>
     </Compile>
-    <None Include="Compiler\Templates\WrapIfElement.weave" />
-    <Compile Include="Compiler\Templates\WrapIfElement.weave.cs">
+    <Compile Update="Compiler\Templates\WrapIfElement.weave.cs">
       <DependentUpon>WrapIfElement.weave</DependentUpon>
     </Compile>
-    <Compile Include="Compiler\Templates.cs" />
-    <Compile Include="Compiler\TemplateWalker.cs" />
-    <Compile Include="Compiler\WeaveCompiler.cs" />
-    <Compile Include="CompileWeaveTemplate.cs" />
-    <Compile Include="Expressions\BodyElement.cs" />
-    <Compile Include="Expressions\Branch.cs" />
-    <Compile Include="Expressions\CodeElement.cs" />
-    <Compile Include="Expressions\DelimitBody.cs" />
-    <Compile Include="Expressions\EachBody.cs" />
-    <Compile Include="Expressions\EachElement.cs" />
-    <Compile Include="Expressions\EchoTag.cs" />
-    <Compile Include="Expressions\Element.cs" />
-    <Compile Include="Expressions\IfElement.cs" />
-    <Compile Include="Expressions\IndentationElement.cs" />
-    <Compile Include="Expressions\NewLineElement.cs" />
-    <Compile Include="Expressions\NoneBody.cs" />
-    <Compile Include="Expressions\RenderElement.cs" />
-    <Compile Include="Expressions\SourceSpan.cs" />
-    <Compile Include="Expressions\Template.cs" />
-    <Compile Include="Expressions\TextElement.cs" />
-    <Compile Include="Expressions\WrapIfElement.cs" />
-    <None Include="packages.config" />
     <PegGrammar Include="Parser\WeaveParser.peg" />
-    <Compile Include="Program.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
+    <Compile Update="Properties\Resources.Designer.cs">
       <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <Compile Include="..\SharedAssemblyInfo.cs">
-      <Link>Properties\SharedAssemblyInfo.cs</Link>
-    </Compile>
+    <Compile Include="..\SharedAssemblyInfo.cs" Link="Properties\SharedAssemblyInfo.cs" />
+    <None Remove="Weave.targets" />
+    <Content Include="Weave.targets" PackagePath="build\" />
+    <None Remove="Weave.props" />
+    <Content Include="Weave.props" PackagePath="build\" />
   </ItemGroup>
   <ItemGroup>
-    <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.0\analyzers\dotnet\cs\Newtonsoft.Json.dll" />
-    <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.0\analyzers\dotnet\cs\StyleCop.Analyzers.CodeFixes.dll" />
-    <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.0\analyzers\dotnet\cs\StyleCop.Analyzers.dll" />
+    <AdditionalFiles Include="..\stylecop.json" Link="stylecop.json" />
+    <AdditionalFiles Include="Weave.ruleset" />
   </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('..\packages\FixMe.0.1.0\build\FixMe.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\FixMe.0.1.0\build\FixMe.targets'))" />
-    <Error Condition="!Exists('..\packages\GitVersionTask.3.5.4\build\portable-net+sl+win+wpa+wp\GitVersionTask.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\GitVersionTask.3.5.4\build\portable-net+sl+win+wpa+wp\GitVersionTask.targets'))" />
-    <Error Condition="!Exists('..\packages\Pegasus.3.1.2\build\Pegasus.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Pegasus.3.1.2\build\Pegasus.targets'))" />
+  <ItemGroup>
+    <PackageReference Include="FixMe" Version="0.1.1" PrivateAssets="All" />
+    <PackageReference Include="GitVersionTask" Version="4.0.0-beta0012" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.6.0" PrivateAssets="All" />
+    <PackageReference Include="Pegasus" Version="4.1.0-alpha0026" PrivateAssets="All" />
+    <PackageReference Include="StyleCop.Analyzers" Version="1.1.0-beta006" PrivateAssets="All" />
+  </ItemGroup>
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net46' ">
+    <Reference Include="Microsoft.Build.Framework" />
+    <Reference Include="Microsoft.Build.Utilities.v4.0" />
+  </ItemGroup>
+  <ItemGroup Condition=" '$(TargetFramework)' == 'netcoreapp2.0' ">
+    <PackageReference Include="Microsoft.Build.Utilities.Core" />
+    <PackageReference Include="System.CodeDom" Version="4.4.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Update="@(PackageReference)" PrivateAssets="All" />
+  </ItemGroup>
+  <Target Name="ExcludeReferences" BeforeTargets="GenerateNuspec">
+    <ItemGroup>
+      <_FrameworkAssemblyReferences Remove="@(_FrameworkAssemblyReferences)" />
+    </ItemGroup>
   </Target>
-  <Import Project="..\packages\FixMe.0.1.0\build\FixMe.targets" Condition="Exists('..\packages\FixMe.0.1.0\build\FixMe.targets')" />
-  <Import Project="..\packages\GitVersionTask.3.5.4\build\portable-net+sl+win+wpa+wp\GitVersionTask.targets" Condition="Exists('..\packages\GitVersionTask.3.5.4\build\portable-net+sl+win+wpa+wp\GitVersionTask.targets')" />
-  <Import Project="..\packages\Pegasus.3.1.2\build\Pegasus.targets" Condition="Exists('..\packages\Pegasus.3.1.2\build\Pegasus.targets')" />
+  <Target Name="UpdatePackageOutput" BeforeTargets="_GetPackageFiles">
+    <Copy SourceFiles="$(SolutionDir)readme.md" DestinationFiles="$(OutputPath)readme.txt" SkipUnchangedFiles="true" />
+    <ItemGroup>
+      <Content Include="$(OutputPath)readme.txt">
+        <Pack>true</Pack>
+        <PackagePath></PackagePath>
+      </Content>
+      <Content Include="$(OutputPath)**\*.dll;$(OutputPath)**\*.exe;$(OutputPath)**\*.config;$(OutputPath)**\*.json;$(OutputPath)**\*.xml" Exclude="$(OutputPath)**\Microsoft.Build.*">
+        <Pack>true</Pack>
+        <PackagePath>build\</PackagePath>
+      </Content>
+    </ItemGroup>
+  </Target>
 </Project>
