@@ -83,8 +83,6 @@
     <Compile Include="..\SharedAssemblyInfo.cs" Link="Properties\SharedAssemblyInfo.cs" />
     <None Remove="Weave.targets" />
     <Content Include="Weave.targets" PackagePath="build\" />
-    <None Remove="Weave.props" />
-    <Content Include="Weave.props" PackagePath="build\" />
   </ItemGroup>
   <ItemGroup>
     <AdditionalFiles Include="..\stylecop.json" Link="stylecop.json" />

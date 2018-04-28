@@ -1,5 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Project ToolsVersion="4.0" TreatAsLocalProperty="WeaveAssemblyPath" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <CompileDependsOn>$(CompileDependsOn);CompileWeaveTemplates</CompileDependsOn>
+    <CoreCompileDependsOn>$(CoreCompileDependsOn);CompileWeaveTemplates</CoreCompileDependsOn>
+    <CoreBuildDependsOn>$(CoreBuildDependsOn);CompileWeaveTemplates</CoreBuildDependsOn>
+  </PropertyGroup>
+  <ItemGroup>
+    <AvailableItemName Include="WeaveTemplate" />
+  </ItemGroup>
   <PropertyGroup Condition=" '$(MSBuildRuntimeType)' == 'Core' ">
     <WeaveAssemblyPath>$(MSBuildThisFileDirectory)netcoreapp2.0\Weave.dll</WeaveAssemblyPath>
   </PropertyGroup>
