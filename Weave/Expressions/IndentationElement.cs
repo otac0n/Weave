@@ -17,20 +17,12 @@ namespace Weave.Expressions
         /// <param name="indentation">The indentation for the subsequent text on the same line.</param>
         public IndentationElement(string indentation)
         {
-            if (indentation == null)
-            {
-                throw new ArgumentNullException("indentation");
-            }
-
-            this.indentation = indentation;
+            this.indentation = indentation ?? throw new ArgumentNullException(nameof(indentation));
         }
 
         /// <summary>
         /// Gets the indentation text for for the subsequent text on the same line.
         /// </summary>
-        public string Indentation
-        {
-            get { return this.indentation; }
-        }
+        public string Indentation => this.indentation;
     }
 }

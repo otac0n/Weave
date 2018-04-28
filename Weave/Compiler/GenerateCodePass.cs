@@ -9,16 +9,13 @@ namespace Weave.Compiler
 
     internal class GenerateCodePass : CompilePass
     {
-        public override IList<string> BlockedByErrors
-        {
-            get { return new[] { "WEAVE0001", "WEAVE0003", "WEAVE0004", "WEAVE0005", "WEAVE0006" }; }
-        }
+        /// <inheritdoc/>
+        public override IList<string> BlockedByErrors => new[] { "WEAVE0001", "WEAVE0003", "WEAVE0004", "WEAVE0005", "WEAVE0006" };
 
-        public override IList<string> ErrorsProduced
-        {
-            get { return new string[0]; }
-        }
+        /// <inheritdoc/>
+        public override IList<string> ErrorsProduced => System.Array.Empty<string>();
 
+        /// <inheritdoc/>
         public override void Run(Template template, CompileResult result)
         {
             using (var stringWriter = new StringWriter(CultureInfo.InvariantCulture))

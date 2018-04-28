@@ -19,29 +19,18 @@ namespace Weave.Expressions
         /// <param name="indentation">The indentation of this <see cref="CodeElement"/>.</param>
         public CodeElement(SourceSpan expression, string indentation = null)
         {
-            if (expression == null)
-            {
-                throw new ArgumentNullException("expression");
-            }
-
-            this.expression = expression;
+            this.expression = expression ?? throw new ArgumentNullException(nameof(expression));
             this.indentation = indentation;
         }
 
         /// <summary>
         /// Gets the code expression that will be executed.
         /// </summary>
-        public SourceSpan Expression
-        {
-            get { return this.expression; }
-        }
+        public SourceSpan Expression => this.expression;
 
         /// <summary>
         /// Gets the indentation of this <see cref="CodeElement"/>.
         /// </summary>
-        public string Indentation
-        {
-            get { return this.indentation; }
-        }
+        public string Indentation => this.indentation;
     }
 }

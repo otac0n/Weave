@@ -23,7 +23,7 @@ namespace Weave.Expressions
         {
             if (branches == null)
             {
-                throw new ArgumentNullException("branches");
+                throw new ArgumentNullException(nameof(branches));
             }
 
             this.branches = branches.ToList().AsReadOnly();
@@ -33,17 +33,11 @@ namespace Weave.Expressions
         /// <summary>
         /// Gets the branches in this <see cref="IfElement"/>.
         /// </summary>
-        public IList<Branch> Branches
-        {
-            get { return this.branches; }
-        }
+        public IList<Branch> Branches => this.branches;
 
         /// <summary>
         /// Gets the ending indentation of this <see cref="IfElement"/>.
         /// </summary>
-        public string EndIndentation
-        {
-            get { return this.endIndentation; }
-        }
+        public string EndIndentation => this.endIndentation;
     }
 }

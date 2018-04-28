@@ -30,10 +30,7 @@ namespace Weave.Compiler
 
             private List<Element> previous = new List<Element>();
 
-            public ControlFlowGraph<Element> Graph
-            {
-                get { return this.graph; }
-            }
+            public ControlFlowGraph<Element> Graph => this.graph;
 
             public override void WalkEachElement(EachElement eachElement)
             {

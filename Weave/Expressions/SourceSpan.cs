@@ -26,7 +26,7 @@ namespace Weave.Expressions
         {
             if (string.IsNullOrEmpty(value))
             {
-                throw new ArgumentNullException("value");
+                throw new ArgumentNullException(nameof(value));
             }
 
             this.value = value;
@@ -37,26 +37,17 @@ namespace Weave.Expressions
         /// <summary>
         /// Gets the cursor just after the <see cref="SourceSpan"/>.
         /// </summary>
-        public Cursor End
-        {
-            get { return this.end; }
-        }
+        public Cursor End => this.end;
 
         /// <summary>
         /// Gets the cursor just before the <see cref="SourceSpan"/>.
         /// </summary>
-        public Cursor Start
-        {
-            get { return this.start; }
-        }
+        public Cursor Start => this.start;
 
         /// <summary>
         /// Gets the value of the <see cref="SourceSpan"/>.
         /// </summary>
-        public string Value
-        {
-            get { return this.value; }
-        }
+        public string Value => this.value;
 
         /// <inheritdoc />
         public override string ToString()

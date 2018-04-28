@@ -30,10 +30,7 @@ namespace Weave.Compiler
             private Element baseElement;
             private Dictionary<Element, Tuple<Element, string>> results = new Dictionary<Element, Tuple<Element, string>>();
 
-            public Dictionary<Element, Tuple<Element, string>> Results
-            {
-                get { return this.results; }
-            }
+            public Dictionary<Element, Tuple<Element, string>> Results => this.results;
 
             public override void WalkBodyElement(BodyElement bodyElement)
             {
@@ -138,39 +135,31 @@ namespace Weave.Compiler
 
             private static string FindIndentation(Element element)
             {
-                BodyElement bodyElement;
-                CodeElement codeElement;
-                EachElement eachElement;
-                IfElement ifElement;
-                IndentationElement indentationElement;
-                RenderElement renderElement;
-                WrapIfElement wrapIfElement;
-
-                if ((bodyElement = element as BodyElement) != null)
+                if (element is BodyElement bodyElement)
                 {
                     return bodyElement.Indentation;
                 }
-                else if ((codeElement = element as CodeElement) != null)
+                else if (element is CodeElement codeElement)
                 {
                     return codeElement.Indentation;
                 }
-                else if ((eachElement = element as EachElement) != null)
+                else if (element is EachElement eachElement)
                 {
                     return eachElement.EachBody.Indentation;
                 }
-                else if ((ifElement = element as IfElement) != null)
+                else if (element is IfElement ifElement)
                 {
                     return ifElement.Branches[0].Indentation;
                 }
-                else if ((indentationElement = element as IndentationElement) != null)
+                else if (element is IndentationElement indentationElement)
                 {
                     return indentationElement.Indentation;
                 }
-                else if ((renderElement = element as RenderElement) != null)
+                else if (element is RenderElement renderElement)
                 {
                     return renderElement.Indentation;
                 }
-                else if ((wrapIfElement = element as WrapIfElement) != null)
+                else if (element is WrapIfElement wrapIfElement)
                 {
                     return wrapIfElement.Indentation;
                 }

@@ -22,13 +22,7 @@ namespace Weave.Compiler
         /// </summary>
         /// <param name="value">The value to look up.</param>
         /// <returns>The corresponding <see cref="Node"/>.</returns>
-        public Node this[T value]
-        {
-            get
-            {
-                return this.nodes[value];
-            }
-        }
+        public Node this[T value] => this.nodes[value];
 
         /// <summary>
         /// Adds an edge to the graph.
@@ -60,8 +54,7 @@ namespace Weave.Compiler
 
         private Node EnsureNode(T value)
         {
-            Node node;
-            if (!this.nodes.TryGetValue(value, out node))
+            if (!this.nodes.TryGetValue(value, out var node))
             {
                 this.nodes.Add(value, node = new Node(this, value));
             }
@@ -96,34 +89,22 @@ namespace Weave.Compiler
             /// <summary>
             /// Gets the <see cref="ControlFlowGraph&lt;T&gt;"/> to which this node belongs.
             /// </summary>
-            public ControlFlowGraph<T> Graph
-            {
-                get { return this.graph; }
-            }
+            public ControlFlowGraph<T> Graph => this.graph;
 
             /// <summary>
             /// Gets a collection of successive nodes.
             /// </summary>
-            public ICollection<Node> Next
-            {
-                get { return this.nextPublic; }
-            }
+            public ICollection<Node> Next => this.nextPublic;
 
             /// <summary>
             /// Gets a collection of preceding nodes.
             /// </summary>
-            public ICollection<Node> Previous
-            {
-                get { return this.previousPublic; }
-            }
+            public ICollection<Node> Previous => this.previousPublic;
 
             /// <summary>
             /// Gets the value that this node corresponds to.
             /// </summary>
-            public T Value
-            {
-                get { return this.value; }
-            }
+            public T Value => this.value;
 
             internal void AddNext(Node node)
             {

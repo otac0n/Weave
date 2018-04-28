@@ -29,36 +29,21 @@ namespace Weave.Expressions
         /// <param name="end">The ending cursor of the <see cref="Template"/>.</param>
         public Template(Cursor start, IEnumerable<KeyValuePair<SourceSpan, SourceSpan>> settings, Cursor settingsEnd, IEnumerable<Element> elements, Cursor end)
         {
-            if (start == null)
-            {
-                throw new ArgumentNullException("start");
-            }
-
             if (settings == null)
             {
-                throw new ArgumentNullException("settings");
-            }
-
-            if (settingsEnd == null)
-            {
-                throw new ArgumentNullException("settingsEnd");
+                throw new ArgumentNullException(nameof(settings));
             }
 
             if (elements == null)
             {
-                throw new ArgumentNullException("elements");
+                throw new ArgumentNullException(nameof(elements));
             }
 
-            if (end == null)
-            {
-                throw new ArgumentNullException("end");
-            }
-
-            this.start = start;
+            this.start = start ?? throw new ArgumentNullException(nameof(start));
             this.settings = settings.ToList().AsReadOnly();
-            this.settingsEnd = settingsEnd;
+            this.settingsEnd = settingsEnd ?? throw new ArgumentNullException(nameof(settingsEnd));
             this.elements = elements.ToList().AsReadOnly();
-            this.end = end;
+            this.end = end ?? throw new ArgumentNullException(nameof(end));
         }
 
         /// <summary>
@@ -70,7 +55,7 @@ namespace Weave.Expressions
         {
             if (template == null)
             {
-                throw new ArgumentNullException("template");
+                throw new ArgumentNullException(nameof(template));
             }
 
             this.config = config;
@@ -104,49 +89,31 @@ namespace Weave.Expressions
         /// <summary>
         /// Gets the config template for this <see cref="Template"/>.
         /// </summary>
-        public Template Config
-        {
-            get { return this.config; }
-        }
+        public Template Config => this.config;
 
         /// <summary>
         /// Gets the elements in this <see cref="Template"/>.
         /// </summary>
-        public IList<Element> Elements
-        {
-            get { return this.elements; }
-        }
+        public IList<Element> Elements => this.elements;
 
         /// <summary>
         /// Gets the ending cursor of this <see cref="Template"/>.
         /// </summary>
-        public Cursor End
-        {
-            get { return this.end; }
-        }
+        public Cursor End => this.end;
 
         /// <summary>
         /// Gets the settings in this <see cref="Template"/>.
         /// </summary>
-        public IList<KeyValuePair<SourceSpan, SourceSpan>> Settings
-        {
-            get { return this.settings; }
-        }
+        public IList<KeyValuePair<SourceSpan, SourceSpan>> Settings => this.settings;
 
         /// <summary>
         /// Gets the cursor after the settings section.
         /// </summary>
-        public Cursor SettingsEnd
-        {
-            get { return this.settingsEnd; }
-        }
+        public Cursor SettingsEnd => this.settingsEnd;
 
         /// <summary>
         /// Gets the starting cursor of this <see cref="Template"/>.
         /// </summary>
-        public Cursor Start
-        {
-            get { return this.start; }
-        }
+        public Cursor Start => this.start;
     }
 }

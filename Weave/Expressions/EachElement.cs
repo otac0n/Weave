@@ -23,12 +23,7 @@ namespace Weave.Expressions
         /// <param name="endIndentation">The ending indentation of this <see cref="EachElement"/>.</param>
         public EachElement(EachBody eachBody, DelimitBody delimitBody, NoneBody noneBody, string endIndentation = null)
         {
-            if (eachBody == null)
-            {
-                throw new ArgumentNullException("eachBody");
-            }
-
-            this.eachBody = eachBody;
+            this.eachBody = eachBody ?? throw new ArgumentNullException(nameof(eachBody));
             this.delimitBody = delimitBody;
             this.noneBody = noneBody;
             this.endIndentation = endIndentation;
@@ -37,33 +32,21 @@ namespace Weave.Expressions
         /// <summary>
         /// Gets the optional delimit-body of this <see cref="EachElement"/>.
         /// </summary>
-        public DelimitBody DelimitBody
-        {
-            get { return this.delimitBody; }
-        }
+        public DelimitBody DelimitBody => this.delimitBody;
 
         /// <summary>
         /// Gets the optional none-body of this <see cref="EachElement"/>.
         /// </summary>
-        public EachBody EachBody
-        {
-            get { return this.eachBody; }
-        }
+        public EachBody EachBody => this.eachBody;
 
         /// <summary>
         /// Gets the ending indentation of this <see cref="EachElement"/>.
         /// </summary>
-        public string EndIndentation
-        {
-            get { return this.endIndentation; }
-        }
+        public string EndIndentation => this.endIndentation;
 
         /// <summary>
         /// Gets the optional none-body of this <see cref="EachElement"/>.
         /// </summary>
-        public NoneBody NoneBody
-        {
-            get { return this.noneBody; }
-        }
+        public NoneBody NoneBody => this.noneBody;
     }
 }

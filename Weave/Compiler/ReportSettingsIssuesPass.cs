@@ -27,16 +27,13 @@ namespace Weave.Compiler
             { "static", @"^\s*([Tt][Rr][Uu][Ee]|[Ff][Aa][Ll][Ss][Ee])\s*$" },
         };
 
-        public override IList<string> BlockedByErrors
-        {
-            get { return new string[0]; }
-        }
+        /// <inheritdoc/>
+        public override IList<string> BlockedByErrors => System.Array.Empty<string>();
 
-        public override IList<string> ErrorsProduced
-        {
-            get { return new[] { "WEAVE0001", "WEAVE0002", "WEAVE0003", "WEAVE0004" }; }
-        }
+        /// <inheritdoc/>
+        public override IList<string> ErrorsProduced => new[] { "WEAVE0001", "WEAVE0002", "WEAVE0003", "WEAVE0004" };
 
+        /// <inheritdoc/>
         public override void Run(Template template, CompileResult result)
         {
             var topLevelTemplate = template;
@@ -51,8 +48,7 @@ namespace Weave.Compiler
                     var settingName = setting.Key.Value;
                     var cursor = setting.Key.Start;
 
-                    bool singleAllowed;
-                    if (KnownSettings.TryGetValue(settingName, out singleAllowed))
+                    if (KnownSettings.TryGetValue(settingName, out var singleAllowed))
                     {
                         if (singleAllowed && !seenSettings.Add(settingName))
                         {
@@ -64,8 +60,7 @@ namespace Weave.Compiler
                         result.AddWarning(cursor, () => Resources.WEAVE0002_SETTING_UNKNOWN, settingName);
                     }
 
-                    string pattern;
-                    if (ValuePatterns.TryGetValue(settingName, out pattern))
+                    if (ValuePatterns.TryGetValue(settingName, out var pattern))
                     {
                         if (!Regex.IsMatch(setting.Value.Value, pattern))
                         {

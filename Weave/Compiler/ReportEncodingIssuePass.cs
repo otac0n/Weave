@@ -9,16 +9,13 @@ namespace Weave.Compiler
 
     internal class ReportEncodingIssuePass : CompilePass
     {
-        public override IList<string> BlockedByErrors
-        {
-            get { return new string[0]; }
-        }
+        /// <inheritdoc/>
+        public override IList<string> BlockedByErrors => System.Array.Empty<string>();
 
-        public override IList<string> ErrorsProduced
-        {
-            get { return new[] { "WEAVE0005" }; }
-        }
+        /// <inheritdoc/>
+        public override IList<string> ErrorsProduced => new[] { "WEAVE0005" };
 
+        /// <inheritdoc/>
         public override void Run(Template template, CompileResult result)
         {
             if (template.AllSettings.Any(s => s.Key.Value == "encode"))

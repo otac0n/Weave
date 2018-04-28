@@ -25,8 +25,7 @@ namespace Weave.Compiler
 
             foreach (var node in graph)
             {
-                Tuple<Element, string> indent;
-                indentation.TryGetValue(node.Value, out indent);
+                indentation.TryGetValue(node.Value, out var indent);
 
                 if (node.Value is WrapIfElement || node.Value is BodyElement)
                 {

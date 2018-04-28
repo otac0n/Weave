@@ -44,54 +44,43 @@ namespace Weave.Compiler
 
         public virtual void WalkElement(Element element)
         {
-            BodyElement bodyElement;
-            CodeElement codeElement;
-            EachElement eachElement;
-            EchoTag echoTag;
-            IfElement ifElement;
-            IndentationElement indentationElement;
-            NewLineElement newLineElement;
-            RenderElement renderElement;
-            TextElement textElement;
-            WrapIfElement wrapIfElement;
-
-            if ((bodyElement = element as BodyElement) != null)
+            if (element is BodyElement bodyElement)
             {
                 this.WalkBodyElement(bodyElement);
             }
-            else if ((codeElement = element as CodeElement) != null)
+            else if (element is CodeElement codeElement)
             {
                 this.WalkCodeElement(codeElement);
             }
-            else if ((eachElement = element as EachElement) != null)
+            else if (element is EachElement eachElement)
             {
                 this.WalkEachElement(eachElement);
             }
-            else if ((echoTag = element as EchoTag) != null)
+            else if (element is EchoTag echoTag)
             {
                 this.WalkEchoTag(echoTag);
             }
-            else if ((ifElement = element as IfElement) != null)
+            else if (element is IfElement ifElement)
             {
                 this.WalkIfElement(ifElement);
             }
-            else if ((indentationElement = element as IndentationElement) != null)
+            else if (element is IndentationElement indentationElement)
             {
                 this.WalkIndentationElement(indentationElement);
             }
-            else if ((newLineElement = element as NewLineElement) != null)
+            else if (element is NewLineElement newLineElement)
             {
                 this.WalkNewLineElement(newLineElement);
             }
-            else if ((renderElement = element as RenderElement) != null)
+            else if (element is RenderElement renderElement)
             {
                 this.WalkRenderElement(renderElement);
             }
-            else if ((textElement = element as TextElement) != null)
+            else if (element is TextElement textElement)
             {
                 this.WalkTextElement(textElement);
             }
-            else if ((wrapIfElement = element as WrapIfElement) != null)
+            else if (element is WrapIfElement wrapIfElement)
             {
                 this.WalkWrapIfElement(wrapIfElement);
             }

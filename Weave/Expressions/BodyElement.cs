@@ -22,38 +22,24 @@ namespace Weave.Expressions
         /// <param name="endIndentation">The ending indentation of this <see cref="BodyElement"/>.</param>
         public BodyElement(string indentation, IList<Element> body, string endIndentation)
         {
-            if (body == null)
-            {
-                throw new ArgumentNullException(nameof(body));
-            }
-
             this.indentation = indentation;
-            this.body = body;
+            this.body = body ?? throw new ArgumentNullException(nameof(body));
             this.endIndentation = endIndentation;
         }
 
         /// <summary>
         /// Gets the contents of the body.
         /// </summary>
-        public IList<Element> Body
-        {
-            get { return this.body; }
-        }
+        public IList<Element> Body => this.body;
 
         /// <summary>
         /// Gets the ending indentation of this <see cref="BodyElement"/>.
         /// </summary>
-        public string EndIndentation
-        {
-            get { return this.endIndentation; }
-        }
+        public string EndIndentation => this.endIndentation;
 
         /// <summary>
         /// Gets the indentation of this <see cref="BodyElement"/>.
         /// </summary>
-        public string Indentation
-        {
-            get { return this.indentation; }
-        }
+        public string Indentation => this.indentation;
     }
 }

@@ -21,43 +21,24 @@ namespace Weave.Expressions
         /// <param name="indentation">The indentation of this <see cref="RenderElement"/>.</param>
         public RenderElement(SourceSpan method, SourceSpan expression, string indentation = null)
         {
-            if (method == null)
-            {
-                throw new ArgumentNullException("method");
-            }
-
-            if (expression == null)
-            {
-                throw new ArgumentNullException("expression");
-            }
-
-            this.expression = expression;
+            this.expression = expression ?? throw new ArgumentNullException(nameof(expression));
             this.indentation = indentation;
-            this.method = method;
+            this.method = method ?? throw new ArgumentNullException(nameof(method));
         }
 
         /// <summary>
         /// Gets the code expression that evaluates to a model.
         /// </summary>
-        public SourceSpan Expression
-        {
-            get { return this.expression; }
-        }
+        public SourceSpan Expression => this.expression;
 
         /// <summary>
         /// Gets the indentation of this <see cref="RenderElement"/>.
         /// </summary>
-        public string Indentation
-        {
-            get { return this.indentation; }
-        }
+        public string Indentation => this.indentation;
 
         /// <summary>
         /// Gets the method that will be called.
         /// </summary>
-        public SourceSpan Method
-        {
-            get { return this.method; }
-        }
+        public SourceSpan Method => this.method;
     }
 }

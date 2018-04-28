@@ -25,7 +25,7 @@ namespace Weave.Expressions
         {
             if (body == null)
             {
-                throw new ArgumentNullException("body");
+                throw new ArgumentNullException(nameof(body));
             }
 
             this.body = body.ToList().AsReadOnly();
@@ -36,25 +36,16 @@ namespace Weave.Expressions
         /// <summary>
         /// Gets the body of this <see cref="Branch"/>.
         /// </summary>
-        public IList<Element> Body
-        {
-            get { return this.body; }
-        }
+        public IList<Element> Body => this.body;
 
         /// <summary>
         /// Gets the code expression that determines whether this branch will execute.
         /// </summary>
-        public SourceSpan Expression
-        {
-            get { return this.expression; }
-        }
+        public SourceSpan Expression => this.expression;
 
         /// <summary>
         /// Gets the indentation of this <see cref="Branch"/>.
         /// </summary>
-        public string Indentation
-        {
-            get { return this.indentation; }
-        }
+        public string Indentation => this.indentation;
     }
 }

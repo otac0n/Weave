@@ -103,8 +103,7 @@ namespace Weave.Compiler
 
         private static string ToLiteral(object input)
         {
-            var s = input == null ? null : input.ToString();
-            return ToLiteral(s);
+            return ToLiteral(input?.ToString());
         }
 
         private static string ToLiteral(string input)
@@ -116,12 +115,11 @@ namespace Weave.Compiler
 
             var sb = new StringBuilder(input.Length * 2);
             sb.Append("\"");
-            for (int i = 0; i < input.Length; i++)
+            for (var i = 0; i < input.Length; i++)
             {
                 var c = input[i];
 
-                string literal;
-                if (simpleEscapeChars.TryGetValue(c, out literal))
+                if (simpleEscapeChars.TryGetValue(c, out var literal))
                 {
                     sb.Append(literal);
                 }
@@ -150,8 +148,7 @@ namespace Weave.Compiler
 
         private string CreateVariable(string prefix)
         {
-            int instance;
-            this.variables.TryGetValue(prefix, out instance);
+            this.variables.TryGetValue(prefix, out var instance);
             this.variables[prefix] = instance + 1;
             return "__" + prefix + instance;
         }

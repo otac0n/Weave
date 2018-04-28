@@ -37,7 +37,7 @@ namespace Weave
 
             var result = WeaveCompiler.Compile(template);
 
-            bool hadFatal = false;
+            var hadFatal = false;
             foreach (var error in result.Errors)
             {
                 hadFatal |= !error.IsWarning;

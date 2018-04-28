@@ -23,43 +23,29 @@ namespace Weave.Expressions
         /// <param name="indentation">The indentation of this <see cref="EachBody"/>.</param>
         public EachBody(SourceSpan expression, IEnumerable<Element> body, string indentation = null)
         {
-            if (expression == null)
-            {
-                throw new ArgumentNullException("expression");
-            }
-
             if (body == null)
             {
-                throw new ArgumentNullException("body");
+                throw new ArgumentNullException(nameof(body));
             }
 
             this.body = body.ToList().AsReadOnly();
-            this.expression = expression;
+            this.expression = expression ?? throw new ArgumentNullException(nameof(expression));
             this.indentation = indentation;
         }
 
         /// <summary>
         /// Gets the elements in this <see cref="EachBody"/>.
         /// </summary>
-        public IList<Element> Body
-        {
-            get { return this.body; }
-        }
+        public IList<Element> Body => this.body;
 
         /// <summary>
         /// Gets code expression that describes the iteration subject.
         /// </summary>
-        public SourceSpan Expression
-        {
-            get { return this.expression; }
-        }
+        public SourceSpan Expression => this.expression;
 
         /// <summary>
         /// Gets the indentation text of this <see cref="EachBody"/>.
         /// </summary>
-        public string Indentation
-        {
-            get { return this.indentation; }
-        }
+        public string Indentation => this.indentation;
     }
 }

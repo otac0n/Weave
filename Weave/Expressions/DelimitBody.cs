@@ -23,7 +23,7 @@ namespace Weave.Expressions
         {
             if (body == null)
             {
-                throw new ArgumentNullException("body");
+                throw new ArgumentNullException(nameof(body));
             }
 
             this.body = body.ToList().AsReadOnly();
@@ -33,17 +33,11 @@ namespace Weave.Expressions
         /// <summary>
         /// Gets the elements in this <see cref="DelimitBody"/>.
         /// </summary>
-        public IList<Element> Body
-        {
-            get { return this.body; }
-        }
+        public IList<Element> Body => this.body;
 
         /// <summary>
         /// Gets the indentation text of this <see cref="DelimitBody"/>.
         /// </summary>
-        public string Indentation
-        {
-            get { return this.indentation; }
-        }
+        public string Indentation => this.indentation;
     }
 }

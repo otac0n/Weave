@@ -17,20 +17,12 @@ namespace Weave.Expressions
         /// <param name="value">The literal value of this element.</param>
         public TextElement(string value)
         {
-            if (value == null)
-            {
-                throw new ArgumentNullException("value");
-            }
-
-            this.value = value;
+            this.value = value ?? throw new ArgumentNullException(nameof(value));
         }
 
         /// <summary>
         /// Gets the value of this <see cref="TextElement"/>.
         /// </summary>
-        public string Value
-        {
-            get { return this.value; }
-        }
+        public string Value => this.value;
     }
 }
