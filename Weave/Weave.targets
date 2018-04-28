@@ -2,7 +2,6 @@
 <Project ToolsVersion="4.0" TreatAsLocalProperty="WeaveAssemblyPath" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <CompileDependsOn>$(CompileDependsOn);CompileWeaveTemplates</CompileDependsOn>
-    <CoreCompileDependsOn>$(CoreCompileDependsOn);CompileWeaveTemplates</CoreCompileDependsOn>
     <CoreBuildDependsOn>$(CoreBuildDependsOn);CompileWeaveTemplates</CoreBuildDependsOn>
   </PropertyGroup>
   <ItemGroup>
@@ -16,7 +15,7 @@
   </PropertyGroup>
   <UsingTask AssemblyFile="$(WeaveAssemblyPath)" TaskName="CompileWeaveTemplate" />
 
-  <Target Name="CompileWeaveTemplates" DependsOnTargets="_CompileWeaveTemplates" Condition=" '@(WeaveTemplate)' != '' ">
+  <Target Name="CompileWeaveTemplates" BeforeTargets="CoreCompile" DependsOnTargets="_CompileWeaveTemplates" Condition=" '@(WeaveTemplate)' != '' ">
     <ItemGroup>
       <Compile Include="%(WeaveTemplate.OutputPath)" />
     </ItemGroup>
