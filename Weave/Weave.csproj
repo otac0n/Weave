@@ -1,32 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\SharedAssemblyInfo.props" />
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <Authors>John Gietzen</Authors>
-    <Copyright>Copyright © 2018 John Gietzen</Copyright>
-    <NeutralLanguage>en-US</NeutralLanguage>
-    <Description>Weave is a text templating engine that is all about attention to detail.  Weave handles the tricky work of making your rendered text beautiful.</Description>
-    <PackageTags>text;templating;transform;generation;text-transform;text-templating;text-generation</PackageTags>
-    <PackageProjectUrl>https://github.com/otac0n/Weave</PackageProjectUrl>
-    <PackageIconUrl>https://raw.github.com/otac0n/Weave/master/Weave.ico</PackageIconUrl>
-    <PackageLicenseUrl>https://raw.github.com/otac0n/Weave/master/license.md</PackageLicenseUrl>
-    <MinClientVersion>2.5</MinClientVersion>
-    <DevelopmentDependency>true</DevelopmentDependency>
-    <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
-    <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
-    <TargetFrameworks>net46;netcoreapp2.0</TargetFrameworks>
-    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <CodeAnalysisRuleSet>Weave.ruleset</CodeAnalysisRuleSet>
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+    <DebugType>Full</DebugType>
     <DefineConstants>TRACE</DefineConstants>
+    <PackageTags>text;templating;transform;generation;text-transform;text-templating;text-generation</PackageTags>
+    <DevelopmentDependency>true</DevelopmentDependency>
+    <GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <IncludeBuildOutput>false</IncludeBuildOutput>
-    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-    <GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
-    <DefineConstants>$(DefineConstants);DEBUG</DefineConstants>
+    <MinClientVersion>2.5</MinClientVersion>
+    <TargetFrameworks>net46;netcoreapp2.0</TargetFrameworks>
+    <Description>Weave is a text templating engine that is all about attention to detail.  Weave handles the tricky work of making your rendered text beautiful.</Description>
+    <PackageLicenseUrl>https://raw.github.com/otac0n/Weave/master/license.md</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/otac0n/Weave</PackageProjectUrl>
+    <PackageIconUrl>https://raw.github.com/otac0n/Weave/master/Weave.ico</PackageIconUrl>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(TargetFramework)' == 'net46' ">
-    <DefineConstants>$(DefineConstants);NETFULL;NET46</DefineConstants>
+    <DefineConstants>$(DefineConstants);NETFULL</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(TargetFramework)' == 'netcoreapp2.0' ">
     <DefineConstants>$(DefineConstants);NETCORE;NETCOREAPP2_0</DefineConstants>
@@ -80,7 +76,6 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="..\SharedAssemblyInfo.cs" Link="Properties\SharedAssemblyInfo.cs" />
     <None Remove="Weave.targets" />
     <Content Include="Weave.targets" PackagePath="build\" />
   </ItemGroup>
@@ -89,7 +84,7 @@
     <AdditionalFiles Include="Weave.ruleset" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="FixMe" Version="0.1.1" PrivateAssets="All" />
+    <PackageReference Include="FixMe" Version="1.0.0" PrivateAssets="All" />
     <PackageReference Include="GitVersionTask" Version="4.0.0-beta0012" PrivateAssets="All" />
     <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.6.0" PrivateAssets="All" />
     <PackageReference Include="Pegasus" Version="4.1.0-alpha0026" PrivateAssets="All" />
@@ -116,7 +111,7 @@
     <ItemGroup>
       <Content Include="$(OutputPath)readme.txt">
         <Pack>true</Pack>
-        <PackagePath></PackagePath>
+        <PackagePath />
       </Content>
       <Content Include="$(OutputPath)**\*.dll;$(OutputPath)**\*.exe;$(OutputPath)**\*.config;$(OutputPath)**\*.json;$(OutputPath)**\*.xml" Exclude="$(OutputPath)**\Microsoft.Build.*">
         <Pack>true</Pack>

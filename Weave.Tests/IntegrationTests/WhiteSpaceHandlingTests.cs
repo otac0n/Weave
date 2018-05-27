@@ -1,16 +1,30 @@
-﻿// Copyright © John Gietzen. All Rights Reserved. This source is subject to the MIT license. Please see license.md for more information.
+// Copyright © John Gietzen. All Rights Reserved. This source is subject to the MIT license. Please see license.md for more information.
 
 namespace Weave.Tests.IntegrationTests
 {
     using System.Collections.Generic;
     using System.Linq;
-    using NUnit.Framework;
+    using Xunit;
 
     public class WhiteSpaceHandlingTests
     {
-        public static readonly IList<string> OriginalIndentation = new List<string> { string.Empty, "    ", "\t" };
+        public static readonly IList<object[]> OriginalIndentation = new List<object[]>
+        {
+            new[] { string.Empty },
+            new[] { "    " },
+            new[] { "\t" },
+        };
 
-        [Test]
+        public static readonly IList<object[]> WrapIfTestCases =
+            (from indentation in OriginalIndentation
+             from condition in new[] { true, false }
+             from leading in new[] { "", " ", "    " }
+             from wrapIfNested in new[] { " ", "    " }
+             from body in new[] { "", " ", "    " }
+             from bodyNested in new[] { "", " ", "    " }
+             select indentation.Concat(new object[] { condition, leading, wrapIfNested, body, bodyNested }).ToArray()).ToList();
+
+        [Fact]
         public void EachBlockWithBlankLineDelimiter_EmitsTightlySpacedBlock()
         {
             var template = StringUtilities.JoinLines(
@@ -25,17 +39,18 @@ namespace Weave.Tests.IntegrationTests
 
             var result = TemplateHelper.Render(template, model);
 
-            Assert.That(result, Is.EqualTo(StringUtilities.JoinLines(
+            var expected = StringUtilities.JoinLines(
                 "{",
                 "    0",
                 "",
                 "    1",
                 "",
                 "    2",
-                "}")));
+                "}");
+            Assert.Equal(expected, result);
         }
 
-        [Test]
+        [Fact]
         public void IfBlockWithAnInlineEndTag_EmitsAllWhiteSpaceWhenTheConditionIsMet()
         {
             var template = StringUtilities.JoinLines(
@@ -47,14 +62,15 @@ namespace Weave.Tests.IntegrationTests
 
             var result = TemplateHelper.Render(template, model);
 
-            Assert.That(result, Is.EqualTo(StringUtilities.JoinLines(
+            var expected = StringUtilities.JoinLines(
                 "foo",
                 "",
                 "    baz ",
-                "baz")));
+                "baz");
+            Assert.Equal(expected, result);
         }
 
-        [Test]
+        [Fact]
         public void IfBlockWithAnInlineEndTag_EmitsSurroundingWhiteSpaceWhenTheConditionIsNotMet()
         {
             var template = StringUtilities.JoinLines(
@@ -66,13 +82,14 @@ namespace Weave.Tests.IntegrationTests
 
             var result = TemplateHelper.Render(template, model);
 
-            Assert.That(result, Is.EqualTo(StringUtilities.JoinLines(
+            var expected = StringUtilities.JoinLines(
                 "foo",
                 "",
-                "baz")));
+                "baz");
+            Assert.Equal(expected, result);
         }
 
-        [Test]
+        [Fact]
         public void IfBlockWithAnInlineStartTag_EmitsAllWhiteSpaceWhenTheConditionIsMet()
         {
             var template = StringUtilities.JoinLines(
@@ -85,15 +102,16 @@ namespace Weave.Tests.IntegrationTests
 
             var result = TemplateHelper.Render(template, model);
 
-            Assert.That(result, Is.EqualTo(StringUtilities.JoinLines(
+            var expected = StringUtilities.JoinLines(
                 "foo",
                 "    bar ",
                 "    baz",
                 "",
-                "baz")));
+                "baz");
+            Assert.Equal(expected, result);
         }
 
-        [Test]
+        [Fact]
         public void IfBlockWithAnInlineStartTag_EmitsSurroundingWhiteSpaceWhenTheConditionIsNotMet()
         {
             var template = StringUtilities.JoinLines(
@@ -106,13 +124,14 @@ namespace Weave.Tests.IntegrationTests
 
             var result = TemplateHelper.Render(template, model);
 
-            Assert.That(result, Is.EqualTo(StringUtilities.JoinLines(
+            var expected = StringUtilities.JoinLines(
                 "foo",
                 "    bar ",
-                "baz")));
+                "baz");
+            Assert.Equal(expected, result);
         }
 
-        [Test]
+        [Fact]
         public void IfStatementWithInconsistentIndenting_ChoosesSmallestNonzeroIndentation()
         {
             var template = StringUtilities.JoinLines(
@@ -125,15 +144,16 @@ namespace Weave.Tests.IntegrationTests
 
             var result = TemplateHelper.Render(template, null);
 
-            Assert.That(result, Is.EqualTo(StringUtilities.JoinLines(
+            var expected = StringUtilities.JoinLines(
                 "      foo",
                 "    foo",
                 "     foo",
                 "  foo",
-                "")));
+                "");
+            Assert.Equal(expected, result);
         }
 
-        [Test]
+        [Fact]
         public void IfStatementWithMixedTabsAndSpaces_TrimsFromTheRightWhenRemovingWhiteSpace()
         {
             var template = StringUtilities.JoinLines(
@@ -152,7 +172,7 @@ namespace Weave.Tests.IntegrationTests
 
             var result = TemplateHelper.Render(template, null);
 
-            Assert.That(result, Is.EqualTo(StringUtilities.JoinLines(
+            var expected = StringUtilities.JoinLines(
                 "\ta",
                 " \tb",
                 "  \tc",
@@ -162,10 +182,11 @@ namespace Weave.Tests.IntegrationTests
                 " \tg",
                 " \th",
                 " \ti",
-                "")));
+                "");
+            Assert.Equal(expected, result);
         }
 
-        [Test]
+        [Fact]
         public void IfStatementWithMixedTabsAndSpacesAndIndentationsThatIsNotAnEvenMultipleOfTheTabSize_TrimsFromTheRightWhenRemovingWhiteSpace()
         {
             var template = StringUtilities.JoinLines(
@@ -185,7 +206,7 @@ namespace Weave.Tests.IntegrationTests
 
             var result = TemplateHelper.Render(template, null);
 
-            Assert.That(result, Is.EqualTo(StringUtilities.JoinLines(
+            var expected = StringUtilities.JoinLines(
                 "\t a",
                 "\t b",
                 "\t c",
@@ -196,10 +217,11 @@ namespace Weave.Tests.IntegrationTests
                 "\t  h",
                 "\t  i",
                 "\t  j",
-                "")));
+                "");
+            Assert.Equal(expected, result);
         }
 
-        [Test]
+        [Fact]
         public void InlineEachBlockWithDelimiterContainingNewLine_EmitsExpectedIndentation()
         {
             var template = StringUtilities.JoinLines(
@@ -212,24 +234,26 @@ namespace Weave.Tests.IntegrationTests
 
             var result = TemplateHelper.Render(template, model);
 
-            Assert.That(result, Is.EqualTo(StringUtilities.JoinLines(
+            var expected = StringUtilities.JoinLines(
                 "var foo = x[0] ??",
                 "          x[1] ??",
                 "          x[2];",
-                "")));
+                "");
+            Assert.Equal(expected, result);
         }
 
-        [TestCaseSource("OriginalIndentation")]
+        [Theory]
+        [MemberData(nameof(OriginalIndentation))]
         public void InlineWrapIfBlock_EmitsExpectedIndentation(string indentation)
         {
             var template = "    {{wrapif false}}outer{{body}}inner{{/body}}/outer{{/wrapif}}";
 
             var result = TemplateHelper.Render(template, null, indentation);
 
-            Assert.That(result, Is.EqualTo($"{indentation}    inner"));
+            Assert.Equal($"{indentation}    inner", result);
         }
 
-        [Test]
+        [Fact]
         public void NestedIfStatements_StripAllIndentation()
         {
             var template = StringUtilities.JoinLines(
@@ -241,12 +265,13 @@ namespace Weave.Tests.IntegrationTests
 
             var result = TemplateHelper.Render(template, null);
 
-            Assert.That(result, Is.EqualTo(StringUtilities.JoinLines(
+            var expected = StringUtilities.JoinLines(
                 "foo",
-                "")));
+                "");
+            Assert.Equal(expected, result);
         }
 
-        [Test]
+        [Fact]
         public void SimpleEachBlockWithASingleLineBody_EmitsASingleLinePerIterationOfTheBody()
         {
             var template = StringUtilities.JoinLines(
@@ -259,15 +284,16 @@ namespace Weave.Tests.IntegrationTests
 
             var result = TemplateHelper.Render(template, model);
 
-            Assert.That(result, Is.EqualTo(StringUtilities.JoinLines(
+            var expected = StringUtilities.JoinLines(
                 "foo",
                 "bar",
                 "bar",
                 "bar",
-                "baz")));
+                "baz");
+            Assert.Equal(expected, result);
         }
 
-        [Test]
+        [Fact]
         public void SimpleIfBlockWithASingleLineBody_EmitsASingleLineWhenTheConditionIsMet()
         {
             var template = StringUtilities.JoinLines(
@@ -280,13 +306,14 @@ namespace Weave.Tests.IntegrationTests
 
             var result = TemplateHelper.Render(template, model);
 
-            Assert.That(result, Is.EqualTo(StringUtilities.JoinLines(
+            var expected = StringUtilities.JoinLines(
                 "foo",
                 "bar",
-                "baz")));
+                "baz");
+            Assert.Equal(expected, result);
         }
 
-        [Test]
+        [Fact]
         public void StatementBlockAtTheTop_DoesNotCauseAPrecedingNewLineToBeEmitted()
         {
             var template = StringUtilities.JoinLines(
@@ -297,10 +324,10 @@ namespace Weave.Tests.IntegrationTests
 
             var result = TemplateHelper.Render(template, null);
 
-            Assert.That(result, Is.EqualTo("<!DOCTYPE html>"));
+            Assert.Equal("<!DOCTYPE html>", result);
         }
 
-        [Test]
+        [Fact]
         public void StatementBlockLineWithExcessInternalWhiteSpace_DoesNotEmitAnyExternalWhiteSpace()
         {
             var template = StringUtilities.JoinLines(
@@ -312,10 +339,10 @@ namespace Weave.Tests.IntegrationTests
 
             var result = TemplateHelper.Render(template, null);
 
-            Assert.That(result, Is.EqualTo(string.Empty));
+            Assert.Equal(string.Empty, result);
         }
 
-        [Test]
+        [Fact]
         public void StatementBlockOnALineOfItsOwn_DoesNotEmitItselfOrTheLine()
         {
             var template = StringUtilities.JoinLines(
@@ -325,12 +352,14 @@ namespace Weave.Tests.IntegrationTests
 
             var result = TemplateHelper.Render(template, null);
 
-            Assert.That(result, Is.EqualTo(StringUtilities.JoinLines(
+            var expected = StringUtilities.JoinLines(
                 "foo",
-                "bar")));
+                "bar");
+            Assert.Equal(expected, result);
         }
 
-        [TestCaseSource("OriginalIndentation")]
+        [Theory]
+        [MemberData(nameof(OriginalIndentation))]
         public void WrapIfBlock_DoesNotBreakOptimizationsWhenTheBodyMatchesTheIndentationOfTheBeforeAndWrapIfElements(string indentation)
         {
             var template = StringUtilities.JoinLines(
@@ -344,19 +373,15 @@ namespace Weave.Tests.IntegrationTests
 
             var result = TemplateHelper.Render(template, null, indentation);
 
-            Assert.That(result, Is.EqualTo(StringUtilities.JoinLines(
+            var expected = StringUtilities.JoinLines(
                 $"{indentation}inner",
-                $"")));
+                $"");
+            Assert.Equal(expected, result);
         }
 
-        [Test]
-        public void WrapIfBlock_EmitsLeadingIndentationAndBodyIndentationAppropriately(
-            [ValueSource("OriginalIndentation")] string indentation,
-            [Values(true, false)] bool condition,
-            [Values("", " ", "    ")] string leading,
-            [Values(" ", "    ")] string wrapIfNested,
-            [Values("", " ", "    ")] string body,
-            [Values("", " ", "    ")] string bodyNested)
+        [Theory]
+        [MemberData(nameof(WrapIfTestCases))]
+        public void WrapIfBlock_EmitsLeadingIndentationAndBodyIndentationAppropriately(string indentation, bool condition, string leading, string wrapIfNested, string body, string bodyNested)
         {
             var template = StringUtilities.JoinLines(
                 leading + "{{wrapif model}}",
@@ -370,19 +395,20 @@ namespace Weave.Tests.IntegrationTests
 
             var result = TemplateHelper.Render(template, model, indentation);
 
-            Assert.That(result, Is.EqualTo(
-                condition
-                    ? StringUtilities.JoinLines(
-                        $"{indentation}{leading}outer",
-                        $"{indentation}{leading}{body}inner",
-                        $"{indentation}{leading}/outer",
-                        $"")
-                    : StringUtilities.JoinLines(
-                        $"{indentation}{leading}inner",
-                        $"")));
+            var expected = condition
+                ? StringUtilities.JoinLines(
+                    $"{indentation}{leading}outer",
+                    $"{indentation}{leading}{body}inner",
+                    $"{indentation}{leading}/outer",
+                    $"")
+                : StringUtilities.JoinLines(
+                    $"{indentation}{leading}inner",
+                    $"");
+            Assert.Equal(expected, result);
         }
 
-        [TestCaseSource("OriginalIndentation")]
+        [Theory]
+        [MemberData(nameof(OriginalIndentation))]
         public void WrapIfBlock_EmitsLeadingIndentationWhenTheConditionIsFalseAndTheWrapIfElementIsAlsoWrapped(string indentation)
         {
             var template = StringUtilities.JoinLines(
@@ -398,9 +424,10 @@ namespace Weave.Tests.IntegrationTests
 
             var result = TemplateHelper.Render(template, null, indentation);
 
-            Assert.That(result, Is.EqualTo(StringUtilities.JoinLines(
+            var expected = StringUtilities.JoinLines(
                 $"{indentation}    inner",
-                $"")));
+                $"");
+            Assert.Equal(expected, result);
         }
     }
 }

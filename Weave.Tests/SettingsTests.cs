@@ -1,43 +1,42 @@
-﻿// Copyright © John Gietzen. All Rights Reserved. This source is subject to the MIT license. Please see license.md for more information.
+// Copyright © John Gietzen. All Rights Reserved. This source is subject to the MIT license. Please see license.md for more information.
 
 namespace Weave.Tests
 {
     using System.Linq;
-    using NUnit.Framework;
     using Weave.Compiler;
     using Weave.Parser;
+    using Xunit;
 
-    [TestFixture]
     public class SettingsTests
     {
-        [Test]
+        [Fact]
         public void Compile_WhenTemplateContainsEncodedEchoExpressionAndEncodeSetting_Succeeds()
         {
             var template = "@namespace Tests\n@encode EncodeFoo\n{{: foo }}";
 
             var results = WeaveCompiler.Compile(new WeaveParser().Parse(template));
 
-            Assert.That(results.Errors, Is.Empty);
+            Assert.Empty(results.Errors);
         }
 
-        [Test]
+        [Fact]
         public void Compile_WhenTemplateContainsEncodedEchoExpressionButNoEncodeSetting_YieldsError()
         {
             var template = "@namespace Tests\n{{: foo }}";
 
             var results = WeaveCompiler.Compile(new WeaveParser().Parse(template));
 
-            Assert.That(results.Errors.Single().ErrorNumber, Is.EqualTo("WEAVE0005"));
+            Assert.Equal("WEAVE0005", results.Errors.Single().ErrorNumber);
         }
 
-        [Test]
+        [Fact]
         public void Compile_WhenTemplateDoesNotContainNamespaceSetting_YieldsError()
         {
             var template = string.Empty;
 
             var results = WeaveCompiler.Compile(new WeaveParser().Parse(template));
 
-            Assert.That(results.Errors.Single().ErrorNumber, Is.EqualTo("WEAVE0004"));
+            Assert.Equal("WEAVE0004", results.Errors.Single().ErrorNumber);
         }
     }
 }

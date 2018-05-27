@@ -1,13 +1,13 @@
-﻿// Copyright © John Gietzen. All Rights Reserved. This source is subject to the MIT license. Please see license.md for more information.
+// Copyright © John Gietzen. All Rights Reserved. This source is subject to the MIT license. Please see license.md for more information.
 
 namespace Weave.Tests
 {
-    using NUnit.Framework;
+    using Xunit;
 
-    [TestFixture]
     public class RegressionTests
     {
-        [Test(Description = "GitHub bug #10")]
+        [Fact]
+        [Trait("GitHub bug", "10")]
         public void LeftMarginIndentation()
         {
             var template = StringUtilities.JoinLines(
@@ -19,11 +19,12 @@ namespace Weave.Tests
 
             var result = TemplateHelper.Render(template, model, " ");
 
-            Assert.That(result, Is.EqualTo(StringUtilities.JoinLines(
+            var expected = StringUtilities.JoinLines(
                 " a",
                 "  b",
                 "",
-                "   c")));
+                "   c");
+            Assert.Equal(expected, result);
         }
     }
 }
