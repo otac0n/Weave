@@ -1,4 +1,4 @@
-Weave
+Weave <img src="Weave.svg" width="42" height="42" />
 =====
 
 Weave is a text templating engine for .NET that is all about attention to detail.  Weave handles the tricky work of making your rendered text beautiful.
