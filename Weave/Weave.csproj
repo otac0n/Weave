@@ -3,6 +3,7 @@
   <Import Project="..\SharedAssemblyInfo.props" />
   <PropertyGroup>
     <OutputType>Exe</OutputType>
+    <ApplicationIcon>..\Weave.ico</ApplicationIcon>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <CodeAnalysisRuleSet>Weave.ruleset</CodeAnalysisRuleSet>
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
