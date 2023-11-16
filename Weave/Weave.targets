@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Project ToolsVersion="4.0" TreatAsLocalProperty="WeaveAssemblyPath" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <ItemGroup>
-    <AvailableItemName Include="WeaveTemplate" />
-  </ItemGroup>
   <PropertyGroup Condition=" '$(MSBuildRuntimeType)' == 'Core' ">
     <WeaveAssemblyPath>$(MSBuildThisFileDirectory)netcoreapp2.0\Weave.dll</WeaveAssemblyPath>
   </PropertyGroup>
@@ -11,9 +8,17 @@
   </PropertyGroup>
   <UsingTask AssemblyFile="$(WeaveAssemblyPath)" TaskName="CompileWeaveTemplate" />
 
-  <Target Name="CompileWeaveTemplates" DependsOnTargets="_CompileWeaveTemplates" BeforeTargets="Compile;CoreCompile;Build;CoreBuild" Condition=" '@(WeaveTemplate)' != '' ">
+  <ItemGroup>
+    <!-- WeaveTemplate implies AdditionalFiles -->
+    <AvailableItemName Include="WeaveTemplate" />
+    <CompilerVisibleItemMetadata Include="WeaveTemplate" MetadataName="OutputPath" />
+    <CompilerVisibleItemMetadata Include="AdditionalFiles" MetadataName="SourceItemGroup" />
+  </ItemGroup>
+
+  <Target Name="_InjectWeaveTemplateAdditionalFiles" BeforeTargets="GenerateMSBuildEditorConfigFileShouldRun">
     <ItemGroup>
-      <Compile Include="%(WeaveTemplate.OutputPath)" />
+      <!-- Compliant with the technique from https://platform.uno/blog/using-msbuild-items-and-properties-in-c-9-source-generators/ -->
+      <AdditionalFiles Include="@(WeaveTemplate)" SourceItemGroup="WeaveTemplate" />
     </ItemGroup>
   </Target>
 
@@ -28,11 +33,19 @@
     </ItemGroup>
   </Target>
 
+  <Target Name="CompileWeaveTemplates" DependsOnTargets="_CompileWeaveTemplates" BeforeTargets="Compile;CoreCompile;Build;CoreBuild" Condition=" '@(WeaveTemplate)' != '' ">
+    <ItemGroup>
+      <Compile Include="%(WeaveTemplate.OutputPath)" />
+    </ItemGroup>
+  </Target>
+
   <Target Name="CleanWeaveTemplates" DependsOnTargets="_UpdateWeaveTemplatesMetatdata" BeforeTargets="Clean;CoreClean">
+    <!-- TODO: Exclude Source-Generated? -->
     <Delete Files="@(WeaveTemplate -> '%(OutputPath)')" ContinueOnError="true" />
   </Target>
 
   <Target Name="_CompileWeaveTemplates" DependsOnTargets="_UpdateWeaveTemplatesMetatdata" Inputs="$(MSBuildThisFileFullPath);$(MSBuildProjectFile);@(WeaveTemplate)" Outputs="@(WeaveTemplate -> '%(OutputPath)')">
+    <!-- TODO: Exclude Source-Generated? -->
     <CompileWeaveTemplate InputFile="%(WeaveTemplate.FullPath)" OutputFile="%(WeaveTemplate.OutputPath)" />
     <Message Text="%(WeaveTemplate.FullPath) -> %(WeaveTemplate.OutputPath)" />
   </Target>

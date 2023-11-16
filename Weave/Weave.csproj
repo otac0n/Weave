@@ -6,6 +6,7 @@
     <ApplicationIcon>..\Weave.ico</ApplicationIcon>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <CodeAnalysisRuleSet>Weave.ruleset</CodeAnalysisRuleSet>
+    <EnforceExtendedAnalyzerRules>true</EnforceExtendedAnalyzerRules>
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
     <DebugType>Full</DebugType>
     <DefineConstants>TRACE</DefineConstants>
@@ -16,17 +17,13 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <IncludeBuildOutput>false</IncludeBuildOutput>
     <MinClientVersion>2.5</MinClientVersion>
-    <TargetFrameworks>net46;netcoreapp2.0</TargetFrameworks>
+    <TargetFrameworks>net46;netcoreapp2.0;netstandard2.0</TargetFrameworks>
+    <LangVersion>Latest</LangVersion>
+    <!-- TODO: <Nullable>Enable</Nullable> -->
     <Description>Weave is a text templating engine that is all about attention to detail.  Weave handles the tricky work of making your rendered text beautiful.</Description>
     <PackageLicenseUrl>https://raw.github.com/otac0n/Weave/master/license.md</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/otac0n/Weave</PackageProjectUrl>
     <PackageIconUrl>https://raw.github.com/otac0n/Weave/master/Weave.ico</PackageIconUrl>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(TargetFramework)' == 'net46' ">
-    <DefineConstants>$(DefineConstants);NETFULL</DefineConstants>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(TargetFramework)' == 'netcoreapp2.0' ">
-    <DefineConstants>$(DefineConstants);NETCORE;NETCOREAPP2_0</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
     <Compile Update="Compiler\Templates\BodyElement.weave.cs">
@@ -94,10 +91,21 @@
   <ItemGroup Condition=" '$(TargetFramework)' == 'net46' ">
     <Reference Include="Microsoft.Build.Framework" />
     <Reference Include="Microsoft.Build.Utilities.v4.0" />
+    <Compile Remove="GenerateWeaveSources.cs" />
   </ItemGroup>
   <ItemGroup Condition=" '$(TargetFramework)' == 'netcoreapp2.0' ">
     <PackageReference Include="Microsoft.Build.Utilities.Core" Version="15.6.85" />
-    <PackageReference Include="System.CodeDom" Version="4.4.0" />
+    <PackageReference Include="System.CodeDom" Version="4.4.0" /><!-- TODO: Upgrade to 4.7.0 at least -->
+    <Compile Remove="GenerateWeaveSources.cs" />
+  </ItemGroup>
+  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
+    <PackageReference Include="System.CodeDom" Version="4.7.0" />
+    <PackageReference Include="System.Collections.Immutable" Version="7.0.0" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.7.0" />
+    <Compile Remove="CompileManager.cs" />
+    <None Include="CompileManager.cs" />
+    <Compile Remove="CompileWeaveTemplate.cs" />
+    <None Include="CompileWeaveTemplate.cs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Update="@(PackageReference)" PrivateAssets="All" />
