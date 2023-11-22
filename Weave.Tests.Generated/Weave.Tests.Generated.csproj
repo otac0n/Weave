@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Weave\Weave.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="TestGenerator.weave" />
+    <WeaveTemplate Include="TestGenerator.weave" />
+  </ItemGroup>
+  <PropertyGroup>
+    <WeaveAssemblyPath>$(MSBuildThisFileDirectory)..\Weave\bin\netstandard2.0\Weave.dll</WeaveAssemblyPath>
+  </PropertyGroup>
+  <Import Project="..\Weave\Weave.targets" />
+</Project>

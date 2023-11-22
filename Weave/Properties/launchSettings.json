@@ -1,0 +1,11 @@
+{
+  "profiles": {
+    "Weave": {
+      "commandName": "Project"
+    },
+    "Weave (source generator)": {
+      "commandName": "DebugRoslynComponent",
+      "targetProject": "..\\Weave.Tests.Generated\\Weave.Tests.Generated.csproj"
+    }
+  }
+}
