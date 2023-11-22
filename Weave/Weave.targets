@@ -1,33 +1,38 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Project ToolsVersion="4.0" TreatAsLocalProperty="WeaveAssemblyPath" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <PropertyGroup Condition=" '$(MSBuildRuntimeType)' == 'Core' ">
-    <WeaveAssemblyPath>$(MSBuildThisFileDirectory)netcoreapp2.0\Weave.dll</WeaveAssemblyPath>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(MSBuildRuntimeType)' != 'Core' ">
-    <WeaveAssemblyPath>$(MSBuildThisFileDirectory)net46\Weave.exe</WeaveAssemblyPath>
-  </PropertyGroup>
-  <UsingTask AssemblyFile="$(WeaveAssemblyPath)" TaskName="CompileWeaveTemplate" />
-
   <ItemGroup>
-    <!-- WeaveTemplate implies AdditionalFiles -->
-    <AvailableItemName Include="WeaveTemplate" />
-    <CompilerVisibleItemMetadata Include="WeaveTemplate" MetadataName="OutputPath" />
+    <AvailableItemName Include="WeaveTemplate" /><!-- WeaveTemplate now implies AdditionalFiles -->
+    <CompilerVisibleItemMetadata Include="WeaveTemplate" MetadataName="UseSourceGeneration" />
     <CompilerVisibleItemMetadata Include="AdditionalFiles" MetadataName="SourceItemGroup" />
   </ItemGroup>
 
+  <PropertyGroup Condition=" '$(MSBuildRuntimeType)' == 'Core' And '$(WeaveAssemblyPath)' == '' ">
+    <WeaveAssemblyPath>$(MSBuildThisFileDirectory)netcoreapp2.0\Weave.dll</WeaveAssemblyPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(MSBuildRuntimeType)' != 'Core' And '$(WeaveAssemblyPath)' == '' ">
+    <WeaveAssemblyPath>$(MSBuildThisFileDirectory)net461\Weave.exe</WeaveAssemblyPath>
+  </PropertyGroup>
+  <UsingTask AssemblyFile="$(WeaveAssemblyPath)" TaskName="CompileWeaveTemplate" />
+
   <Target Name="_InjectWeaveTemplateAdditionalFiles" BeforeTargets="GenerateMSBuildEditorConfigFileShouldRun">
+    <!-- Compliant with the technique from https://platform.uno/blog/using-msbuild-items-and-properties-in-c-9-source-generators/ -->
     <ItemGroup>
-      <!-- Compliant with the technique from https://platform.uno/blog/using-msbuild-items-and-properties-in-c-9-source-generators/ -->
+      <WeaveTemplate Condition=" '%(WeaveTemplate.OutputPath)' == '' ">
+        <UseSourceGeneration>true</UseSourceGeneration>
+      </WeaveTemplate>
+      <WeaveTemplate Condition=" '%(WeaveTemplate.OutputPath)' != '' ">
+        <UseSourceGeneration>false</UseSourceGeneration>
+      </WeaveTemplate>
       <AdditionalFiles Include="@(WeaveTemplate)" SourceItemGroup="WeaveTemplate" />
     </ItemGroup>
   </Target>
 
   <Target Name="_UpdateWeaveTemplatesMetatdata">
     <ItemGroup>
-      <WeaveTemplate Condition=" '%(WeaveTemplate.Link)' != '' ">
+      <WeaveTemplate Condition=" '%(WeaveTemplate.Link)' != '' And '%(WeaveTemplate.OutputPath)' == '' And '%(WeaveTemplate.UseSourceGeneration)' != 'true'">
         <OutputPath>$(IntermediateOutputPath)%(WeaveTemplate.Link).cs</OutputPath>
       </WeaveTemplate>
-      <WeaveTemplate Condition=" '%(WeaveTemplate.Link)' == '' ">
+      <WeaveTemplate Condition=" '%(WeaveTemplate.Link)' == '' And '%(WeaveTemplate.OutputPath)' == '' And '%(WeaveTemplate.UseSourceGeneration)' != 'true' ">
         <OutputPath>$(IntermediateOutputPath)%(WeaveTemplate.Identity).cs</OutputPath>
       </WeaveTemplate>
     </ItemGroup>
@@ -35,6 +40,7 @@
 
   <Target Name="CompileWeaveTemplates" DependsOnTargets="_CompileWeaveTemplates" BeforeTargets="Compile;CoreCompile;Build;CoreBuild" Condition=" '@(WeaveTemplate)' != '' ">
     <ItemGroup>
+      <!-- TODO: Exclude Source-Generated -->
       <Compile Include="%(WeaveTemplate.OutputPath)" />
     </ItemGroup>
   </Target>

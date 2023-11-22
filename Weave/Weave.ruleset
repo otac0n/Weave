@@ -1,4 +1,7 @@
-<?xml version="1.0" encoding="utf-8"?>
-<RuleSet Name="Weave" Description="Rules for the Weave project." ToolsVersion="14.0">
-  <Include Path="..\Strict.ruleset" Action="Default" />
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RuleSet Name="Weave" Description="Rules for the Weave project." ToolsVersion="17.0">
+  <Include Path="..\strict.ruleset" Action="Default" />
+  <Rules AnalyzerId="Microsoft.CodeAnalysis.CSharp.Analyzers" RuleNamespace="Microsoft.CodeAnalysis.CSharp.Analyzers">
+    <Rule Id="RS1035" Action="None" />
+  </Rules>
 </RuleSet>
