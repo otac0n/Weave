@@ -3,6 +3,7 @@
   <ItemGroup>
     <AvailableItemName Include="WeaveTemplate" /><!-- WeaveTemplate now implies AdditionalFiles -->
     <CompilerVisibleItemMetadata Include="WeaveTemplate" MetadataName="UseSourceGeneration" />
+    <CompilerVisibleItemMetadata Include="WeaveTemplate" MetadataName="OutputPath" />
     <CompilerVisibleItemMetadata Include="AdditionalFiles" MetadataName="SourceItemGroup" />
   </ItemGroup>
 
@@ -40,8 +41,7 @@
 
   <Target Name="CompileWeaveTemplates" DependsOnTargets="_CompileWeaveTemplates" BeforeTargets="Compile;CoreCompile;Build;CoreBuild" Condition=" '@(WeaveTemplate)' != '' ">
     <ItemGroup>
-      <!-- TODO: Exclude Source-Generated -->
-      <Compile Include="%(WeaveTemplate.OutputPath)" />
+      <Compile Include="%(WeaveTemplate.OutputPath)" Condition=" '%(WeaveTemplate.OutputPath)' != '' " />
     </ItemGroup>
   </Target>
 
