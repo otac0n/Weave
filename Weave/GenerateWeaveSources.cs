@@ -25,6 +25,12 @@ namespace Weave
                 .Where(p => p.Right.GetOptions(p.Left).Keys.Contains(UseSourceGeneration, StringComparer.InvariantCultureIgnoreCase))
                 .Select((p, ct) => (p.Left.Path, Text: p.Left.GetText(ct)));
 
+            var yesConfigFiles = weaveFiles.Where(f => Path.GetFileName(f.Path).ToUpperInvariant() == CompileManager.RecursiveConfigFileName.ToUpperInvariant());
+            var nonConfigFiles = weaveFiles.Where(f => Path.GetFileName(f.Path).ToUpperInvariant() != CompileManager.RecursiveConfigFileName.ToUpperInvariant());
+
+            // TODO: Go ahead and compile _config files, but make sure that we emit a compile warning (using a pragma directive and a [Deprecated] attribute) about future removal.
+            // TODO: Somehow provide a positve ACK that a _config file is missing from the filesystem via MSBUILD. e.g. `build_metadata.WeaveTemplate.ParentConfigFileExists`
+
             var compileManager = new CompileManager(new SourceGeneratorVirtualFileSystem(weaveFiles));
 
             context.RegisterSourceOutput(

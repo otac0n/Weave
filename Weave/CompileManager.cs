@@ -13,6 +13,8 @@ namespace Weave
 
     internal class CompileManager
     {
+        public static readonly string RecursiveConfigFileName = "_config.weave";
+
         private readonly IFileSystem fileSystem;
 
         public CompileManager(IFileSystem fileSystem)
@@ -65,7 +67,7 @@ namespace Weave
             return this.ParseTemplate(content, inputFileName);
 
             /* TODO: _config
-            var configFile = Path.Combine(Path.GetDirectoryName(inputFile), "_config.weave");
+            var configFile = Path.Combine(Path.GetDirectoryName(inputFile), RecursiveConfigFileName);
 
             if (this.fileSystem.File.Exists(configFile))
             {

@@ -24,6 +24,7 @@
       <WeaveTemplate Condition=" '%(WeaveTemplate.OutputPath)' != '' ">
         <UseSourceGeneration>false</UseSourceGeneration>
       </WeaveTemplate>
+      <!-- TODO: Inject _config.weave into build_metadata.WeaveTemplate.UseSourceGeneration, build_metadata.WeaveTemplate.OutputPath, build_metadata.WeaveTemplate.ParentConfigFileExists, or etc. -->
       <AdditionalFiles Include="@(WeaveTemplate)" SourceItemGroup="WeaveTemplate" />
     </ItemGroup>
   </Target>
