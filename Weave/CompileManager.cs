@@ -13,13 +13,39 @@ namespace Weave
 
     internal class CompileManager
     {
-        public static readonly string RecursiveConfigFileName = "_config.weave";
+        public static readonly string ConfigFileName = "_config.weave";
+        public static readonly string RecursiveConfigAbortAttribute = "root";
 
         private readonly IFileSystem fileSystem;
 
         public CompileManager(IFileSystem fileSystem)
         {
             this.fileSystem = fileSystem;
+        }
+
+        public static CompileResult<Template> ParseTemplate(string inputFileContents, string inputFileName)
+        {
+            var parser = new WeaveParser();
+            var compileResult = new CompileResult<Template>();
+            try
+            {
+                compileResult.Result = parser.Parse(inputFileContents, fileName: inputFileName);
+            }
+            catch (FormatException ex)
+            {
+                var cursor = ex.Data["cursor"] as Cursor;
+                if (cursor != null && Regex.IsMatch(ex.Message, @"^WEAVE\d+:"))
+                {
+                    var parts = ex.Message.Split(new[] { ':' }, 2);
+                    compileResult.Errors.Add(new CompilerError(cursor.FileName, cursor.Line, cursor.Column, parts[0], parts[1]));
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return compileResult;
         }
 
         public static void CompileFile(string inputFileName, string outputFileName, Action<CompilerError> logError)
@@ -64,10 +90,10 @@ namespace Weave
         private CompileResult<Template> ParseTemplate(string inputFileName)
         {
             var content = this.fileSystem.File.ReadAllText(inputFileName);
-            return this.ParseTemplate(content, inputFileName);
+            return ParseTemplate(content, inputFileName);
 
             /* TODO: _config
-            var configFile = Path.Combine(Path.GetDirectoryName(inputFile), RecursiveConfigFileName);
+            var configFile = Path.Combine(Path.GetDirectoryName(inputFile), ConfigFileName);
 
             if (this.fileSystem.File.Exists(configFile))
             {
@@ -80,31 +106,6 @@ namespace Weave
                 template = new Template(template, config);
             }
             */
-        }
-
-        private CompileResult<Template> ParseTemplate(string inputFileContents, string inputFileName)
-        {
-            var parser = new WeaveParser();
-            var compileResult = new CompileResult<Template>();
-            try
-            {
-                compileResult.Result = parser.Parse(inputFileContents, fileName: inputFileName);
-            }
-            catch (FormatException ex)
-            {
-                var cursor = ex.Data["cursor"] as Cursor;
-                if (cursor != null && Regex.IsMatch(ex.Message, @"^WEAVE\d+:"))
-                {
-                    var parts = ex.Message.Split(new[] { ':' }, 2);
-                    compileResult.Errors.Add(new CompilerError(cursor.FileName, cursor.Line, cursor.Column, parts[0], parts[1]));
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return compileResult;
         }
     }
 }

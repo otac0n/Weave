@@ -10,6 +10,18 @@
     <ProjectReference Include="..\Weave\Weave.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
   </ItemGroup>
   <ItemGroup>
+    <None Remove="ConfigTest\CompiledConfig\_config.weave" />
+    <WeaveTemplate Include="ConfigTest\CompiledConfig\_config.weave">
+      <UseSourceGeneration>false</UseSourceGeneration>
+    </WeaveTemplate>
+    <None Remove="ConfigTest\CompiledConfig\TestCompiledConfig.weave" />
+    <WeaveTemplate Include="ConfigTest\CompiledConfig\TestCompiledConfig.weave" />
+    <None Remove="ConfigTest\GeneratedConfig\_config.weave" />
+    <WeaveTemplate Include="ConfigTest\GeneratedConfig\_config.weave" />
+    <None Remove="ConfigTest\GeneratedConfig\TestGeneratedConfig.weave" />
+    <WeaveTemplate Include="ConfigTest\GeneratedConfig\TestGeneratedConfig.weave" />
+    <None Remove="ConfigTest\NoneConfig\TestNoneConfig.weave" />
+    <WeaveTemplate Include="ConfigTest\NoneConfig\TestNoneConfig.weave" />
     <None Remove="TestGenerator.weave" />
     <WeaveTemplate Include="TestGenerator.weave" />
   </ItemGroup>
