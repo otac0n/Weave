@@ -6,7 +6,7 @@ namespace Weave
     using System.CodeDom.Compiler;
     using System.IO;
     using System.Linq;
-    using System.Text.RegularExpressions;
+    using System.Reflection;
     using Microsoft.CodeAnalysis;
     using Microsoft.CodeAnalysis.Diagnostics;
     using Microsoft.CodeAnalysis.Text;
@@ -18,6 +18,8 @@ namespace Weave
     {
         private const string UseSourceGeneration = "build_metadata.WeaveTemplateGenerate.UseSourceGeneration";
         private const string ConfigFileExists = "build_metadata.WeaveTemplateGenerate.ConfigFileExists";
+        private const string ProjectDir = "build_property.projectdir";
+        private const string GeneratedOutputPath = "build_property.compilergeneratedfilesoutputpath";
 
         public void Initialize(IncrementalGeneratorInitializationContext context)
         {
@@ -47,23 +49,39 @@ namespace Weave
                 .Where(p => Path.GetFileName(p.path) == CompileManager.ConfigFileName) // TODO: Case sensitivity can vary by filesystem.
                 .Collect();
 
-            var filesWithConfigs = sourceGeneratedFiles
-                .Combine(allConfigFiles)
+            var outputPath = context.AnalyzerConfigOptionsProvider
                 .Select((p, ct) =>
                 {
-                    var configPath = Path.Combine(Path.GetDirectoryName(p.Left.path), CompileManager.ConfigFileName);
+                    var gOptions = p.GlobalOptions.Keys.ToDictionary(k => k, k => p.GlobalOptions.TryGetValue(k, out var value) ? value : null);
+                    p.GlobalOptions.TryGetValue(ProjectDir, out var root);
+                    p.GlobalOptions.TryGetValue(GeneratedOutputPath, out var generated);
+                    var assembly = Assembly.GetExecutingAssembly().FullName;
+                    var generator = typeof(GenerateWeaveSources).FullName;
+                    return Path.GetFullPath(Path.Combine(root, generated, assembly, generator));
+                });
+
+            var filesWithConfigs = sourceGeneratedFiles
+                .Combine(allConfigFiles)
+                .Combine(outputPath)
+                .Select((p, ct) =>
+                {
+                    var source = p.Left.Left;
+                    var allConfigs = p.Left.Right;
+                    var outputPath = p.Right;
+                    var configPath = Path.Combine(Path.GetDirectoryName(source.path), CompileManager.ConfigFileName);
                     return new
                     {
-                        Source = p.Left,
-                        Config = p.Left.configFileExists ?? true
-                            ? p.Right.Where(f => f.path == configPath).SingleOrDefault() // TODO: Case sensitivity can vary by filesystem.
+                        Source = source,
+                        Config = source.configFileExists ?? true
+                            ? allConfigs.Where(f => f.path == configPath).SingleOrDefault() // TODO: Case sensitivity can vary by filesystem.
                             : default(WeaveTemplateItem?),
+                        OutputPath = outputPath,
                     };
                 });
 
             context.RegisterSourceOutput(
                 filesWithConfigs,
-                (context, pair) => CompileWeaveFile(context, pair.Source, pair.Config));
+                (context, pair) => CompileWeaveFile(context, pair.Source, pair.Config, pair.OutputPath));
         }
 
         private static bool? GetBooleanOption(AnalyzerConfigOptions options, string key) =>
@@ -71,16 +89,17 @@ namespace Weave
                 ? result
                 : null;
 
-        private static void CompileWeaveFile(SourceProductionContext context, WeaveTemplateItem template, WeaveTemplateItem? config)
+        private static void CompileWeaveFile(SourceProductionContext context, WeaveTemplateItem template, WeaveTemplateItem? config, string outputPath)
         {
             if (template.text != null)
             {
-                var templateResult = CompileManager.ParseTemplate(template.text.ToString(), template.path); // TODO: Make path relative.
+                var relativePath = PathUtils.MakeRelative(outputPath, template.path);
+                var templateResult = CompileManager.ParseTemplate(template.text.ToString(), relativePath);
                 if (template.configFileExists ?? (config != null))
                 {
                     if (config is WeaveTemplateItem configItem)
                     {
-                        var configResult = CompileManager.ParseTemplate(configItem.text.ToString(), configItem.path); // TODO: Make path relative.
+                        var configResult = CompileManager.ParseTemplate(configItem.text.ToString(), PathUtils.MakeRelative(outputPath, configItem.path));
                         templateResult = CompileManager.CombineTemplateConfig(templateResult, configResult);
                     }
                     else
@@ -104,8 +123,7 @@ namespace Weave
                     return;
                 }
 
-                // TODO: Do not leak the full path.  Make paths relative to the root of compilation.
-                context.AddSource(PathUtils.Escape(template.path) + ".g.cs", compileResult.Code);
+                context.AddSource(PathUtils.EncodePathAsFilename(relativePath) + ".g.cs", compileResult.Code);
             }
         }
 
@@ -145,24 +163,14 @@ namespace Weave
             public static string MakeRelative(string root, string path)
             {
                 root = Path.GetFullPath(root);
-                var escaped = Escape(path);
-                var filePath = Path.Combine(root, escaped);
-                var fullPath = Path.GetFullPath(filePath);
-                var relativeUri = new Uri(root).MakeRelativeUri(new Uri(fullPath));
+                var fullFilePath = Path.GetFullPath(Path.Combine(root, path));
+                var relativeUri = new Uri(root).MakeRelativeUri(new Uri(fullFilePath));
                 var relativePath = Uri.UnescapeDataString(relativeUri.ToString()).Replace(Path.AltDirectorySeparatorChar, Path.DirectorySeparatorChar);
-                var relativeUnescaped = Unescape(relativePath);
-                return relativeUnescaped;
+                return relativePath;
             }
 
-            public static string Escape(string path)
-            {
-                return Regex.Replace(path, "[_*?]", match => "_" + "_sq"["_*?".IndexOf(match.Value, StringComparison.Ordinal)]);
-            }
-
-            public static string Unescape(string path)
-            {
-                return Regex.Replace(path, "_.", match => "_*?"["_sq".IndexOf(match.Value[1])].ToString());
-            }
+            public static string EncodePathAsFilename(string path) =>
+                Uri.EscapeDataString(path).Replace("_", "__").Replace("%", "_p");
         }
     }
 }

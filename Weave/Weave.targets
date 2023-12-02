@@ -5,6 +5,7 @@
     <CompilerVisibleItemMetadata Include="WeaveTemplateGenerate" MetadataName="UseSourceGeneration" />
     <CompilerVisibleItemMetadata Include="WeaveTemplateGenerate" MetadataName="ConfigFileExists" />
     <CompilerVisibleItemMetadata Include="AdditionalFiles" MetadataName="SourceItemGroup" />
+    <CompilerVisibleProperty Include="CompilerGeneratedFilesOutputPath" />
   </ItemGroup>
 
   <PropertyGroup Condition=" '$(MSBuildRuntimeType)' == 'Core' And '$(WeaveAssemblyPath)' == '' ">
