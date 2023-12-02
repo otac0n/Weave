@@ -2,27 +2,27 @@ os: Visual Studio 2017
 configuration: Release
 install:
   - "SET PATH=C:\\ProgramData\\chocolatey\\bin;%PATH%"
-  - choco install gitversion.portable -y
+  - choco install gitversion.portable -y --version 5.12.0
   - gitversion /l console /output buildserver
   - choco install GitReleaseNotes.Portable
   - choco install opencover.portable
-  - pip install codecov
+  - choco install codecov
 before_build:
-  - nuget restore
-  - GitReleaseNotes . /AllTags /C breaking /O ReleaseNotes.md
+  - dotnet restore
+  - GitReleaseNotes . /AllTags /C breaking /O ReleaseNotes.md || exit 0
 build:
   project: Weave.sln
 test_script:
   - OpenCover.Console.exe -target:dotnet.exe -targetargs:"test --configuration %CONFIGURATION% --no-build" -register:user -filter:"+[*]* -[*.Tests]* -[xunit*]*" -output:coverage.xml -oldStyle
 after_test:
-  - codecov -X gcov -f "coverage.xml"
+  - codecov -f "coverage.xml"
 artifacts:
   - path: 'ReleaseNotes.md'
   - path: '**\*.nupkg'
 deploy:
   provider: NuGet
   api_key:
-    secure: 2tZ8tu75MkmhyIcFGzFZsukJx9WAfV94mMtIAnSlurGlGqKaUhG6n6fTimXiIQiB
+    secure: TVpGH+UM7lK2qC2RiNlBY2kLk5MfE228uzlXb1JSaSW05USy6rjkTW+4CksCOu8H
   skip_symbols: false
   artifact: /.*\.nupkg/
 skip_commits:
