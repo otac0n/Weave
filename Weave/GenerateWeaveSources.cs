@@ -9,7 +9,6 @@ namespace Weave
     using Microsoft.CodeAnalysis.Diagnostics;
     using Microsoft.CodeAnalysis.Text;
     using Weave.Compiler;
-    using Weave.Expressions;
     using WeaveTemplateItem = (string path, Microsoft.CodeAnalysis.Text.SourceText text, bool useSourceGeneration, bool? configFileExists);
 
     [Generator]
@@ -74,34 +73,29 @@ namespace Weave
         {
             if (template.text != null)
             {
-                var parseResult = CompileManager.ParseTemplate(template.text.ToString(), template.path);
-                var hadFatal = ReportErrors(context, parseResult);
-                if (hadFatal)
-                {
-                    return;
-                }
-
-                var parsedTemplate = parseResult.Result;
+                var templateResult = CompileManager.ParseTemplate(template.text.ToString(), template.path);
                 if (template.configFileExists ?? (config != null))
                 {
                     if (config is WeaveTemplateItem configItem)
                     {
                         var configResult = CompileManager.ParseTemplate(configItem.text.ToString(), configItem.path);
-                        hadFatal = ReportErrors(context, configResult);
-                        if (hadFatal)
-                        {
-                            return;
-                        }
-
-                        parsedTemplate = new Template(parsedTemplate, configResult.Result);
+                        templateResult = CompileManager.CombineTemplateConfig(templateResult, configResult);
                     }
                     else
                     {
                         // TODO: Report a fatal error about failing to locate the config in additional items.
+                        ReportErrors(context, templateResult);
+                        return;
                     }
                 }
 
-                var compileResult = WeaveCompiler.Compile(parsedTemplate);
+                var hadFatal = ReportErrors(context, templateResult);
+                if (hadFatal)
+                {
+                    return;
+                }
+
+                var compileResult = WeaveCompiler.Compile(templateResult.Result);
                 hadFatal = ReportErrors(context, compileResult);
                 if (hadFatal)
                 {

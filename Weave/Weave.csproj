@@ -89,7 +89,6 @@
     <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.6.0" PrivateAssets="All" />
     <PackageReference Include="Pegasus" Version="4.1.0-alpha0026" PrivateAssets="All" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.1.0-beta006" PrivateAssets="All" />
-    <PackageReference Include="TestableIO.System.IO.Abstractions.Wrappers" Version="19.2.87" />
   </ItemGroup>
   <ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
     <Reference Include="Microsoft.Build.Framework" />

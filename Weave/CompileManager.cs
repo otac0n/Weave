@@ -4,24 +4,16 @@ namespace Weave
 {
     using System;
     using System.CodeDom.Compiler;
-    using System.IO.Abstractions;
+    using System.IO;
     using System.Text.RegularExpressions;
     using Pegasus.Common;
     using Weave.Compiler;
     using Weave.Expressions;
     using Weave.Parser;
 
-    internal class CompileManager
+    internal static class CompileManager
     {
         public static readonly string ConfigFileName = "_config.weave";
-        public static readonly string RecursiveConfigAbortAttribute = "root";
-
-        private readonly IFileSystem fileSystem;
-
-        public CompileManager(IFileSystem fileSystem)
-        {
-            this.fileSystem = fileSystem;
-        }
 
         public static CompileResult<Template> ParseTemplate(string inputFileContents, string inputFileName)
         {
@@ -48,12 +40,35 @@ namespace Weave
             return compileResult;
         }
 
+        public static CompileResult<Template> CombineTemplateConfig(CompileResult<Template> template, CompileResult<Template> config)
+        {
+            if (config == null || (config.Result == null && config.Errors.Count == 0))
+            {
+                return template;
+            }
+
+            var result = new CompileResult<Template>
+            {
+                Result = new Template(template.Result, config.Result),
+            };
+
+            foreach (var error in config.Errors)
+            {
+                result.Errors.Add(error);
+            }
+
+            foreach (var error in result.Errors)
+            {
+                result.Errors.Add(error);
+            }
+
+            return result;
+        }
+
         public static void CompileFile(string inputFileName, string outputFileName, Action<CompilerError> logError)
         {
-            var fileSystem = new FileSystem();
-            var compileManager = new CompileManager(fileSystem);
             outputFileName = outputFileName ?? inputFileName + ".cs";
-            var result = compileManager.CompileFile(inputFileName);
+            var result = CompileFile(inputFileName);
 
             var hadFatal = false;
             foreach (var error in result.Errors)
@@ -64,14 +79,14 @@ namespace Weave
 
             if (!hadFatal)
             {
-                fileSystem.Directory.CreateDirectory(fileSystem.Path.GetDirectoryName(outputFileName));
-                fileSystem.File.WriteAllText(outputFileName, result.Result);
+                Directory.CreateDirectory(Path.GetDirectoryName(outputFileName));
+                File.WriteAllText(outputFileName, result.Result);
             }
         }
 
-        public CompileResult CompileFile(string inputFileName)
+        public static CompileResult CompileFile(string inputFileName)
         {
-            var inputResult = this.ParseTemplate(inputFileName);
+            var inputResult = ParseTemplate(inputFileName);
             var inputTemplate = inputResult.Result;
             if (inputTemplate == null)
             {
@@ -87,25 +102,18 @@ namespace Weave
             return WeaveCompiler.Compile(inputTemplate);
         }
 
-        private CompileResult<Template> ParseTemplate(string inputFileName)
+        private static CompileResult<Template> ParseTemplate(string inputFileName)
         {
-            var content = this.fileSystem.File.ReadAllText(inputFileName);
-            return ParseTemplate(content, inputFileName);
+            var templateResult = ParseTemplate(File.ReadAllText(inputFileName), inputFileName);
 
-            /* TODO: _config
-            var configFile = Path.Combine(Path.GetDirectoryName(inputFile), ConfigFileName);
-
-            if (this.fileSystem.File.Exists(configFile))
+            var configFileName = Path.Combine(Path.GetDirectoryName(inputFileName), ConfigFileName);
+            if (File.Exists(configFileName))
             {
-                var config = ParseTemplate(configFile);
-                if (config == null)
-                {
-                    return;
-                }
-
-                template = new Template(template, config);
+                var configResult = ParseTemplate(File.ReadAllText(configFileName), configFileName);
+                templateResult = CombineTemplateConfig(templateResult, configResult);
             }
-            */
+
+            return templateResult;
         }
     }
 }
