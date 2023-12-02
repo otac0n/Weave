@@ -5,6 +5,8 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
+    <EmbedUntrackedSources>false</EmbedUntrackedSources>
+    <!-- Workaround for Source File path mismatch from Pegasus -->
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\Weave\Weave.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
@@ -26,7 +28,7 @@
     <WeaveTemplate Include="TestGenerator.weave" />
   </ItemGroup>
   <PropertyGroup>
-    <WeaveAssemblyPath>$(MSBuildThisFileDirectory)..\Weave\bin\netstandard2.0\Weave.dll</WeaveAssemblyPath>
+    <WeaveAssemblyPath>$(MSBuildThisFileDirectory)..\Weave\bin\$(Configuration)\net461\Weave.exe</WeaveAssemblyPath>
   </PropertyGroup>
   <Import Project="..\Weave\Weave.targets" />
 </Project>

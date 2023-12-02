@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<Project ToolsVersion="4.0" TreatAsLocalProperty="WeaveAssemblyPath" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <AvailableItemName Include="WeaveTemplate" /><!-- WeaveTemplate now implies AdditionalFiles -->
     <CompilerVisibleItemMetadata Include="WeaveTemplate" MetadataName="UseSourceGeneration" />
@@ -16,7 +16,7 @@
   </PropertyGroup>
   <UsingTask AssemblyFile="$(WeaveAssemblyPath)" TaskName="CompileWeaveTemplate" />
 
-  <Target Name="_InjectWeaveTemplateAdditionalFiles" BeforeTargets="GenerateMSBuildEditorConfigFileShouldRun">
+  <Target Name="_UpdateWeaveTemplatesMetatdata" BeforeTargets="GenerateMSBuildEditorConfigFileShouldRun">
     <!-- Compliant with the technique from https://platform.uno/blog/using-msbuild-items-and-properties-in-c-9-source-generators/ -->
     <ItemGroup>
       <WeaveTemplate Condition=" '%(WeaveTemplate.OutputPath)' == '' And '%(WeaveTemplate.UseSourceGeneration)' == '' ">
@@ -25,29 +25,29 @@
       <WeaveTemplate Condition=" '%(WeaveTemplate.OutputPath)' != '' And '%(WeaveTemplate.UseSourceGeneration)' == '' ">
         <UseSourceGeneration>false</UseSourceGeneration>
       </WeaveTemplate>
-      <WeaveTemplate Condition=" Exists('$([System.IO.Path]::GetDirectoryName(%(WeaveTemplate.FullPath)))\_config.weave') ">
+      <WeaveTemplate Condition=" Exists('$([System.IO.Path]::GetDirectoryName(%(WeaveTemplate.Identity)))\_config.weave') ">
         <ConfigFileExists>true</ConfigFileExists>
       </WeaveTemplate>
       <WeaveTemplate Condition=" '%(WeaveTemplate.ConfigFileExists)' != 'true' ">
         <ConfigFileExists>false</ConfigFileExists>
       </WeaveTemplate>
-      <WeaveTemplateConfig Include="$([System.IO.Path]::GetDirectoryName(%(WeaveTemplate.FullPath)))\_config.weave" Exclude="@(WeaveTemplate)" Condition=" '%(WeaveTemplate.ConfigFileExists)' == 'true' ">
-        <UseSourceGeneration>false</UseSourceGeneration>
-      </WeaveTemplateConfig>
-      <AdditionalFiles Include="@(WeaveTemplate)" SourceItemGroup="WeaveTemplate" />
-      <AdditionalFiles Include="@(WeaveTemplateConfig)" SourceItemGroup="WeaveTemplateConfig" />
-    </ItemGroup>
-  </Target>
-
-  <Target Name="_UpdateWeaveTemplatesMetatdata">
-    <ItemGroup>
       <WeaveTemplate Condition=" '%(WeaveTemplate.Link)' != '' And '%(WeaveTemplate.OutputPath)' == '' And '%(WeaveTemplate.UseSourceGeneration)' != 'true'">
         <OutputPath>$(IntermediateOutputPath)%(WeaveTemplate.Link).cs</OutputPath>
       </WeaveTemplate>
       <WeaveTemplate Condition=" '%(WeaveTemplate.Link)' == '' And '%(WeaveTemplate.OutputPath)' == '' And '%(WeaveTemplate.UseSourceGeneration)' != 'true' ">
         <OutputPath>$(IntermediateOutputPath)%(WeaveTemplate.Identity).cs</OutputPath>
       </WeaveTemplate>
+      <WeaveTemplateConfig Include="$([System.IO.Path]::GetDirectoryName(%(WeaveTemplate.Identity)))\_config.weave" Condition=" '%(WeaveTemplate.ConfigFileExists)' == 'true' ">
+        <UseSourceGeneration>false</UseSourceGeneration>
+      </WeaveTemplateConfig>
+      <!-- TODO: There's a bit of a uniqueness problem here that could be solved by duplicating these item groups and using FullPath. -->
+      <!-- TODO: This copy can potentially help avoid passing source-generated weave files as Inputs for incremental builds. -->
+      <WeaveTemplateConfig Remove="@(WeaveTemplate)" />
+      <AdditionalFiles Include="@(WeaveTemplate)" SourceItemGroup="WeaveTemplate" />
+      <AdditionalFiles Include="@(WeaveTemplateConfig)" SourceItemGroup="WeaveTemplateConfig" />
     </ItemGroup>
+    <Message Text="WeaveTemplate: %(WeaveTemplate.Identity), UseSourceGeneration: %(WeaveTemplate.UseSourceGeneration), ConfigFileExists: %(WeaveTemplate.ConfigFileExists)" />
+    <Message Text="WeaveTemplateConfig: %(WeaveTemplateConfig.Identity), UseSourceGeneration: %(WeaveTemplateConfig.UseSourceGeneration)" />
   </Target>
 
   <Target Name="CompileWeaveTemplates" DependsOnTargets="_CompileWeaveTemplates" BeforeTargets="Compile;CoreCompile;Build;CoreBuild" Condition=" '@(WeaveTemplate)' != '' ">
@@ -61,7 +61,7 @@
   </Target>
 
   <Target Name="_CompileWeaveTemplates" DependsOnTargets="_UpdateWeaveTemplatesMetatdata" Inputs="$(MSBuildThisFileFullPath);$(MSBuildProjectFile);@(WeaveTemplate)" Outputs="@(WeaveTemplate -> '%(OutputPath)')">
-    <CompileWeaveTemplate InputFile="%(WeaveTemplate.FullPath)" OutputFile="%(WeaveTemplate.OutputPath)" Condition=" '%(WeaveTemplate.UseSourceGeneration)' != 'true' " />
-    <Message Text="%(WeaveTemplate.FullPath) -> %(WeaveTemplate.OutputPath)" Condition=" '%(WeaveTemplate.UseSourceGeneration)' != 'true' " />
+    <Message Text="%(WeaveTemplate.Identity) -> %(WeaveTemplate.OutputPath)" Condition=" '%(WeaveTemplate.UseSourceGeneration)' == 'false' " />
+    <CompileWeaveTemplate InputFile="%(WeaveTemplate.FullPath)" OutputFile="%(WeaveTemplate.OutputPath)" Condition=" '%(WeaveTemplate.UseSourceGeneration)' == 'false' " />
   </Target>
 </Project>

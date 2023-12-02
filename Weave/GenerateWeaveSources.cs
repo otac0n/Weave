@@ -4,18 +4,12 @@ namespace Weave
 {
     using System;
     using System.CodeDom.Compiler;
-    using System.Collections.Generic;
-    using System.Collections.Immutable;
     using System.IO;
-    using System.IO.Abstractions;
     using System.Linq;
-    using System.Text;
     using Microsoft.CodeAnalysis;
     using Microsoft.CodeAnalysis.Diagnostics;
     using Microsoft.CodeAnalysis.Text;
     using Weave.Compiler;
-    using Weave.Expressions;
-    using static System.Net.Mime.MediaTypeNames;
 
     [Generator]
     internal class GenerateWeaveSources : IIncrementalGenerator
@@ -101,6 +95,8 @@ namespace Weave
                 ? (DiagnosticSeverity.Warning, 1)
                 : (DiagnosticSeverity.Error, 0);
 
+            var linePosition = new LinePosition(error.Line - 1, error.Column - 1);
+
             return Diagnostic.Create(
                 error.ErrorNumber,
                 nameof(Weave),
@@ -108,7 +104,8 @@ namespace Weave
                 severity,
                 severity,
                 isEnabledByDefault: true,
-                warningLevel: level);
+                warningLevel: level,
+                location: Location.Create(error.FileName, new TextSpan(0, 0), new LinePositionSpan(linePosition, linePosition)));
         }
     }
 }
