@@ -2,6 +2,7 @@
 
 namespace Weave
 {
+    using System;
     using System.CodeDom.Compiler;
     using System.IO;
     using System.Linq;
@@ -16,6 +17,7 @@ namespace Weave
     {
         private const string UseSourceGeneration = "build_metadata.WeaveTemplateGenerate.UseSourceGeneration";
         private const string ConfigFileExists = "build_metadata.WeaveTemplateGenerate.ConfigFileExists";
+        private static readonly HexSurroundedEncodingScheme EncodingScheme = new HexSurroundedEncodingScheme(Path.GetInvalidFileNameChars(), ',');
 
         public void Initialize(IncrementalGeneratorInitializationContext context)
         {
@@ -102,7 +104,8 @@ namespace Weave
                     return;
                 }
 
-                context.AddSource(Path.GetFileName(template.path) + ".g.cs", compileResult.Code);
+                // TODO: Do not leak the full path.  Make paths relative to the root of compilation.
+                context.AddSource(EncodingScheme.EncodeString(template.path) + ".g.cs", compileResult.Code);
             }
         }
 
@@ -135,6 +138,37 @@ namespace Weave
                 isEnabledByDefault: true,
                 warningLevel: level,
                 location: Location.Create(error.FileName, new TextSpan(0, 0), new LinePositionSpan(linePosition, linePosition)));
+        }
+
+        private class HexSurroundedEncodingScheme
+        {
+            private readonly char[] bannedCharacters;
+            private readonly char escape;
+
+            public HexSurroundedEncodingScheme(char[] bannedCharacters, char escape)
+            {
+                this.bannedCharacters = bannedCharacters;
+                this.escape = escape; // TODO: Throw if escape is HEX. (not really necessary, but this class isn't generic.)
+            }
+
+            public string EncodeString(string s) =>
+                s == null ? null : string.Concat(s.Select(this.EncodeCharacter));
+
+            public string EncodeCharacter(char c)
+            {
+                if (c == this.escape)
+                {
+                    return $"{this.escape}{this.escape}";
+                }
+                else if (Array.IndexOf(this.bannedCharacters, c) != -1)
+                {
+                    return $"{this.escape}{(int)c:x}{this.escape}";
+                }
+                else
+                {
+                    return c.ToString();
+                }
+            }
         }
     }
 }
