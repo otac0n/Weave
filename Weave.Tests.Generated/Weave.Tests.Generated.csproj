@@ -2,16 +2,15 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
     <EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
     <EmbedUntrackedSources>false</EmbedUntrackedSources>
-    <!-- Workaround for Source File path mismatch from Pegasus -->
+    <!-- TODO: Fix Source File path mismatch from Weave -->
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Weave\Weave.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+    <ProjectReference Include="..\Weave\Weave.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" SetTargetFramework="TargetFramework=netstandard2.0" />
   </ItemGroup>
   <ItemGroup>
+    <WeaveTemplate Include="ConfigTest\AbsentConfig\TestAbsentConfig.weave" />
     <None Remove="ConfigTest\CompiledConfig\_config.weave" />
     <WeaveTemplate Include="ConfigTest\CompiledConfig\_config.weave">
       <UseSourceGeneration>false</UseSourceGeneration>
@@ -25,7 +24,6 @@
     <None Remove="ConfigTest\NoneConfig\TestNoneConfig.weave" />
     <WeaveTemplate Include="ConfigTest\NoneConfig\TestNoneConfig.weave" />
     <None Remove="TestGenerator.weave" />
-    <WeaveTemplate Include="TestGenerator.weave" />
   </ItemGroup>
   <PropertyGroup>
     <WeaveAssemblyPath>$(MSBuildThisFileDirectory)..\Weave\bin\$(Configuration)\net461\Weave.exe</WeaveAssemblyPath>

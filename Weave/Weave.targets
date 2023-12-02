@@ -55,9 +55,9 @@
     <Message Text="WeaveTemplateGenerate: %(WeaveTemplateGenerate.Identity), UseSourceGeneration: %(WeaveTemplateGenerate.UseSourceGeneration), ConfigFileExists: %(WeaveTemplateGenerate.ConfigFileExists)" />
   </Target>
 
-  <Target Name="CompileWeaveTemplates" DependsOnTargets="_CompileWeaveTemplates" BeforeTargets="Compile;CoreCompile;Build;CoreBuild" Condition=" '@(WeaveTemplate)' != '' ">
+  <Target Name="CompileWeaveTemplates" DependsOnTargets="_CompileWeaveTemplates" BeforeTargets="Compile;CoreCompile;Build;CoreBuild">
     <ItemGroup>
-      <Compile Include="%(WeaveTemplate.OutputPath)" Condition=" '%(WeaveTemplate.OutputPath)' != '' " />
+      <Compile Include="%(WeaveTemplateCompile.OutputPath)" />
     </ItemGroup>
   </Target>
 
