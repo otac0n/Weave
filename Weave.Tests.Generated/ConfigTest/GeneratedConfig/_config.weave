@@ -1,2 +1,2 @@
-@namespace Weave.Tests.Generaged.ConfigTest.GeneratedConfig
+@namespace Weave.Tests.Generated.ConfigTest.GeneratedConfig
 @accessibility public
