@@ -57,6 +57,7 @@
   </Target>
 
   <Target Name="CompileWeaveTemplates" DependsOnTargets="_CompileWeaveTemplates" BeforeTargets="Compile;CoreCompile;Build;CoreBuild">
+    <Message Text="Compile: %(WeaveTemplateCompile.Identity)" />
     <ItemGroup>
       <Compile Include="%(WeaveTemplateCompile.OutputPath)" />
     </ItemGroup>
