@@ -6,6 +6,7 @@ namespace Weave
     using System.CodeDom.Compiler;
     using System.IO;
     using System.Linq;
+    using System.Text.RegularExpressions;
     using Microsoft.CodeAnalysis;
     using Microsoft.CodeAnalysis.Diagnostics;
     using Microsoft.CodeAnalysis.Text;
@@ -17,7 +18,6 @@ namespace Weave
     {
         private const string UseSourceGeneration = "build_metadata.WeaveTemplateGenerate.UseSourceGeneration";
         private const string ConfigFileExists = "build_metadata.WeaveTemplateGenerate.ConfigFileExists";
-        private static readonly HexSurroundedEncodingScheme EncodingScheme = new HexSurroundedEncodingScheme(Path.GetInvalidFileNameChars(), ',');
 
         public void Initialize(IncrementalGeneratorInitializationContext context)
         {
@@ -75,12 +75,12 @@ namespace Weave
         {
             if (template.text != null)
             {
-                var templateResult = CompileManager.ParseTemplate(template.text.ToString(), template.path);
+                var templateResult = CompileManager.ParseTemplate(template.text.ToString(), template.path); // TODO: Make path relative.
                 if (template.configFileExists ?? (config != null))
                 {
                     if (config is WeaveTemplateItem configItem)
                     {
-                        var configResult = CompileManager.ParseTemplate(configItem.text.ToString(), configItem.path);
+                        var configResult = CompileManager.ParseTemplate(configItem.text.ToString(), configItem.path); // TODO: Make path relative.
                         templateResult = CompileManager.CombineTemplateConfig(templateResult, configResult);
                     }
                     else
@@ -105,7 +105,7 @@ namespace Weave
                 }
 
                 // TODO: Do not leak the full path.  Make paths relative to the root of compilation.
-                context.AddSource(EncodingScheme.EncodeString(template.path) + ".g.cs", compileResult.Code);
+                context.AddSource(PathUtils.Escape(template.path) + ".g.cs", compileResult.Code);
             }
         }
 
@@ -140,34 +140,28 @@ namespace Weave
                 location: Location.Create(error.FileName, new TextSpan(0, 0), new LinePositionSpan(linePosition, linePosition)));
         }
 
-        private class HexSurroundedEncodingScheme
+        private static class PathUtils
         {
-            private readonly char[] bannedCharacters;
-            private readonly char escape;
-
-            public HexSurroundedEncodingScheme(char[] bannedCharacters, char escape)
+            public static string MakeRelative(string root, string path)
             {
-                this.bannedCharacters = bannedCharacters;
-                this.escape = escape; // TODO: Throw if escape is HEX. (not really necessary, but this class isn't generic.)
+                root = Path.GetFullPath(root);
+                var escaped = Escape(path);
+                var filePath = Path.Combine(root, escaped);
+                var fullPath = Path.GetFullPath(filePath);
+                var relativeUri = new Uri(root).MakeRelativeUri(new Uri(fullPath));
+                var relativePath = Uri.UnescapeDataString(relativeUri.ToString()).Replace(Path.AltDirectorySeparatorChar, Path.DirectorySeparatorChar);
+                var relativeUnescaped = Unescape(relativePath);
+                return relativeUnescaped;
             }
 
-            public string EncodeString(string s) =>
-                s == null ? null : string.Concat(s.Select(this.EncodeCharacter));
-
-            public string EncodeCharacter(char c)
+            public static string Escape(string path)
             {
-                if (c == this.escape)
-                {
-                    return $"{this.escape}{this.escape}";
-                }
-                else if (Array.IndexOf(this.bannedCharacters, c) != -1)
-                {
-                    return $"{this.escape}{(int)c:x}{this.escape}";
-                }
-                else
-                {
-                    return c.ToString();
-                }
+                return Regex.Replace(path, "[_*?]", match => "_" + "_sq"["_*?".IndexOf(match.Value, StringComparison.Ordinal)]);
+            }
+
+            public static string Unescape(string path)
+            {
+                return Regex.Replace(path, "_.", match => "_*?"["_sq".IndexOf(match.Value[1])].ToString());
             }
         }
     }
