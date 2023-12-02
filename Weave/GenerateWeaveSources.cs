@@ -2,7 +2,6 @@
 
 namespace Weave
 {
-    using System;
     using System.CodeDom.Compiler;
     using System.IO;
     using System.Linq;
@@ -10,13 +9,14 @@ namespace Weave
     using Microsoft.CodeAnalysis.Diagnostics;
     using Microsoft.CodeAnalysis.Text;
     using Weave.Compiler;
+    using Weave.Expressions;
+    using WeaveTemplateItem = (string path, Microsoft.CodeAnalysis.Text.SourceText text, bool useSourceGeneration, bool? configFileExists);
 
     [Generator]
     internal class GenerateWeaveSources : IIncrementalGenerator
     {
-        private const string UseSourceGeneration = "build_metadata.WeaveTemplate.UseSourceGeneration";
-        private const string ConfigFileExists = "build_metadata.WeaveTemplate.ConfigFileExists";
-        private const string ConfigUseSourceGeneration = "build_metadata.WeaveTemplateConfig.UseSourceGeneration";
+        private const string UseSourceGeneration = "build_metadata.WeaveTemplateGenerate.UseSourceGeneration";
+        private const string ConfigFileExists = "build_metadata.WeaveTemplateGenerate.ConfigFileExists";
 
         public void Initialize(IncrementalGeneratorInitializationContext context)
         {
@@ -29,25 +29,40 @@ namespace Weave
                     {
                         AdditionalText = p.Left,
                         ConfigOptions = options,
-                        UseSourceGeneration = GetBooleanOption(options, UseSourceGeneration) ?? GetBooleanOption(options, ConfigUseSourceGeneration),
+                        UseSourceGeneration = GetBooleanOption(options, UseSourceGeneration),
                     };
                 })
                 .Where(p => p.UseSourceGeneration != null)
-                .Select((p, ct) => new
-                {
-                    p.AdditionalText.Path,
-                    Text = p.AdditionalText.GetText(ct),
-                    p.UseSourceGeneration,
-                    ConfigFileExists = GetBooleanOption(p.ConfigOptions, ConfigFileExists),
-                });
+                .Select((p, ct) => (
+                    path: p.AdditionalText.Path,
+                    text: p.AdditionalText.GetText(ct),
+                    useSourceGeneration: p.UseSourceGeneration.Value,
+                    configFileExists: GetBooleanOption(p.ConfigOptions, ConfigFileExists)));
 
             // TODO: Go ahead and compile _config files, but make sure that we emit a compile warning (using a pragma directive and a [Deprecated] attribute) about future removal.
             var sourceGeneratedFiles = weaveFiles
-                .Where(p => p.UseSourceGeneration ?? false);
+                .Where(p => p.useSourceGeneration);
+            var allConfigFiles = weaveFiles
+                .Where(p => Path.GetFileName(p.path) == CompileManager.ConfigFileName) // TODO: Case sensitivity can vary by filesystem.
+                .Collect();
+
+            var filesWithConfigs = sourceGeneratedFiles
+                .Combine(allConfigFiles)
+                .Select((p, ct) =>
+                {
+                    var configPath = Path.Combine(Path.GetDirectoryName(p.Left.path), CompileManager.ConfigFileName);
+                    return new
+                    {
+                        Source = p.Left,
+                        Config = p.Left.configFileExists ?? true
+                            ? p.Right.Where(f => f.path == configPath).SingleOrDefault() // TODO: Case sensitivity can vary by filesystem.
+                            : default(WeaveTemplateItem?),
+                    };
+                });
 
             context.RegisterSourceOutput(
-                sourceGeneratedFiles,
-                (context, file) => CompileWeaveFile(context, file.Path, file.Text));
+                filesWithConfigs,
+                (context, pair) => CompileWeaveFile(context, pair.Source, pair.Config));
         }
 
         private static bool? GetBooleanOption(AnalyzerConfigOptions options, string key) =>
@@ -55,25 +70,45 @@ namespace Weave
                 ? result
                 : null;
 
-        private static void CompileWeaveFile(SourceProductionContext context, string path, SourceText text)
+        private static void CompileWeaveFile(SourceProductionContext context, WeaveTemplateItem template, WeaveTemplateItem? config)
         {
-            if (text != null)
+            if (template.text != null)
             {
-                var parseResult = CompileManager.ParseTemplate(text.ToString(), path);
+                var parseResult = CompileManager.ParseTemplate(template.text.ToString(), template.path);
                 var hadFatal = ReportErrors(context, parseResult);
                 if (hadFatal)
                 {
                     return;
                 }
 
-                var compileResult = WeaveCompiler.Compile(parseResult.Result);
+                var parsedTemplate = parseResult.Result;
+                if (template.configFileExists ?? (config != null))
+                {
+                    if (config is WeaveTemplateItem configItem)
+                    {
+                        var configResult = CompileManager.ParseTemplate(configItem.text.ToString(), configItem.path);
+                        hadFatal = ReportErrors(context, configResult);
+                        if (hadFatal)
+                        {
+                            return;
+                        }
+
+                        parsedTemplate = new Template(parsedTemplate, configResult.Result);
+                    }
+                    else
+                    {
+                        // TODO: Report a fatal error about failing to locate the config in additional items.
+                    }
+                }
+
+                var compileResult = WeaveCompiler.Compile(parsedTemplate);
                 hadFatal = ReportErrors(context, compileResult);
                 if (hadFatal)
                 {
                     return;
                 }
 
-                context.AddSource(Path.GetFileName(path) + ".g.cs", compileResult.Code);
+                context.AddSource(Path.GetFileName(template.path) + ".g.cs", compileResult.Code);
             }
         }
 
