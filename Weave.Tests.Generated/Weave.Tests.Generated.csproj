@@ -21,6 +21,20 @@
     <WeaveTemplate Include="ConfigTest\GeneratedConfig\_config.weave" />
     <None Remove="ConfigTest\GeneratedConfig\TestGeneratedConfig.weave" />
     <WeaveTemplate Include="ConfigTest\GeneratedConfig\TestGeneratedConfig.weave" />
+    <WeaveTemplate Include="ConfigTest\LegacyCompiledConfig\_config.weave">
+      <UseSourceGeneration>false</UseSourceGeneration>
+    </WeaveTemplate>
+    <None Remove="ConfigTest\LegacyCompiledConfig\_config.weave" />
+    <None Remove="ConfigTest\LegacyCompiledConfig\LegacyCompiledConfig.weave" />
+    <WeaveTemplate Include="ConfigTest\LegacyCompiledConfig\LegacyCompiledConfig.weave">
+      <UseSourceGeneration>false</UseSourceGeneration>
+    </WeaveTemplate>
+    <None Remove="ConfigTest\LegacyGeneratedConfig\_config.weave" />
+    <WeaveTemplate Include="ConfigTest\LegacyGeneratedConfig\_config.weave" />
+    <None Remove="ConfigTest\LegacyGeneratedConfig\LegacyGeneratedConfig.weave" />
+    <WeaveTemplate Include="ConfigTest\LegacyGeneratedConfig\LegacyGeneratedConfig.weave">
+      <UseSourceGeneration>false</UseSourceGeneration>
+    </WeaveTemplate>
     <None Remove="ConfigTest\NoneConfig\TestNoneConfig.weave" />
     <WeaveTemplate Include="ConfigTest\NoneConfig\TestNoneConfig.weave" />
     <None Remove="TestGenerator.weave" />
