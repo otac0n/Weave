@@ -1,16 +1,17 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
-    <EmbedUntrackedSources>false</EmbedUntrackedSources><!-- TODO: Fix Source File path mismatch from Weave -->
   </PropertyGroup>
   <ItemGroup>
-    <!-- Generator dependencies -->
     <PackageReference Include="Pegasus" Version="4.2.0-alpha0009" GeneratePathProperty="true" PrivateAssets="all" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Weave\Weave.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" SetTargetFramework="TargetFramework=netstandard2.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <!-- Generator dependencies -->
   </ItemGroup>
   <ItemGroup>
     <WeaveTemplate Include="ConfigTest\AbsentConfig\TestAbsentConfig.weave" />
@@ -24,10 +25,10 @@
     <WeaveTemplate Include="ConfigTest\GeneratedConfig\_config.weave" />
     <None Remove="ConfigTest\GeneratedConfig\TestGeneratedConfig.weave" />
     <WeaveTemplate Include="ConfigTest\GeneratedConfig\TestGeneratedConfig.weave" />
-    <None Remove="ConfigTest\LegacyCompiledConfig\_config.weave" />
     <WeaveTemplate Include="ConfigTest\LegacyCompiledConfig\_config.weave">
       <UseSourceGeneration>false</UseSourceGeneration>
     </WeaveTemplate>
+    <None Remove="ConfigTest\LegacyCompiledConfig\_config.weave" />
     <None Remove="ConfigTest\LegacyCompiledConfig\LegacyCompiledConfig.weave" />
     <WeaveTemplate Include="ConfigTest\LegacyCompiledConfig\LegacyCompiledConfig.weave">
       <UseSourceGeneration>false</UseSourceGeneration>
