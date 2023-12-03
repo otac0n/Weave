@@ -12,11 +12,26 @@ namespace Weave.Tests.IntegrationTests
         private static readonly string ExpectedTemplateOutput = $"Hello, world!{Environment.NewLine}";
 
         [Fact]
+        public void AbsentConfig()
+        {
+            TestHelper(
+                Generated.ConfigTest.AbsentConfig.Templates.RenderTestAbsentConfig, ExpectedTemplateOutput);
+        }
+
+        [Fact]
         public void CompiledConfig()
         {
             TestHelper(
-                Generated.ConfigTest.CompiledConfig.Templates.Render_config, ExpectedConfigOutput);
-            ////Generated.ConfigTest.CompiledConfig.Templates.RenderTestGeneratedConfig, ExpectedTemplateOutput
+                (Generated.ConfigTest.CompiledConfig.Templates.Render_config, ExpectedConfigOutput),
+                (Generated.ConfigTest.CompiledConfig.Templates.RenderTestCompiledConfig, ExpectedTemplateOutput));
+        }
+
+        [Fact]
+        public void GeneratedConfig()
+        {
+            TestHelper(
+                (Generated.ConfigTest.GeneratedConfig.Templates.Render_config, ExpectedConfigOutput),
+                (Generated.ConfigTest.GeneratedConfig.Templates.RenderTestGeneratedConfig, ExpectedTemplateOutput));
         }
 
         [Fact]
@@ -30,9 +45,16 @@ namespace Weave.Tests.IntegrationTests
         [Fact]
         public void LegacyGeneratedConfig()
         {
-            ////(Generated.ConfigTest.LegacyGeneratedConfig.Templates.Render_config, ExpectedConfigOutput),
             TestHelper(
+                (Generated.ConfigTest.LegacyGeneratedConfig.Templates.Render_config, ExpectedConfigOutput),
                 (Generated.ConfigTest.LegacyGeneratedConfig.Templates.RenderLegacyGeneratedConfig, ExpectedTemplateOutput));
+        }
+
+        [Fact]
+        public void NoneConfig()
+        {
+            TestHelper(
+                Generated.ConfigTest.NoneConfig.Templates.RenderTestNoneConfig, ExpectedTemplateOutput);
         }
 
         private static void TestHelper(params (Action<dynamic, TextWriter, string> render, string expected)[] tests)
