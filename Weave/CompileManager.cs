@@ -67,8 +67,9 @@ namespace Weave
 
         public static void CompileFile(string inputFileName, string outputFileName, Action<CompilerError> logError)
         {
-            outputFileName = outputFileName ?? inputFileName + ".cs";
-            var result = CompileFile(inputFileName);
+            inputFileName = Path.GetFullPath(inputFileName);
+            outputFileName = Path.GetFullPath(outputFileName ?? inputFileName + ".cs");
+            var result = CompileFile(inputFileName, outputFileName);
 
             var hadFatal = false;
             foreach (var error in result.Errors)
@@ -84,9 +85,9 @@ namespace Weave
             }
         }
 
-        public static CompileResult CompileFile(string inputFileName)
+        private static CompileResult CompileFile(string inputFileName, string outputFileName)
         {
-            var inputResult = ParseTemplate(inputFileName);
+            var inputResult = ParseTemplateInternal(inputFileName, outputFileName);
             var inputTemplate = inputResult.Result;
             if (inputTemplate == null)
             {
@@ -102,14 +103,15 @@ namespace Weave
             return WeaveCompiler.Compile(inputTemplate);
         }
 
-        private static CompileResult<Template> ParseTemplate(string inputFileName)
+        private static CompileResult<Template> ParseTemplateInternal(string inputFileName, string outputFileName)
         {
-            var templateResult = ParseTemplate(File.ReadAllText(inputFileName), inputFileName);
+            var relativePath = PathUtils.MakeRelative(outputFileName, inputFileName);
+            var templateResult = ParseTemplate(File.ReadAllText(inputFileName), relativePath);
 
             var configFileName = Path.Combine(Path.GetDirectoryName(inputFileName), ConfigFileName);
             if (File.Exists(configFileName))
             {
-                var configResult = ParseTemplate(File.ReadAllText(configFileName), configFileName);
+                var configResult = ParseTemplate(File.ReadAllText(configFileName), PathUtils.MakeRelative(outputFileName, configFileName));
                 templateResult = CombineTemplateConfig(templateResult, configResult);
             }
 
