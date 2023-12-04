@@ -12,7 +12,7 @@
     <WeaveAssemblyPath>$(MSBuildThisFileDirectory)netcoreapp2.0\Weave.dll</WeaveAssemblyPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(MSBuildRuntimeType)' != 'Core' And '$(WeaveAssemblyPath)' == '' ">
-    <WeaveAssemblyPath>$(MSBuildThisFileDirectory)net461\Weave.exe</WeaveAssemblyPath>
+    <WeaveAssemblyPath>$(MSBuildThisFileDirectory)net46\Weave.exe</WeaveAssemblyPath>
   </PropertyGroup>
   <UsingTask AssemblyFile="$(WeaveAssemblyPath)" TaskName="CompileWeaveTemplate" />
 

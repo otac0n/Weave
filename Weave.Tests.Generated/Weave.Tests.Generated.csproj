@@ -41,7 +41,7 @@
   </ItemGroup>
   <PropertyGroup>
     <GetTargetPathDependsOn>$(GetTargetPathDependsOn);GetDependencyTargetPaths</GetTargetPathDependsOn>
-    <WeaveAssemblyPath>$(MSBuildThisFileDirectory)..\Weave\bin\$(Configuration)\net461\Weave.exe</WeaveAssemblyPath>
+    <WeaveAssemblyPath>$(MSBuildThisFileDirectory)..\Weave\bin\$(Configuration)\net46\Weave.exe</WeaveAssemblyPath>
   </PropertyGroup>
   <Import Project="..\Weave\Weave.targets" />
   <Target Name="GetDependencyTargetPaths">
