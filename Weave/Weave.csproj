@@ -127,9 +127,17 @@
         <Pack>true</Pack>
         <PackagePath />
       </Content>
-      <Content Include="$(OutputPath)**\*.dll;$(OutputPath)**\*.exe;$(OutputPath)**\*.config;$(OutputPath)**\*.json;$(OutputPath)**\*.xml" Exclude="$(OutputPath)**\Microsoft.Build.*">
+      <Content Include="$(OutputPath)net461\**\*.dll;$(OutputPath)net461\**\*.exe;$(OutputPath)net461\**\*.config;$(OutputPath)net461\**\*.json;$(OutputPath)net461\**\*.xml" Exclude="$(OutputPath)**\Microsoft.Build.*">
         <Pack>true</Pack>
-        <PackagePath>build\</PackagePath>
+        <PackagePath>build\net461\</PackagePath>
+      </Content>
+      <Content Include="$(OutputPath)netcoreapp2.0\**\*.dll;$(OutputPath)netcoreapp2.0\**\*.exe;$(OutputPath)netcoreapp2.0\**\*.config;$(OutputPath)netcoreapp2.0\**\*.json;$(OutputPath)netcoreapp2.0\**\*.xml" Exclude="$(OutputPath)**\Microsoft.Build.*">
+        <Pack>true</Pack>
+        <PackagePath>build\netcoreapp2.0\</PackagePath>
+      </Content>
+      <Content Include="$(OutputPath)netstandard2.0\**\*.dll;$(OutputPath)netstandard2.0\**\*.exe;$(OutputPath)netstandard2.0\**\*.config;$(OutputPath)netstandard2.0\**\*.json;$(OutputPath)netstandard2.0\**\*.xml" Exclude="$(OutputPath)**\Microsoft.Build.*">
+        <Pack>true</Pack>
+        <PackagePath>analyzers\dotnet\cs</PackagePath>
       </Content>
     </ItemGroup>
   </Target>
