@@ -26,6 +26,8 @@
     <ProjectReference Include="..\Weave.Tests.Generated\Weave.Tests.Generated.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Remove="GeneratedCode\ConfigTests.cs" />
+    <None Include="GeneratedCode\ConfigTests.cs" />
     <DotNetCliToolReference Include="dotnet-xunit" Version="2.3.1" />
     <AdditionalFiles Include="..\stylecop.json" Link="stylecop.json" />
     <AdditionalFiles Include="Weave.Tests.ruleset" />
