@@ -16,7 +16,7 @@
   </PropertyGroup>
   <UsingTask AssemblyFile="$(WeaveAssemblyPath)" TaskName="CompileWeaveTemplate" />
 
-  <Target Name="_UpdateWeaveTemplatesMetatdata" BeforeTargets="GenerateMSBuildEditorConfigFileShouldRun">
+  <Target Name="_UpdateWeaveTemplatesMetatdata" BeforeTargets="GenerateMSBuildEditorConfigFileShouldRun" Condition=" '@(WeaveTemplate)' != '' ">
     <!-- Compliant with the technique from https://platform.uno/blog/using-msbuild-items-and-properties-in-c-9-source-generators/ -->
     <ItemGroup>
       <WeaveTemplate Condition=" '%(WeaveTemplate.OutputPath)' == '' And '%(WeaveTemplate.UseSourceGeneration)' == '' ">
