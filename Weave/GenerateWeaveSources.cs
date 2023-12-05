@@ -45,13 +45,12 @@ namespace Weave
             var sourceGeneratedFiles = weaveFiles
                 .Where(p => p.useSourceGeneration);
             var allConfigFiles = weaveFiles
-                .Where(p => Path.GetFileName(p.path) == CompileManager.ConfigFileName) // TODO: Case sensitivity can vary by filesystem.
+                .Where(p => Path.GetFileName(p.path) == CompileManager.ConfigFileName) // This is case sensitive, but case is controlled by the .targets file.
                 .Collect();
 
             var outputPath = context.AnalyzerConfigOptionsProvider
                 .Select((p, ct) =>
                 {
-                    var gOptions = p.GlobalOptions.Keys.ToDictionary(k => k, k => p.GlobalOptions.TryGetValue(k, out var value) ? value : null);
                     p.GlobalOptions.TryGetValue(ProjectDir, out var root);
                     p.GlobalOptions.TryGetValue(GeneratedOutputPath, out var generated);
                     var assembly = Assembly.GetExecutingAssembly().FullName;
@@ -72,7 +71,7 @@ namespace Weave
                     {
                         Source = source,
                         Config = source.configFileExists ?? true
-                            ? allConfigs.Where(f => f.path == configPath).SingleOrDefault() // TODO: Case sensitivity can vary by filesystem.
+                            ? allConfigs.Where(f => f.path == configPath).SingleOrDefault() // While case sensitivity can vary by filesystem, this mechanism matches the approach in the MSBuild file and should give consistent results.
                             : default(WeaveTemplateItem?),
                         OutputPath = outputPath,
                     };

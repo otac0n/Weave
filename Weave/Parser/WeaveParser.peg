@@ -1,4 +1,4 @@
-﻿@namespace Weave.Parser
+@namespace Weave.Parser
 @classname WeaveParser
 @using System.Globalization
 @using System.Linq
@@ -14,7 +14,11 @@
 }
 
 template <Template>
-    = settings:setting* EOL? elements:lines (EOF / unexpected:. #ERROR{ "WEAVE0007:" + string.Format(CultureInfo.CurrentCulture, Resources.WEAVE0007_UNEXPECTED_CHARACTER, unexpected) }) {
+    = settings:setting* EOL? elements:lines (EOF / unexpected:. #ERROR{{
+#pragma warning disable RS1035 // Do not use APIs banned for analyzers https://github.com/dotnet/roslyn/issues/71094
+        return "WEAVE0007:" + string.Format(CultureInfo.CurrentCulture, Resources.WEAVE0007_UNEXPECTED_CHARACTER, unexpected);
+#pragma warning restore RS1035 // Do not use APIs banned for analyzers
+     }}) {
         new Template(settingsStart, settings, elementsStart, elements, elementsEnd)
     }
 

@@ -65,6 +65,7 @@ namespace Weave
             return result;
         }
 
+#if !NETSTANDARD
         public static void CompileFile(string inputFileName, string outputFileName, Action<CompilerError> logError)
         {
             inputFileName = Path.GetFullPath(inputFileName);
@@ -81,7 +82,7 @@ namespace Weave
             if (!hadFatal)
             {
                 Directory.CreateDirectory(Path.GetDirectoryName(outputFileName));
-                File.WriteAllText(outputFileName, result.Result);
+                File.WriteAllText(outputFileName, result.Code);
             }
         }
 
@@ -117,5 +118,6 @@ namespace Weave
 
             return templateResult;
         }
+#endif
     }
 }

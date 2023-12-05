@@ -5,6 +5,7 @@ namespace Weave.Compiler
     using System;
     using System.CodeDom.Compiler;
     using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
     using System.Globalization;
     using System.Linq.Expressions;
     using Pegasus.Common;
@@ -43,6 +44,7 @@ namespace Weave.Compiler
             this.AddCompilerError(cursor, error, args, isWarning: true);
         }
 
+        [SuppressMessage("Usage", "RS1035:Do not use APIs banned for analyzers", Justification = "https://github.com/dotnet/roslyn/issues/71094")]
         private void AddCompilerError(Cursor cursor, Expression<Func<string>> error, object[] args, bool isWarning)
         {
             var errorId = ((MemberExpression)error.Body).Member.Name.Split('_')[0];
