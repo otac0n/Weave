@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
   <Import Project="..\SharedAssemblyInfo.props" />
   <PropertyGroup>
@@ -21,12 +21,24 @@
     <TargetFrameworks>net46;netcoreapp2.0;netstandard2.0</TargetFrameworks>
     <LangVersion>Latest</LangVersion>
     <!-- TODO: <Nullable>Enable</Nullable> -->
-    <EmbedUntrackedSources>false</EmbedUntrackedSources><!-- Workaround for Source File path mismatch from Pegasus -->
+    <EmbedUntrackedSources>false</EmbedUntrackedSources>
+    <!-- Workaround for Source File path mismatch from Pegasus -->
     <Description>Weave is a text templating engine that is all about attention to detail.  Weave handles the tricky work of making your rendered text beautiful.</Description>
     <PackageLicenseUrl>https://raw.github.com/otac0n/Weave/master/license.md</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/otac0n/Weave</PackageProjectUrl>
     <PackageIconUrl>https://raw.github.com/otac0n/Weave/master/Weave.ico</PackageIconUrl>
   </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Update="@(PackageReference)" PrivateAssets="All" />
+    <PackageReference Include="FixMe" Version="1.0.0" PrivateAssets="All" />
+    <PackageReference Include="GitVersion.MsBuild" Version="5.12.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.6.0" PrivateAssets="All" />
+    <PackageReference Include="Pegasus" Version="4.2.0-alpha0009" PrivateAssets="All" />
+    <PackageReference Include="StyleCop.Analyzers" Version="1.1.118" PrivateAssets="All" />
+  </ItemGroup>
   <ItemGroup>
     <Compile Update="Compiler\Templates\BodyElement.weave.cs">
       <DependentUpon>BodyElement.weave</DependentUpon>
@@ -76,22 +88,10 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <None Remove="Weave.targets" />
-    <Content Include="Weave.targets" PackagePath="build\" />
-  </ItemGroup>
-  <ItemGroup>
     <AdditionalFiles Include="..\stylecop.json" Link="stylecop.json" />
     <AdditionalFiles Include="Weave.ruleset" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="FixMe" Version="1.0.0" PrivateAssets="All" />
-    <PackageReference Include="GitVersion.MsBuild" Version="5.12.0">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.6.0" PrivateAssets="All" />
-    <PackageReference Include="Pegasus" Version="4.2.0-alpha0009" PrivateAssets="All" />
-    <PackageReference Include="StyleCop.Analyzers" Version="1.1.118" PrivateAssets="All" />
+    <None Remove="Weave.targets" />
+    <Content Include="Weave.targets" PackagePath="build\" />
   </ItemGroup>
   <ItemGroup Condition=" '$(TargetFramework)' == 'net46' ">
     <Reference Include="Microsoft.Build.Framework" />
@@ -112,9 +112,6 @@
     <Compile Remove="CompileWeaveTemplate.cs" />
     <None Include="CompileWeaveTemplate.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <PackageReference Update="@(PackageReference)" PrivateAssets="All" />
-  </ItemGroup>
   <Target Name="ExcludeReferences" BeforeTargets="GenerateNuspec">
     <ItemGroup>
       <_FrameworkAssemblyReferences Remove="@(_FrameworkAssemblyReferences)" />
@@ -122,6 +119,7 @@
   </Target>
   <Target Name="UpdatePackageOutput" BeforeTargets="_GetPackageFiles">
     <Copy SourceFiles="$(SolutionDir)readme.md" DestinationFiles="$(OutputPath)readme.txt" SkipUnchangedFiles="true" />
+    <Copy SourceFiles="$(ProjectDir)Weave.targets" DestinationFiles="$(OutputPath)Weave.targets" SkipUnchangedFiles="true" />
     <ItemGroup>
       <Content Include="$(OutputPath)readme.txt">
         <Pack>true</Pack>
