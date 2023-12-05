@@ -7,14 +7,20 @@
     <CompilerVisibleItemMetadata Include="AdditionalFiles" MetadataName="SourceItemGroup" />
     <CompilerVisibleProperty Include="CompilerGeneratedFilesOutputPath" />
   </ItemGroup>
-
-  <PropertyGroup Condition=" '$(MSBuildRuntimeType)' == 'Core' And '$(WeaveAssemblyPath)' == '' ">
+  <PropertyGroup Condition=" '$(MSBuildRuntimeType)' == 'Core' ">
     <WeaveAssemblyPath>$(MSBuildThisFileDirectory)netcoreapp2.0\Weave.dll</WeaveAssemblyPath>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(MSBuildRuntimeType)' != 'Core' And '$(WeaveAssemblyPath)' == '' ">
+  <PropertyGroup Condition=" '$(MSBuildRuntimeType)' != 'Core' ">
     <WeaveAssemblyPath>$(MSBuildThisFileDirectory)net46\Weave.exe</WeaveAssemblyPath>
   </PropertyGroup>
   <UsingTask AssemblyFile="$(WeaveAssemblyPath)" TaskName="CompileWeaveTemplate" />
+
+  <Target Name="CompileWeaveTemplates" DependsOnTargets="_CompileWeaveTemplates" BeforeTargets="Compile;CoreCompile;Build;CoreBuild">
+    <Message Text="Compile: %(WeaveTemplateCompile.OutputPath)" />
+    <ItemGroup>
+      <Compile Include="@(WeaveTemplateCompile -> '%(OutputPath)')" />
+    </ItemGroup>
+  </Target>
 
   <Target Name="_UpdateWeaveTemplatesMetatdata" BeforeTargets="GenerateMSBuildEditorConfigFileShouldRun" Condition=" '@(WeaveTemplate)' != '' ">
     <!-- Compliant with the technique from https://platform.uno/blog/using-msbuild-items-and-properties-in-c-9-source-generators/ -->
@@ -54,13 +60,6 @@
     </ItemGroup>
     <Message Text="WeaveTemplateCompile: %(WeaveTemplateCompile.Identity), OutputPath: %(WeaveTemplateCompile.OutputPath)" />
     <Message Text="WeaveTemplateGenerate: %(WeaveTemplateGenerate.Identity), UseSourceGeneration: %(WeaveTemplateGenerate.UseSourceGeneration), ConfigFileExists: %(WeaveTemplateGenerate.ConfigFileExists)" />
-  </Target>
-
-  <Target Name="CompileWeaveTemplates" DependsOnTargets="_CompileWeaveTemplates" BeforeTargets="Compile;CoreCompile;Build;CoreBuild">
-    <Message Text="Compile: %(WeaveTemplateCompile.OutputPath)" />
-    <ItemGroup>
-      <Compile Include="@(WeaveTemplateCompile -> '%(OutputPath)')" />
-    </ItemGroup>
   </Target>
 
   <Target Name="CleanWeaveTemplates" DependsOnTargets="_UpdateWeaveTemplatesMetatdata" BeforeTargets="Clean;CoreClean">
