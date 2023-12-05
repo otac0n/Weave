@@ -1,4 +1,4 @@
-﻿// Copyright © John Gietzen. All Rights Reserved. This source is subject to the MIT license. Please see license.md for more information.
+// Copyright © John Gietzen. All Rights Reserved. This source is subject to the MIT license. Please see license.md for more information.
 
 namespace Weave
 {
@@ -13,29 +13,64 @@ namespace Weave
 
     internal static class CompileManager
     {
-        public static void CompileFile(string inputFile, string outputFile, Action<CompilerError> logError)
+        public static readonly string ConfigFileName = "_config.weave";
+
+        public static CompileResult<Template> ParseTemplate(string inputFileContents, string inputFileName)
         {
-            outputFile = outputFile ?? inputFile + ".cs";
-            var configFile = Path.Combine(Path.GetDirectoryName(inputFile), "_config.weave");
-
-            var template = ParseTemplate(inputFile, logError);
-            if (template == null)
+            var parser = new WeaveParser();
+            var compileResult = new CompileResult<Template>();
+            try
             {
-                return;
+                compileResult.Result = parser.Parse(inputFileContents, fileName: inputFileName);
             }
-
-            if (File.Exists(configFile))
+            catch (FormatException ex)
             {
-                var config = ParseTemplate(configFile, logError);
-                if (config == null)
+                var cursor = ex.Data["cursor"] as Cursor;
+                if (cursor != null && Regex.IsMatch(ex.Message, @"^WEAVE\d+:"))
                 {
-                    return;
+                    var parts = ex.Message.Split(new[] { ':' }, 2);
+                    compileResult.Errors.Add(new CompilerError(cursor.FileName, cursor.Line, cursor.Column, parts[0], parts[1]));
                 }
-
-                template = new Template(template, config);
+                else
+                {
+                    throw;
+                }
             }
 
-            var result = WeaveCompiler.Compile(template);
+            return compileResult;
+        }
+
+        public static CompileResult<Template> CombineTemplateConfig(CompileResult<Template> template, CompileResult<Template> config)
+        {
+            if (config == null || (config.Result == null && config.Errors.Count == 0))
+            {
+                return template;
+            }
+
+            var result = new CompileResult<Template>
+            {
+                Result = new Template(template.Result, config.Result),
+            };
+
+            foreach (var error in config.Errors)
+            {
+                result.Errors.Add(error);
+            }
+
+            foreach (var error in result.Errors)
+            {
+                result.Errors.Add(error);
+            }
+
+            return result;
+        }
+
+#if !NETSTANDARD
+        public static void CompileFile(string inputFileName, string outputFileName, Action<CompilerError> logError)
+        {
+            inputFileName = Path.GetFullPath(inputFileName);
+            outputFileName = Path.GetFullPath(outputFileName ?? inputFileName + ".cs");
+            var result = CompileFile(inputFileName, outputFileName);
 
             var hadFatal = false;
             foreach (var error in result.Errors)
@@ -46,31 +81,43 @@ namespace Weave
 
             if (!hadFatal)
             {
-                Directory.CreateDirectory(Path.GetDirectoryName(outputFile));
-                File.WriteAllText(outputFile, result.Code);
+                Directory.CreateDirectory(Path.GetDirectoryName(outputFileName));
+                File.WriteAllText(outputFileName, result.Code);
             }
         }
 
-        private static Template ParseTemplate(string inputFile, Action<CompilerError> logError)
+        private static CompileResult CompileFile(string inputFileName, string outputFileName)
         {
-            var subject = File.ReadAllText(inputFile);
-            var parser = new WeaveParser();
-            try
+            var inputResult = ParseTemplateInternal(inputFileName, outputFileName);
+            var inputTemplate = inputResult.Result;
+            if (inputTemplate == null)
             {
-                return parser.Parse(subject, fileName: inputFile);
-            }
-            catch (FormatException ex)
-            {
-                var cursor = ex.Data["cursor"] as Cursor;
-                if (cursor != null && Regex.IsMatch(ex.Message, @"^WEAVE\d+:"))
+                var errorResult = new CompileResult();
+                foreach (var error in inputResult.Errors)
                 {
-                    var parts = ex.Message.Split(new[] { ':' }, 2);
-                    logError(new CompilerError(cursor.FileName, cursor.Line, cursor.Column, parts[0], parts[1]));
-                    return null;
+                    errorResult.Errors.Add(error);
                 }
 
-                throw;
+                return errorResult;
             }
+
+            return WeaveCompiler.Compile(inputTemplate);
         }
+
+        private static CompileResult<Template> ParseTemplateInternal(string inputFileName, string outputFileName)
+        {
+            var relativePath = PathUtils.MakeRelative(outputFileName, inputFileName);
+            var templateResult = ParseTemplate(File.ReadAllText(inputFileName), relativePath);
+
+            var configFileName = Path.Combine(Path.GetDirectoryName(inputFileName), ConfigFileName);
+            if (File.Exists(configFileName))
+            {
+                var configResult = ParseTemplate(File.ReadAllText(configFileName), PathUtils.MakeRelative(outputFileName, configFileName));
+                templateResult = CombineTemplateConfig(templateResult, configResult);
+            }
+
+            return templateResult;
+        }
+#endif
     }
 }

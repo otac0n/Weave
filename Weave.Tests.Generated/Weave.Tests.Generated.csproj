@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Pegasus" Version="4.2.0-alpha0009" GeneratePathProperty="true" PrivateAssets="all" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Weave\Weave.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" SetTargetFramework="TargetFramework=netstandard2.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <WeaveTemplate Include="ConfigTest\AbsentConfig\TestAbsentConfig.weave" />
+    <None Remove="ConfigTest\CompiledConfig\_config.weave" />
+    <WeaveTemplate Include="ConfigTest\CompiledConfig\_config.weave">
+      <UseSourceGeneration>false</UseSourceGeneration>
+    </WeaveTemplate>
+    <None Remove="ConfigTest\CompiledConfig\TestCompiledConfig.weave" />
+    <WeaveTemplate Include="ConfigTest\CompiledConfig\TestCompiledConfig.weave" />
+    <None Remove="ConfigTest\GeneratedConfig\_config.weave" />
+    <WeaveTemplate Include="ConfigTest\GeneratedConfig\_config.weave" />
+    <None Remove="ConfigTest\GeneratedConfig\TestGeneratedConfig.weave" />
+    <WeaveTemplate Include="ConfigTest\GeneratedConfig\TestGeneratedConfig.weave" />
+    <WeaveTemplate Include="ConfigTest\LegacyCompiledConfig\_config.weave">
+      <UseSourceGeneration>false</UseSourceGeneration>
+    </WeaveTemplate>
+    <None Remove="ConfigTest\LegacyCompiledConfig\_config.weave" />
+    <None Remove="ConfigTest\LegacyCompiledConfig\LegacyCompiledConfig.weave" />
+    <WeaveTemplate Include="ConfigTest\LegacyCompiledConfig\LegacyCompiledConfig.weave">
+      <UseSourceGeneration>false</UseSourceGeneration>
+    </WeaveTemplate>
+    <None Remove="ConfigTest\LegacyGeneratedConfig\_config.weave" />
+    <WeaveTemplate Include="ConfigTest\LegacyGeneratedConfig\_config.weave" />
+    <None Remove="ConfigTest\LegacyGeneratedConfig\LegacyGeneratedConfig.weave" />
+    <WeaveTemplate Include="ConfigTest\LegacyGeneratedConfig\LegacyGeneratedConfig.weave">
+      <UseSourceGeneration>false</UseSourceGeneration>
+    </WeaveTemplate>
+    <None Remove="ConfigTest\NoneConfig\TestNoneConfig.weave" />
+    <WeaveTemplate Include="ConfigTest\NoneConfig\TestNoneConfig.weave" />
+  </ItemGroup>
+  <PropertyGroup>
+    <GetTargetPathDependsOn>$(GetTargetPathDependsOn);GetDependencyTargetPaths</GetTargetPathDependsOn>
+  </PropertyGroup>
+  <Import Project="..\Weave\bin\$(Configuration)\Weave.targets" />
+  <Target Name="GetDependencyTargetPaths">
+    <ItemGroup>
+      <TargetPathWithTargetPlatformMoniker Include="$(PKGPegasus)\lib\netstandard2.0\Pegasus.Common.dll" IncludeRuntimeDependency="false" />
+    </ItemGroup>
+  </Target>
+</Project>

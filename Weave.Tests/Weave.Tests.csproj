@@ -1,12 +1,11 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
   <Import Project="..\SharedAssemblyInfo.props" />
   <PropertyGroup>
     <CodeAnalysisRuleSet>Weave.Tests.ruleset</CodeAnalysisRuleSet>
     <DebugType>Full</DebugType>
     <IsPackable>false</IsPackable>
-    <TargetFramework>net461</TargetFramework>
-    <Description />
+    <TargetFramework>net6.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
     <AdditionalFiles Include="..\stylecop.json" Link="stylecop.json" />
@@ -14,18 +13,26 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="FixMe" Version="1.0.0" PrivateAssets="All" />
-    <PackageReference Include="GitVersionTask" Version="4.0.0-beta0012" PrivateAssets="All" />
+    <PackageReference Include="GitVersion.MsBuild" Version="5.12.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Microsoft.Build.Utilities.Core" Version="15.6.85" />
     <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.6.0" PrivateAssets="All" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.7.0" />
-    <PackageReference Include="StyleCop.Analyzers" Version="1.1.0-beta006" PrivateAssets="All" />
-    <PackageReference Include="System.CodeDom" Version="4.4.0" />
+    <PackageReference Include="StyleCop.Analyzers" Version="1.1.118" PrivateAssets="All" />
+    <PackageReference Include="System.CodeDom" Version="4.7.0" />
     <PackageReference Include="xunit" Version="2.3.1" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.3.1" />
     <DotNetCliToolReference Include="dotnet-xunit" Version="2.3.1" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Weave\Weave.csproj" />
+    <ProjectReference Include="..\Weave.Tests.Generated\Weave.Tests.Generated.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="GeneratedCode\ConfigTests.cs" />
+    <None Include="GeneratedCode\ConfigTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{82a7f48d-3b50-4b1e-b82e-3ada8210c358}" />

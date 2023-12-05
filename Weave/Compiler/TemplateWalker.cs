@@ -1,9 +1,10 @@
-﻿// Copyright © John Gietzen. All Rights Reserved. This source is subject to the MIT license. Please see license.md for more information.
+// Copyright © John Gietzen. All Rights Reserved. This source is subject to the MIT license. Please see license.md for more information.
 
 namespace Weave.Compiler
 {
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
     using System.Globalization;
     using Weave.Expressions;
 
@@ -42,6 +43,7 @@ namespace Weave.Compiler
         {
         }
 
+        [SuppressMessage("Usage", "RS1035:Do not use APIs banned for analyzers", Justification = "This is a fall-back mainly intended for tests. It is not a code path that is expected to be hit.")]
         public virtual void WalkElement(Element element)
         {
             if (element is BodyElement bodyElement)

@@ -1,4 +1,4 @@
-﻿// Copyright © John Gietzen. All Rights Reserved. This source is subject to the MIT license. Please see license.md for more information.
+// Copyright © John Gietzen. All Rights Reserved. This source is subject to the MIT license. Please see license.md for more information.
 
 namespace Weave.Expressions
 {
@@ -58,6 +58,7 @@ namespace Weave.Expressions
                 throw new ArgumentNullException(nameof(template));
             }
 
+            // TODO: For recursive config files, should we add a safety check here?
             this.config = config;
             this.start = template.start;
             this.settings = template.settings;

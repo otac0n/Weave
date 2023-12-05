@@ -1,0 +1,13 @@
+{
+  "profiles": {
+    "Weave": {
+      "commandName": "Project",
+      "commandLineArgs": "Compiler\\Templates\\BodyElement.weave Compiler\\Templates\\Branch.weave Compiler\\Templates\\Code.weave Compiler\\Templates\\CodeElement.weave Compiler\\Templates\\EachElement.weave Compiler\\Templates\\EchoTag.weave Compiler\\Templates\\IfElement.weave Compiler\\Templates\\Indentation.weave Compiler\\Templates\\IndentationElement.weave Compiler\\Templates\\NewLineElement.weave Compiler\\Templates\\RenderElement.weave Compiler\\Templates\\Template.weave Compiler\\Templates\\TextElement.weave Compiler\\Templates\\WrapIfElement.weave",
+      "workingDirectory": "."
+    },
+    "Weave (source generator)": {
+      "commandName": "DebugRoslynComponent",
+      "targetProject": "..\\Weave.Tests.Generated\\Weave.Tests.Generated.csproj"
+    }
+  }
+}
